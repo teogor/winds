@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <compositeConfiguration>
+          <compositeBuild compositeDefinitionSource="SCRIPT">
+            <builds>
+              <build path="$PROJECT_DIR$/demo-plugin" name="demo-plugin">
+                <projects>
+                  <project path="$PROJECT_DIR$/demo-plugin" />
+                  <project path="$PROJECT_DIR$/demo-plugin/plugin-core" />
+                </projects>
+              </build>
+              <build path="$PROJECT_DIR$/plugin" name="plugin">
+                <projects>
+                  <project path="$PROJECT_DIR$/plugin" />
+                  <project path="$PROJECT_DIR$/plugin/winds" />
+                  <project path="$PROJECT_DIR$/plugin/winds-api" />
+                </projects>
+              </build>
+            </builds>
+          </compositeBuild>
+        </compositeConfiguration>
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleJvm" value="#JAVA_HOME" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/bom" />
+            <option value="$PROJECT_DIR$/demo" />
+            <option value="$PROJECT_DIR$/demo-1" />
+            <option value="$PROJECT_DIR$/demo-2" />
+            <option value="$PROJECT_DIR$/demo-plugin" />
+            <option value="$PROJECT_DIR$/demo-plugin/plugin-core" />
+            <option value="$PROJECT_DIR$/module" />
+            <option value="$PROJECT_DIR$/module/library-1" />
+            <option value="$PROJECT_DIR$/module/library-2" />
+            <option value="$PROJECT_DIR$/module/library-3" />
+            <option value="$PROJECT_DIR$/module/library-4" />
+            <option value="$PROJECT_DIR$/plugin" />
+            <option value="$PROJECT_DIR$/plugin/winds" />
+            <option value="$PROJECT_DIR$/plugin/winds-api" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>
