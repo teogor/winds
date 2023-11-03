@@ -1,0 +1,119 @@
+import com.vanniktech.maven.publish.SonatypeHost
+import dev.teogor.winds.api.MavenPublish
+import dev.teogor.winds.api.Winds
+import dev.teogor.winds.api.getValue
+import dev.teogor.winds.api.model.Developer
+import dev.teogor.winds.api.model.LicenseType
+import dev.teogor.winds.api.provider.Scm
+import dev.teogor.winds.gradle.utils.attachTo
+import dev.teogor.winds.gradle.utils.lazy
+
+buildscript {
+  repositories {
+    google()
+    mavenCentral()
+  }
+}
+
+// Lists all plugins used throughout the project without applying them.
+plugins {
+  alias(libs.plugins.android.application) apply false
+  alias(libs.plugins.kotlin.jvm) apply false
+  alias(libs.plugins.kotlin.serialization) apply false
+  alias(libs.plugins.firebase.crashlytics) apply false
+  alias(libs.plugins.firebase.perf) apply false
+  alias(libs.plugins.gms) apply false
+  alias(libs.plugins.hilt) apply false
+  alias(libs.plugins.ksp) apply false
+  alias(libs.plugins.about.libraries) apply false
+  alias(libs.plugins.vanniktech.maven) apply true
+
+  id("dev.teogor.winds")
+}
+
+winds {
+  buildFeatures {
+    mavenPublish = true
+
+    docsGenerator = true
+
+    workflowSynthesizer = false
+  }
+
+  mavenPublish {
+    displayName = "Winds"
+    name = "winds"
+
+    canBePublished = false
+
+    description = "Here goes the description"
+
+
+    groupId = "dev.teogor.winds"
+
+    artifactIdElements = 2
+
+    inceptionYear = 2023
+
+    sourceControlManagement(
+      Scm.Git(
+        repo = "winds",
+        owner = "teogor",
+      ),
+    )
+
+    addLicense(LicenseType.APACHE_2_0)
+
+    addDeveloper(TeogorDeveloper())
+  }
+
+  docsGenerator {
+    name = "Winds"
+    identifier = "winds"
+
+    excludeModules {
+      listOf(
+        ":app",
+      )
+    }
+  }
+}
+
+subprojects {
+  lazy {
+    lazy {
+      lazy {
+        lazy {
+          val winds: Winds by extensions
+          val mavenPublish: MavenPublish by winds
+          if (mavenPublish.canBePublished) {
+            mavenPublishing {
+              publishToMavenCentral(SonatypeHost.S01)
+              signAllPublications()
+
+              @Suppress("UnstableApiUsage")
+              pom {
+                coordinates(
+                  groupId = mavenPublish.groupId!!,
+                  artifactId = mavenPublish.artifactId!!,
+                  version = mavenPublish.version!!.toString(),
+                )
+                mavenPublish attachTo this
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+data class TeogorDeveloper(
+  override val id: String = "teogor",
+  override val name: String = "Teodor Grigor",
+  override val url: String = "https://teogor.dev",
+  override val roles: List<String> = listOf("Code Owner", "Developer", "Designer", "Maintainer"),
+  override val timezone: String = "UTC+2",
+  override val organization: String = "Teogor",
+  override val organizationUrl: String = "https://github.com/teogor",
+) : Developer
