@@ -1,3 +1,19 @@
+/*
+ * Copyright 2023 teogor (Teodor Grigor)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package dev.teogor.winds.gradle.tasks.impl
 
 import com.google.gson.Gson
@@ -6,15 +22,15 @@ import dev.teogor.winds.api.model.BomInfo
 import dev.teogor.winds.api.model.ModuleInfo
 import dev.teogor.winds.api.model.Version
 import dev.teogor.winds.gradle.tasks.BaseGeneratorTask
-import java.io.File
-import java.time.Instant
-import java.time.ZoneOffset
-import kotlin.random.Random
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.gradle.api.tasks.TaskAction
 import org.gradle.kotlin.dsl.provideDelegate
+import java.io.File
+import java.time.Instant
+import java.time.ZoneOffset
+import kotlin.random.Random
 
 abstract class DocsGeneratorTask : BaseGeneratorTask(
   description = "Generates documentation for a project.",
@@ -84,11 +100,13 @@ abstract class DocsGeneratorTask : BaseGeneratorTask(
     val lbsVersionCatalogContent = buildString {
       appendLine("## Libraries Implementation Version Catalog")
       appendLine()
-      appendLine("This catalog provides the implementation details of $projectName libraries, including Build of Materials (BoM) and individual libraries, in TOML format.")
+      appendLine(
+        "This catalog provides the implementation details of $projectName libraries, including Build of Materials (BoM) and individual libraries, in TOML format.",
+      )
       appendLine()
       appendLine("```toml")
       appendLine("[versions]")
-      appendLine("${projectIdentifier}-bom = \"${bomLibrary.version}\"")
+      appendLine("$projectIdentifier-bom = \"${bomLibrary.version}\"")
       appendLine()
 
       appendLine("[libraries]")
@@ -99,7 +117,7 @@ abstract class DocsGeneratorTask : BaseGeneratorTask(
           appendLine(
             "$projectIdentifier-${
               library.name.lowercase().replace(" ", "-")
-            } = { group = \"${library.groupId}\", name = \"${library.artifactId}\", version.ref = \"${projectIdentifier}-bom\" }",
+            } = { group = \"${library.groupId}\", name = \"${library.artifactId}\", version.ref = \"$projectIdentifier-bom\" }",
           )
         }
 
@@ -117,7 +135,9 @@ abstract class DocsGeneratorTask : BaseGeneratorTask(
       appendLine()
       appendLine("## Libraries Implementation build.gradle.kts File")
       appendLine()
-      appendLine("This section presents the implementation dependencies for $projectName libraries in a Kotlin build.gradle.kts file format.")
+      appendLine(
+        "This section presents the implementation dependencies for $projectName libraries in a Kotlin build.gradle.kts file format.",
+      )
       appendLine()
       appendLine("```kotlin")
       appendLine("dependencies {")
@@ -193,7 +213,7 @@ abstract class DocsGeneratorTask : BaseGeneratorTask(
       """
       The BoM (Bill of Materials) is the central hub for managing library versions within the ${docsGenerator.name} project.
       It enables you to effortlessly keep track of the latest versions of key components and dependencies.
-    """.trimIndent(),
+      """.trimIndent(),
     )
     content.appendLine()
     content.appendLine(
@@ -208,7 +228,7 @@ abstract class DocsGeneratorTask : BaseGeneratorTask(
         implementation(platform("${bomLibrary.gradleDependency}:${bomLibrary.version}"))
       }
       ```
-    """.trimIndent(),
+      """.trimIndent(),
     )
     content.appendLine()
     content.appendLine("## BoM Versions (Bill of Materials)")
@@ -218,7 +238,9 @@ abstract class DocsGeneratorTask : BaseGeneratorTask(
     content.appendLine("| Version | Release Notes | Release Date |")
     content.appendLine("| ------- | ------------- | ------------ |")
     for (bomInfo in bomInfoList) {
-      content.appendLine("| ${bomInfo.version} | [changelog \uD83D\uDD17](/docs/bom/${bomInfo.version}/bom-version-${bomInfo.version}.md) | ${bomInfo.dateFormatted} |")
+      content.appendLine(
+        "| ${bomInfo.version} | [changelog \uD83D\uDD17](/docs/bom/${bomInfo.version}/bom-version-${bomInfo.version}.md) | ${bomInfo.dateFormatted} |",
+      )
     }
     content.appendLine()
     content.appendLine(
@@ -233,7 +255,7 @@ abstract class DocsGeneratorTask : BaseGeneratorTask(
       ### Explore Further
 
       For in-depth insights, updates, and comprehensive information regarding ${docsGenerator.name}, please consult the official [${docsGenerator.name} documentation](/docs/). There, you'll discover a wealth of resources to enhance your ${docsGenerator.name} development journey.
-    """.trimIndent(),
+      """.trimIndent(),
     )
     content.appendLine()
 
@@ -296,7 +318,7 @@ abstract class DocsGeneratorTask : BaseGeneratorTask(
 
             // Declare the dependencies for the desired $projectName products
             // without specifying versions. For example, declare:
-            ${libraryNames}
+            $libraryNames
           }
           ```
         """.trimIndent()
@@ -350,7 +372,7 @@ abstract class DocsGeneratorTask : BaseGeneratorTask(
           For the latest updates, in-depth documentation, and a comprehensive overview of the $projectName ecosystem, visit the official [$projectName documentation](/docs/). It's your gateway to a wealth of resources and insights that will elevate your $projectName development journey.
 
           Stay informed, stay current, and embrace the full potential of $projectName.
-        """.trimIndent(),
+          """.trimIndent(),
         )
       }
 
@@ -395,13 +417,15 @@ abstract class DocsGeneratorTask : BaseGeneratorTask(
             else -> ""
           }
           val link = "#implementation ${library.name}".lowercase().replace(" ", "-")
-          content.appendLine("| $emoji | [${library.name}](${library.localPath}) | [${library.coordinates}]($link) |")
+          content.appendLine(
+            "| $emoji | [${library.name}](${library.localPath}) | [${library.coordinates}]($link) |",
+          )
         }
         content.appendLine()
         content.appendLine(
           """
           By referring to the [BoM documentation](/docs/bom/versions.md), you can learn how to integrate the BoM into your project and benefit from this hassle-free approach to library version management. It's a powerful tool for staying up-to-date with the latest ${docsGenerator.name} library versions and seamlessly integrating them into your projects.
-        """.trimIndent(),
+          """.trimIndent(),
         )
         content.appendLine()
         content.appendLine()
@@ -421,7 +445,7 @@ abstract class DocsGeneratorTask : BaseGeneratorTask(
             - **Group ID:** `${library.groupId}`
             - **Artifact ID:** `${library.artifactId}`
             - **Version:** `${library.version}` (not required when using [BoM](/docs/bom/versions.md))
-          """.trimIndent(),
+            """.trimIndent(),
           )
           content.appendLine()
         }

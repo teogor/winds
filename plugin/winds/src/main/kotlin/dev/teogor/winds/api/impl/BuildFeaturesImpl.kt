@@ -25,5 +25,4 @@ open class BuildFeaturesImpl : BuildFeatures {
   override var docsGenerator: Boolean = false
 
   override var workflowSynthesizer: Boolean = false
-
 }
