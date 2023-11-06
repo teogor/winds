@@ -63,7 +63,7 @@ group = "dev.teogor.winds"
 version = "1.0.0-alpha01"
 
 gradlePlugin {
-  website.set("https://github.com/teogor/winds")
+  website.set("https://source.teogor.dev/winds")
   vcsUrl.set("https://github.com/teogor/winds")
 
   plugins {
