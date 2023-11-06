@@ -7,8 +7,10 @@ buildscript {
 
 // Lists all plugins used throughout the project without applying them.
 plugins {
+  alias(libs.plugins.kotlin.jvm)
   alias(libs.plugins.dokka)
   alias(libs.plugins.spotless)
+  alias(libs.plugins.vanniktech.maven)
 }
 
 val ktlintVersion = "0.50.0"
