@@ -92,14 +92,16 @@ fun Project.getAllDependencies(): List<Dependency> {
 
   this.configurations.forEach { configuration ->
     configuration.dependencies.forEach { dependency ->
-      dependencies.add(
-        Dependency(
-          implementationType = configuration.name,
-          group = dependency.group ?: "",
-          artifact = dependency.name,
-          version = dependency.version ?: "",
-        ),
-      )
+      if (dependency.group != null) {
+        dependencies.add(
+          Dependency(
+            implementationType = configuration.name,
+            group = dependency.group.orEmpty(),
+            artifact = dependency.name.orEmpty(),
+            version = dependency.version.orEmpty(),
+          )
+        )
+      }
     }
   }
 

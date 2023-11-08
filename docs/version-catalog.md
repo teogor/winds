@@ -10,6 +10,7 @@ winds-bom = "1.0.0-alpha01"
 # Winds BoM
 winds-bom = { group = "dev.teogor.winds", name = "bom", version.ref = "winds-bom" }
 # Winds Libraries
+winds-demo-kotlin-dsl-tst2 = { group = "dev.teogor.winds", name = "winds-demo-kotlin-dsl-tst2" }
 winds-library-1 = { group = "dev.teogor.winds", name = "module-1-library-1" }
 winds-library-2 = { group = "dev.teogor.winds", name = "module-1-library-2" }
 winds-library-3 = { group = "dev.teogor.winds", name = "module-1-library-3" }
@@ -25,6 +26,7 @@ dependencies {
   // Winds BoM
   implementation(platform(libs.winds.bom))
   // Winds Libraries
+  implementation(libs.winds.demo.kotlin.dsl.tst2)
   implementation(libs.winds.library.1)
   implementation(libs.winds.library.2)
   implementation(libs.winds.library.3)
