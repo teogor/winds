@@ -25,7 +25,7 @@ plugins {
 }
 
 group = "dev.teogor.winds"
-version = "1.0.0-alpha01"
+version = "1.0.0-alpha02"
 
 val javaVersion = JavaVersion.VERSION_1_8
 java {

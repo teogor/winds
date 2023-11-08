@@ -60,7 +60,7 @@ dependencies {
 }
 
 group = "dev.teogor.winds"
-version = "1.0.0-alpha01"
+version = "1.0.0-alpha02"
 
 gradlePlugin {
   website.set("https://source.teogor.dev/winds")

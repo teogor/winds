@@ -4,7 +4,7 @@ This catalog provides the implementation details of Winds libraries, including B
 
 ```toml
 [versions]
-winds-bom = "1.0.0-alpha01"
+winds-bom = "1.0.0-alpha02"
 
 [libraries]
 # Winds BoM
