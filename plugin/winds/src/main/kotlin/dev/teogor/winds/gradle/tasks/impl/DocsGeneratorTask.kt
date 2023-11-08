@@ -65,17 +65,19 @@ abstract class DocsGeneratorTask : BaseGeneratorTask(
     Thank you for your contribution to improving Winds!
     """.trimIndent(),
   )
+  private val bomLibrary: ModuleInfo
+    get() = libraries.bom() ?: bomLibraryError()
 
-  private val bomLibrary by lazy {
-    libraries.bom() ?: bomLibraryError()
-  }
+  private val hasBoM: Boolean
+    get() = libraries.bom() != null
 
-  private val hasBoM by lazy { libraries.bom() != null }
+  // todo be able to use version without calling toString()
+  private val bomResLibraryInfo: File
+    get() = bomResFolder directory bomLibrary.version.toString()
 
-  // todo be able to use without calling toString()
-  private val bomResLibraryInfo by lazy { bomResFolder directory bomLibrary.version.toString() }
-
-  private val bomLibraryInfo by lazy { bomFolder directory bomLibrary.version.toString() }
+  // todo be able to use version without calling toString()
+  private val bomLibraryInfo: File
+    get() = bomFolder directory bomLibrary.version.toString()
 
   private fun getBomVersions(): List<BomInfo> {
     val filePath = "versions.json"

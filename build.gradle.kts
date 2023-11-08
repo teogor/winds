@@ -1,12 +1,11 @@
 import com.vanniktech.maven.publish.SonatypeHost
 import dev.teogor.winds.api.MavenPublish
-import dev.teogor.winds.api.Winds
 import dev.teogor.winds.api.getValue
 import dev.teogor.winds.api.model.Developer
 import dev.teogor.winds.api.model.LicenseType
 import dev.teogor.winds.api.provider.Scm
+import dev.teogor.winds.gradle.utils.afterWindsPluginConfiguration
 import dev.teogor.winds.gradle.utils.attachTo
-import dev.teogor.winds.gradle.utils.lazy
 
 buildscript {
   repositories {
@@ -80,30 +79,21 @@ winds {
   }
 }
 
-subprojects {
-  lazy {
-    lazy {
-      lazy {
-        lazy {
-          val winds: Winds by extensions
-          val mavenPublish: MavenPublish by winds
-          if (mavenPublish.canBePublished) {
-            mavenPublishing {
-              publishToMavenCentral(SonatypeHost.S01)
-              signAllPublications()
+afterWindsPluginConfiguration { winds ->
+  val mavenPublish: MavenPublish by winds
+  if (mavenPublish.canBePublished) {
+    mavenPublishing {
+      publishToMavenCentral(SonatypeHost.S01)
+      signAllPublications()
 
-              @Suppress("UnstableApiUsage")
-              pom {
-                coordinates(
-                  groupId = mavenPublish.groupId!!,
-                  artifactId = mavenPublish.artifactId!!,
-                  version = mavenPublish.version!!.toString(),
-                )
-                mavenPublish attachTo this
-              }
-            }
-          }
-        }
+      @Suppress("UnstableApiUsage")
+      pom {
+        coordinates(
+          groupId = mavenPublish.groupId!!,
+          artifactId = mavenPublish.artifactId!!,
+          version = mavenPublish.version!!.toString(),
+        )
+        mavenPublish attachTo this
       }
     }
   }
