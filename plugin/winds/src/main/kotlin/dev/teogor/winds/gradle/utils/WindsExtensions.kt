@@ -20,9 +20,12 @@ import dev.teogor.winds.api.MavenPublish
 import dev.teogor.winds.api.Winds
 import dev.teogor.winds.api.impl.WindsOptions
 import dev.teogor.winds.api.model.Dependency
+import dev.teogor.winds.api.model.DependencyDefinition
 import dev.teogor.winds.api.model.Developer
+import dev.teogor.winds.api.model.LocalProjectDependency
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
+import org.gradle.api.internal.artifacts.dependencies.DefaultProjectDependency
 import org.gradle.api.publish.maven.MavenPom
 import org.gradle.api.publish.maven.MavenPomDeveloperSpec
 import org.gradle.kotlin.dsl.getValue
@@ -87,20 +90,33 @@ inline fun <reified T : DefaultTask> WindsOptions.registerTask(
 
 fun Project.lazy(block: Project.() -> Unit) = afterEvaluate(block)
 
-fun Project.getAllDependencies(): List<Dependency> {
-  val dependencies = mutableListOf<Dependency>()
+fun org.gradle.api.artifacts.Dependency.isProjectDependency() = this is DefaultProjectDependency
+
+fun Project.getAllDependencies(): List<DependencyDefinition> {
+  val dependencies = mutableListOf<DependencyDefinition>()
 
   this.configurations.forEach { configuration ->
     configuration.dependencies.forEach { dependency ->
       if (dependency.group != null) {
-        dependencies.add(
+        val dependencyType = if (dependency.isProjectDependency()) {
+          dependency as DefaultProjectDependency
+          val dependencyProject = dependency.dependencyProject
+          val name = dependencyProject.rootProject.name
+          val path = dependencyProject.path
+          LocalProjectDependency(
+            implementationType = configuration.name,
+            projectName = name,
+            modulePath = path,
+          )
+        } else {
           Dependency(
             implementationType = configuration.name,
             group = dependency.group.orEmpty(),
             artifact = dependency.name.orEmpty(),
             version = dependency.version.orEmpty(),
           )
-        )
+        }
+        dependencies.add(dependencyType)
       }
     }
   }

@@ -16,48 +16,56 @@
     "path": ":demo-2",
     "dependencies": [
       {
+        "type": "dev.teogor.winds.api.model.Dependency",
         "implementationType": "embeddedKotlin",
         "group": "org.jetbrains.kotlin",
         "artifact": "kotlin-stdlib-jdk8",
         "version": "1.8.20"
       },
       {
+        "type": "dev.teogor.winds.api.model.Dependency",
         "implementationType": "embeddedKotlin",
         "group": "org.jetbrains.kotlin",
         "artifact": "kotlin-reflect",
         "version": "1.8.20"
       },
       {
+        "type": "dev.teogor.winds.api.model.Dependency",
         "implementationType": "kotlinCompilerPluginClasspathMain",
         "group": "org.jetbrains.kotlin",
         "artifact": "kotlin-scripting-compiler-embeddable",
         "version": "1.9.10"
       },
       {
+        "type": "dev.teogor.winds.api.model.Dependency",
         "implementationType": "kotlinCompilerPluginClasspathMain",
         "group": "org.jetbrains.kotlin",
         "artifact": "kotlin-sam-with-receiver",
         "version": "1.9.10"
       },
       {
+        "type": "dev.teogor.winds.api.model.Dependency",
         "implementationType": "kotlinCompilerPluginClasspathMain",
         "group": "org.jetbrains.kotlin",
         "artifact": "kotlin-assignment",
         "version": "1.9.10"
       },
       {
+        "type": "dev.teogor.winds.api.model.Dependency",
         "implementationType": "kotlinCompilerPluginClasspathTest",
         "group": "org.jetbrains.kotlin",
         "artifact": "kotlin-scripting-compiler-embeddable",
         "version": "1.9.10"
       },
       {
+        "type": "dev.teogor.winds.api.model.Dependency",
         "implementationType": "kotlinCompilerPluginClasspathTest",
         "group": "org.jetbrains.kotlin",
         "artifact": "kotlin-sam-with-receiver",
         "version": "1.9.10"
       },
       {
+        "type": "dev.teogor.winds.api.model.Dependency",
         "implementationType": "kotlinCompilerPluginClasspathTest",
         "group": "org.jetbrains.kotlin",
         "artifact": "kotlin-assignment",
@@ -87,22 +95,22 @@
     "path": ":module:library-1",
     "dependencies": [
       {
+        "type": "dev.teogor.winds.api.model.LocalProjectDependency",
         "implementationType": "api",
-        "group": "Winds.module",
-        "artifact": "library-2",
-        "version": "unspecified"
+        "projectName": "Winds",
+        "modulePath": ":module:library-2"
       },
       {
+        "type": "dev.teogor.winds.api.model.LocalProjectDependency",
         "implementationType": "compileOnly",
-        "group": "Winds.module",
-        "artifact": "library-2",
-        "version": "unspecified"
+        "projectName": "Winds",
+        "modulePath": ":module:library-4"
       },
       {
+        "type": "dev.teogor.winds.api.model.LocalProjectDependency",
         "implementationType": "implementation",
-        "group": "Winds.module",
-        "artifact": "library-2",
-        "version": "unspecified"
+        "projectName": "Winds",
+        "modulePath": ":module:library-3"
       }
     ],
     "canBePublished": true,

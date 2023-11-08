@@ -13,6 +13,6 @@ winds {
 
 dependencies {
   api(project(":module:library-2"))
-  implementation(project(":module:library-2"))
-  compileOnly(project(":module:library-2"))
+  implementation(project(":module:library-3"))
+  compileOnly(project(":module:library-4"))
 }
