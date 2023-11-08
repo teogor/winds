@@ -19,9 +19,19 @@ package dev.teogor.winds.api.model
 import kotlinx.serialization.Serializable
 
 @Serializable
+sealed interface DependencyDefinition
+
+@Serializable
 data class Dependency(
   val implementationType: String,
   val group: String,
   val artifact: String,
   val version: String,
-)
+) : DependencyDefinition
+
+@Serializable
+data class LocalProjectDependency(
+  val implementationType: String,
+  val projectName: String,
+  val modulePath: String,
+) : DependencyDefinition

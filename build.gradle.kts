@@ -70,6 +70,7 @@ winds {
   docsGenerator {
     name = "Winds"
     identifier = "winds"
+    alertOnDependentModules = true
 
     excludeModules {
       listOf(

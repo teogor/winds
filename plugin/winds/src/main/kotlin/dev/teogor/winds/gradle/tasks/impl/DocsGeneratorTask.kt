@@ -19,6 +19,7 @@ package dev.teogor.winds.gradle.tasks.impl
 import com.google.gson.Gson
 import dev.teogor.winds.api.DocsGenerator
 import dev.teogor.winds.api.model.BomInfo
+import dev.teogor.winds.api.model.LocalProjectDependency
 import dev.teogor.winds.api.model.ModuleInfo
 import dev.teogor.winds.api.model.Version
 import dev.teogor.winds.gradle.tasks.BaseGeneratorTask
@@ -458,6 +459,16 @@ abstract class DocsGeneratorTask : BaseGeneratorTask(
             """.trimIndent(),
           )
           content.appendLine()
+          if (docsGenerator.alertOnDependentModules) {
+            val localProjectDependencies = library.dependencies
+              .filterIsInstance<LocalProjectDependency>()
+            if (localProjectDependencies.isNotEmpty()) {
+              val dependsOn =
+                localProjectDependencies.joinToString(separator = ",") { "`${it.modulePath}`" }
+              content.appendLine("⚠️ Depends on $dependsOn")
+              content.appendLine()
+            }
+          }
         }
         content.appendLine()
 

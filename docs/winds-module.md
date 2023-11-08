@@ -24,6 +24,8 @@ implementation("dev.teogor.winds:module-1-library-1:1.0.0-alpha01")
 - **Artifact ID:** `module-1-library-1`
 - **Version:** `1.0.0-alpha01` (not required when using [BoM](/docs/bom/versions.md))
 
+⚠️ Depends on `:module:library-2`,`:module:library-4`,`:module:library-3`
+
 ### Implementation Library 2
 
 To use library-2 in your project, add the following dependency to your module-level Gradle file (usually `app/build.gradle.kts`):

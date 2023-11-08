@@ -40,7 +40,7 @@ data class ModuleInfo(
   val artifactId: String,
   val version: Version,
   val path: String,
-  val dependencies: List<Dependency>,
+  val dependencies: List<DependencyDefinition>,
   val canBePublished: Boolean,
   val names: List<String>,
 ) {
