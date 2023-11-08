@@ -79,6 +79,8 @@ private val publishPlugins = listOf(
 
 fun Project.hasPublishPlugin() = publishPlugins.any { plugins.hasPlugin(it) }
 
+fun Project.hasKotlinDslPlugin() = plugins.hasPlugin("org.gradle.kotlin.kotlin-dsl")
+
 inline fun <reified T : DefaultTask> WindsOptions.registerTask(
   name: String,
 ) = project.tasks.register<T>(name)

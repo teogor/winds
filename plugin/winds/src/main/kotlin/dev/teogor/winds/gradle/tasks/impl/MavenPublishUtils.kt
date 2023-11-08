@@ -22,6 +22,7 @@ import dev.teogor.winds.api.getValue
 import dev.teogor.winds.api.impl.MavenPublishImpl
 import dev.teogor.winds.api.model.WindsFeature
 import dev.teogor.winds.gradle.utils.configureBomModule
+import dev.teogor.winds.gradle.utils.hasKotlinDslPlugin
 import dev.teogor.winds.gradle.utils.hasPublishPlugin
 import dev.teogor.winds.gradle.utils.isWindsApplied
 import dev.teogor.winds.gradle.utils.lazy
@@ -43,7 +44,10 @@ fun Project.configureMavenPublish() {
         pluginManager.apply("com.vanniktech.maven.publish")
         configureBomModule(maven)
       } else if (maven.canBePublished) {
-        if (hasPublishPlugin()) {
+        if (hasKotlinDslPlugin()) {
+          pluginManager.apply("java-library")
+          pluginManager.apply("com.vanniktech.maven.publish")
+        } else if (hasPublishPlugin()) {
           pluginManager.apply("com.vanniktech.maven.publish")
         } else {
           maven.canBePublished = false
