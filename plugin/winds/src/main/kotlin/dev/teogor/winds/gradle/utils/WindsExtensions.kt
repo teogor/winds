@@ -63,6 +63,7 @@ inline fun Project.checkPluginApplied(crossinline block: Winds.() -> Unit) {
   }
 }
 
+// todo kotlin-dsl
 private val publishPlugins = listOf(
   "com.android.library",
   "com.gradle.plugin-publish",
@@ -135,6 +136,7 @@ fun List<Developer>.toDeveloperSpec(
     mavenPomDeveloperSpec.developer {
       id.set(developer.id)
       name.set(developer.name)
+      email.set(developer.email)
       url.set(developer.url)
       roles.set(developer.roles)
       timezone.set(developer.timezone)
