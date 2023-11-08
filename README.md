@@ -22,7 +22,7 @@ To implement the Winds plugin, add the following plugin ID to your build.gradle 
 
 ```kotlin
 plugins {
-  id "dev.teogor.winds" version "1.0.0-alpha01"
+  id "dev.teogor.winds" version "1.0.0-alpha02"
 }
 ```
 
@@ -40,7 +40,7 @@ The following is an example build.gradle file that uses the Winds plugin to buil
 
 ```kotlin
 plugins {
-  id "dev.teogor.winds" version "1.0.0-alpha01"
+  id "dev.teogor.winds" version "1.0.0-alpha02"
 }
 
 winds {
