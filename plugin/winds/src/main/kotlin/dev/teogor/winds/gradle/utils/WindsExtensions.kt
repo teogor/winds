@@ -23,6 +23,7 @@ import dev.teogor.winds.api.model.Dependency
 import dev.teogor.winds.api.model.DependencyDefinition
 import dev.teogor.winds.api.model.Developer
 import dev.teogor.winds.api.model.LocalProjectDependency
+import dev.teogor.winds.gradle.WindsPlugin
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
 import org.gradle.api.internal.artifacts.dependencies.DefaultProjectDependency
@@ -31,6 +32,7 @@ import org.gradle.api.publish.maven.MavenPomDeveloperSpec
 import org.gradle.kotlin.dsl.getValue
 import org.gradle.kotlin.dsl.provideDelegate
 import org.gradle.kotlin.dsl.register
+import org.gradle.kotlin.dsl.withType
 
 /**
  * Checks if the Winds plugin is applied to the project. If it
@@ -88,6 +90,7 @@ inline fun <reified T : DefaultTask> WindsOptions.registerTask(
   name: String,
 ) = project.tasks.register<T>(name)
 
+@Deprecated("if necessary use afterWindsPluginConfiguration")
 fun Project.lazy(block: Project.() -> Unit) = afterEvaluate(block)
 
 fun org.gradle.api.artifacts.Dependency.isProjectDependency() = this is DefaultProjectDependency
@@ -162,6 +165,18 @@ fun List<Developer>.toDeveloperSpec(
       timezone.set(developer.timezone)
       organization.set(developer.organization)
       organizationUrl.set(developer.organizationUrl)
+    }
+  }
+}
+
+fun Project.afterWindsPluginConfiguration(action: Project.(Winds) -> Unit) {
+  subprojects {
+    val project = this
+    plugins.withType<WindsPlugin> {
+      project.afterEvaluate {
+        val winds: Winds by extensions
+        project.action(winds)
+      }
     }
   }
 }
