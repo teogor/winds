@@ -18,7 +18,9 @@ winds {
       patch = 0,
     ).setAlphaRelease(1)
 
-    setBomOptions {
+    defineBoM()
+
+    defineBoM {
       acceptedModules = acceptedModules.plus(listOf(
         ":demo",
         ":demo-1",

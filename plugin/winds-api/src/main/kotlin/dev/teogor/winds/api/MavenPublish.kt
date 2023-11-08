@@ -50,6 +50,6 @@ interface MavenPublish {
   fun addDeveloper(developer: Developer)
   fun addDevelopers(vararg developers: Developer)
   fun addDeveloper(init: DeveloperImpl.() -> Unit)
-  fun setBomOptions(init: BomOptions.() -> Unit)
+  fun defineBoM(init: BomOptions.() -> Unit = {})
   fun sourceControlManagement(scm: Scm)
 }

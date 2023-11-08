@@ -116,7 +116,7 @@ open class MavenPublishImpl : MavenPublish {
     developers = (developers ?: emptyList()) + developer
   }
 
-  override fun setBomOptions(init: BomOptions.() -> Unit) {
+  override fun defineBoM(init: BomOptions.() -> Unit) {
     bomOptions = (bomOptions ?: BomOptions()).apply(init)
   }
 
