@@ -1,12 +1,11 @@
-
 import com.vanniktech.maven.publish.SonatypeHost
 import dev.teogor.winds.api.MavenPublish
 import dev.teogor.winds.api.getValue
 import dev.teogor.winds.api.model.Developer
 import dev.teogor.winds.api.model.LicenseType
 import dev.teogor.winds.api.provider.Scm
-import dev.teogor.winds.gradle.utils.attachTo
 import dev.teogor.winds.gradle.utils.afterWindsPluginConfiguration
+import dev.teogor.winds.gradle.utils.attachTo
 
 buildscript {
   repositories {

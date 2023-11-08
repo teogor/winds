@@ -24,15 +24,14 @@ import dev.teogor.winds.api.model.WindsFeature
 import dev.teogor.winds.gradle.utils.configureBomModule
 import dev.teogor.winds.gradle.utils.hasKotlinDslPlugin
 import dev.teogor.winds.gradle.utils.hasPublishPlugin
-import dev.teogor.winds.gradle.utils.isWindsApplied
-import dev.teogor.winds.gradle.utils.lazy
+import dev.teogor.winds.gradle.utils.windsPluginConfiguration
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.getValue
 import org.gradle.kotlin.dsl.provideDelegate
 
 fun Project.configureMavenPublish() {
   val base = this
-  lazy {
+  afterEvaluate {
     val winds: Winds by extensions
     val mavenPublishFeatureEnabled = winds isEnabled WindsFeature.MAVEN_PUBLISH
     if (mavenPublishFeatureEnabled) {
@@ -54,15 +53,13 @@ fun Project.configureMavenPublish() {
         }
       }
 
-      subprojects {
+      windsPluginConfiguration {
         if (parent == base) {
-          isWindsApplied {
-            buildFeatures.mavenPublish = winds.buildFeatures.mavenPublish
-            (mavenPublish as MavenPublishImpl).let { mavenPublishImpl ->
-              mavenPublishImpl.mavenPublishOptions.apply {
-                add(winds.mavenPublish)
-                addAll((winds.mavenPublish as MavenPublishImpl).mavenPublishOptions)
-              }
+          it.buildFeatures.mavenPublish = winds.buildFeatures.mavenPublish
+          (it.mavenPublish as MavenPublishImpl).let { mavenPublishImpl ->
+            mavenPublishImpl.mavenPublishOptions.apply {
+              add(winds.mavenPublish)
+              addAll((winds.mavenPublish as MavenPublishImpl).mavenPublishOptions)
             }
           }
         }

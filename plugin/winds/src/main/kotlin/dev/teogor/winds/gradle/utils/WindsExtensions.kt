@@ -18,11 +18,14 @@ package dev.teogor.winds.gradle.utils
 
 import dev.teogor.winds.api.MavenPublish
 import dev.teogor.winds.api.Winds
+import dev.teogor.winds.api.impl.MavenPublishImpl
 import dev.teogor.winds.api.impl.WindsOptions
 import dev.teogor.winds.api.model.Dependency
 import dev.teogor.winds.api.model.DependencyDefinition
 import dev.teogor.winds.api.model.Developer
 import dev.teogor.winds.api.model.LocalProjectDependency
+import dev.teogor.winds.api.model.ModuleInfo
+import dev.teogor.winds.api.model.Version
 import dev.teogor.winds.gradle.WindsPlugin
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
@@ -169,6 +172,16 @@ fun List<Developer>.toDeveloperSpec(
   }
 }
 
+fun Project.windsPluginConfiguration(action: Project.(Winds) -> Unit) {
+  subprojects {
+    val project = this
+    plugins.withType<WindsPlugin> {
+      val winds: Winds by extensions
+      project.action(winds)
+    }
+  }
+}
+
 fun Project.afterWindsPluginConfiguration(action: Project.(Winds) -> Unit) {
   subprojects {
     val project = this
@@ -180,3 +193,32 @@ fun Project.afterWindsPluginConfiguration(action: Project.(Winds) -> Unit) {
     }
   }
 }
+
+/**
+ * Collects information about all the modules in the project.
+ *
+ * @param onModuleInfo A callback that will be called for each module.
+ */
+inline fun Project.collectModulesInfo(
+  crossinline onModuleInfo: (ModuleInfo) -> Unit,
+) {
+  afterWindsPluginConfiguration {
+    val winds: Winds by extensions
+    val mavenPublish = winds.mavenPublish
+    val moduleInfo = ModuleInfo(
+      completeName = mavenPublish.completeName,
+      name = mavenPublish.name ?: "",
+      displayName = mavenPublish.displayName ?: "",
+      description = mavenPublish.description ?: "",
+      groupId = mavenPublish.groupId ?: "",
+      artifactId = mavenPublish.artifactId ?: "",
+      version = mavenPublish.version ?: Version(0, 0, 0),
+      path = path,
+      dependencies = getAllDependencies(),
+      canBePublished = mavenPublish.canBePublished,
+      names = (mavenPublish as MavenPublishImpl).gets { displayName },
+    )
+    onModuleInfo(moduleInfo)
+  }
+}
+
