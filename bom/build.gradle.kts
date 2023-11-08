@@ -18,6 +18,8 @@ winds {
       patch = 0,
     ).setAlphaRelease(1)
 
+    defineBoM()
+
     defineBoM {
       acceptedModules = acceptedModules.plus(listOf(
         ":demo",
