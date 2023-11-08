@@ -45,7 +45,7 @@ winds {
 
     canBePublished = false
 
-    description = "Here goes the description"
+    description = "\uD83C\uDF43 Winds build and publish libraries and applications for multiple platforms, simple and efficient."
 
 
     groupId = "dev.teogor.winds"
