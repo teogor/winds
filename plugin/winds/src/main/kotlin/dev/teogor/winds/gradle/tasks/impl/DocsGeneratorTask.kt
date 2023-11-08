@@ -22,15 +22,16 @@ import dev.teogor.winds.api.model.BomInfo
 import dev.teogor.winds.api.model.ModuleInfo
 import dev.teogor.winds.api.model.Version
 import dev.teogor.winds.gradle.tasks.BaseGeneratorTask
+import dev.teogor.winds.gradle.utils.ErrorId
+import java.io.File
+import java.time.Instant
+import java.time.ZoneOffset
+import kotlin.random.Random
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.gradle.api.tasks.TaskAction
 import org.gradle.kotlin.dsl.provideDelegate
-import java.io.File
-import java.time.Instant
-import java.time.ZoneOffset
-import kotlin.random.Random
 
 abstract class DocsGeneratorTask : BaseGeneratorTask(
   description = "Generates documentation for a project.",
@@ -38,10 +39,6 @@ abstract class DocsGeneratorTask : BaseGeneratorTask(
 
   private lateinit var docsGenerator: DocsGenerator
   private val libraries = mutableListOf<ModuleInfo>()
-
-  private fun MutableList<ModuleInfo>.bom() = this.firstOrNull {
-    it.isBoM
-  }
 
   private val docsFolder = root directory "docs"
 
@@ -55,8 +52,21 @@ abstract class DocsGeneratorTask : BaseGeneratorTask(
   private val betaEmoji = "\uD83D\uDEE0\uFE0F"
   private val deprecatedEmoji = "\uD83D\uDEA7"
 
+  private fun MutableList<ModuleInfo>.bom() = firstOrNull { it.isBoM }
+
+  private fun bomLibraryError(): Nothing = error(
+    """
+    Failed to retrieve the Bill of Materials (BoM).
+    The BoM is not available, which is necessary for this operation.
+    Please [create an issue](https://github.com/teogor/winds) to assist in resolving this matter.
+    Be sure to include the following error ID in your report to help us identify and address the issue:
+    ${ErrorId.BomLibraryError.getErrorIdString()}
+    Thank you for your contribution to improving Winds!
+    """.trimIndent(),
+  )
+
   private val bomLibrary by lazy {
-    libraries.bom() ?: error("attempting to get bom when it is not available")
+    libraries.bom() ?: bomLibraryError()
   }
 
   private val hasBoM by lazy { libraries.bom() != null }
