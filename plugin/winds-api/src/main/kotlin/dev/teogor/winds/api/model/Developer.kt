@@ -19,6 +19,7 @@ package dev.teogor.winds.api.model
 interface Developer {
   val id: String
   val name: String
+  val email: String
   val url: String
   val roles: List<String>
   val timezone: String
@@ -29,6 +30,7 @@ interface Developer {
 data class DeveloperImpl(
   override var id: String = "",
   override var name: String = "",
+  override var email: String = "",
   override var url: String = "",
   override var roles: List<String> = emptyList(),
   override var timezone: String = "",

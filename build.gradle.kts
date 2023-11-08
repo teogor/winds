@@ -111,6 +111,7 @@ subprojects {
 data class TeogorDeveloper(
   override val id: String = "teogor",
   override val name: String = "Teodor Grigor",
+  override val email: String = "open-source@teogor.dev",
   override val url: String = "https://teogor.dev",
   override val roles: List<String> = listOf("Code Owner", "Developer", "Designer", "Maintainer"),
   override val timezone: String = "UTC+2",
