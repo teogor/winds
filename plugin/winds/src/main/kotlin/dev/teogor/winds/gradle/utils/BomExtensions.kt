@@ -29,11 +29,21 @@ fun Project.configureBomModule(
   collectBomConstraints(publishOptions)
 }
 
+private fun bomOptionsError(): Nothing = error(
+  """
+  Uh-oh! An internal error occurred while handling BoM options.
+  Please [create an issue](https://github.com/teogor/winds) to assist in resolving this matter.
+  Be sure to include the following error ID in your report to help us identify and address the issue:
+  ${ErrorId.BomOptionsError.getErrorIdString()}
+  Thank you for your contribution to improving Winds!
+  """.trimIndent(),
+)
+
 private fun Project.collectBomConstraints(
   publishOptions: MavenPublish,
 ) {
   val bomConstraints: DependencyConstraintHandler = dependencies.constraints
-  val bomOptions = publishOptions.bomOptions ?: error("internal error")
+  val bomOptions = publishOptions.bomOptions ?: bomOptionsError()
 
   val bomName = name
   rootProject.subprojects {

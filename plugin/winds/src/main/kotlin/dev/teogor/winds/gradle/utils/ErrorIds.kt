@@ -11,4 +11,8 @@ sealed interface ErrorId {
   data class GenericError(
     override val errorId: Int = 1000
   ) : ErrorId
+
+  object BomOptionsError : ErrorId {
+    override val errorId: Int = 1001
+  }
 }
