@@ -7,7 +7,7 @@ plugins {
 
 winds {
   mavenPublish {
-    displayName = "Demo 2"
+    displayName = "Demo Tst 2"
     name = "demo-kotlin-dsl-tst2"
     description = "Demo 2 Description set in here"
 
