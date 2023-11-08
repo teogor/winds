@@ -16,14 +16,49 @@
 
 package dev.teogor.winds.api.model
 
+/**
+ * A developer involved in the project.
+ */
 interface Developer {
+
+  /**
+   * The unique ID of this developer in the SCM.
+   */
   val id: String
+
+  /**
+   * The name of this developer.
+   */
   val name: String
+
+  /**
+   * The email of this developer.
+   */
   val email: String
+
+  /**
+   * The URL of this developer.
+   */
   val url: String
+
+  /**
+   * The roles of this developer.
+   */
   val roles: List<String>
+
+  /**
+   * The timezone of this developer.
+   */
   val timezone: String
+
+  /**
+   * The organization name of this developer.
+   */
   val organization: String
+
+  /**
+   * The organization's URL of this developer.
+   */
   val organizationUrl: String
 }
 
