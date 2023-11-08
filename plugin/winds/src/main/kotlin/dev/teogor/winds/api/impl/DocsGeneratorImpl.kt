@@ -25,6 +25,8 @@ class DocsGeneratorImpl : DocsGenerator {
 
   override var identifier: String = ""
 
+  override var alertOnDependentModules: Boolean = true
+
   override var task: DefaultTask? = null
 
   override var excludedModules: MutableList<String> = mutableListOf()

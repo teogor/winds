@@ -459,12 +459,15 @@ abstract class DocsGeneratorTask : BaseGeneratorTask(
             """.trimIndent(),
           )
           content.appendLine()
-          val localProjectDependencies = library.dependencies
-            .filterIsInstance<LocalProjectDependency>()
-          if (localProjectDependencies.isNotEmpty()) {
-            val dependsOn = localProjectDependencies.joinToString(separator = ",") { "`${it.modulePath}`" }
-            content.appendLine("⚠️ Depends on $dependsOn")
-            content.appendLine()
+          if (docsGenerator.alertOnDependentModules) {
+            val localProjectDependencies = library.dependencies
+              .filterIsInstance<LocalProjectDependency>()
+            if (localProjectDependencies.isNotEmpty()) {
+              val dependsOn =
+                localProjectDependencies.joinToString(separator = ",") { "`${it.modulePath}`" }
+              content.appendLine("⚠️ Depends on $dependsOn")
+              content.appendLine()
+            }
           }
         }
         content.appendLine()
