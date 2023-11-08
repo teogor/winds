@@ -8,11 +8,15 @@ sealed interface ErrorId {
 
   fun getErrorIdString(): String = "Error ID: $errorIdFormatted"
 
-  data class GenericError(
+  object GenericError : ErrorId {
     override val errorId: Int = 1000
-  ) : ErrorId
+  }
 
   object BomOptionsError : ErrorId {
     override val errorId: Int = 1001
+  }
+
+  object BomLibraryError : ErrorId {
+    override val errorId: Int = 1002
   }
 }
