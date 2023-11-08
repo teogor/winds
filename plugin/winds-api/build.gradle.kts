@@ -24,6 +24,7 @@ plugins {
   alias(libs.plugins.vanniktech.maven) apply true
 }
 
+// todo centralize winds version
 group = "dev.teogor.winds"
 version = "1.0.0-alpha02"
 
@@ -59,7 +60,7 @@ mavenPublishing {
     coordinates(
       groupId = "dev.teogor.winds",
       artifactId = "winds-api",
-      version = "1.0.0-alpha01",
+      version = "1.0.0-alpha02",
     )
 
     licenses {
