@@ -98,6 +98,8 @@ abstract class DocsGeneratorTask : BaseGeneratorTask(
 
   @TaskAction
   override fun action() {
+    libraries.sortWith { library1, library2 -> library1.path.compareTo(library2.path) }
+
     writeModulesDocs()
 
     if (hasBoM) {
@@ -482,7 +484,9 @@ abstract class DocsGeneratorTask : BaseGeneratorTask(
   }
 
   fun addLibrary(data: ModuleInfo) {
-    libraries.add(data)
+    if (libraries.firstOrNull { it.gradleDependency == data.gradleDependency } == null) {
+      libraries.add(data)
+    }
   }
 
   fun provideDocsGenerator(docsGenerator: DocsGenerator) {
