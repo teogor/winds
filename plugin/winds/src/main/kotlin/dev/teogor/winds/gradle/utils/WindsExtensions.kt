@@ -146,7 +146,9 @@ infix fun MavenPublish.attachTo(pom: MavenPom) {
     }
 
     developers {
-      mavenPublish.developers?.toDeveloperSpec(this)
+      mavenPublish.developers?.toDeveloperSpec(
+        mavenPomDeveloperSpec = this
+      ) ?: developerError()
     }
 
     licenses {
@@ -163,7 +165,7 @@ infix fun MavenPublish.attachTo(pom: MavenPom) {
   }
 }
 
-fun List<Developer>.toDeveloperSpec(
+private fun List<Developer>.toDeveloperSpec(
   mavenPomDeveloperSpec: MavenPomDeveloperSpec,
 ) {
   forEach { developer ->
@@ -195,10 +197,20 @@ private fun List<LicenseType>.toLicenseSpec(
 
 private fun licenseError(): Nothing = error(
   """
-  Uh-oh! A license must be provided for your module. Please specify the license in the mavenPublish block from inside the winds extension.
+  Uh-oh! A license must be provided for your module. Please specify the license in the `mavenPublish` block within the `winds` extension.
   If you think this is an error, please [create an issue](https://github.com/teogor/winds) to assist in resolving this matter.
   Be sure to include the following error ID in your report to help us identify and address the issue:
   ${ErrorId.PomLicenseError.getErrorIdString()}
+  Thank you for your contribution to improving Winds!
+  """.trimIndent(),
+)
+
+private fun developerError(): Nothing = error(
+  """
+  Uh-oh! At least a developer must be provided for your module. Please add developer information in the `mavenPublish` block within the `winds` extension.
+  If you think this is an error, please [create an issue](https://github.com/teogor/winds) to assist in resolving this matter.
+  Be sure to include the following error ID in your report to help us identify and address the issue:
+  ${ErrorId.PomDeveloperError.getErrorIdString()}
   Thank you for your contribution to improving Winds!
   """.trimIndent(),
 )
