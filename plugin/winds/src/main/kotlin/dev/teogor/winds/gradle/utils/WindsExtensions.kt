@@ -200,9 +200,14 @@ fun Project.afterWindsPluginConfiguration(action: Project.(Winds) -> Unit) {
   subprojects {
     val project = this
     plugins.withType<WindsPlugin> {
-      project.afterEvaluate {
+      if (project.state.executed) {
         val winds: Winds by extensions
         project.action(winds)
+      } else {
+        project.afterEvaluate {
+          val winds: Winds by extensions
+          project.action(winds)
+        }
       }
     }
   }
@@ -244,4 +249,3 @@ inline fun Project.collectModulesInfo(
     onModuleInfo(moduleInfo)
   }
 }
-
