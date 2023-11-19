@@ -33,11 +33,10 @@ fun Project.configureDocsGenerator() {
     val docsGenerator: DocsGenerator by winds
     val docsGeneratorImpl = docsGenerator as DocsGeneratorImpl
     docsGeneratorImpl.task?.isEnabled = docsGeneratorFeatureEnabled
-    if (docsGenerator.excludedModules.contains(path)) {
-      return@collectModulesInfo
-    }
-    if (docsGeneratorFeatureEnabled) {
-      (docsGeneratorImpl.task as? DocsGeneratorTask)?.addLibrary(it)
+    if (!docsGenerator.excludedModules.contains(path)) {
+      if (docsGeneratorFeatureEnabled) {
+        (docsGeneratorImpl.task as? DocsGeneratorTask)?.addLibrary(it)
+      }
     }
   }
 }

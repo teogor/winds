@@ -16,10 +16,13 @@
 
 package dev.teogor.winds.api
 
+import dev.teogor.winds.api.model.DependencyType
+
 interface DocsGenerator : TaskBuilder {
   var name: String
   var identifier: String
   var alertOnDependentModules: Boolean
+  var dependencyGatheringType: DependencyType
 
   val excludedModules: List<String>
   fun excludeModules(block: () -> List<String>)

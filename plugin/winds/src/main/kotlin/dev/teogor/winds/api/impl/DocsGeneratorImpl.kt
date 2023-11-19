@@ -17,6 +17,7 @@
 package dev.teogor.winds.api.impl
 
 import dev.teogor.winds.api.DocsGenerator
+import dev.teogor.winds.api.model.DependencyType
 import org.gradle.api.DefaultTask
 
 class DocsGeneratorImpl : DocsGenerator {
@@ -30,6 +31,8 @@ class DocsGeneratorImpl : DocsGenerator {
   override var task: DefaultTask? = null
 
   override var excludedModules: MutableList<String> = mutableListOf()
+
+  override var dependencyGatheringType: DependencyType = DependencyType.NONE
 
   override fun excludeModules(block: () -> List<String>) {
     excludedModules.addAll(block())

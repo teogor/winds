@@ -20,8 +20,8 @@ import dev.teogor.winds.api.MavenPublish
 import dev.teogor.winds.api.Winds
 import dev.teogor.winds.api.impl.MavenPublishImpl
 import dev.teogor.winds.api.impl.WindsOptions
-import dev.teogor.winds.api.model.Dependency
 import dev.teogor.winds.api.model.DependencyDefinition
+import dev.teogor.winds.api.model.DependencyType
 import dev.teogor.winds.api.model.Developer
 import dev.teogor.winds.api.model.LicenseType
 import dev.teogor.winds.api.model.LocalProjectDependency
@@ -30,7 +30,6 @@ import dev.teogor.winds.api.model.Version
 import dev.teogor.winds.gradle.WindsPlugin
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
-import org.gradle.api.internal.artifacts.dependencies.DefaultProjectDependency
 import org.gradle.api.publish.maven.MavenPom
 import org.gradle.api.publish.maven.MavenPomDeveloperSpec
 import org.gradle.api.publish.maven.MavenPomLicenseSpec
@@ -98,38 +97,10 @@ inline fun <reified T : DefaultTask> WindsOptions.registerTask(
 @Deprecated("if necessary use afterWindsPluginConfiguration")
 fun Project.lazy(block: Project.() -> Unit) = afterEvaluate(block)
 
-fun org.gradle.api.artifacts.Dependency.isProjectDependency() = this is DefaultProjectDependency
-
 fun Project.getAllDependencies(): List<DependencyDefinition> {
-  val dependencies = mutableListOf<DependencyDefinition>()
-
-  this.configurations.forEach { configuration ->
-    configuration.dependencies.forEach { dependency ->
-      if (dependency.group != null) {
-        val dependencyType = if (dependency.isProjectDependency()) {
-          dependency as DefaultProjectDependency
-          val dependencyProject = dependency.dependencyProject
-          val name = dependencyProject.rootProject.name
-          val path = dependencyProject.path
-          LocalProjectDependency(
-            implementationType = configuration.name,
-            projectName = name,
-            modulePath = path,
-          )
-        } else {
-          Dependency(
-            implementationType = configuration.name,
-            group = dependency.group.orEmpty(),
-            artifact = dependency.name.orEmpty(),
-            version = dependency.version.orEmpty(),
-          )
-        }
-        dependencies.add(dependencyType)
-      }
-    }
-  }
-
-  return dependencies
+  project.evaluationDependsOnChildren()
+  val collectedDependencies = DependencyCollector(includePlatform, filterVariants).collect(project)
+  return collectedDependencies.flattenDependencies()
 }
 
 infix fun MavenPublish.attachTo(pom: MavenPom) {
@@ -147,13 +118,13 @@ infix fun MavenPublish.attachTo(pom: MavenPom) {
 
     developers {
       mavenPublish.developers?.toDeveloperSpec(
-        mavenPomDeveloperSpec = this
+        mavenPomDeveloperSpec = this,
       ) ?: developerError()
     }
 
     licenses {
       mavenPublish.licenses?.toLicenseSpec(
-        mavenPomLicenseSpec = this
+        mavenPomLicenseSpec = this,
       ) ?: licenseError()
     }
 
@@ -229,9 +200,14 @@ fun Project.afterWindsPluginConfiguration(action: Project.(Winds) -> Unit) {
   subprojects {
     val project = this
     plugins.withType<WindsPlugin> {
-      project.afterEvaluate {
+      if (project.state.executed) {
         val winds: Winds by extensions
         project.action(winds)
+      } else {
+        project.afterEvaluate {
+          val winds: Winds by extensions
+          project.action(winds)
+        }
       }
     }
   }
@@ -248,6 +224,14 @@ inline fun Project.collectModulesInfo(
   afterWindsPluginConfiguration {
     val winds: Winds by extensions
     val mavenPublish = winds.mavenPublish
+    val docsGenerator = winds.docsGenerator
+
+    val dependencies = when (docsGenerator.dependencyGatheringType) {
+      DependencyType.NONE -> emptyList()
+      DependencyType.LOCAL -> getAllDependencies().filterIsInstance<LocalProjectDependency>()
+      DependencyType.ALL -> getAllDependencies()
+    }
+
     val moduleInfo = ModuleInfo(
       completeName = mavenPublish.completeName,
       name = mavenPublish.name ?: "",
@@ -257,11 +241,11 @@ inline fun Project.collectModulesInfo(
       artifactId = mavenPublish.artifactId ?: "",
       version = mavenPublish.version ?: Version(0, 0, 0),
       path = path,
-      dependencies = getAllDependencies(),
+      dependencies = dependencies,
       canBePublished = mavenPublish.canBePublished,
       names = (mavenPublish as MavenPublishImpl).gets { displayName },
     )
+
     onModuleInfo(moduleInfo)
   }
 }
-
