@@ -17,11 +17,8 @@
 package dev.teogor.winds.gradle.utils
 
 import dev.teogor.winds.api.MavenPublish
-import dev.teogor.winds.api.Winds
 import org.gradle.api.Project
 import org.gradle.api.artifacts.dsl.DependencyConstraintHandler
-import org.gradle.kotlin.dsl.getValue
-import org.gradle.kotlin.dsl.provideDelegate
 
 fun Project.configureBomModule(
   publishOptions: MavenPublish,
@@ -39,43 +36,36 @@ private fun bomOptionsError(): Nothing = error(
   """.trimIndent(),
 )
 
+/**
+ * Collects the BoM constraints for the project.
+ *
+ * @param publishOptions The MavenPublish options for the project.
+ */
 private fun Project.collectBomConstraints(
   publishOptions: MavenPublish,
 ) {
+  // Collects the BoM constraints for the project.
   val bomConstraints: DependencyConstraintHandler = dependencies.constraints
   val bomOptions = publishOptions.bomOptions ?: bomOptionsError()
 
+  // Retrieves the name of the project.
   val bomName = name
-  rootProject.subprojects {
+
+  // Iterates over all the subprojects in the project.
+  rootProject.afterWindsPluginConfiguration {
     val subproject = this
 
+    // Checks if the name of the subproject is not equal to the name of the BoM.
     if (subproject.name != bomName) {
-      subproject.lazy {
-        val winds: Winds by extensions
-        lazy {
-          if (winds.mavenPublish.canBePublished) {
-            bomConstraints.api(subproject)
-          }
-        }
-        // todo
-        //  val isValidBomLibrary = bomOptions.acceptedModules.contains(subproject.path) ||
-        //    bomOptions.acceptedPaths.any { subproject.path.startsWith(it) }
-        //  if (subproject.plugins.hasPlugin("dev.teogor.winds")) {
-        //    val windsInfo = subproject.extensions.getByType<WindsInfo>()
-        //    println("valid subproject ${subproject.path} ${windsInfo.licenses}")
-        //  }
-        //  if (subproject.hasPublishPlugin()) {
-        //    bomConstraints.api(subproject)
-        //    println("hasPublishPlugin : ${subproject.path}")
-        //  }
-        //  if (isValidBomLibrary) {
-        //    bomConstraints.api(subproject)
-        //    println("subproject : ${subproject.path}")
-        //  }
+      // Checks if the subproject can be published.
+      if (it.mavenPublish.canBePublished) {
+        // Adds the subproject as a dependency (api) of the BoM.
+        bomConstraints.api(subproject)
       }
     }
   }
 }
+
 
 private fun DependencyConstraintHandler.api(
   constraintNotation: Any,
