@@ -19,4 +19,8 @@ sealed interface ErrorId {
   object BomLibraryError : ErrorId {
     override val errorId: Int = 1002
   }
+
+  object PomLicenseError : ErrorId {
+    override val errorId: Int = 1003
+  }
 }
