@@ -27,6 +27,7 @@ import dev.teogor.winds.api.model.LicenseType
 import dev.teogor.winds.api.model.LocalProjectDependency
 import dev.teogor.winds.api.model.ModuleInfo
 import dev.teogor.winds.api.model.Version
+import dev.teogor.winds.api.model.VersionBuilder
 import dev.teogor.winds.gradle.WindsPlugin
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
@@ -101,6 +102,20 @@ fun Project.getAllDependencies(): List<DependencyDefinition> {
   project.evaluationDependsOnChildren()
   val collectedDependencies = DependencyCollector(includePlatform, filterVariants).collect(project)
   return collectedDependencies.flattenDependencies()
+}
+
+/**
+ * Creates a copy of the current version object and applies the
+ * provided configuration block to it.
+ *
+ * @param block A configuration block to apply to the copied version
+ * object.
+ * @return A new version object with the applied configuration.
+ */
+fun MavenPublish.copyVersion(
+  block: VersionBuilder.() -> Unit = {},
+): Version {
+  return version!!.toBuilder().apply(block).build()
 }
 
 infix fun MavenPublish.attachTo(pom: MavenPom) {
