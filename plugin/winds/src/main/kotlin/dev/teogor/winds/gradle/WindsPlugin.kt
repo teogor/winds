@@ -16,7 +16,6 @@
 
 package dev.teogor.winds.gradle
 
-import dev.teogor.winds.api.Winds
 import dev.teogor.winds.api.impl.WindsOptions
 import dev.teogor.winds.gradle.tasks.impl.configureDocsGenerator
 import dev.teogor.winds.gradle.tasks.impl.configureMavenPublish
@@ -25,8 +24,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.findByType
-import org.gradle.kotlin.dsl.getValue
-import org.gradle.kotlin.dsl.provideDelegate
+import org.gradle.kotlin.dsl.getByType
 
 /**
  * A Gradle plugin that adds Winds support to projects.
@@ -55,38 +53,20 @@ class WindsPlugin : Plugin<Project> {
 }
 
 /**
- * Creates a Winds extension for the project and propagates the `buildFeatures`
- * property to child projects.
+ * Creates a `WindsOptions` extension for the project and propagates
+ * its `buildFeatures` property to child projects. If the parent project
+ * has the `dev.teogor.winds` plugin, the `buildFeatures` and `docsGenerator`
+ * properties are copied from the parent project's `WindsOptions` extension.
  */
 private fun Project.createWindsExtension() {
   // Check if the WindsOptions extension already exists
-  extensions.findByType<WindsOptions>() ?: extensions.create<WindsOptions>(
-    name = "winds",
-  )
-
-  // Get the Winds extension
-  val winds: Winds by extensions
-
-  // Get the current project
-  val project = this
-
-  // After the project has been evaluated, iterate over the child projects
-  afterEvaluate {
-    subprojects {
-      afterEvaluate {
-        // Get the local project
-        val localProject = this
-
-        // Check if the local project is a child of the current project
-        if (parent == project) {
-          // Get the local Winds extension
-          val localWinds = localProject.extensions.findByType<Winds>()
-
-          // If the local Winds extension exists, set its `buildFeatures` property to the `buildFeatures` property of the current project's Winds extension
-          if (localWinds != null) {
-            localWinds.buildFeatures = winds.buildFeatures
-          }
-        }
+  extensions.findByType<WindsOptions>() ?: let {
+    val rootHas = parent?.plugins?.hasPlugin("dev.teogor.winds") ?: false
+    extensions.create<WindsOptions>(name = "winds").also {
+      if (rootHas) {
+        val rootWindsOptions = parent!!.extensions.getByType<WindsOptions>()
+        it.buildFeatures = rootWindsOptions.buildFeatures
+        it.docsGenerator = rootWindsOptions.docsGenerator
       }
     }
   }
