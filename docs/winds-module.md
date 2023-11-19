@@ -2,9 +2,9 @@
 
 | Status | Library | Gradle dependency |
 | ------ | ------- | ----------------- |
-| 🧪 | [library-1](/module/library-1) | [dev.teogor.winds:module-1-library-1:1.0.0-alpha01](#implementation-library-1) |
+| 🛠️ | [library-1](/module/library-1) | [dev.teogor.winds:module-1-library-1:1.0.0-beta05](#implementation-library-1) |
 | 🧪 | [library-2](/module/library-2) | [dev.teogor.winds:module-1-library-2:1.0.0-alpha01](#implementation-library-2) |
-| 🚧 | [library-3](/module/library-3) | [dev.teogor.winds:module-1-library-3:3.8.2](#implementation-library-3) |
+| 🚧 | [library-3](/module/library-3) | [dev.teogor.winds:module-1-library-3:1.0.0-alpha10](#implementation-library-3) |
 |  | [library-4](/module/library-4) | [dev.teogor.winds:module-1-library-4:6.2.4](#implementation-library-4) |
 
 By referring to the [BoM documentation](/docs/bom/versions.md), you can learn how to integrate the BoM into your project and benefit from this hassle-free approach to library version management. It's a powerful tool for staying up-to-date with the latest Winds library versions and seamlessly integrating them into your projects.
@@ -15,14 +15,14 @@ By referring to the [BoM documentation](/docs/bom/versions.md), you can learn ho
 To use library-1 in your project, add the following dependency to your module-level Gradle file (usually `app/build.gradle.kts`):
 
 ```kotlin
-implementation("dev.teogor.winds:module-1-library-1:1.0.0-alpha01")
+implementation("dev.teogor.winds:module-1-library-1:1.0.0-beta05")
 ```
 
 #### Gradle Dependency
 
 - **Group ID:** `dev.teogor.winds`
 - **Artifact ID:** `module-1-library-1`
-- **Version:** `1.0.0-alpha01` (not required when using [BoM](/docs/bom/versions.md))
+- **Version:** `1.0.0-beta05` (not required when using [BoM](/docs/bom/versions.md))
 
 ⚠️ Depends on `:module:library-2`,`:module:library-4`,`:module:library-3`
 
@@ -45,14 +45,14 @@ implementation("dev.teogor.winds:module-1-library-2:1.0.0-alpha01")
 To use library-3 in your project, add the following dependency to your module-level Gradle file (usually `app/build.gradle.kts`):
 
 ```kotlin
-implementation("dev.teogor.winds:module-1-library-3:3.8.2")
+implementation("dev.teogor.winds:module-1-library-3:1.0.0-alpha10")
 ```
 
 #### Gradle Dependency
 
 - **Group ID:** `dev.teogor.winds`
 - **Artifact ID:** `module-1-library-3`
-- **Version:** `3.8.2` (not required when using [BoM](/docs/bom/versions.md))
+- **Version:** `1.0.0-alpha10` (not required when using [BoM](/docs/bom/versions.md))
 
 ### Implementation Library 4
 

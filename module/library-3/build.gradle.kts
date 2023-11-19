@@ -1,4 +1,4 @@
-import dev.teogor.winds.api.model.Version
+import dev.teogor.winds.gradle.utils.copyVersion
 
 plugins {
   id("dev.teogor.winds")
@@ -10,10 +10,9 @@ winds {
     displayName = "Library 3"
     name = "library-3"
 
-    version = Version(
-      major = 3,
-      minor = 8,
-      patch = 2,
-    ).markAsDeprecated()
+    version = copyVersion {
+      versionQualifier(10)
+      setIsDeprecated()
+    }
   }
 }

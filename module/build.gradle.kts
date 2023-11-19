@@ -1,4 +1,4 @@
-import dev.teogor.winds.api.model.Version
+import dev.teogor.winds.api.model.createVersion
 
 plugins {
   id("dev.teogor.winds")
@@ -12,10 +12,8 @@ winds {
 
     canBePublished = false
 
-    version = Version(
-      major = 1,
-      minor = 0,
-      patch = 0,
-    ).setAlphaRelease(1)
+    version = createVersion(1, 0, 0) {
+      alphaRelease(1)
+    }
   }
 }
