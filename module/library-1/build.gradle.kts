@@ -1,3 +1,5 @@
+import dev.teogor.winds.gradle.utils.copyVersion
+
 plugins {
   id("dev.teogor.winds")
   id("java-library")
@@ -8,6 +10,10 @@ winds {
     displayName = "Library 1"
     name = "library-1"
     description = "M#1 Library 1 Description set in here"
+
+    version = copyVersion {
+      betaRelease(5)
+    }
   }
 }
 

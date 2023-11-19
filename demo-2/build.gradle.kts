@@ -1,4 +1,4 @@
-import dev.teogor.winds.api.model.Version
+import dev.teogor.winds.api.model.createVersion
 
 plugins {
   `kotlin-dsl`
@@ -11,10 +11,8 @@ winds {
     name = "demo-kotlin-dsl-tst2"
     description = "Demo 2 Description set in here"
 
-    version = Version(
-      major = 1,
-      minor = 0,
-      patch = 0,
-    ).setAlphaRelease(1)
+    version = createVersion(1, 0, 0) {
+      alphaRelease(1)
+    }
   }
 }

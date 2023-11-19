@@ -358,9 +358,9 @@ abstract class DocsGeneratorTask : BaseGeneratorTask(
           .filter { !it.isBoM && it.canBePublished }
           .forEach { library ->
             val emoji = when {
+              library.version.isDeprecated -> deprecatedEmoji
               library.version.isAlphaRelease -> alphaEmoji
               library.version.isBetaRelease -> betaEmoji
-              library.version.isDeprecated -> deprecatedEmoji
               else -> ""
             }
             val previousVersionData = previousBomDependencies.firstOrNull {
@@ -426,9 +426,9 @@ abstract class DocsGeneratorTask : BaseGeneratorTask(
         content.appendLine("| ------ | ------- | ----------------- |")
         for (library in libraries) {
           val emoji = when {
+            library.version.isDeprecated -> deprecatedEmoji
             library.version.isAlphaRelease -> alphaEmoji
             library.version.isBetaRelease -> betaEmoji
-            library.version.isDeprecated -> deprecatedEmoji
             else -> ""
           }
           val link = "#implementation ${library.name}".lowercase().replace(" ", "-")

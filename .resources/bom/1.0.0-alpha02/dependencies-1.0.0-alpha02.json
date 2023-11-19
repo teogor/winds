@@ -33,8 +33,8 @@
       "major": 1,
       "minor": 0,
       "patch": 0,
-      "flag": "Alpha",
-      "versionQualifier": 1
+      "flag": "Beta",
+      "versionQualifier": 5
     },
     "path": ":module:library-1",
     "dependencies": [
@@ -93,10 +93,12 @@
     "groupId": "dev.teogor.winds",
     "artifactId": "module-1-library-3",
     "version": {
-      "major": 3,
-      "minor": 8,
-      "patch": 2,
-      "flag": "Deprecated"
+      "major": 1,
+      "minor": 0,
+      "patch": 0,
+      "flag": "Alpha",
+      "isDeprecated": true,
+      "versionQualifier": 10
     },
     "path": ":module:library-3",
     "dependencies": [
