@@ -23,6 +23,7 @@ import dev.teogor.winds.api.impl.WindsOptions
 import dev.teogor.winds.api.model.Dependency
 import dev.teogor.winds.api.model.DependencyDefinition
 import dev.teogor.winds.api.model.Developer
+import dev.teogor.winds.api.model.LicenseType
 import dev.teogor.winds.api.model.LocalProjectDependency
 import dev.teogor.winds.api.model.ModuleInfo
 import dev.teogor.winds.api.model.Version
@@ -32,6 +33,7 @@ import org.gradle.api.Project
 import org.gradle.api.internal.artifacts.dependencies.DefaultProjectDependency
 import org.gradle.api.publish.maven.MavenPom
 import org.gradle.api.publish.maven.MavenPomDeveloperSpec
+import org.gradle.api.publish.maven.MavenPomLicenseSpec
 import org.gradle.kotlin.dsl.getValue
 import org.gradle.kotlin.dsl.provideDelegate
 import org.gradle.kotlin.dsl.register
@@ -147,6 +149,12 @@ infix fun MavenPublish.attachTo(pom: MavenPom) {
       mavenPublish.developers?.toDeveloperSpec(this)
     }
 
+    licenses {
+      mavenPublish.licenses?.toLicenseSpec(
+        mavenPomLicenseSpec = this
+      ) ?: licenseError()
+    }
+
     scm {
       url.set(mavenPublish.scmUrl)
       connection.set(mavenPublish.scmConnection)
@@ -171,6 +179,29 @@ fun List<Developer>.toDeveloperSpec(
     }
   }
 }
+
+private fun List<LicenseType>.toLicenseSpec(
+  mavenPomLicenseSpec: MavenPomLicenseSpec,
+) {
+  forEach { license ->
+    mavenPomLicenseSpec.license {
+      name.set(license.name)
+      url.set(license.url)
+      distribution.set(license.distribution)
+      // TODO comments.set(license.comments)
+    }
+  }
+}
+
+private fun licenseError(): Nothing = error(
+  """
+  Uh-oh! A license must be provided for your module. Please specify the license in the mavenPublish block from inside the winds extension.
+  If you think this is an error, please [create an issue](https://github.com/teogor/winds) to assist in resolving this matter.
+  Be sure to include the following error ID in your report to help us identify and address the issue:
+  ${ErrorId.PomLicenseError.getErrorIdString()}
+  Thank you for your contribution to improving Winds!
+  """.trimIndent(),
+)
 
 fun Project.windsPluginConfiguration(action: Project.(Winds) -> Unit) {
   subprojects {
