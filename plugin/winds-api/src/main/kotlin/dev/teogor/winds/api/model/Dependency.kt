@@ -23,7 +23,6 @@ sealed interface DependencyDefinition
 
 @Serializable
 data class Dependency(
-  val implementationType: String,
   val group: String,
   val artifact: String,
   val version: String,
@@ -31,7 +30,6 @@ data class Dependency(
 
 @Serializable
 data class LocalProjectDependency(
-  val implementationType: String,
   val projectName: String,
   val modulePath: String,
 ) : DependencyDefinition

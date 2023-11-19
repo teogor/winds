@@ -67,9 +67,6 @@ class DependencyCollector(
     val mutableCollectContainer: MutableMap<String, MutableMap<String, MutableSet<DependencyDefinition>>> =
       sortedMapOf(compareBy<String> { it })
 
-    println("***** Collecting dependencies BETA *****")
-    println("***** ${project.path} *****")
-
     project.configurations
       .filterNot { configuration ->
         configuration.shouldSkip() && !configuration.isProjectDependency()
@@ -102,7 +99,6 @@ class DependencyCollector(
         }
         val visitedDependencyNames = mutableSetOf<String>()
 
-        println("Pre-fetching dependencies for $variant")
         configuration
           .resolvedConfiguration
           .lenientConfiguration
@@ -113,40 +109,27 @@ class DependencyCollector(
             val dependencyDefinition = if (isLocalProjectArtifact(resArtifact)) {
               val projectIdentifier = resArtifact.id.componentIdentifier as ProjectComponentIdentifier
               LocalProjectDependency(
-                implementationType = "local",
                 projectName = projectIdentifier.projectName,
                 modulePath = projectIdentifier.projectPath,
               )
             } else {
               Dependency(
-                implementationType = "external",
                 group = resArtifact.moduleVersion.id.group,
                 artifact = resArtifact.name,
                 version = resArtifact.moduleVersion.id.version
-              ).also {
-                println(it)
-              }
+              )
             }
-            println("Retrieved for $variant :: $identifier ${resArtifact.moduleVersion.id}")
             val versions = variantSet.getOrPut(identifier) { LinkedHashSet() }
             versions.add(dependencyDefinition)
           }
 
-        println("Completed-fetching dependencies for $variant")
       }
     return CollectedContainer(mutableCollectContainer)
   }
 
   private fun isLocalProjectArtifact(artifact: ResolvedArtifact): Boolean {
     val moduleVersion = artifact.id
-
-    if (moduleVersion.componentIdentifier is ProjectComponentIdentifier) {
-      val projectIdentifier = moduleVersion.componentIdentifier as ProjectComponentIdentifier
-      println("Artifact is a local project: ${projectIdentifier.projectPath}")
-      return true
-    }
-
-    return false
+    return moduleVersion.componentIdentifier is ProjectComponentIdentifier
   }
 
   private fun Set<ResolvedDependency>.getResolvedArtifacts(
@@ -154,35 +137,28 @@ class DependencyCollector(
   ): Set<ResolvedArtifact> {
     val resolvedArtifacts = mutableSetOf<ResolvedArtifact>()
     for (resolvedDependency in this) {
-      var isLocal = false
       resolvedDependency.moduleArtifacts.forEach {
         if (isLocalProjectArtifact(it)) {
           resolvedArtifacts += it
-          isLocal = true
         }
       }
       val name = resolvedDependency.name
       if (name !in visitedDependencyNames) {
         visitedDependencyNames += name
 
-        println("handling resolved artifact :: $name")
-
         try {
           resolvedArtifacts += when {
             resolvedDependency.moduleVersion == "unspecified" -> {
-              println("artifact has unspecified version ${resolvedDependency.toResolvedBomArtifact()}")
               resolvedDependency.children.getResolvedArtifacts(
                 visitedDependencyNames = visitedDependencyNames,
               )
             }
 
             includePlatform && resolvedDependency.isPlatform -> {
-              println("artifact is platform")
               setOf(resolvedDependency.toResolvedBomArtifact())
             }
 
             else -> {
-              println("retrieve allModuleArtifacts from artifact")
               resolvedDependency.allModuleArtifacts
             }
           }
