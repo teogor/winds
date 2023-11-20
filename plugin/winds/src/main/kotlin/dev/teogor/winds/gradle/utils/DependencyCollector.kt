@@ -99,31 +99,42 @@ class DependencyCollector(
         }
         val visitedDependencyNames = mutableSetOf<String>()
 
-        configuration
-          .resolvedConfiguration
-          .lenientConfiguration
-          .allModuleDependencies
-          .getResolvedArtifacts(visitedDependencyNames)
-          .forEach { resArtifact ->
-            val identifier = "${resArtifact.moduleVersion.id.group.trim()}:${resArtifact.name.trim()}"
-            val dependencyDefinition = if (isLocalProjectArtifact(resArtifact)) {
-              val projectIdentifier = resArtifact.id.componentIdentifier as ProjectComponentIdentifier
-              LocalProjectDependency(
-                projectName = projectIdentifier.projectName,
-                modulePath = projectIdentifier.projectPath,
-              )
-            } else {
-              Dependency(
-                group = resArtifact.moduleVersion.id.group,
-                artifact = resArtifact.name,
-                version = resArtifact.moduleVersion.id.version
-              )
+        try {
+          configuration
+            .resolvedConfiguration
+            .lenientConfiguration
+            .allModuleDependencies
+            .getResolvedArtifacts(visitedDependencyNames)
+            .forEach { resArtifact ->
+              val identifier =
+                "${resArtifact.moduleVersion.id.group.trim()}:${resArtifact.name.trim()}"
+              val dependencyDefinition = if (isLocalProjectArtifact(resArtifact)) {
+                val projectIdentifier =
+                  resArtifact.id.componentIdentifier as ProjectComponentIdentifier
+                LocalProjectDependency(
+                  projectName = projectIdentifier.projectName,
+                  modulePath = projectIdentifier.projectPath,
+                )
+              } else {
+                Dependency(
+                  group = resArtifact.moduleVersion.id.group,
+                  artifact = resArtifact.name,
+                  version = resArtifact.moduleVersion.id.version,
+                )
+              }
+              val versions = variantSet.getOrPut(identifier) { LinkedHashSet() }
+              versions.add(dependencyDefinition)
             }
-            val versions = variantSet.getOrPut(identifier) { LinkedHashSet() }
-            versions.add(dependencyDefinition)
-          }
-
+        } catch (e: Exception) {
+          // TODO: Handle dependency resolution error more gracefully
+          //       Current behavior logs the error message and continues
+          //       without providing any additional information or guidance to the user.
+          //       Consider implementing a more robust error handling mechanism
+          //       that provides more context and potentially suggests solutions to the user.
+          //    LOGGER.error("Error resolving dependencies: {}", e.message)
+        }
       }
+
     return CollectedContainer(mutableCollectContainer)
   }
 

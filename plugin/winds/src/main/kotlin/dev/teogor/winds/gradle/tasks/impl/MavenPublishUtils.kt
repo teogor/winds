@@ -24,6 +24,7 @@ import dev.teogor.winds.api.model.WindsFeature
 import dev.teogor.winds.gradle.utils.configureBomModule
 import dev.teogor.winds.gradle.utils.hasKotlinDslPlugin
 import dev.teogor.winds.gradle.utils.hasPublishPlugin
+import dev.teogor.winds.gradle.utils.isAndroidModule
 import dev.teogor.winds.gradle.utils.windsPluginConfiguration
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.getValue
@@ -31,6 +32,21 @@ import org.gradle.kotlin.dsl.provideDelegate
 
 fun Project.configureMavenPublish() {
   val base = this
+
+  // Apply publish plugins only for Android modules due to Maven plugin requirements
+  if (isAndroidModule()) {
+    val winds: Winds by extensions
+    val maven: MavenPublish by winds
+    if (hasKotlinDslPlugin()) {
+      plugins.apply("java-library")
+      plugins.apply("com.vanniktech.maven.publish")
+    } else if (hasPublishPlugin()) {
+      plugins.apply("com.vanniktech.maven.publish")
+    } else {
+      maven.canBePublished = false
+    }
+  }
+
   afterEvaluate {
     val winds: Winds by extensions
     val mavenPublishFeatureEnabled = winds isEnabled WindsFeature.MAVEN_PUBLISH
