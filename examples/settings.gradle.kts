@@ -22,9 +22,6 @@ dependencyResolutionManagement {
   }
 }
 
-// todo rename to Examples
-//  rootProject.name = "Examples"
-
 include(":bom")
 
 include(":demo")

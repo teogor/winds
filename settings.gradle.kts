@@ -20,4 +20,4 @@ include("api")
 include("common")
 include("gradle-plugin")
 
-includeBuild("playground")
+includeBuild("examples")
