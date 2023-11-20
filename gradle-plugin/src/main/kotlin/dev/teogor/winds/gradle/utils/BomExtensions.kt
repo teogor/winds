@@ -67,7 +67,6 @@ private fun Project.collectBomConstraints(
   }
 }
 
-
 private fun DependencyConstraintHandler.api(
   constraintNotation: Any,
 ) = add("api", constraintNotation)

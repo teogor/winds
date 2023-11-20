@@ -1,0 +1,76 @@
+public abstract interface class dev/teogor/winds/common/ErrorId {
+	public abstract fun getErrorId ()I
+	public abstract fun getErrorIdFormatted ()Ljava/lang/String;
+	public abstract fun getErrorIdString ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/common/ErrorId$BomLibraryError : dev/teogor/winds/common/ErrorId {
+	public static final field INSTANCE Ldev/teogor/winds/common/ErrorId$BomLibraryError;
+	public fun getErrorId ()I
+	public fun getErrorIdFormatted ()Ljava/lang/String;
+	public fun getErrorIdString ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/common/ErrorId$BomOptionsError : dev/teogor/winds/common/ErrorId {
+	public static final field INSTANCE Ldev/teogor/winds/common/ErrorId$BomOptionsError;
+	public fun getErrorId ()I
+	public fun getErrorIdFormatted ()Ljava/lang/String;
+	public fun getErrorIdString ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/common/ErrorId$DefaultImpls {
+	public static fun getErrorIdFormatted (Ldev/teogor/winds/common/ErrorId;)Ljava/lang/String;
+	public static fun getErrorIdString (Ldev/teogor/winds/common/ErrorId;)Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/common/ErrorId$GenericError : dev/teogor/winds/common/ErrorId {
+	public static final field INSTANCE Ldev/teogor/winds/common/ErrorId$GenericError;
+	public fun getErrorId ()I
+	public fun getErrorIdFormatted ()Ljava/lang/String;
+	public fun getErrorIdString ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/common/ErrorId$PomDeveloperError : dev/teogor/winds/common/ErrorId {
+	public static final field INSTANCE Ldev/teogor/winds/common/ErrorId$PomDeveloperError;
+	public fun getErrorId ()I
+	public fun getErrorIdFormatted ()Ljava/lang/String;
+	public fun getErrorIdString ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/common/ErrorId$PomLicenseError : dev/teogor/winds/common/ErrorId {
+	public static final field INSTANCE Ldev/teogor/winds/common/ErrorId$PomLicenseError;
+	public fun getErrorId ()I
+	public fun getErrorIdFormatted ()Ljava/lang/String;
+	public fun getErrorIdString ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/common/dependencies/CollectedContainer : java/io/Serializable {
+	public fun <init> (Ljava/util/Map;)V
+	public final fun component1 ()Ljava/util/Map;
+	public final fun copy (Ljava/util/Map;)Ldev/teogor/winds/common/dependencies/CollectedContainer;
+	public static synthetic fun copy$default (Ldev/teogor/winds/common/dependencies/CollectedContainer;Ljava/util/Map;ILjava/lang/Object;)Ldev/teogor/winds/common/dependencies/CollectedContainer;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun flattenDependencies ()Ljava/util/List;
+	public final fun getDependencies ()Ljava/util/Map;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/common/dependencies/DependencyCollector {
+	public fun <init> ()V
+	public fun <init> (Z[Ljava/lang/String;)V
+	public synthetic fun <init> (Z[Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun collect (Lorg/gradle/api/Project;)Ldev/teogor/winds/common/dependencies/CollectedContainer;
+}
+
+public final class dev/teogor/winds/common/dependencies/DependencyCollectorKt {
+	public static final fun getFilterVariants ()[Ljava/lang/String;
+	public static final fun getIncludePlatform ()Z
+	public static final fun setFilterVariants ([Ljava/lang/String;)V
+	public static final fun setIncludePlatform (Z)V
+}
+
+public final class dev/teogor/winds/common/utils/MavenPomUtilsKt {
+	public static final fun attachMavenData (Lorg/gradle/api/publish/maven/MavenPom;Ldev/teogor/winds/api/MavenPublish;)V
+}
+

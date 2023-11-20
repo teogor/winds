@@ -1,4 +1,5 @@
 [versions]
+api-validator = "0.13.2"
 aboutLibraries = "10.8.3"
 accompanist = "0.33.1-alpha"
 activityCompose = "1.7.2"
@@ -195,6 +196,7 @@ protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
 about-libraries = { id = "com.mikepenz.aboutlibraries.plugin", version.ref = "aboutLibraries" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+api-validator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "api-validator" }
 vanniktech-maven = { id = "com.vanniktech.maven.publish", version.ref = "vanniktechMavenPlugin" }
 gradle-publish = { id = "com.gradle.plugin-publish", version.ref = "gradlePublish" }
 build-config = { id = "com.github.gmazzo.buildconfig", version.ref = "buildConfig" }

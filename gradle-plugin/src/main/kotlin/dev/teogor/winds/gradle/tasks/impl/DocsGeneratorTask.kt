@@ -24,15 +24,15 @@ import dev.teogor.winds.api.model.ModuleInfo
 import dev.teogor.winds.api.model.Version
 import dev.teogor.winds.common.ErrorId
 import dev.teogor.winds.gradle.tasks.BaseGeneratorTask
-import java.io.File
-import java.time.Instant
-import java.time.ZoneOffset
-import kotlin.random.Random
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.gradle.api.tasks.TaskAction
 import org.gradle.kotlin.dsl.provideDelegate
+import java.io.File
+import java.time.Instant
+import java.time.ZoneOffset
+import kotlin.random.Random
 
 abstract class DocsGeneratorTask : BaseGeneratorTask(
   description = "Generates documentation for a project.",

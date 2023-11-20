@@ -1,11 +1,11 @@
 /*
- * Copyright 2016 the original author or authors.
+ * Copyright 2023 teogor (Teodor Grigor)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.teogor.winds.common.dependencies;
+
+package dev.teogor.winds.common.dependencies
 
 import dev.teogor.winds.api.model.Dependency
 import dev.teogor.winds.api.model.DependencyDefinition
 import dev.teogor.winds.api.model.LocalProjectDependency
-import java.io.File
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration
 import org.gradle.api.artifacts.ModuleIdentifier
@@ -30,6 +30,7 @@ import org.gradle.api.artifacts.component.ModuleComponentIdentifier
 import org.gradle.api.artifacts.component.ProjectComponentIdentifier
 import org.gradle.api.internal.artifacts.dependencies.DefaultProjectDependency
 import org.slf4j.LoggerFactory
+import java.io.File
 
 /**
  * Enable the inclusion of platform dependencies in the report.
@@ -63,7 +64,8 @@ class DependencyCollector(
   fun collect(project: Project): CollectedContainer {
     LOGGER.info("Collecting dependencies")
 
-    val mutableCollectContainer: MutableMap<String, MutableMap<String, MutableSet<DependencyDefinition>>> =
+    val mutableCollectContainer:
+      MutableMap<String, MutableMap<String, MutableSet<DependencyDefinition>>> =
       sortedMapOf(compareBy<String> { it })
 
     project.configurations
@@ -75,7 +77,9 @@ class DependencyCollector(
         if (cn.endsWith("CompileClasspath", true)) {
           val variant = cn.removeSuffix("CompileClasspath")
           if (filterVariants.isEmpty() || filterVariants.contains(variant)) {
-            LOGGER.info("Collecting dependencies for compile time variant $variant from config: ${it.name}")
+            LOGGER.info(
+              "Collecting dependencies for compile time variant $variant from config: ${it.name}",
+            )
             return@mapNotNull variant to it
           } else {
             LOGGER.info("Skipping compile time variant $variant from config: ${it.name}")
@@ -83,7 +87,9 @@ class DependencyCollector(
         } else if (cn.endsWith("RuntimeClasspath", true)) {
           val variant = cn.removeSuffix("RuntimeClasspath")
           if (filterVariants.isEmpty() || filterVariants.contains(variant)) {
-            LOGGER.info("Collecting dependencies for runtime variant $variant from config: ${it.name}")
+            LOGGER.info(
+              "Collecting dependencies for runtime variant $variant from config: ${it.name}",
+            )
             return@mapNotNull variant to it
           } else {
             LOGGER.info("Skipping compile time variant $variant from config: ${it.name}")

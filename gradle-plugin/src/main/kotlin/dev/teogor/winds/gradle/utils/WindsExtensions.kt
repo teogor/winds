@@ -169,7 +169,8 @@ inline fun Project.collectModulesInfo(
 
     val docsGenerator = winds.docsGenerator
     val dependencies = aggregateDependencies(
-      allDependencies, docsGenerator.dependencyGatheringType
+      allDependencies = allDependencies,
+      dependencyGatheringType = docsGenerator.dependencyGatheringType,
     )
 
     val mavenPublish = winds.mavenPublish
