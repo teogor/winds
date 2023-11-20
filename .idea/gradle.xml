@@ -34,6 +34,8 @@
             <option value="$PROJECT_DIR$/demo-2" />
             <option value="$PROJECT_DIR$/demo-plugin" />
             <option value="$PROJECT_DIR$/demo-plugin/plugin-core" />
+            <option value="$PROJECT_DIR$/kmp" />
+            <option value="$PROJECT_DIR$/kmp/android" />
             <option value="$PROJECT_DIR$/module" />
             <option value="$PROJECT_DIR$/module/library-1" />
             <option value="$PROJECT_DIR$/module/library-2" />

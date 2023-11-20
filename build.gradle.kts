@@ -17,11 +17,19 @@ buildscript {
 
 // Lists all plugins used throughout the project without applying them.
 plugins {
-  alias(libs.plugins.android.application) apply false
+  // Kotlin Suite
   alias(libs.plugins.kotlin.jvm) apply false
+  alias(libs.plugins.kotlin.android) apply false
   alias(libs.plugins.kotlin.serialization) apply false
+
+  // Android Plugins
+  alias(libs.plugins.android.application) apply false
+  alias(libs.plugins.android.library) apply false
+
+  // Firebase
   alias(libs.plugins.firebase.crashlytics) apply false
   alias(libs.plugins.firebase.perf) apply false
+
   alias(libs.plugins.gms) apply false
   alias(libs.plugins.hilt) apply false
   alias(libs.plugins.ksp) apply false
@@ -47,7 +55,6 @@ winds {
     canBePublished = false
 
     description = "\uD83C\uDF43 Winds build and publish libraries and applications for multiple platforms, simple and efficient."
-
 
     groupId = "dev.teogor.winds"
 

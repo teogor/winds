@@ -24,6 +24,8 @@ include(":demo")
 include(":demo-1")
 include(":demo-2")
 
+include(":kmp:android")
+
 include(":module:library-1")
 include(":module:library-2")
 include(":module:library-3")
