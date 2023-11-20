@@ -22,18 +22,18 @@ import dev.teogor.winds.api.impl.MavenPublishImpl
 import dev.teogor.winds.api.impl.WindsOptions
 import dev.teogor.winds.api.model.DependencyDefinition
 import dev.teogor.winds.api.model.DependencyType
-import dev.teogor.winds.api.model.Developer
-import dev.teogor.winds.api.model.LicenseType
 import dev.teogor.winds.api.model.LocalProjectDependency
 import dev.teogor.winds.api.model.ModuleInfo
 import dev.teogor.winds.api.model.Version
 import dev.teogor.winds.api.model.VersionBuilder
+import dev.teogor.winds.common.dependencies.DependencyCollector
+import dev.teogor.winds.common.dependencies.filterVariants
+import dev.teogor.winds.common.dependencies.includePlatform
+import dev.teogor.winds.common.utils.attachMavenData
 import dev.teogor.winds.gradle.WindsPlugin
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
 import org.gradle.api.publish.maven.MavenPom
-import org.gradle.api.publish.maven.MavenPomDeveloperSpec
-import org.gradle.api.publish.maven.MavenPomLicenseSpec
 import org.gradle.kotlin.dsl.getValue
 import org.gradle.kotlin.dsl.provideDelegate
 import org.gradle.kotlin.dsl.register
@@ -122,87 +122,8 @@ fun MavenPublish.copyVersion(
 }
 
 infix fun MavenPublish.attachTo(pom: MavenPom) {
-  pom.apply {
-    val mavenPublish = this@attachTo
-
-    name.set(mavenPublish.displayName)
-    description.set(mavenPublish.description)
-    inceptionYear.set(mavenPublish.inceptionYear.toString())
-    url.set(mavenPublish.url)
-
-    contributors {
-      // TODO maven contributors
-    }
-
-    developers {
-      mavenPublish.developers?.toDeveloperSpec(
-        mavenPomDeveloperSpec = this,
-      ) ?: developerError()
-    }
-
-    licenses {
-      mavenPublish.licenses?.toLicenseSpec(
-        mavenPomLicenseSpec = this,
-      ) ?: licenseError()
-    }
-
-    scm {
-      url.set(mavenPublish.scmUrl)
-      connection.set(mavenPublish.scmConnection)
-      developerConnection.set(mavenPublish.scmDeveloperConnection)
-    }
-  }
+  attachMavenData(pom, this)
 }
-
-private fun List<Developer>.toDeveloperSpec(
-  mavenPomDeveloperSpec: MavenPomDeveloperSpec,
-) {
-  forEach { developer ->
-    mavenPomDeveloperSpec.developer {
-      id.set(developer.id)
-      name.set(developer.name)
-      email.set(developer.email)
-      url.set(developer.url)
-      roles.set(developer.roles)
-      timezone.set(developer.timezone)
-      organization.set(developer.organization)
-      organizationUrl.set(developer.organizationUrl)
-    }
-  }
-}
-
-private fun List<LicenseType>.toLicenseSpec(
-  mavenPomLicenseSpec: MavenPomLicenseSpec,
-) {
-  forEach { license ->
-    mavenPomLicenseSpec.license {
-      name.set(license.name)
-      url.set(license.url)
-      distribution.set(license.distribution)
-      // TODO comments.set(license.comments)
-    }
-  }
-}
-
-private fun licenseError(): Nothing = error(
-  """
-  Uh-oh! A license must be provided for your module. Please specify the license in the `mavenPublish` block within the `winds` extension.
-  If you think this is an error, please [create an issue](https://github.com/teogor/winds) to assist in resolving this matter.
-  Be sure to include the following error ID in your report to help us identify and address the issue:
-  ${ErrorId.PomLicenseError.getErrorIdString()}
-  Thank you for your contribution to improving Winds!
-  """.trimIndent(),
-)
-
-private fun developerError(): Nothing = error(
-  """
-  Uh-oh! At least a developer must be provided for your module. Please add developer information in the `mavenPublish` block within the `winds` extension.
-  If you think this is an error, please [create an issue](https://github.com/teogor/winds) to assist in resolving this matter.
-  Be sure to include the following error ID in your report to help us identify and address the issue:
-  ${ErrorId.PomDeveloperError.getErrorIdString()}
-  Thank you for your contribution to improving Winds!
-  """.trimIndent(),
-)
 
 fun Project.windsPluginConfiguration(action: Project.(Winds) -> Unit) {
   subprojects {

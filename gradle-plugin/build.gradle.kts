@@ -24,8 +24,9 @@ plugins {
   alias(libs.plugins.vanniktech.maven)
 }
 
+// todo
 group = "dev.teogor.winds"
-version = "1.0.0-alpha01"
+version = "1.0.0-alpha02"
 
 repositories {
   mavenLocal()
@@ -48,7 +49,8 @@ compileKotlin.kotlinOptions {
 }
 
 dependencies {
-  implementation(project(":winds-api"))
+  implementation(project(":api"))
+  implementation(project(":common"))
 
   implementation(libs.kotlinx.serialization.core)
   implementation(libs.kotlinx.serialization.json)
@@ -59,9 +61,7 @@ dependencies {
   compileOnly(libs.ksp.gradlePlugin)
 }
 
-group = "dev.teogor.winds"
-version = "1.0.0-alpha02"
-
+@Suppress("UnstableApiUsage")
 gradlePlugin {
   website.set("https://source.teogor.dev/winds")
   vcsUrl.set("https://github.com/teogor/winds")

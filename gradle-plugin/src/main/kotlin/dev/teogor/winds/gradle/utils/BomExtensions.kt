@@ -17,6 +17,7 @@
 package dev.teogor.winds.gradle.utils
 
 import dev.teogor.winds.api.MavenPublish
+import dev.teogor.winds.common.ErrorId
 import org.gradle.api.Project
 import org.gradle.api.artifacts.dsl.DependencyConstraintHandler
 

@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.teogor.winds.gradle.utils;
+package dev.teogor.winds.common.dependencies;
 
 import dev.teogor.winds.api.model.Dependency
 import dev.teogor.winds.api.model.DependencyDefinition
 import dev.teogor.winds.api.model.LocalProjectDependency
-import dev.teogor.winds.gradle.model.CollectedContainer
 import java.io.File
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration

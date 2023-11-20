@@ -1,5 +1,5 @@
 pluginManagement {
-  includeBuild("../plugin/")
+  includeBuild("../")
   // error includeBuild("demo-plugin/")
   repositories {
     google()

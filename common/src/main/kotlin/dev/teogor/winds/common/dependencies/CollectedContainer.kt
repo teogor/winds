@@ -1,4 +1,4 @@
-package dev.teogor.winds.gradle.model
+package dev.teogor.winds.common.dependencies
 
 import dev.teogor.winds.api.model.DependencyDefinition
 import java.io.Serializable

@@ -22,8 +22,8 @@ import dev.teogor.winds.api.model.BomInfo
 import dev.teogor.winds.api.model.LocalProjectDependency
 import dev.teogor.winds.api.model.ModuleInfo
 import dev.teogor.winds.api.model.Version
+import dev.teogor.winds.common.ErrorId
 import dev.teogor.winds.gradle.tasks.BaseGeneratorTask
-import dev.teogor.winds.gradle.utils.ErrorId
 import java.io.File
 import java.time.Instant
 import java.time.ZoneOffset

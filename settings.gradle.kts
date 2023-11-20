@@ -1,14 +1,13 @@
 pluginManagement {
-  includeBuild("plugin/")
   repositories {
     google()
     mavenCentral()
     gradlePluginPortal()
   }
 }
-@Suppress("UnstableApiUsage")
+
 dependencyResolutionManagement {
-  repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+  @Suppress("UnstableApiUsage")
   repositories {
     google()
     mavenCentral()
@@ -16,5 +15,9 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Winds"
+
+include("api")
+include("common")
+include("gradle-plugin")
 
 includeBuild("playground")

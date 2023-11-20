@@ -1,4 +1,4 @@
-package dev.teogor.winds.gradle.utils
+package dev.teogor.winds.common
 
 sealed interface ErrorId {
   val errorId: Int
