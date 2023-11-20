@@ -89,6 +89,9 @@ private val publishPlugins = listOf(
 
 fun Project.hasPublishPlugin() = publishPlugins.any { plugins.hasPlugin(it) }
 
+fun Project.isAndroidModule() =
+  plugins.hasPlugin("com.android.application") || plugins.hasPlugin("com.android.library")
+
 fun Project.hasKotlinDslPlugin() = plugins.hasPlugin("org.gradle.kotlin.kotlin-dsl")
 
 inline fun <reified T : DefaultTask> WindsOptions.registerTask(
@@ -229,24 +232,26 @@ fun Project.afterWindsPluginConfiguration(action: Project.(Winds) -> Unit) {
 }
 
 /**
- * Collects information about all the modules in the project.
+ * Collects module information for the current project and its
+ * subprojects.
  *
- * @param onModuleInfo A callback that will be called for each module.
+ * @param onModuleInfo A callback function that will be invoked for
+ * each module with its module information.
  */
 inline fun Project.collectModulesInfo(
   crossinline onModuleInfo: (ModuleInfo) -> Unit,
 ) {
+  val allDependencies = if (isAndroidModule()) getAllDependencies() else emptyList()
+
   afterWindsPluginConfiguration {
     val winds: Winds by extensions
-    val mavenPublish = winds.mavenPublish
+
     val docsGenerator = winds.docsGenerator
+    val dependencies = aggregateDependencies(
+      allDependencies, docsGenerator.dependencyGatheringType
+    )
 
-    val dependencies = when (docsGenerator.dependencyGatheringType) {
-      DependencyType.NONE -> emptyList()
-      DependencyType.LOCAL -> getAllDependencies().filterIsInstance<LocalProjectDependency>()
-      DependencyType.ALL -> getAllDependencies()
-    }
-
+    val mavenPublish = winds.mavenPublish
     val moduleInfo = ModuleInfo(
       completeName = mavenPublish.completeName,
       name = mavenPublish.name ?: "",
@@ -262,5 +267,43 @@ inline fun Project.collectModulesInfo(
     )
 
     onModuleInfo(moduleInfo)
+  }
+}
+
+/**
+ * Aggregates dependencies for the current project based on the
+ * provided dependency gathering type.
+ *
+ * @param allDependencies The list of all dependencies for the
+ * project.
+ * @param dependencyGatheringType The type of dependency gathering
+ * to perform.
+ *
+ * @return The aggregated list of dependencies.
+ */
+fun Project.aggregateDependencies(
+  allDependencies: List<DependencyDefinition>,
+  dependencyGatheringType: DependencyType,
+): MutableList<DependencyDefinition> {
+  val dependencies = allDependencies.toMutableList().also {
+    if (!isAndroidModule()) {
+      it.addAll(getAllDependencies())
+    }
+  }
+
+  return when (dependencyGatheringType) {
+    DependencyType.NONE -> {
+      mutableListOf()
+    }
+
+    DependencyType.LOCAL -> {
+      dependencies
+        .filterIsInstance<LocalProjectDependency>()
+        .toMutableList()
+    }
+
+    DependencyType.ALL -> {
+      dependencies.toMutableList()
+    }
   }
 }

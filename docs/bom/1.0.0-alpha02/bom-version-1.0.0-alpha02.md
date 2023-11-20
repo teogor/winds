@@ -17,12 +17,12 @@ dependencies {
 
   // Declare the dependencies for the desired Winds products
   // without specifying versions. For example, declare:
+  // Winds Module 1 Library 2
+  implementation("dev.teogor.winds:module-1-library-2")
+  // Winds KMP Android
+  implementation("dev.teogor.winds:kmp-android")
   // Winds Module 1 Library 3
   implementation("dev.teogor.winds:module-1-library-3")
-  // Winds Module 1 Library 1
-  implementation("dev.teogor.winds:module-1-library-1")
-  // Winds Module 1 Library 4
-  implementation("dev.teogor.winds:module-1-library-4")
 }
 ```
 
@@ -31,6 +31,7 @@ dependencies {
 | Status | Service or Product | Gradle dependency | Latest version |
 | ------ | ------------------ | ----------------- | -------------- |
 | 🧪 | [demo-kotlin-dsl-tst2](/demo-2) | dev.teogor.winds:winds-demo-kotlin-dsl-tst2 | 1.0.0-alpha01 |
+| 🧪 | [android](/kmp/android) | dev.teogor.winds:kmp-android | 1.0.0-alpha01 |
 | 🛠️ | [library-1](/module/library-1) | dev.teogor.winds:module-1-library-1 | 1.0.0-beta05 |
 | 🧪 | [library-2](/module/library-2) | dev.teogor.winds:module-1-library-2 | 1.0.0-alpha01 |
 | 🚧 | [library-3](/module/library-3) | dev.teogor.winds:module-1-library-3 | 1.0.0-alpha10 |

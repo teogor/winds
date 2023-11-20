@@ -65,6 +65,7 @@ abstract class DocsGeneratorTask : BaseGeneratorTask(
     Thank you for your contribution to improving Winds!
     """.trimIndent(),
   )
+
   private val bomLibrary: ModuleInfo
     get() = libraries.bom() ?: bomLibraryError()
 
@@ -417,10 +418,14 @@ abstract class DocsGeneratorTask : BaseGeneratorTask(
     libraries
       .filter { !it.isBoM }
       .filter { it.canBePublished }
-      .groupBy { it.module }
+      .groupBy { it.names.reversed()[1] }
       .forEach { (module, libraries) ->
         val content = StringBuilder()
-        content.appendLine("## ${docsGenerator.name} $module")
+        if (libraries.first().names.size == 2) {
+          content.appendLine("## ${docsGenerator.name}")
+        } else {
+          content.appendLine("## ${docsGenerator.name} $module")
+        }
         content.appendLine()
         content.appendLine("| Status | Library | Gradle dependency |")
         content.appendLine("| ------ | ------- | ----------------- |")
@@ -476,7 +481,14 @@ abstract class DocsGeneratorTask : BaseGeneratorTask(
         }
         content.appendLine()
 
-        val filePath = "${docsGenerator.identifier}-$module.md"
+        val name = libraries[0]
+          .names
+          .dropLast(1)
+          .joinToString(separator = " ")
+          .replace(" ", "-")
+          .lowercase()
+
+        val filePath = "$name-libraries.md"
         docsFolder file filePath write {
           write(content.toString())
         }

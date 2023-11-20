@@ -1,4 +1,4 @@
-## Winds module
+## Winds Module 1
 
 | Status | Library | Gradle dependency |
 | ------ | ------- | ----------------- |
