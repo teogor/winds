@@ -23,6 +23,12 @@ plugins {
   alias(libs.plugins.api.validator) apply true // Enable API Validator for API validation
 }
 
+// Explicitly set the group and version for all subprojects
+subprojects {
+  group = "dev.teogor.winds"
+  version = "1.0.0-alpha03"
+}
+
 val ktlintVersion = "0.50.0"
 
 val excludedProjects = listOf(
