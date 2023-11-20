@@ -24,10 +24,6 @@ plugins {
   alias(libs.plugins.vanniktech.maven)
 }
 
-// todo
-group = "dev.teogor.winds"
-version = "1.0.0-alpha02"
-
 repositories {
   mavenLocal()
   maven(url = "https://maven.google.com/")

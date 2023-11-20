@@ -24,10 +24,6 @@ plugins {
   alias(libs.plugins.vanniktech.maven) apply true
 }
 
-// todo centralize winds version
-group = "dev.teogor.winds"
-version = "1.0.0-alpha02"
-
 val javaVersion = JavaVersion.VERSION_1_8
 java {
   sourceCompatibility = javaVersion
@@ -60,7 +56,7 @@ mavenPublishing {
     coordinates(
       groupId = "dev.teogor.winds",
       artifactId = "winds-api",
-      version = "1.0.0-alpha02",
+      version = version.toString(),
     )
 
     licenses {
