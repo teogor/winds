@@ -14,8 +14,6 @@ dependencyResolutionManagement {
   }
 }
 
-rootProject.name = "Winds"
-
 include("api")
 include("common")
 include("gradle-plugin")
