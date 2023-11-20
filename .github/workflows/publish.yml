@@ -33,4 +33,5 @@ jobs:
 
       - name: Publish to MavenCentral
         run: |
-          ./gradlew :plugin:winds-api:publish --no-configuration-cache
+          ./gradlew :api:publish --no-configuration-cache
+          ./gradlew :common:publish --no-configuration-cache
