@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="11">
+    <bytecodeTargetLevel target="1.6">
+      <module name="demo-plugin.plugin-core" target="1.8" />
+      <module name="demo-plugin.plugin-core.main" target="1.8" />
+      <module name="demo-plugin.plugin-core.test" target="1.8" />
       <module name="winds.gradle-plugin-api" target="11" />
       <module name="winds.gradle-plugin-api.main" target="11" />
       <module name="winds.gradle-plugin-api.test" target="11" />
@@ -13,6 +16,7 @@
       <module name="winds.winds-plugin" target="11" />
       <module name="winds.winds-plugin.main" target="11" />
       <module name="winds.winds-plugin.test" target="11" />
+      <module name="winds.Winds.test" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>
