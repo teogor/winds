@@ -1,4 +1,4 @@
-## Winds demo-2
+## Winds
 
 | Status | Library | Gradle dependency |
 | ------ | ------- | ----------------- |
