@@ -1,5 +1,11 @@
 ## Winds 🍃
 
+### Overview
+
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Profile](https://source.teogor.dev/badges/teogor-github.svg)](https://github.com/teogor)
+[![Open-Source Directory](https://source.teogor.dev/badges/teogor-dev.svg)](https://source.teogor.dev)
+
 Winds aims to provide a simple and efficient way to build and publish libraries and applications for
 multiple platforms. It is designed to be flexible and extensible, so that it can be used to build a
 wide variety of libraries and applications, from simple utility libraries to complex composable
@@ -17,37 +23,34 @@ libraries and applications.
 * Android Gradle Plugin 7.0+
 * Kotlin Gradle Plugin 1.7+
 
-### Usage
+### How to Apply
 
 **Plugin implementation**
 
 To implement the Winds plugin, add the following plugin ID to your build.gradle file:
 
+=== "Kotlin"
+
+    ```kotlin
+    plugins {
+      id("dev.teogor.winds") version "1.0.0-alpha03"
+    }
+    ```
+
+=== "Groovy"
+
+    ```groovy
+    plugins {
+      id 'dev.teogor.winds' version '1.0.0-alpha03'
+    }
+    ```
+
+To learn more about detailed implementation, please refer to the
+comprehensive [documentation](releases.md).
+
+### Usage
+
 ```kotlin
-plugins {
-  id "dev.teogor.winds" version "1.0.0-alpha02"
-}
-```
-
-**Plugin usage**
-
-Once you have implemented the Winds plugin, you can use it to build and publish your library or
-application as follows:
-
-1. Configure the Winds plugin in your build.gradle file.
-2. Build your library or application using the `gradlew build` command.
-3. Publish your library or application using the `gradlew publish` command.
-
-**Example build.gradle file**
-
-The following is an example build.gradle file that uses the Winds plugin to build and publish a
-library:
-
-```kotlin
-plugins {
-  id "dev.teogor.winds" version "1.0.0-alpha03"
-}
-
 winds {
   buildFeatures {
     mavenPublish = true
@@ -61,6 +64,12 @@ winds {
   }
 }
 ```
+
+**Getting Started**
+
+To get started with Winds, refer to the comprehensive documentation available at
+[source.teogor.dev/winds](https://source.teogor.dev/winds). The documentation provides
+detailed explanations, examples, and best practices for using the library effectively.
 
 ## Find this repository useful? 🩷
 
