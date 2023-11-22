@@ -18,4 +18,4 @@ include("api")
 include("common")
 include("gradle-plugin")
 
-includeBuild("examples")
+// includeBuild("examples")
