@@ -37,7 +37,7 @@ abstract class BaseGeneratorTask(
 
   infix fun File.directory(path: String): File {
     return if (this == root) {
-      directoryImpl(path)
+      directoryImpl("${project.projectDir.path}/$path")
     } else {
       directoryImpl("$this/$path")
     }
@@ -62,21 +62,19 @@ abstract class BaseGeneratorTask(
   @TaskAction
   abstract fun action()
 
-  private fun directoryImpl(path: String): File {
-    val file = File(path)
-    file.mkdirs()
-    return file
+  private fun directoryImpl(path: String) = File(path).also {
+    if (!it.exists()) {
+      it.mkdirs()
+    }
   }
 
-  private fun fileImpl(path: String): File {
-    val file = File(path)
-    if (!file.exists()) {
+  private fun fileImpl(path: String) = File(path).also {
+    if (!it.exists()) {
       // Create parent directories if they don't exist
-      file.parentFile.mkdirs()
+      it.parentFile.mkdirs()
 
       // Create a new file
-      file.createNewFile()
+      it.createNewFile()
     }
-    return file
   }
 }
