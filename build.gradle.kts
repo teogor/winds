@@ -1,4 +1,3 @@
-import org.jetbrains.dokka.gradle.DokkaMultiModuleTask
 import org.jetbrains.dokka.gradle.DokkaPlugin
 
 buildscript {
@@ -99,14 +98,5 @@ apiValidation {
 subprojects {
   if (!excludedProjects.contains(project.name)) {
     apply<DokkaPlugin>()
-    tasks.withType<DokkaMultiModuleTask>().configureEach {
-      moduleName.set(project.name)
-      moduleVersion.set(project.version.toString())
-      outputDirectory.set(rootProject.projectDir.resolve("docs/dokka"))
-      failOnWarning.set(false)
-      suppressObviousFunctions.set(true)
-      suppressInheritedMembers.set(false)
-      offlineMode.set(false)
-    }
   }
 }

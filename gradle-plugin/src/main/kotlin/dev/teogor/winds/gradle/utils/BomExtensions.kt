@@ -54,14 +54,20 @@ private fun Project.collectBomConstraints(
 
   // Iterates over all the subprojects in the project.
   rootProject.afterWindsPluginConfiguration {
-    val subproject = this
-
     // Checks if the name of the subproject is not equal to the name of the BoM.
-    if (subproject.name != bomName) {
+    if (name != bomName) {
       // Checks if the subproject can be published.
       if (it.mavenPublish.canBePublished) {
         // Adds the subproject as a dependency (api) of the BoM.
-        bomConstraints.api(subproject)
+        bomConstraints.api(this)
+      }
+
+      afterWindsPluginConfiguration { winds ->
+        // Checks if the subproject can be published.
+        if (winds.mavenPublish.canBePublished) {
+          // Adds the subproject as a dependency (api) of the BoM.
+          bomConstraints.api(this)
+        }
       }
     }
   }
