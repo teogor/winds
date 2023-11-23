@@ -24,15 +24,15 @@ import dev.teogor.winds.api.model.WindsFeature
 import dev.teogor.winds.common.utils.hasAndroidLibraryPlugin
 import dev.teogor.winds.common.utils.hasKotlinDslPlugin
 import dev.teogor.winds.common.utils.hasPublishPlugin
+import dev.teogor.winds.common.utils.hasWindsPlugin
+import dev.teogor.winds.common.utils.processWindsChildProjects
 import dev.teogor.winds.gradle.utils.configureBomModule
-import dev.teogor.winds.gradle.utils.windsPluginConfiguration
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.getValue
 import org.gradle.kotlin.dsl.provideDelegate
 
 fun Project.configureMavenPublish() {
-  val base = this
-
   // Apply publish plugins only for Android modules due to Maven plugin requirements
   if (hasAndroidLibraryPlugin()) {
     val winds: Winds by extensions
@@ -69,13 +69,16 @@ fun Project.configureMavenPublish() {
         }
       }
 
-      windsPluginConfiguration {
-        if (parent == base) {
-          it.buildFeatures.mavenPublish = winds.buildFeatures.mavenPublish
-          (it.mavenPublish as MavenPublishImpl).let { mavenPublishImpl ->
-            mavenPublishImpl.mavenPublishOptions.apply {
-              add(winds.mavenPublish)
-              addAll((winds.mavenPublish as MavenPublishImpl).mavenPublishOptions)
+      processWindsChildProjects {
+        afterEvaluate {
+          if (hasWindsPlugin()) {
+            val childWinds = extensions.getByType<Winds>()
+            childWinds.buildFeatures.mavenPublish = winds.buildFeatures.mavenPublish
+            (childWinds.mavenPublish as MavenPublishImpl).let { mavenPublishImpl ->
+              mavenPublishImpl.mavenPublishOptions.apply {
+                add(winds.mavenPublish)
+                addAll((winds.mavenPublish as MavenPublishImpl).mavenPublishOptions)
+              }
             }
           }
         }

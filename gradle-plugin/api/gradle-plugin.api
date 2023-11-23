@@ -165,6 +165,7 @@ public final class dev/teogor/winds/gradle/utils/WindsExtensionsKt {
 	public static final fun attachTo (Ldev/teogor/winds/api/MavenPublish;Lorg/gradle/api/publish/maven/MavenPom;)V
 	public static final fun checkPluginApplied (Lorg/gradle/api/Project;Lkotlin/jvm/functions/Function1;)V
 	public static final fun collectModulesInfo (Lorg/gradle/api/Project;Lkotlin/jvm/functions/Function1;)V
+	public static final fun configureWindsPluginConfiguration (Lorg/gradle/api/Project;Lkotlin/jvm/functions/Function2;)V
 	public static final fun copyVersion (Ldev/teogor/winds/api/MavenPublish;Lkotlin/jvm/functions/Function1;)Ldev/teogor/winds/api/model/Version;
 	public static synthetic fun copyVersion$default (Ldev/teogor/winds/api/MavenPublish;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ldev/teogor/winds/api/model/Version;
 	public static final fun getAllDependencies (Lorg/gradle/api/Project;)Ljava/util/List;
@@ -178,7 +179,12 @@ public final class dev/teogor/winds/gradle/utils/WindsExtensionsKt {
 	public static final fun windsPluginConfiguration (Lorg/gradle/api/Project;Lkotlin/jvm/functions/Function2;)V
 }
 
-public final class dev/teogor/winds/gradle/utils/WindsExtensionsKt$afterWindsPluginConfiguration$1$inlined$sam$i$org_gradle_api_Action$0 : org/gradle/api/Action {
+public final class dev/teogor/winds/gradle/utils/WindsExtensionsKt$configureWindsPluginConfiguration$2$inlined$sam$i$org_gradle_api_Action$0 : org/gradle/api/Action {
+	public fun <init> (Lkotlin/jvm/functions/Function1;)V
+	public final synthetic fun execute (Ljava/lang/Object;)V
+}
+
+public final class dev/teogor/winds/gradle/utils/WindsExtensionsKt$inlined$sam$i$org_gradle_api_Action$0 : org/gradle/api/Action {
 	public fun <init> (Lkotlin/jvm/functions/Function1;)V
 	public final synthetic fun execute (Ljava/lang/Object;)V
 }
