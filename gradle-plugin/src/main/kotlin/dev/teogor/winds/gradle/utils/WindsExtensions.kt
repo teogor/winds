@@ -31,6 +31,7 @@ import dev.teogor.winds.common.dependencies.filterVariants
 import dev.teogor.winds.common.dependencies.includePlatform
 import dev.teogor.winds.common.utils.attachMavenData
 import dev.teogor.winds.common.utils.hasAndroidLibraryPlugin
+import dev.teogor.winds.common.utils.processWindsChildProjects
 import dev.teogor.winds.gradle.WindsPlugin
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
@@ -122,16 +123,39 @@ fun Project.windsPluginConfiguration(action: Project.(Winds) -> Unit) {
 }
 
 fun Project.afterWindsPluginConfiguration(action: Project.(Winds) -> Unit) {
-  subprojects {
-    val project = this
+  processWindsChildProjects {
     plugins.withType<WindsPlugin> {
-      if (project.state.executed) {
+      if (state.executed) {
         val winds: Winds by extensions
-        project.action(winds)
+        action(winds)
       } else {
-        project.afterEvaluate {
+        afterEvaluate {
           val winds: Winds by extensions
-          project.action(winds)
+          action(winds)
+        }
+      }
+    }
+  }
+}
+
+fun Project.configureWindsPluginConfiguration(action: Project.(Winds) -> Unit) {
+  if (state.executed) {
+    processWindsChildProjects {
+      plugins.withType<WindsPlugin> {
+        afterEvaluate {
+          val winds: Winds by extensions
+          action(winds)
+        }
+      }
+    }
+  } else {
+    afterEvaluate {
+      processWindsChildProjects {
+        plugins.withType<WindsPlugin> {
+          afterEvaluate {
+            val winds: Winds by extensions
+            action(winds)
+          }
         }
       }
     }
@@ -150,7 +174,7 @@ inline fun Project.collectModulesInfo(
 ) {
   val allDependencies = if (hasAndroidLibraryPlugin()) getAllDependencies() else emptyList()
 
-  afterWindsPluginConfiguration {
+  configureWindsPluginConfiguration {
     val winds: Winds by extensions
 
     val docsGenerator = winds.docsGenerator
@@ -213,7 +237,7 @@ fun Project.aggregateDependencies(
     DependencyType.ALL -> {
       dependencies.toMutableList()
     }
-  }
+  }.distinct().toMutableList()
 }
 
 // region Deprecated

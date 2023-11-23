@@ -70,3 +70,19 @@ fun Project.hasPublishPlugin(): Boolean {
 fun Project.hasWindsPlugin(): Boolean {
   return project.plugins.hasPlugin("dev.teogor.winds")
 }
+
+/**
+ * Applies a given action to all child projects that have the Winds plugin applied.
+ *
+ * @param action The action to apply to each Wind-enabled child project.
+ */
+inline fun Project.processWindsChildProjects(
+  crossinline action: Project.() -> Unit,
+) {
+  childProjects.values
+    .toList()
+    .filter { hasWindsPlugin() }
+    .forEach {
+      it.action()
+    }
+}
