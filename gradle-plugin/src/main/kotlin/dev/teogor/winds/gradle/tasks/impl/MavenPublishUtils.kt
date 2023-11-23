@@ -21,10 +21,10 @@ import dev.teogor.winds.api.Winds
 import dev.teogor.winds.api.getValue
 import dev.teogor.winds.api.impl.MavenPublishImpl
 import dev.teogor.winds.api.model.WindsFeature
+import dev.teogor.winds.common.utils.hasAndroidLibraryPlugin
+import dev.teogor.winds.common.utils.hasKotlinDslPlugin
+import dev.teogor.winds.common.utils.hasPublishPlugin
 import dev.teogor.winds.gradle.utils.configureBomModule
-import dev.teogor.winds.gradle.utils.hasKotlinDslPlugin
-import dev.teogor.winds.gradle.utils.hasPublishPlugin
-import dev.teogor.winds.gradle.utils.isAndroidModule
 import dev.teogor.winds.gradle.utils.windsPluginConfiguration
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.getValue
@@ -34,7 +34,7 @@ fun Project.configureMavenPublish() {
   val base = this
 
   // Apply publish plugins only for Android modules due to Maven plugin requirements
-  if (isAndroidModule()) {
+  if (hasAndroidLibraryPlugin()) {
     val winds: Winds by extensions
     val maven: MavenPublish by winds
     if (hasKotlinDslPlugin()) {
