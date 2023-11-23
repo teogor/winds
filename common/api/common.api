@@ -74,3 +74,10 @@ public final class dev/teogor/winds/common/utils/MavenPomUtilsKt {
 	public static final fun attachMavenData (Lorg/gradle/api/publish/maven/MavenPom;Ldev/teogor/winds/api/MavenPublish;)V
 }
 
+public final class dev/teogor/winds/common/utils/ProjectPluginUtilsKt {
+	public static final fun hasAndroidLibraryPlugin (Lorg/gradle/api/Project;)Z
+	public static final fun hasKotlinDslPlugin (Lorg/gradle/api/Project;)Z
+	public static final fun hasPublishPlugin (Lorg/gradle/api/Project;)Z
+	public static final fun hasWindsPlugin (Lorg/gradle/api/Project;)Z
+}
+

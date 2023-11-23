@@ -30,6 +30,7 @@ import dev.teogor.winds.common.dependencies.DependencyCollector
 import dev.teogor.winds.common.dependencies.filterVariants
 import dev.teogor.winds.common.dependencies.includePlatform
 import dev.teogor.winds.common.utils.attachMavenData
+import dev.teogor.winds.common.utils.hasAndroidLibraryPlugin
 import dev.teogor.winds.gradle.WindsPlugin
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
@@ -60,11 +61,6 @@ inline fun Project.isWindsApplied(
   }
 }
 
-fun Project.isWindsApplied(): Boolean {
-  val hasWinds = project.plugins.hasPlugin("dev.teogor.winds")
-  return hasWinds
-}
-
 inline fun Project.checkPluginApplied(crossinline block: Winds.() -> Unit) {
   val hasWinds = project.plugins.hasPlugin("dev.teogor.winds")
   if (hasWinds) {
@@ -87,19 +83,9 @@ private val publishPlugins = listOf(
   "version-catalog",
 )
 
-fun Project.hasPublishPlugin() = publishPlugins.any { plugins.hasPlugin(it) }
-
-fun Project.isAndroidModule() =
-  plugins.hasPlugin("com.android.application") || plugins.hasPlugin("com.android.library")
-
-fun Project.hasKotlinDslPlugin() = plugins.hasPlugin("org.gradle.kotlin.kotlin-dsl")
-
 inline fun <reified T : DefaultTask> WindsOptions.registerTask(
   name: String,
 ) = project.tasks.register<T>(name)
-
-@Deprecated("if necessary use afterWindsPluginConfiguration")
-fun Project.lazy(block: Project.() -> Unit) = afterEvaluate(block)
 
 fun Project.getAllDependencies(): List<DependencyDefinition> {
   project.evaluationDependsOnChildren()
@@ -162,7 +148,7 @@ fun Project.afterWindsPluginConfiguration(action: Project.(Winds) -> Unit) {
 inline fun Project.collectModulesInfo(
   crossinline onModuleInfo: (ModuleInfo) -> Unit,
 ) {
-  val allDependencies = if (isAndroidModule()) getAllDependencies() else emptyList()
+  val allDependencies = if (hasAndroidLibraryPlugin()) getAllDependencies() else emptyList()
 
   afterWindsPluginConfiguration {
     val winds: Winds by extensions
@@ -208,7 +194,7 @@ fun Project.aggregateDependencies(
   dependencyGatheringType: DependencyType,
 ): MutableList<DependencyDefinition> {
   val dependencies = allDependencies.toMutableList().also {
-    if (!isAndroidModule()) {
+    if (!hasAndroidLibraryPlugin()) {
       it.addAll(getAllDependencies())
     }
   }
@@ -229,3 +215,52 @@ fun Project.aggregateDependencies(
     }
   }
 }
+
+// region Deprecated
+@Deprecated(
+  message = "Use hasWindsPlugin",
+  replaceWith = ReplaceWith(
+    "hasWindsPlugin()",
+    "dev.teogor.winds.common.utils.hasWindsPlugin",
+  ),
+)
+fun Project.isWindsApplied(): Boolean {
+  return project.plugins.hasPlugin("dev.teogor.winds")
+}
+
+@Deprecated(
+  message = "Use hasPublishPlugin",
+  replaceWith = ReplaceWith(
+    "hasPublishPlugin()",
+    "dev.teogor.winds.common.utils.hasPublishPlugin",
+  ),
+)
+fun Project.hasPublishPlugin() = publishPlugins.any { plugins.hasPlugin(it) }
+
+@Deprecated(
+  message = "Use hasAndroidLibraryPlugin",
+  replaceWith = ReplaceWith(
+    "hasAndroidLibraryPlugin()",
+    "dev.teogor.winds.common.utils.hasAndroidLibraryPlugin",
+  ),
+)
+fun Project.isAndroidLibrary() = plugins.hasPlugin("com.android.library")
+
+@Deprecated(
+  message = "Use hasKotlinDslPlugin",
+  replaceWith = ReplaceWith(
+    "hasKotlinDslPlugin()",
+    "dev.teogor.winds.common.utils.hasKotlinDslPlugin",
+  ),
+)
+fun Project.hasKotlinDslPlugin() = plugins.hasPlugin("org.gradle.kotlin.kotlin-dsl")
+
+@Deprecated(
+  message = "if necessary use afterWindsPluginConfiguration",
+  replaceWith = ReplaceWith(
+    "Project.afterWindsPluginConfiguration",
+    "dev.teogor.winds.gradle.utils.afterWindsPluginConfiguration",
+  ),
+)
+fun Project.lazy(block: Project.() -> Unit) = afterEvaluate(block)
+// endregion

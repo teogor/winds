@@ -170,7 +170,7 @@ public final class dev/teogor/winds/gradle/utils/WindsExtensionsKt {
 	public static final fun getAllDependencies (Lorg/gradle/api/Project;)Ljava/util/List;
 	public static final fun hasKotlinDslPlugin (Lorg/gradle/api/Project;)Z
 	public static final fun hasPublishPlugin (Lorg/gradle/api/Project;)Z
-	public static final fun isAndroidModule (Lorg/gradle/api/Project;)Z
+	public static final fun isAndroidLibrary (Lorg/gradle/api/Project;)Z
 	public static final fun isWindsApplied (Lorg/gradle/api/Project;)Z
 	public static final fun isWindsApplied (Lorg/gradle/api/Project;ZLkotlin/jvm/functions/Function1;)V
 	public static synthetic fun isWindsApplied$default (Lorg/gradle/api/Project;ZLkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
