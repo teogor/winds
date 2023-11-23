@@ -16,12 +16,11 @@
 
 package dev.teogor.winds.gradle.tasks.impl
 
-import com.google.gson.Gson
 import dev.teogor.winds.api.DocsGenerator
 import dev.teogor.winds.api.model.BomInfo
-import dev.teogor.winds.api.model.LocalProjectDependency
 import dev.teogor.winds.api.model.ModuleInfo
-import dev.teogor.winds.api.model.Version
+import dev.teogor.winds.codegen.implementationMarkdownContent
+import dev.teogor.winds.codegen.releaseChangelogMarkdownContent
 import dev.teogor.winds.common.ErrorId
 import dev.teogor.winds.gradle.tasks.BaseGeneratorTask
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -32,7 +31,6 @@ import org.gradle.kotlin.dsl.provideDelegate
 import java.io.File
 import java.time.Instant
 import java.time.ZoneOffset
-import kotlin.random.Random
 
 abstract class DocsGeneratorTask : BaseGeneratorTask(
   description = "Generates documentation for a project.",
@@ -43,11 +41,15 @@ abstract class DocsGeneratorTask : BaseGeneratorTask(
 
   private val docsFolder = root directory "docs"
 
-  private val resFolder = root directory ".resources"
+  private val resFolder = root directory ".winds/resources"
 
   private val bomFolder = docsFolder directory "bom"
 
   private val bomResFolder = resFolder directory "bom"
+
+  private val releasesDir = docsFolder directory "releases"
+
+  private val changelogDir = releasesDir directory "changelog"
 
   private val alphaEmoji = "\uD83E\uDDEA"
   private val betaEmoji = "\uD83D\uDEE0\uFE0F"
@@ -101,103 +103,224 @@ abstract class DocsGeneratorTask : BaseGeneratorTask(
   override fun action() {
     libraries.sortWith { library1, library2 -> library1.path.compareTo(library2.path) }
 
-    writeModulesDocs()
+    storeBoMVersions()
+    writeBoMVariants()
+    writeReleases()
+  }
 
-    if (hasBoM) {
-      writeLibrariesVersionCatalog()
-      writeBoMVersions()
-      writeBoMVariants()
+  private fun writeReleases() {
+    writeReleasesImplementation()
+    writeReleaseChangelog()
+    updateMkDocs()
+  }
+
+  private fun updateMkDocs(
+    mkDocsPath: String = "mkdocs.yml",
+    section: String = "Changelog",
+  ) {
+    val mkDocsFile = File("${project.projectDir}/$mkDocsPath")
+    if (!mkDocsFile.exists()) {
+      return
+    }
+
+    val mkDocsFileContent = mkDocsFile.readText()
+    val mkDocsFileLines = mkDocsFileContent.split("\n").toMutableList()
+    val changelogIndex = mkDocsFileLines.indexOfFirst { it.trimStart().startsWith("- $section:") }
+
+    if (changelogIndex == -1) {
+      return
+    }
+
+    val categoryIndent = mkDocsFileLines[changelogIndex].takeWhile { it.isWhitespace() }.length
+    var hasFoundDifferentIndent = false
+    val filteredChangelogEntries = mkDocsFileLines
+      .subList(changelogIndex + 1, mkDocsFileLines.size)
+      .takeWhile { line ->
+        val lineWhitespaceLength = line.takeWhile { it.isWhitespace() }.length
+        if (lineWhitespaceLength <= categoryIndent || hasFoundDifferentIndent) {
+          hasFoundDifferentIndent = true
+          false
+        } else {
+          true
+        }
+      }
+      .map { it.substringAfter("-").substringBefore(":").trim() }
+
+    val bomVersion = bomLibrary.version.toString()
+    if (!filteredChangelogEntries.any { it == bomVersion }) {
+      val padding = buildString {
+        repeat(categoryIndent) {
+          append(" ")
+        }
+        append("  ")
+      }
+      val newChangelogEntry = "$padding- $bomVersion: releases/changelog/$bomVersion.md"
+      mkDocsFileLines.add(changelogIndex + 1, newChangelogEntry)
+      val updatedMkDocsFileContent = mkDocsFileLines.joinToString("\n")
+      mkDocsFile.writeText(updatedMkDocsFileContent)
     }
   }
 
-  private fun writeLibrariesVersionCatalog() {
-    val projectName = docsGenerator.name
+  private fun writeReleasesImplementation() {
     val projectIdentifier = docsGenerator.identifier
-    val lbsVersionCatalogContent = buildString {
-      appendLine("## Libraries Implementation Version Catalog")
-      appendLine()
-      appendLine(
-        "This catalog provides the implementation details of $projectName libraries, including Build of Materials (BoM) and individual libraries, in TOML format.",
-      )
-      appendLine()
-      appendLine("```toml")
-      appendLine("[versions]")
-      appendLine("$projectIdentifier-bom = \"${bomLibrary.version}\"")
-      appendLine()
-
-      appendLine("[libraries]")
-      appendLine("# $projectName BoM")
-      libraries
-        .filter { it.canBePublished && it.isBoM }
-        .forEach { library ->
-          appendLine(
-            "$projectIdentifier-${
-              library.name.lowercase().replace(" ", "-")
-            } = { group = \"${library.groupId}\", name = \"${library.artifactId}\", version.ref = \"$projectIdentifier-bom\" }",
-          )
-        }
-
-      appendLine("# $projectName Libraries")
-      libraries
-        .filter { it.canBePublished && !it.isBoM }
-        .forEach { library ->
-          appendLine(
-            "$projectIdentifier-${
-              library.name.lowercase().replace(" ", "-")
-            } = { group = \"${library.groupId}\", name = \"${library.artifactId}\" }",
-          )
-        }
-      appendLine("```")
-      appendLine()
-      appendLine("## Libraries Implementation build.gradle.kts File")
-      appendLine()
-      appendLine(
-        "This section presents the implementation dependencies for $projectName libraries in a Kotlin build.gradle.kts file format.",
-      )
-      appendLine()
-      appendLine("```kotlin")
-      appendLine("dependencies {")
-      appendLine("  // ${docsGenerator.name} BoM")
-      libraries
-        .filter { it.canBePublished && it.isBoM }
-        .forEach { library ->
-          appendLine(
-            "  implementation(platform(libs.$projectIdentifier.${
-              library.name.lowercase().replace(" ", ".")
-            }))",
-          )
-        }
-
-      appendLine("  // ${docsGenerator.name} Libraries")
-      libraries
-        .filter { it.canBePublished && !it.isBoM }
-        .forEach { library ->
-          appendLine(
-            "  implementation(libs.$projectIdentifier.${
-              library.name.lowercase().replace(" ", ".").replace("-", ".")
-            })",
-          )
-        }
-      appendLine("}")
-      appendLine("```")
-      appendLine()
+    val versionsTable = getBomVersions().joinToString(separator = "\n") {
+      "| ${it.version} | [changelog \uD83D\uDD17](changelog/${it.version}.md) | ${it.dateFormatted} |"
     }
-    val filePath = "version-catalog.md"
-    docsFolder file filePath write {
-      write(lbsVersionCatalogContent)
+
+    val versionCatalogDefaultVersions = libraries
+      .filter { it.canBePublished && !it.isBoM }
+      .map { library ->
+        val versionRefName = library.names.dropLast(1).joinToString(separator = "-").lowercase()
+        "$versionRefName = \"${library.version}\""
+      }
+      .distinct()
+      .joinToString(separator = "\n    ")
+    val versionCatalogDefaultLibraries = libraries
+      .filter { it.canBePublished && !it.isBoM }
+      .joinToString(separator = "\n    ") { library ->
+        val name = library.names.joinToString(separator = "-").lowercase().replace(" ", "-")
+        val versionRefName = library.names.dropLast(1).joinToString(separator = "-").lowercase()
+        "$name = { group = \"${library.groupId}\", name = \"${library.artifactId}\", version.ref = \"$versionRefName\" }"
+      }
+    val versionCatalogDefault = """[versions]
+    $versionCatalogDefaultVersions
+
+    [libraries]
+    $versionCatalogDefaultLibraries
+    """.trimIndent()
+
+    val bomLibArtifactName = "${bomLibrary.names.joinToString(
+      separator = "-",
+    ).lowercase()} = \"${bomLibrary.version}\""
+
+    val versionCatalogBomLibrary = libraries
+      .filter { it.canBePublished && it.isBoM }
+      .joinToString(separator = "\n    ") { library ->
+        val name = library.names.joinToString(separator = "-").lowercase().replace(" ", "-")
+        val versionRefName = library.names.joinToString(separator = "-").lowercase()
+        "$name = { group = \"${library.groupId}\", name = \"${library.artifactId}\", version.ref = \"$versionRefName\" }"
+      }
+    val versionCatalogBomLibraries = libraries
+      .filter { it.canBePublished && !it.isBoM }
+      .joinToString(separator = "\n    ") { library ->
+        val name = library.names.joinToString(separator = "-").lowercase().replace(" ", "-")
+        "$name = { group = \"${library.groupId}\", name = \"${library.artifactId}\" }"
+      }
+    val versionCatalogBom = """[versions]
+    $bomLibArtifactName
+
+    [libraries]
+    $versionCatalogBomLibrary
+    $versionCatalogBomLibraries
+    """.trimIndent()
+
+    val dependenciesImplementationKotlin = buildString {
+      appendLine("      // When Using ${docsGenerator.name} BoM")
+      libraries
+        .filter { it.canBePublished && it.isBoM }
+        .forEach { library ->
+          val name = library.names.joinToString(separator = ".")
+            .lowercase()
+            .replace(" ", ".")
+            .replace("-", ".")
+          appendLine(
+            "      implementation(platform(libs.$name))",
+          )
+        }
+      appendLine()
+      appendLine("      // ${docsGenerator.name} Libraries")
+      libraries
+        .filter { it.canBePublished && !it.isBoM }
+        .forEach { library ->
+          val name = library.names.joinToString(separator = ".")
+            .lowercase()
+            .replace(" ", ".")
+            .replace("-", ".")
+          appendLine(
+            "      implementation(libs.$name)",
+          )
+        }
+    }.trimEnd()
+
+    val dependenciesImplementationGroovy = buildString {
+      appendLine("      // When Using ${docsGenerator.name} BoM")
+      libraries
+        .filter { it.canBePublished && it.isBoM }
+        .forEach { library ->
+          val name = library.names.joinToString(separator = ".")
+            .lowercase()
+            .replace(" ", ".")
+            .replace("-", ".")
+          appendLine(
+            "      implementation platform(libs.$name)",
+          )
+        }
+      appendLine()
+      appendLine("      // ${docsGenerator.name} Libraries")
+      libraries
+        .filter { it.canBePublished && !it.isBoM }
+        .forEach { library ->
+          val name = library.names.joinToString(separator = ".")
+            .lowercase()
+            .replace(" ", ".")
+            .replace("-", ".")
+          appendLine(
+            "      implementation(libs.$name)",
+          )
+        }
+    }.trimEnd()
+
+    releasesDir file "implementation.md" write {
+      buildString {
+        val content = implementationMarkdownContent
+          .replace("&&version&&", "${bomLibrary.version}")
+          .replace("&&projectName&&", docsGenerator.name)
+          .replace("&&versionsTable&&", versionsTable)
+          .replace("&&versionCatalogDefault&&", versionCatalogDefault)
+          .replace("&&versionCatalogBom&&", versionCatalogBom)
+          .replace("&&dependenciesImplementationKotlin&&", dependenciesImplementationKotlin)
+          .replace("&&dependenciesImplementationGroovy&&", dependenciesImplementationGroovy)
+
+        append(content)
+      }.also { write(it) }
     }
   }
 
-  private fun writeBoMVersions() {
-    writeBoMVersionsJson()
-    writeBomVersionsMd()
+  private fun writeReleaseChangelog() {
+    val sdkVersions = libraries
+      .filter { !it.isBoM && it.canBePublished }
+      .joinToString(separator = "\n") { library ->
+        val emoji = when {
+          library.version.isDeprecated -> deprecatedEmoji
+          library.version.isAlphaRelease -> alphaEmoji
+          library.version.isBetaRelease -> betaEmoji
+          else -> ""
+        }
+        "| $emoji | [${
+          library.names.joinToString(
+            separator = " ",
+          )
+        }](../../../reference${library.localPath}) | ${library.gradleDependency} | ${library.version} |"
+      }
+
+    changelogDir file "${bomLibrary.version}.md" write {
+      buildString {
+        val content = releaseChangelogMarkdownContent
+          .replace("&&version&&", "${bomLibrary.version}")
+          .replace("&&sdkVersions&&", sdkVersions)
+
+        append(content)
+      }.also { write(it) }
+    }
   }
 
   @OptIn(ExperimentalSerializationApi::class)
-  private fun writeBoMVersionsJson() {
+  private fun storeBoMVersions() {
     val bomInfoList = getBomVersions().toMutableList()
-    val hasVersion =
-      bomInfoList.firstOrNull { it.version.toString() == bomLibrary.version.toString() } != null
+    val hasVersion = bomInfoList.firstOrNull {
+      it.version.toString() == bomLibrary.version.toString()
+    } != null
+
     if (!hasVersion) {
       val currentUtcTime = Instant.now().atZone(ZoneOffset.UTC)
       bomInfoList.add(
@@ -219,71 +342,8 @@ abstract class DocsGeneratorTask : BaseGeneratorTask(
     }
   }
 
-  private fun writeBomVersionsMd() {
-    val content = StringBuilder()
-    val bomInfoList = getBomVersions()
-
-    content.appendLine("## ${bomLibrary.completeName} (Bill of Materials)")
-    content.appendLine()
-    content.appendLine(
-      """
-      The BoM (Bill of Materials) is the central hub for managing library versions within the ${docsGenerator.name} project.
-      It enables you to effortlessly keep track of the latest versions of key components and dependencies.
-      """.trimIndent(),
-    )
-    content.appendLine()
-    content.appendLine(
-      """
-      ### Latest Version
-
-      Here is how to declare dependencies using the latest version `${bomLibrary.version}`:
-
-      ```kt
-      dependencies {
-        // Import the BoM for the ${docsGenerator.name} platform using the latest version
-        implementation(platform("${bomLibrary.gradleDependency}:${bomLibrary.version}"))
-      }
-      ```
-      """.trimIndent(),
-    )
-    content.appendLine()
-    content.appendLine("## BoM Versions (Bill of Materials)")
-    content.appendLine()
-    content.appendLine("Below is a list of the latest versions of the BOM:")
-    content.appendLine()
-    content.appendLine("| Version | Release Notes | Release Date |")
-    content.appendLine("| ------- | ------------- | ------------ |")
-    for (bomInfo in bomInfoList) {
-      content.appendLine(
-        "| ${bomInfo.version} | [changelog \uD83D\uDD17](/docs/bom/${bomInfo.version}/bom-version-${bomInfo.version}.md) | ${bomInfo.dateFormatted} |",
-      )
-    }
-    content.appendLine()
-    content.appendLine(
-      """
-      The **Bill of Materials (BoM)** serves as a cornerstone for maintaining synchronization among various libraries and components in your project. By centralizing version management, it significantly reduces compatibility issues and streamlines the entire dependency management process.
-
-      ### Advantages of Using the BoM
-
-      - **Synchronization:** The BoM guarantees that all libraries within your project are aligned, ensuring seamless compatibility.
-      - **Staying Current:** By adopting the BoM, you effortlessly stay updated with the latest advancements within the ever-evolving ${docsGenerator.name} ecosystem.
-
-      ### Explore Further
-
-      For in-depth insights, updates, and comprehensive information regarding ${docsGenerator.name}, please consult the official [${docsGenerator.name} documentation](/docs/). There, you'll discover a wealth of resources to enhance your ${docsGenerator.name} development journey.
-      """.trimIndent(),
-    )
-    content.appendLine()
-
-    val filePath = "versions.md"
-    bomFolder file filePath write {
-      write(content.toString())
-    }
-  }
-
   private fun writeBoMVariants() {
     writeBoMVariantsJson()
-    writeBoMVariantsMd()
   }
 
   @OptIn(ExperimentalSerializationApi::class)
@@ -300,199 +360,6 @@ abstract class DocsGeneratorTask : BaseGeneratorTask(
     val jsonString = json.encodeToString(libraryInfoList)
 
     bomMappingFile.writeText(jsonString)
-  }
-
-  private fun writeBoMVariantsMd() {
-    val projectName = docsGenerator.name
-    val projectIdentifier = docsGenerator.identifier
-    val filePath = "bom-version-${bomLibrary.version}.md"
-    bomLibraryInfo file filePath write {
-      val random = Random(bomLibrary.version.hashCode())
-      val randomLibs = libraries.filter { !it.isBoM && it.canBePublished }.shuffled(random).take(3)
-      val libraryNames = randomLibs.joinToString("\n            ") {
-        """// ${it.names.joinToString(" ")}
-            implementation("${it.gradleDependency}")"""
-      }
-      libraries.bom()?.let {
-        val textToAdd = """
-          # $projectName BoM v${it.version} (Bill of Materials)
-
-          The $projectName BoM (Bill of Materials) enables you to manage all your $projectName library versions by specifying only one version — the BoM's version.
-
-          When you use the $projectName BoM in your app, the BoM automatically pulls in the individual library versions mapped to the BoM's version. All the individual library versions will be compatible. When you update the BoM's version in your app, all the $projectName libraries that you use in your app will update to the versions mapped to that BoM version.
-
-          To learn which $projectName library versions are mapped to a specific BoM version, check out the release notes for that BoM version. If you need to compare the library versions mapped to one BoM version compared to another BoM version, use the comparison widget below.
-
-          Learn more about [Gradle's support for BoM platforms](https://docs.gradle.org/4.6-rc-1/userguide/managing_transitive_dependencies.html#sec:bom_import).
-
-          Here's how to use the $projectName BoM to declare dependencies in your module (app-level) Gradle file (usually app/build.gradle.kts). When using the BoM, you don't specify individual library versions in the dependency lines.
-
-          ```kt
-          dependencies {
-            // Import the BoM for the $projectName platform
-            implementation(platform("${it.coordinates}"))
-
-            // Declare the dependencies for the desired $projectName products
-            // without specifying versions. For example, declare:
-            $libraryNames
-          }
-          ```
-        """.trimIndent()
-
-        write(textToAdd)
-        newLine()
-      }
-
-      val moduleContent = buildString {
-        appendLine()
-        appendLine("## Latest SDK versions")
-        appendLine()
-        appendLine("| Status | Service or Product | Gradle dependency | Latest version |")
-        appendLine("| ------ | ------------------ | ----------------- | -------------- |")
-
-        val previousBomDependencies = if (previousBomVersion != null) {
-          getDependenciesByVersion(previousBomVersion!!.version)
-        } else {
-          emptyList()
-        }
-        libraries
-          .filter { !it.isBoM && it.canBePublished }
-          .forEach { library ->
-            val emoji = when {
-              library.version.isDeprecated -> deprecatedEmoji
-              library.version.isAlphaRelease -> alphaEmoji
-              library.version.isBetaRelease -> betaEmoji
-              else -> ""
-            }
-            val previousVersionData = previousBomDependencies.firstOrNull {
-              it.artifactId == library.artifactId
-            }
-            val previousVersion = previousVersionData?.version ?: "N/A"
-            val versionData = if (previousVersionData?.version != null) {
-              val previousVersionDataD = previousVersionData.version
-              if (previousVersionDataD != library.version) {
-                "$previousVersionDataD -> ${library.version}"
-              } else {
-                library.version
-              }
-            } else {
-              library.version
-            }
-            appendLine("| $emoji | [${library.name}](${library.localPath}) | ${library.gradleDependency} | ${library.version} |")
-          }
-        appendLine()
-        appendLine(
-          """
-          ### Explore Further
-
-          For the latest updates, in-depth documentation, and a comprehensive overview of the $projectName ecosystem, visit the official [$projectName documentation](/docs/). It's your gateway to a wealth of resources and insights that will elevate your $projectName development journey.
-
-          Stay informed, stay current, and embrace the full potential of $projectName.
-          """.trimIndent(),
-        )
-      }
-
-      write(moduleContent)
-    }
-  }
-
-  private fun getDependenciesByVersion(version: Version): List<ModuleInfo> {
-    val filePath = "dependencies-$version.json"
-    val bomMappingFile = bomResFolder directory version.toString() file filePath
-
-    if (!bomMappingFile.exists()) {
-      return emptyList()
-    }
-
-    return try {
-      val jsonString = bomMappingFile.readText()
-      val gson = Gson()
-      val libraryInfoList = gson.fromJson(jsonString, Array<ModuleInfo>::class.java)
-      return libraryInfoList.toList()
-    } catch (e: Exception) {
-      emptyList()
-    }
-  }
-
-  private fun writeModulesDocs() {
-    libraries
-      .filter { !it.isBoM }
-      .filter { it.canBePublished }
-      .groupBy { it.names.reversed()[1] }
-      .forEach { (module, libraries) ->
-        val content = StringBuilder()
-        if (libraries.first().names.size == 2) {
-          content.appendLine("## ${docsGenerator.name}")
-        } else {
-          content.appendLine("## ${docsGenerator.name} $module")
-        }
-        content.appendLine()
-        content.appendLine("| Status | Library | Gradle dependency |")
-        content.appendLine("| ------ | ------- | ----------------- |")
-        for (library in libraries) {
-          val emoji = when {
-            library.version.isDeprecated -> deprecatedEmoji
-            library.version.isAlphaRelease -> alphaEmoji
-            library.version.isBetaRelease -> betaEmoji
-            else -> ""
-          }
-          val link = "#implementation ${library.name}".lowercase().replace(" ", "-")
-          content.appendLine(
-            "| $emoji | [${library.name}](${library.localPath}) | [${library.coordinates}]($link) |",
-          )
-        }
-        content.appendLine()
-        content.appendLine(
-          """
-          By referring to the [BoM documentation](/docs/bom/versions.md), you can learn how to integrate the BoM into your project and benefit from this hassle-free approach to library version management. It's a powerful tool for staying up-to-date with the latest ${docsGenerator.name} library versions and seamlessly integrating them into your projects.
-          """.trimIndent(),
-        )
-        content.appendLine()
-        content.appendLine()
-        for (library in libraries) {
-          content.appendLine(
-            """
-            ### Implementation ${library.displayName}
-
-            To use ${library.name} in your project, add the following dependency to your module-level Gradle file (usually `app/build.gradle.kts`):
-
-            ```kotlin
-            implementation("${library.coordinates}")
-            ```
-
-            #### Gradle Dependency
-
-            - **Group ID:** `${library.groupId}`
-            - **Artifact ID:** `${library.artifactId}`
-            - **Version:** `${library.version}` (not required when using [BoM](/docs/bom/versions.md))
-            """.trimIndent(),
-          )
-          content.appendLine()
-          if (docsGenerator.alertOnDependentModules) {
-            val localProjectDependencies = library.dependencies
-              .filterIsInstance<LocalProjectDependency>()
-            if (localProjectDependencies.isNotEmpty()) {
-              val dependsOn =
-                localProjectDependencies.joinToString(separator = ",") { "`${it.modulePath}`" }
-              content.appendLine("⚠️ Depends on $dependsOn")
-              content.appendLine()
-            }
-          }
-        }
-        content.appendLine()
-
-        val name = libraries[0]
-          .names
-          .dropLast(1)
-          .joinToString(separator = " ")
-          .replace(" ", "-")
-          .lowercase()
-
-        val filePath = "$name-libraries.md"
-        docsFolder file filePath write {
-          write(content.toString())
-        }
-      }
   }
 
   fun addLibrary(data: ModuleInfo) {
