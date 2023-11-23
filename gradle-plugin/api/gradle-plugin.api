@@ -113,6 +113,14 @@ public final class dev/teogor/winds/api/impl/WorkflowSynthesizerImpl : dev/teogo
 	public fun setTask (Lorg/gradle/api/DefaultTask;)V
 }
 
+public final class dev/teogor/winds/codegen/ImplementationMarkdownKt {
+	public static final fun getImplementationMarkdownContent ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/codegen/ReleaseChangelogMarkdownKt {
+	public static final fun getReleaseChangelogMarkdownContent ()Ljava/lang/String;
+}
+
 public final class dev/teogor/winds/gradle/WindsPlugin : org/gradle/api/Plugin {
 	public fun <init> ()V
 	public synthetic fun apply (Ljava/lang/Object;)V
