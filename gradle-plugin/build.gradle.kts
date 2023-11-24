@@ -53,8 +53,8 @@ dependencies {
   implementation(libs.gson)
 
   compileOnly(gradleApi())
-  compileOnly(libs.kotlin.gradlePlugin)
-  compileOnly(libs.ksp.gradlePlugin)
+  compileOnly(libs.gradle.plugin.kotlin)
+  compileOnly(libs.gradle.plugin.ksp)
 }
 
 @Suppress("UnstableApiUsage")
