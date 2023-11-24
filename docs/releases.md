@@ -16,7 +16,7 @@ Winds build and publish libraries and applications for multiple platforms, simpl
 
 |   Latest Update   | Stable Release | Beta Release | Alpha Release |
 |:-----------------:|:--------------:|:------------:|:-------------:|
-| November 20, 2023 |       -        |      -       | 1.0.0-alpha03 |
+| November 24, 2023 |       -        |      -       | 1.0.0-alpha04 |
 
 ### Declaring dependencies
 
@@ -29,7 +29,7 @@ Add the dependencies for the artifacts you need in the `build.gradle` file for y
 
     ```kotlin
     plugins {
-      id("dev.teogor.winds") version "1.0.0-alpha03"
+      id("dev.teogor.winds") version "1.0.0-alpha04"
     }
     ```
 
@@ -37,7 +37,7 @@ Add the dependencies for the artifacts you need in the `build.gradle` file for y
 
     ```groovy
     plugins {
-      id 'dev.teogor.winds' version '1.0.0-alpha03'
+      id 'dev.teogor.winds' version '1.0.0-alpha04'
     }
     ```
 
@@ -52,12 +52,30 @@ existing issue by clicking the star button.
 
 ### Version 1.0.0
 
+#### Version 1.0.0-alpha04
+
+November 24, 2023
+
+`dev.teogor.winds:winds-*:1.0.0-alpha04` is
+released. [Version 1.0.0-alpha04 contains these commits.](https://github.com/teogor/winds/compare/1.0.0-alpha03...1.0.0-alpha04)
+
+**Enhancement**
+
+* Introduce ProjectPluginUtils for Managing Project Plugins ([#34](https://github.com/teogor/winds/pull/34)) by [@teogor](https://github.com/teogor)
+* Refined Docs Generator Task for Streamlined Documentation ([#35](https://github.com/teogor/winds/pull/35)) by [@teogor](https://github.com/teogor)
+
+**Bug Fixes**
+
+* Fixed the Flow of BoM Dependency Collection ([#37](https://github.com/teogor/winds/pull/37)) by [@teogor](https://github.com/teogor)
+* Introduce processWindsChildProjects for Streamlined Child Project Processing ([#36](https://github.com/teogor/winds/pull/36)) by [@teogor](https://github.com/teogor)
+* Correct file and directory creation logic in BaseGeneratorTask ([#33](https://github.com/teogor/winds/pull/33)) by [@teogor](https://github.com/teogor)
+
 #### Version 1.0.0-alpha03
 
 November 20, 2023
 
 `dev.teogor.winds:winds-*:1.0.0-alpha03` is
-released. [Version 1.0.0-alpha02 contains these commits.](https://github.com/teogor/winds/compare/1.0.0-alpha02...1.0.0-alpha03)
+released. [Version 1.0.0-alpha03 contains these commits.](https://github.com/teogor/winds/compare/1.0.0-alpha02...1.0.0-alpha03)
 
 **Enhancement**
 

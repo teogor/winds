@@ -20,7 +20,7 @@ plugins {
   `kotlin-dsl`
   alias(libs.plugins.gradle.publish)
   alias(libs.plugins.build.config)
-  kotlin("plugin.serialization") version "1.9.10"
+  alias(libs.plugins.kotlin.serialization)
   alias(libs.plugins.vanniktech.maven)
 }
 
@@ -53,8 +53,8 @@ dependencies {
   implementation(libs.gson)
 
   compileOnly(gradleApi())
-  compileOnly(libs.kotlin.gradlePlugin)
-  compileOnly(libs.ksp.gradlePlugin)
+  compileOnly(libs.gradle.plugin.kotlin)
+  compileOnly(libs.gradle.plugin.ksp)
 }
 
 @Suppress("UnstableApiUsage")

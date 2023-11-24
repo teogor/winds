@@ -4,7 +4,7 @@
 
 ### Latest Version
 
-The latest release is [`1.0.0-alpha03`](../releases.md)
+The latest release is [`1.0.0-alpha04`](../releases.md)
 
 ### Plugin Releases
 
@@ -12,8 +12,9 @@ Here's a summary of the latest versions:
 
 |    Version    |               Release Notes                | Release Date |
 |:-------------:|:------------------------------------------:|:------------:|
-| 1.0.0-alpha03 | [changelog 🔗](changelog/1.0.0-alpha01.md) | 20 Nov 2023  |
-| 1.0.0-alpha02 | [changelog 🔗](changelog/1.0.0-alpha01.md) | 08 Nov 2023  |
+| 1.0.0-alpha04 | [changelog 🔗](changelog/1.0.0-alpha04.md) | 24 Nov 2023  |
+| 1.0.0-alpha03 | [changelog 🔗](changelog/1.0.0-alpha03.md) | 20 Nov 2023  |
+| 1.0.0-alpha02 | [changelog 🔗](changelog/1.0.0-alpha02.md) | 08 Nov 2023  |
 | 1.0.0-alpha01 | [changelog 🔗](changelog/1.0.0-alpha01.md) | 03 Nov 2023  |
 
 ### Using Version Catalog
@@ -27,7 +28,7 @@ TOML format.
 
     ```toml title="gradle/libs.versions.toml"
     [versions]
-    winds = "1.0.0-alpha03"
+    winds = "1.0.0-alpha04"
 
     [plugins]
     winds = { id = "dev.teogor.winds", version.ref = "winds" }
@@ -37,7 +38,7 @@ TOML format.
 
     ```toml title="gradle/libs.versions.toml"
     [versions]
-    winds = "1.0.0-alpha03"
+    winds = "1.0.0-alpha04"
 
     [libraries]
     winds-api = { group = "dev.teogor.winds", name = "api", version.ref = "winds" }
