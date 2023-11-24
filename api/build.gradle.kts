@@ -17,11 +17,10 @@ import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-  // TODO dsl -> can we publish this as API?
   `kotlin-dsl`
-  kotlin("plugin.serialization") version "1.9.10"
   id("java-library")
-  alias(libs.plugins.vanniktech.maven) apply true
+  alias(libs.plugins.kotlin.serialization)
+  alias(libs.plugins.vanniktech.maven)
 }
 
 val javaVersion = JavaVersion.VERSION_1_8
