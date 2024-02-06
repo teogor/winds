@@ -26,7 +26,7 @@ import org.gradle.api.publish.maven.MavenPomLicenseSpec
 
 fun attachMavenData(pom: MavenPom, mavenPublish: MavenPublish) {
   pom.apply {
-    name.set(mavenPublish.displayName)
+    name.set(mavenPublish.completeName)
     description.set(mavenPublish.description)
     inceptionYear.set(mavenPublish.inceptionYear.toString())
     url.set(mavenPublish.url)
