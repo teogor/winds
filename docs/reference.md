@@ -1,24 +1,20 @@
 ## Reference
 
 Welcome to the comprehensive API documentation for our project, meticulously crafted to empower you
-to
-effectively utilize its capabilities. This guide provides detailed information about the project's
-structure, API, and usage, enabling you to navigate the project with ease and unlock its full
-potential.
+to effectively utilize its capabilities. This guide provides detailed information about the
+project's structure, API, and usage, enabling you to navigate the project with ease and unlock its
+full potential.
 
 ### Project Overview
 
 Our project encompasses a suite of modules, each designed to address specific functionalities and
-enhance
-the overall developer experience. To delve into the intricacies of each module, refer to the
-dedicated
-documentation pages:
+enhance the overall developer experience. To delve into the intricacies of each module, refer to
+the dedicated documentation pages:
 
 - **[Winds 🔗](../reference):** Discover the heart of our project.
 
 - **[API 🔗](../reference/api):** Navigate directly to the code-specific documentation for the
-  project's
-  `:api` module
+  project's `:api` module
 
 - **[Common 🔗](../reference/common):** Navigate directly to the code-specific documentation for the
   project's `:common` module
