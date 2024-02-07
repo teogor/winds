@@ -38,7 +38,6 @@ fun Project.configureBomModule(
   collectBomConstraints(publishOptions)
 }
 
-
 /**
  * Handles internal errors triggered during BOM options processing.
  *

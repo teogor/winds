@@ -26,4 +26,6 @@ interface DocsGenerator : TaskBuilder {
 
   val excludedModules: List<String>
   fun excludeModules(block: () -> List<String>)
+
+  var mkdocsEnabled: Boolean
 }

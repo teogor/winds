@@ -16,6 +16,7 @@
 
 package dev.teogor.winds.gradle.tasks
 
+import dev.teogor.winds.api.docs.DocsModuleHandler
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskAction
@@ -34,6 +35,9 @@ abstract class BaseGeneratorTask(
 
   @get:Internal
   protected val root = File("")
+
+  @get:Internal
+  abstract var docsModuleHandler: DocsModuleHandler
 
   infix fun File.directory(path: String): File {
     return if (this == root) {
