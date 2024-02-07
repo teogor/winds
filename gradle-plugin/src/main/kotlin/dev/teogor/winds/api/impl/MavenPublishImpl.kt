@@ -82,7 +82,7 @@ open class MavenPublishImpl : MavenPublish {
         names.takeLast(get { artifactIdElements }!!)
       } else {
         names
-      }.joinToString(separator = "-")
+      }.joinToString(separator = "-").replace(".", "-")
     }
 
   override val dependency: String
