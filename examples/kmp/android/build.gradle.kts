@@ -15,7 +15,7 @@
  */
 
 plugins {
-  alias(libs.plugins.kotlin.android)
+  alias(libs.plugins.jetbrains.kotlin.android)
   alias(libs.plugins.android.library)
 
   id("dev.teogor.winds")
@@ -40,6 +40,5 @@ android {
 }
 
 dependencies {
-  api(libs.androidx.appcompat)
   implementation(project(":module:library-1"))
 }

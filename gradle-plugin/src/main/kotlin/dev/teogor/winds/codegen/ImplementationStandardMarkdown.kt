@@ -16,23 +16,14 @@
 
 package dev.teogor.winds.codegen
 
-val implementationMarkdownContent = """
+val implementationStandardMarkdownContent = """
 [//]: # (This file was automatically generated - do not edit)
 
 ## Implementation
 
-### Latest Version
+### Versions
 
-The latest release is [`&&version&&`](../releases.md)
-
-### BoM Releases
-
-The BoM (Bill of Materials) is the central repository for managing library versions within the
-&&projectName&& project. It streamlines the process of tracking the latest versions of key components and
-dependencies, ensuring that your project remains up-to-date and compatible with the latest
-advancements.
-
-Here's a summary of the latest BoM versions:
+Here's a summary of the latest versions:
 
 |    Version    |               Release Notes                | Release Date |
 |:-------------:|:------------------------------------------:|:------------:|
@@ -49,12 +40,6 @@ Materials (BoM) and individual libraries, in TOML format.
 
     ```toml title="gradle/libs.versions.toml"
     &&versionCatalogDefault&&
-    ```
-
-=== "Using BoM"
-
-    ```toml title="gradle/libs.versions.toml"
-    &&versionCatalogBom&&
     ```
 
 #### Dependencies Implementation

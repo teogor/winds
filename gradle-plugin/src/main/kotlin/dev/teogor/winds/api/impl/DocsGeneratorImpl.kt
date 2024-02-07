@@ -21,7 +21,6 @@ import dev.teogor.winds.api.model.DependencyType
 import org.gradle.api.DefaultTask
 
 class DocsGeneratorImpl : DocsGenerator {
-
   override var name: String = ""
 
   override var identifier: String = ""
@@ -37,4 +36,6 @@ class DocsGeneratorImpl : DocsGenerator {
   override fun excludeModules(block: () -> List<String>) {
     excludedModules.addAll(block())
   }
+
+  override var mkdocsEnabled: Boolean = false
 }

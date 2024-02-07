@@ -1,6 +1,5 @@
 pluginManagement {
   includeBuild("../")
-  // error includeBuild("demo-plugin/")
   repositories {
     google()
     mavenCentral()

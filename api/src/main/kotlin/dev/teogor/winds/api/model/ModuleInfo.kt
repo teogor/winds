@@ -44,10 +44,36 @@ data class ModuleInfo(
   val canBePublished: Boolean,
   val names: List<String>,
 ) {
-  val gradleDependency = "$groupId:$artifactId"
+  val module = "$groupId:$artifactId"
+
+  @Deprecated("Use 'module' instead", ReplaceWith("module"))
+  val gradleDependency: String
+    get() = module
+
   val coordinates = "$groupId:$artifactId:$version"
 
   val localPath = path.replace(":", "/")
   val isBoM = artifactId.contains("bom")
-  val module = path.split(":")[1]
+  val emoji = version.emoji
+}
+
+/**
+ * Returns the first module in this list that is a BOM (Bill of Materials) module,
+ * or null if no BOM module is found.
+ *
+ * @receiver The list of modules to search for a BOM module.
+ * @return The BOM module, or null if not found.
+ */
+fun MutableList<ModuleInfo>.bom(): ModuleInfo? = firstOrNull {
+  it.isBoM
+}
+
+/**
+ * Sorts this list of modules in ascending order based on their `path` property.
+ *
+ * @receiver The list of modules to sort.
+ * @return The same list, after sorting by path.
+ */
+fun MutableList<ModuleInfo>.sortByPath(): MutableList<ModuleInfo> = also {
+  sortWith(compareBy(ModuleInfo::path))
 }

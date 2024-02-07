@@ -16,6 +16,8 @@
 
 package dev.teogor.winds.api.model
 
+import dev.teogor.winds.api.util.Emoji
+import dev.teogor.winds.api.util.Emojis
 import kotlinx.serialization.Serializable
 
 /**
@@ -67,7 +69,6 @@ import kotlinx.serialization.Serializable
  *  // Example of a number version
  *  val numericVersion = NumericVersion(10, 3, 4)
  */
-
 @Serializable
 data class Version(
   val major: Int,
@@ -139,6 +140,27 @@ data class Version(
 
       else -> "$major.$minor.$patch"
     }
+  }
+
+  operator fun compareTo(other: Version): Int {
+    // 1. Compare major versions:
+    val majorDiff = major - other.major
+    if (majorDiff != 0) return majorDiff
+
+    // 2. If major versions are equal, compare minor versions:
+    val minorDiff = minor - other.minor
+    if (minorDiff != 0) return minorDiff
+
+    // 3. If major and minor versions are equal, compare patch versions:
+    val patchDiff = patch - other.patch
+    if (patchDiff != 0) return patchDiff
+
+    // 4. If all components are equal, compare version qualifiers:
+    val qualifierDiff = versionQualifier - other.versionQualifier
+    if (qualifierDiff != 0) return qualifierDiff
+
+    // 5. Finally, compare flags:
+    return flag.ordinal - other.flag.ordinal
   }
 
   companion object {
@@ -340,3 +362,11 @@ class VersionBuilder {
     versionQualifierPadding = versionQualifierPadding,
   )
 }
+
+val Version.emoji: Emoji
+  get() = when (this.toString().lowercase()) {
+    "deprecated" -> Emojis.DEPRECATED
+    "alpha" -> Emojis.ALPHA
+    "beta" -> Emojis.BETA
+    else -> ""
+  }
