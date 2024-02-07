@@ -66,7 +66,7 @@ private fun Project.collectBomConstraints(
         // Checks if the subproject can be published.
         if (winds.mavenPublish.canBePublished) {
           // Adds the subproject as a dependency (api) of the BoM.
-          bomConstraints.api(this)
+          bomConstraints.api(winds.mavenPublish.dependency)
         }
       }
     }
