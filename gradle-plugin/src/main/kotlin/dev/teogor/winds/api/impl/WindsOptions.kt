@@ -76,7 +76,10 @@ abstract class WindsOptions(
       docsGenerator.createTask<DocsGenerator, DocsGeneratorTask>(
         name = "docsGeneratorTask",
       ) {
-        (task as DocsGeneratorTask).provideDocsGenerator(this)
+        (task as DocsGeneratorTask).let {
+          it.provideProjectDir(project.projectDir)
+          it.provideDocsGenerator(this)
+        }
       }
     }
   }
