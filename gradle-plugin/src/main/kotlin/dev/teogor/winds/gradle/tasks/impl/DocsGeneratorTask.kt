@@ -37,6 +37,8 @@ abstract class DocsGeneratorTask : BaseGeneratorTask(
 ) {
 
   private lateinit var docsGenerator: DocsGenerator
+  private lateinit var projectDir: File
+
   private val libraries = mutableListOf<ModuleInfo>()
 
   private val docsFolder = root directory "docs"
@@ -118,7 +120,7 @@ abstract class DocsGeneratorTask : BaseGeneratorTask(
     mkDocsPath: String = "mkdocs.yml",
     section: String = "Changelog",
   ) {
-    val mkDocsFile = File("${project.projectDir}/$mkDocsPath")
+    val mkDocsFile = File("$projectDir/$mkDocsPath")
     if (!mkDocsFile.exists()) {
       return
     }
@@ -189,9 +191,11 @@ abstract class DocsGeneratorTask : BaseGeneratorTask(
     $versionCatalogDefaultLibraries
     """.trimIndent()
 
-    val bomLibArtifactName = "${bomLibrary.names.joinToString(
-      separator = "-",
-    ).lowercase()} = \"${bomLibrary.version}\""
+    val bomLibArtifactName = "${
+      bomLibrary.names.joinToString(
+        separator = "-",
+      ).lowercase()
+    } = \"${bomLibrary.version}\""
 
     val versionCatalogBomLibrary = libraries
       .filter { it.canBePublished && it.isBoM }
@@ -370,5 +374,21 @@ abstract class DocsGeneratorTask : BaseGeneratorTask(
 
   fun provideDocsGenerator(docsGenerator: DocsGenerator) {
     this.docsGenerator = docsGenerator
+  }
+
+  /**
+   * Sets the project directory for this object.
+   *
+   * This function allows you to explicitly set the project directory for this object.
+   * This can be useful when you need to work with the project directory outside of the
+   * usual context, such as within tests or during custom processing.
+   *
+   * @param projectDir The directory representing the project root.
+   *
+   * @see addLibrary
+   * @see provideDocsGenerator
+   */
+  fun provideProjectDir(projectDir: File) {
+    this.projectDir = projectDir
   }
 }

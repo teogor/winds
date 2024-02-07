@@ -132,6 +132,7 @@ public abstract class dev/teogor/winds/gradle/tasks/impl/DocsGeneratorTask : dev
 	public fun action ()V
 	public final fun addLibrary (Ldev/teogor/winds/api/model/ModuleInfo;)V
 	public final fun provideDocsGenerator (Ldev/teogor/winds/api/DocsGenerator;)V
+	public final fun provideProjectDir (Ljava/io/File;)V
 }
 
 public final class dev/teogor/winds/gradle/tasks/impl/DocsGeneratorUtilsKt {
