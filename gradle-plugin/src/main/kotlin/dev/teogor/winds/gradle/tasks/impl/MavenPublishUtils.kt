@@ -142,8 +142,9 @@ private fun Project.createAndConfigureSubprojectPublishTask(maven: MavenPublish)
       project.childProjects.values.forEach { subproject ->
         val parentPublishTask = subproject.parent!!.tasks.findByName(taskName)
         subproject.afterEvaluate {
-          val publishTask = subproject.tasks.findByName("publish")
-          parentPublishTask?.dependsOn(publishTask)
+          subproject.tasks.findByName("publish")?.let { task ->
+            parentPublishTask?.dependsOn(task)
+          }
         }
       }
     }
