@@ -54,18 +54,42 @@ fun Project.configureMavenPublish() {
       val maven: MavenPublish by winds
       if (maven.isBoM) {
         if (!hasPublishPlugin()) {
-          pluginManager.apply("java-platform")
+          plugins.apply("java-platform")
         }
-        pluginManager.apply("com.vanniktech.maven.publish")
+        plugins.apply("com.vanniktech.maven.publish")
         configureBomModule(maven)
       } else if (maven.canBePublished) {
         if (hasKotlinDslPlugin()) {
-          pluginManager.apply("java-library")
-          pluginManager.apply("com.vanniktech.maven.publish")
+          plugins.apply("java-library")
+          plugins.apply("com.vanniktech.maven.publish")
         } else if (hasPublishPlugin()) {
-          pluginManager.apply("com.vanniktech.maven.publish")
+          plugins.apply("com.vanniktech.maven.publish")
         } else {
           maven.canBePublished = false
+        }
+      }
+
+      if (path != ":" && !maven.canBePublished) {
+        val isBomModule = maven.isBoM
+        val artifactIdPrefix = maven.artifactId!!.split("-").map {
+          if (it.isEmpty()) {
+            it
+          } else {
+            it.replaceFirstChar { char -> char.titlecase() }
+          }
+        }.joinToString("")
+
+        val taskName = "publish${artifactIdPrefix}Libraries"
+        project.tasks.create(taskName) {
+          if (!isBomModule) {
+            this.project.childProjects.values.forEach {
+              val publishTaskRoot = it.parent!!.tasks.findByName(taskName)
+              it.afterEvaluate {
+                val publishTask = it.tasks.findByName("publish")
+                publishTaskRoot?.dependsOn(publishTask)
+              }
+            }
+          }
         }
       }
 
