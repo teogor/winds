@@ -18,9 +18,9 @@ buildscript {
 // Lists all plugins used throughout the project without applying them.
 plugins {
   // Kotlin Suite
-  alias(libs.plugins.kotlin.jvm) apply false
-  alias(libs.plugins.kotlin.android) apply false
-  alias(libs.plugins.kotlin.serialization) apply false
+  alias(libs.plugins.jetbrains.kotlin.jvm) apply false
+  alias(libs.plugins.jetbrains.kotlin.android) apply false
+  alias(libs.plugins.jetbrains.kotlin.serialization) apply false
 
   // Android Plugins
   alias(libs.plugins.android.application) apply false
@@ -70,6 +70,8 @@ winds {
     name = "Winds Examples"
     identifier = "winds-examples"
     alertOnDependentModules = true
+    dependencyGatheringType = DependencyType.LOCAL
+    mkdocsEnabled = true
 
     excludeModules {
       listOf(
@@ -77,8 +79,6 @@ winds {
         // ":application",
       )
     }
-
-    dependencyGatheringType = DependencyType.LOCAL
   }
 }
 
