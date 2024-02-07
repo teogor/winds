@@ -21,12 +21,32 @@ import dev.teogor.winds.common.ErrorId
 import org.gradle.api.Project
 import org.gradle.api.artifacts.dsl.DependencyConstraintHandler
 
+/**
+ * Configures a Bill of Materials (BOM) module using the provided Maven publish options.
+ *
+ * This function gathers BOM constraints based on the provided `publishOptions`,
+ * effectively establishing the dependencies required by the BOM.
+ *
+ * @param publishOptions The Maven publish options containing information for BOM configuration.
+ *
+ * @see bomOptionsError
+ * @see collectBomConstraints
+ */
 fun Project.configureBomModule(
   publishOptions: MavenPublish,
 ) {
   collectBomConstraints(publishOptions)
 }
 
+
+/**
+ * Handles internal errors triggered during BOM options processing.
+ *
+ * This private function throws a custom `Nothing` exception, providing helpful instructions
+ * for the user to report the issue and offer additional context for debugging.
+ *
+ * @throws Nothing : Halts program execution and guides the user to report the issue.
+ */
 private fun bomOptionsError(): Nothing = error(
   """
   Uh-oh! An internal error occurred while handling BoM options.
@@ -38,9 +58,14 @@ private fun bomOptionsError(): Nothing = error(
 )
 
 /**
- * Collects the BoM constraints for the project.
+ * Collects and configures dependency constraints for the current project's Bill of Materials (BOM).
  *
- * @param publishOptions The MavenPublish options for the project.
+ * @param publishOptions The Maven publishing configuration options for the project.
+ *
+ * @throws bomOptionsError If the BOM options are not configured correctly.
+ *
+ * @see bomOptionsError
+ * @see MavenPublish
  */
 private fun Project.collectBomConstraints(
   publishOptions: MavenPublish,
@@ -73,6 +98,18 @@ private fun Project.collectBomConstraints(
   }
 }
 
+/**
+ * Adds an "api" dependency constraint to the current handler.
+ *
+ * @param constraintNotation The notation or reference specifying the dependency constraint.
+ *                           It can be a string in Gradle notation, a project reference,
+ *                           or a dependency declaration object.
+ *
+ * @return This handler instance for chaining calls.
+ *
+ * @see DependencyConstraintHandler
+ * @see DependencyConstraintHandler.add
+ */
 private fun DependencyConstraintHandler.api(
   constraintNotation: Any,
 ) = add("api", constraintNotation)
