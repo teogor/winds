@@ -16,7 +16,7 @@ Winds build and publish libraries and applications for multiple platforms, simpl
 
 |   Latest Update   | Stable Release | Beta Release | Alpha Release |
 |:-----------------:|:--------------:|:------------:|:-------------:|
-| November 24, 2023 |       -        |      -       | 1.0.0-alpha04 |
+| February 08, 2023 |       -        |      -       | 1.0.0-beta01  |
 
 ### Declaring dependencies
 
@@ -29,7 +29,7 @@ Add the dependencies for the artifacts you need in the `build.gradle` file for y
 
     ```kotlin
     plugins {
-      id("dev.teogor.winds") version "1.0.0-alpha04"
+      id("dev.teogor.winds") version "1.0.0-beta01"
     }
     ```
 
@@ -37,7 +37,7 @@ Add the dependencies for the artifacts you need in the `build.gradle` file for y
 
     ```groovy
     plugins {
-      id 'dev.teogor.winds' version '1.0.0-alpha04'
+      id 'dev.teogor.winds' version '1.0.0-beta01'
     }
     ```
 
@@ -52,6 +52,46 @@ existing issue by clicking the star button.
 
 ### Version 1.0.0
 
+#### Version 1.0.0-beta01
+
+February 08, 2023
+
+`dev.teogor.winds:winds-*:1.0.0-beta01` is
+released. [Version 1.0.0-beta01 contains these commits.](https://github.com/teogor/winds/compare/1.0.0-alpha04...1.0.0-beta01)
+
+**Enhancement**
+
+* Streamline Doc Generation with Flexible Dependency Handling and MkDocs
+  Integration ([#48](https://github.com/teogor/winds/pull/48))
+  by [@teogor](https://github.com/teogor)
+* Consolidate Winds Maven Publish configuration across child
+  projects ([#46](https://github.com/teogor/winds/pull/46)) by [@teogor](https://github.com/teogor)
+
+**Bug Fixes**
+
+* Streamline Doc Generation with Flexible Dependency Handling and MkDocs
+  Integration ([#48](https://github.com/teogor/winds/pull/48))
+  by [@teogor](https://github.com/teogor)
+* Ensure null check before depending on parent publish
+  task ([#47](https://github.com/teogor/winds/pull/47))
+  by [@teogor](https://github.com/teogor)
+* Improve DocsGeneratorTask with project directory & BOM library
+  formatting ([#45](https://github.com/teogor/winds/pull/45))
+  by [@teogor](https://github.com/teogor)
+* Unify BOM constraints with mavenPublish
+  configuration ([#44](https://github.com/teogor/winds/pull/44))
+  by [@teogor](https://github.com/teogor)
+* Ensure consistent artifact ID format ([#43](https://github.com/teogor/winds/pull/43))
+  by [@teogor](https://github.com/teogor)
+* Fix infinite loop in MavenPublish `displayName`
+  getter ([#41](https://github.com/teogor/winds/pull/41)) by [@teogor](https://github.com/teogor)
+
+**Documentation**
+
+* Enhance Naming Consistency in API Reference
+  Documentation ([#42](https://github.com/teogor/winds/pull/42))
+  by [@teogor](https://github.com/teogor)
+
 #### Version 1.0.0-alpha04
 
 November 24, 2023
@@ -61,14 +101,22 @@ released. [Version 1.0.0-alpha04 contains these commits.](https://github.com/teo
 
 **Enhancement**
 
-* Introduce ProjectPluginUtils for Managing Project Plugins ([#34](https://github.com/teogor/winds/pull/34)) by [@teogor](https://github.com/teogor)
-* Refined Docs Generator Task for Streamlined Documentation ([#35](https://github.com/teogor/winds/pull/35)) by [@teogor](https://github.com/teogor)
+* Introduce ProjectPluginUtils for Managing Project
+  Plugins ([#34](https://github.com/teogor/winds/pull/34)) by [@teogor](https://github.com/teogor)
+* Refined Docs Generator Task for Streamlined
+  Documentation ([#35](https://github.com/teogor/winds/pull/35))
+  by [@teogor](https://github.com/teogor)
 
 **Bug Fixes**
 
-* Fixed the Flow of BoM Dependency Collection ([#37](https://github.com/teogor/winds/pull/37)) by [@teogor](https://github.com/teogor)
-* Introduce processWindsChildProjects for Streamlined Child Project Processing ([#36](https://github.com/teogor/winds/pull/36)) by [@teogor](https://github.com/teogor)
-* Correct file and directory creation logic in BaseGeneratorTask ([#33](https://github.com/teogor/winds/pull/33)) by [@teogor](https://github.com/teogor)
+* Fixed the Flow of BoM Dependency Collection ([#37](https://github.com/teogor/winds/pull/37))
+  by [@teogor](https://github.com/teogor)
+* Introduce processWindsChildProjects for Streamlined Child Project
+  Processing ([#36](https://github.com/teogor/winds/pull/36))
+  by [@teogor](https://github.com/teogor)
+* Correct file and directory creation logic in
+  BaseGeneratorTask ([#33](https://github.com/teogor/winds/pull/33))
+  by [@teogor](https://github.com/teogor)
 
 #### Version 1.0.0-alpha03
 
