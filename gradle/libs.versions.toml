@@ -1,14 +1,15 @@
 [versions]
-api-validator = "0.13.2"
+agp = "8.2.2"
+api-validator = "0.14.0"
 build-config = "3.1.0"
-dokka = "1.8.20"
+dokka = "1.9.10"
 gradle-publish = "1.1.0"
-gson = "2.10"
-kotlin = "1.9.20"
-kotlinx-serialization = "1.5.1"
-ksp = "1.9.20-1.0.13"
-spotless = "6.20.0"
-vanniktech-maven-plugin = "0.25.3"
+gson = "2.10.1"
+kotlin = "1.9.22"
+kotlinx-serialization = "1.6.2"
+ksp = "1.9.22-1.0.17"
+spotless = "6.25.0"
+vanniktech-maven-plugin = "0.27.0"
 
 [libraries]
 gradle-plugin-kotlin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
@@ -20,10 +21,15 @@ kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-
 [plugins]
 api-validator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "api-validator" }
 build-config = { id = "com.github.gmazzo.buildconfig", version.ref = "build-config" }
-dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 gradle-publish = { id = "com.gradle.plugin-publish", version.ref = "gradle-publish" }
-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 vanniktech-maven = { id = "com.vanniktech.maven.publish", version.ref = "vanniktech-maven-plugin" }
+
+android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+
+jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+jetbrains-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+jetbrains-dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }

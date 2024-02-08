@@ -19,7 +19,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
   `kotlin-dsl`
   id("java-library")
-  alias(libs.plugins.kotlin.serialization)
+  alias(libs.plugins.jetbrains.kotlin.serialization)
   alias(libs.plugins.vanniktech.maven)
 }
 

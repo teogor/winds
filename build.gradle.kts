@@ -10,22 +10,22 @@ buildscript {
 // Lists all plugins used throughout the project without applying them.
 plugins {
   // Kotlin Plugins
-  alias(libs.plugins.kotlin.jvm) apply false // Apply Kotlin JVM plugin
-  alias(libs.plugins.kotlin.serialization) apply false // Apply Kotlin Serialization plugin
+  alias(libs.plugins.jetbrains.kotlin.jvm) apply false
+  alias(libs.plugins.jetbrains.kotlin.serialization) apply false
 
   // Maven Publishing Plugins
-  alias(libs.plugins.vanniktech.maven) apply false // Apply Vanniktech Maven plugin for publishing
+  alias(libs.plugins.vanniktech.maven) apply false
 
   // API Documentation and Validation Plugins
-  alias(libs.plugins.dokka) apply true // Enable Dokka for API documentation generation
-  alias(libs.plugins.spotless) apply true // Enable Spotless for code formatting
-  alias(libs.plugins.api.validator) apply true // Enable API Validator for API validation
+  alias(libs.plugins.jetbrains.dokka) apply true
+  alias(libs.plugins.spotless) apply true
+  alias(libs.plugins.api.validator) apply true
 }
 
 // Explicitly set the group and version for all subprojects
 subprojects {
   group = "dev.teogor.winds"
-  version = "1.0.0-alpha04"
+  version = "1.0.0-beta01"
 }
 
 val ktlintVersion = "0.50.0"
@@ -42,9 +42,8 @@ subprojects {
         target("**/*.kt")
         targetExclude("**/build/**/*.kt")
         ktlint(ktlintVersion)
-          .userData(
+          .editorConfigOverride(
             mapOf(
-              "ktlint_code_style" to "official",
               "ij_kotlin_allow_trailing_comma" to "true",
               // These rules were introduced in ktlint 0.46.0 and should not be
               // enabled without further discussion. They are disabled for now.

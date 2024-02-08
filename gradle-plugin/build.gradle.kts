@@ -20,7 +20,7 @@ plugins {
   `kotlin-dsl`
   alias(libs.plugins.gradle.publish)
   alias(libs.plugins.build.config)
-  alias(libs.plugins.kotlin.serialization)
+  alias(libs.plugins.jetbrains.kotlin.serialization)
   alias(libs.plugins.vanniktech.maven)
 }
 
