@@ -32,6 +32,8 @@ open class MavenPublishImpl : MavenPublish {
   override var name: String? = null
     get() = field ?: getter { name }
 
+  override var enforceUniqueNames: Boolean = true
+
   override var description: String? = null
     get() = field ?: getter { description }
 
@@ -77,7 +79,13 @@ open class MavenPublishImpl : MavenPublish {
 
   override val artifactId: String?
     get() {
-      val names = gets { name }
+      val names = gets { name }.let {
+        if (enforceUniqueNames) {
+          it.distinct()
+        } else {
+          it
+        }
+      }
       return if (get { artifactIdElements } != null) {
         names.takeLast(get { artifactIdElements }!!)
       } else {
@@ -90,7 +98,13 @@ open class MavenPublishImpl : MavenPublish {
 
   override val completeName: String
     get() {
-      val names = gets { displayName }
+      val names = gets { displayName }.let {
+        if (enforceUniqueNames) {
+          it.distinct()
+        } else {
+          it
+        }
+      }
       return names.joinToString(separator = " ")
     }
 
