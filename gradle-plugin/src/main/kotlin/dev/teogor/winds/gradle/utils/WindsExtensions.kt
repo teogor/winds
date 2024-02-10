@@ -183,7 +183,7 @@ inline fun Project.collectModulesInfo(
       dependencyGatheringType = docsGenerator.dependencyGatheringType,
     )
 
-    val mavenPublish = winds.mavenPublish
+    val mavenPublish = winds.mavenPublish as MavenPublishImpl
     val moduleInfo = ModuleInfo(
       completeName = mavenPublish.completeName,
       name = mavenPublish.name ?: "",
@@ -195,7 +195,11 @@ inline fun Project.collectModulesInfo(
       path = path,
       dependencies = dependencies,
       canBePublished = mavenPublish.canBePublished,
-      names = (mavenPublish as MavenPublishImpl).gets { displayName },
+      names = if (mavenPublish.enforceUniqueNames) {
+        mavenPublish.gets { displayName }.distinct()
+      } else {
+        mavenPublish.gets { displayName }
+      },
     )
 
     onModuleInfo(moduleInfo)

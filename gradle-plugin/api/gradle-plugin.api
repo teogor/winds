@@ -71,6 +71,7 @@ public class dev/teogor/winds/api/impl/MavenPublishImpl : dev/teogor/winds/api/M
 	public fun getDescription ()Ljava/lang/String;
 	public fun getDevelopers ()Ljava/util/List;
 	public fun getDisplayName ()Ljava/lang/String;
+	public fun getEnforceUniqueNames ()Z
 	public fun getGroupId ()Ljava/lang/String;
 	public fun getInceptionYear ()Ljava/lang/Integer;
 	public fun getLicenses ()Ljava/util/List;
@@ -92,6 +93,7 @@ public class dev/teogor/winds/api/impl/MavenPublishImpl : dev/teogor/winds/api/M
 	public fun setDescription (Ljava/lang/String;)V
 	public fun setDevelopers (Ljava/util/List;)V
 	public fun setDisplayName (Ljava/lang/String;)V
+	public fun setEnforceUniqueNames (Z)V
 	public fun setGroupId (Ljava/lang/String;)V
 	public fun setInceptionYear (Ljava/lang/Integer;)V
 	public fun setLicenses (Ljava/util/List;)V

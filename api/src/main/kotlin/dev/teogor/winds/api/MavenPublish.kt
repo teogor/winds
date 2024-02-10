@@ -26,6 +26,7 @@ import dev.teogor.winds.api.provider.Scm
 interface MavenPublish {
   var displayName: String?
   var name: String?
+  var enforceUniqueNames: Boolean
   var description: String?
   var groupId: String?
   val artifactId: String?
