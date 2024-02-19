@@ -54,6 +54,9 @@ public final class dev/teogor/winds/api/impl/DocsGeneratorImpl : dev/teogor/wind
 
 public class dev/teogor/winds/api/impl/MavenPublishImpl : dev/teogor/winds/api/MavenPublish {
 	public fun <init> ()V
+	public fun addContributor (Ldev/teogor/winds/api/model/Contributor;)V
+	public fun addContributor (Lkotlin/jvm/functions/Function1;)V
+	public fun addContributors ([Ldev/teogor/winds/api/model/Contributor;)V
 	public fun addDeveloper (Ldev/teogor/winds/api/model/Developer;)V
 	public fun addDeveloper (Lkotlin/jvm/functions/Function1;)V
 	public fun addDevelopers ([Ldev/teogor/winds/api/model/Developer;)V
@@ -66,6 +69,7 @@ public class dev/teogor/winds/api/impl/MavenPublishImpl : dev/teogor/winds/api/M
 	public fun getCanBePublished ()Z
 	public fun getCompleteName ()Ljava/lang/String;
 	public final fun getConfigured ()Z
+	public fun getContributors ()Ljava/util/List;
 	public fun getDependency ()Ljava/lang/String;
 	public fun getDependencyBoM ()Ljava/lang/String;
 	public fun getDescription ()Ljava/lang/String;
@@ -90,6 +94,7 @@ public class dev/teogor/winds/api/impl/MavenPublishImpl : dev/teogor/winds/api/M
 	public fun setBomOptions (Ldev/teogor/winds/api/model/BomOptions;)V
 	public fun setCanBePublished (Z)V
 	public final fun setConfigured (Z)V
+	public fun setContributors (Ljava/util/List;)V
 	public fun setDescription (Ljava/lang/String;)V
 	public fun setDevelopers (Ljava/util/List;)V
 	public fun setDisplayName (Ljava/lang/String;)V
