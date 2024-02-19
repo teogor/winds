@@ -28,6 +28,9 @@ public abstract interface class dev/teogor/winds/api/DocsGenerator : dev/teogor/
 }
 
 public abstract interface class dev/teogor/winds/api/MavenPublish {
+	public abstract fun addContributor (Ldev/teogor/winds/api/model/Contributor;)V
+	public abstract fun addContributor (Lkotlin/jvm/functions/Function1;)V
+	public abstract fun addContributors ([Ldev/teogor/winds/api/model/Contributor;)V
 	public abstract fun addDeveloper (Ldev/teogor/winds/api/model/Developer;)V
 	public abstract fun addDeveloper (Lkotlin/jvm/functions/Function1;)V
 	public abstract fun addDevelopers ([Ldev/teogor/winds/api/model/Developer;)V
@@ -39,6 +42,7 @@ public abstract interface class dev/teogor/winds/api/MavenPublish {
 	public abstract fun getBomOptions ()Ldev/teogor/winds/api/model/BomOptions;
 	public abstract fun getCanBePublished ()Z
 	public abstract fun getCompleteName ()Ljava/lang/String;
+	public abstract fun getContributors ()Ljava/util/List;
 	public abstract fun getDependency ()Ljava/lang/String;
 	public abstract fun getDependencyBoM ()Ljava/lang/String;
 	public abstract fun getDescription ()Ljava/lang/String;
@@ -59,6 +63,7 @@ public abstract interface class dev/teogor/winds/api/MavenPublish {
 	public abstract fun setArtifactIdElements (Ljava/lang/Integer;)V
 	public abstract fun setBomOptions (Ldev/teogor/winds/api/model/BomOptions;)V
 	public abstract fun setCanBePublished (Z)V
+	public abstract fun setContributors (Ljava/util/List;)V
 	public abstract fun setDescription (Ljava/lang/String;)V
 	public abstract fun setDevelopers (Ljava/util/List;)V
 	public abstract fun setDisplayName (Ljava/lang/String;)V
@@ -163,6 +168,44 @@ public final class dev/teogor/winds/api/model/BomOptions {
 	public fun hashCode ()I
 	public final fun setAcceptedModules (Ljava/util/List;)V
 	public final fun setAcceptedPaths (Ljava/util/List;)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class dev/teogor/winds/api/model/Contributor {
+	public abstract fun getEmail ()Ljava/lang/String;
+	public abstract fun getName ()Ljava/lang/String;
+	public abstract fun getOrganization ()Ljava/lang/String;
+	public abstract fun getOrganizationUrl ()Ljava/lang/String;
+	public abstract fun getProperties ()Ljava/util/Map;
+	public abstract fun getRoles ()Ljava/util/List;
+	public abstract fun getTimezone ()Ljava/lang/String;
+	public abstract fun getUrl ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/api/model/ContributorImpl : dev/teogor/winds/api/model/Contributor {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/util/Map;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/util/List;
+	public final fun component7 ()Ljava/lang/String;
+	public final fun component8 ()Ljava/util/Map;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/util/Map;)Ldev/teogor/winds/api/model/ContributorImpl;
+	public static synthetic fun copy$default (Ldev/teogor/winds/api/model/ContributorImpl;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/util/Map;ILjava/lang/Object;)Ldev/teogor/winds/api/model/ContributorImpl;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getEmail ()Ljava/lang/String;
+	public fun getName ()Ljava/lang/String;
+	public fun getOrganization ()Ljava/lang/String;
+	public fun getOrganizationUrl ()Ljava/lang/String;
+	public fun getProperties ()Ljava/util/Map;
+	public fun getRoles ()Ljava/util/List;
+	public fun getTimezone ()Ljava/lang/String;
+	public fun getUrl ()Ljava/lang/String;
+	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 

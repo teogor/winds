@@ -17,10 +17,12 @@
 package dev.teogor.winds.common.utils
 
 import dev.teogor.winds.api.MavenPublish
+import dev.teogor.winds.api.model.Contributor
 import dev.teogor.winds.api.model.Developer
 import dev.teogor.winds.api.model.LicenseType
 import dev.teogor.winds.common.ErrorId
 import org.gradle.api.publish.maven.MavenPom
+import org.gradle.api.publish.maven.MavenPomContributorSpec
 import org.gradle.api.publish.maven.MavenPomDeveloperSpec
 import org.gradle.api.publish.maven.MavenPomLicenseSpec
 
@@ -32,7 +34,9 @@ fun attachMavenData(pom: MavenPom, mavenPublish: MavenPublish) {
     url.set(mavenPublish.url)
 
     contributors {
-      // TODO maven contributors
+      mavenPublish.contributors?.toContributorSpec(
+        mavenPomContributorSpec = it,
+      )
     }
 
     developers {
@@ -51,6 +55,23 @@ fun attachMavenData(pom: MavenPom, mavenPublish: MavenPublish) {
       it.url.set(mavenPublish.scmUrl)
       it.connection.set(mavenPublish.scmConnection)
       it.developerConnection.set(mavenPublish.scmDeveloperConnection)
+    }
+  }
+}
+
+private fun List<Contributor>.toContributorSpec(
+  mavenPomContributorSpec: MavenPomContributorSpec,
+) {
+  forEach { contributor ->
+    mavenPomContributorSpec.contributor {
+      it.name.set(contributor.name)
+      it.email.set(contributor.email)
+      it.url.set(contributor.url)
+      it.organization.set(contributor.organization)
+      it.organizationUrl.set(contributor.organizationUrl)
+      it.roles.set(contributor.roles)
+      it.timezone.set(contributor.timezone)
+      it.properties.set(contributor.properties)
     }
   }
 }
@@ -101,6 +122,16 @@ private fun developerError(): Nothing = error(
   If you think this is an error, please [create an issue](https://github.com/teogor/winds) to assist in resolving this matter.
   Be sure to include the following error ID in your report to help us identify and address the issue:
   ${ErrorId.PomDeveloperError.getErrorIdString()}
+  Thank you for your contribution to improving Winds!
+  """.trimIndent(),
+)
+
+private fun contributorError(): Nothing = error(
+  """
+  Uh-oh! At least a contributor must be provided for your module. Please add contributor information in the `mavenPublish` block within the `winds` extension.
+  If you think this is an error, please [create an issue](https://github.com/teogor/winds) to assist in resolving this matter.
+  Be sure to include the following error ID in your report to help us identify and address the issue:
+  ${ErrorId.PomContributorError.getErrorIdString()}
   Thank you for your contribution to improving Winds!
   """.trimIndent(),
 )

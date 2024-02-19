@@ -30,6 +30,13 @@ public final class dev/teogor/winds/common/ErrorId$GenericError : dev/teogor/win
 	public fun getErrorIdString ()Ljava/lang/String;
 }
 
+public final class dev/teogor/winds/common/ErrorId$PomContributorError : dev/teogor/winds/common/ErrorId {
+	public static final field INSTANCE Ldev/teogor/winds/common/ErrorId$PomContributorError;
+	public fun getErrorId ()I
+	public fun getErrorIdFormatted ()Ljava/lang/String;
+	public fun getErrorIdString ()Ljava/lang/String;
+}
+
 public final class dev/teogor/winds/common/ErrorId$PomDeveloperError : dev/teogor/winds/common/ErrorId {
 	public static final field INSTANCE Ldev/teogor/winds/common/ErrorId$PomDeveloperError;
 	public fun getErrorId ()I

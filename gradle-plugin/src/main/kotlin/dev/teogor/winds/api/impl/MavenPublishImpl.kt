@@ -18,6 +18,8 @@ package dev.teogor.winds.api.impl
 
 import dev.teogor.winds.api.MavenPublish
 import dev.teogor.winds.api.model.BomOptions
+import dev.teogor.winds.api.model.Contributor
+import dev.teogor.winds.api.model.ContributorImpl
 import dev.teogor.winds.api.model.Developer
 import dev.teogor.winds.api.model.DeveloperImpl
 import dev.teogor.winds.api.model.LicenseType
@@ -60,11 +62,14 @@ open class MavenPublishImpl : MavenPublish {
 
   override var canBePublished: Boolean = true
 
-  override var licenses: List<LicenseType>? = null
-    get() = field ?: getter { licenses }
+  override var contributors: List<Contributor>? = null
+    get() = field ?: getter { contributors }
 
   override var developers: List<Developer>? = null
     get() = field ?: getter { developers }
+
+  override var licenses: List<LicenseType>? = null
+    get() = field ?: getter { licenses }
 
   override var bomOptions: BomOptions? = null
     get() = field ?: getter { bomOptions }
@@ -113,8 +118,13 @@ open class MavenPublishImpl : MavenPublish {
 
   var configured: Boolean = false
 
-  override fun addLicense(license: LicenseType) {
-    licenses = (licenses ?: emptyList()) + license
+  override fun addContributors(vararg contributors: Contributor) {
+    this.contributors = (this.contributors ?: emptyList()) + contributors
+  }
+
+  override fun addContributor(init: ContributorImpl.() -> Unit) {
+    val contributor = ContributorImpl().apply(init)
+    contributors = (contributors ?: emptyList()) + contributor
   }
 
   override fun addDeveloper(developer: Developer) {
@@ -128,6 +138,14 @@ open class MavenPublishImpl : MavenPublish {
   override fun addDeveloper(init: DeveloperImpl.() -> Unit) {
     val developer = DeveloperImpl().apply(init)
     developers = (developers ?: emptyList()) + developer
+  }
+
+  override fun addLicense(license: LicenseType) {
+    licenses = (licenses ?: emptyList()) + license
+  }
+
+  override fun addContributor(contributor: Contributor) {
+    contributors = (contributors ?: emptyList()) + contributor
   }
 
   override fun defineBoM(init: BomOptions.() -> Unit) {
