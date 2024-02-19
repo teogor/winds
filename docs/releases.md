@@ -8,15 +8,21 @@ Winds build and publish libraries and applications for multiple platforms, simpl
 
 ### API Reference
 
-* [`dev.teogor.winds`](../reference/gradle-plugin)
-* [`dev.teogor.winds:api`](../reference/api)
-* [`dev.teogor.winds:common`](../reference/common)
+* [`dev.teogor.winds`](../html/){:target="_blank"}
+* [`dev.teogor.winds:api`](../html/api){:target="_blank"}
+* [`dev.teogor.winds:common`](../html/common){:target="_blank"}
+* [`dev.teogor.winds:gradle-plugin`](../html/gradle-plugin){:target="_blank"}
 
 ### Release
 
 |   Latest Update   | Stable Release | Beta Release | Alpha Release |
 |:-----------------:|:--------------:|:------------:|:-------------:|
-| February 08, 2023 |       -        |      -       | 1.0.0-beta01  |
+| February 19, 2024 |       -        |      -       | 1.0.0-beta02  |
+| February 08, 2024 |       -        |      -       | 1.0.0-beta01  |
+| November 25, 2023 |       -        |      -       | 1.0.0-alpha04 |
+| November 20, 2023 |       -        |      -       | 1.0.0-alpha03 |
+| November 08, 2023 |       -        |      -       | 1.0.0-alpha02 |
+| November 06, 2023 |       -        |      -       | 1.0.0-alpha01 |
 
 ### Declaring dependencies
 
@@ -29,7 +35,7 @@ Add the dependencies for the artifacts you need in the `build.gradle` file for y
 
     ```kotlin
     plugins {
-      id("dev.teogor.winds") version "1.0.0-beta01"
+      id("dev.teogor.winds") version "1.0.0-beta02"
     }
     ```
 
@@ -37,7 +43,7 @@ Add the dependencies for the artifacts you need in the `build.gradle` file for y
 
     ```groovy
     plugins {
-      id 'dev.teogor.winds' version '1.0.0-beta01'
+      id 'dev.teogor.winds' version '1.0.0-beta02'
     }
     ```
 
@@ -52,9 +58,28 @@ existing issue by clicking the star button.
 
 ### Version 1.0.0
 
+#### Version 1.0.0-beta02
+
+February 19, 2024
+
+`dev.teogor.winds:winds-*:1.0.0-beta02` is
+released. [Version 1.0.0-beta02 contains these commits.](https://github.com/teogor/winds/compare/1.0.0-beta01...1.0.0-beta02)
+
+**Enhancement**
+
+* Integrate `IssueManagement` interface and enable custom issue management in Maven
+  publications ([#52](https://github.com/teogor/winds/pull/52))
+  by [@teogor](https://github.com/teogor)
+* Integrate `Contributor` interface and enable custom contributors in Maven
+  publications ([#51](https://github.com/teogor/winds/pull/51))
+  by [@teogor](https://github.com/teogor)
+* Add option for unique names
+  using `enforceUniqueNames` ([#50](https://github.com/teogor/winds/pull/50))
+  by [@teogor](https://github.com/teogor)
+
 #### Version 1.0.0-beta01
 
-February 08, 2023
+February 08, 2024
 
 `dev.teogor.winds:winds-*:1.0.0-beta01` is
 released. [Version 1.0.0-beta01 contains these commits.](https://github.com/teogor/winds/compare/1.0.0-alpha04...1.0.0-beta01)

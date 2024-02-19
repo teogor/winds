@@ -4,7 +4,7 @@
 
 ### Latest Version
 
-The latest release is [`1.0.0-beta01`](../releases.md)
+The latest release is [`1.0.0-beta02`](../releases.md)
 
 ### Plugin Releases
 
@@ -12,6 +12,7 @@ Here's a summary of the latest versions:
 
 |    Version    |               Release Notes                | Release Date |
 |:-------------:|:------------------------------------------:|:------------:|
+| 1.0.0-beta02  | [changelog 🔗](changelog/1.0.0-beta02.md)  | 19 Feb 2024  |
 | 1.0.0-beta01  | [changelog 🔗](changelog/1.0.0-beta01.md)  | 08 Feb 2024  |
 | 1.0.0-alpha04 | [changelog 🔗](changelog/1.0.0-alpha04.md) | 24 Nov 2023  |
 | 1.0.0-alpha03 | [changelog 🔗](changelog/1.0.0-alpha03.md) | 20 Nov 2023  |
@@ -29,21 +30,21 @@ TOML format.
 
     ```toml title="gradle/libs.versions.toml"
     [versions]
-    winds = "1.0.0-beta01"
+    teogor-winds = "1.0.0-beta02"
 
     [plugins]
-    winds = { id = "dev.teogor.winds", version.ref = "winds" }
+    teogor-winds = { id = "dev.teogor.winds", version.ref = "teogor-winds" }
     ```
 
 === "Using Plugin SDK"
 
     ```toml title="gradle/libs.versions.toml"
     [versions]
-    winds = "1.0.0-beta01"
+    teogor-winds = "1.0.0-beta02"
 
     [libraries]
-    winds-api = { group = "dev.teogor.winds", name = "api", version.ref = "winds" }
-    winds-common = { group = "dev.teogor.winds", name = "common", version.ref = "winds" }
+    teogor-winds-api = { module = "dev.teogor.winds:api", version.ref = "teogor-winds" }
+    teogor-winds-common = { module = "dev.teogor.winds:common", version.ref = "teogor-winds" }
     ```
 
 #### Dependencies Implementation
@@ -51,19 +52,29 @@ TOML format.
 === "Kotlin"
 
     ```kotlin title="build.gradle.kts"
+    plugins {
+      // Winds Plugin
+      alias(libs.plugins.teogor.winds)
+    }
+
     dependencies {
       // Winds Libraries
-      implementation(libs.winds.api)
-      implementation(libs.winds.common)
+      implementation(libs.teogor.winds.api)
+      implementation(libs.teogor.winds.common)
     }
     ```
 
 === "Groovy"
 
     ```groovy title="build.gradle"
+    plugins {
+      // Winds Plugin
+      alias(libs.plugins.teogor.winds)
+    }
+
     dependencies {
       // Winds Libraries
-      implementation(libs.winds.api)
-      implementation(libs.winds.common)
+      implementation(libs.teogor.winds.api)
+      implementation(libs.teogor.winds.common)
     }
     ```

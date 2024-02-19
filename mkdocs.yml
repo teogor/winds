@@ -3,7 +3,7 @@ site_description: Winds build and publish libraries and applications for multipl
 site_author: Teodor Grigor (teogor)
 site_dir: build/docs/winds
 site_url: https://github.com/teogor/winds
-edit_uri: raw/main/docs/
+edit_uri: edit/main/docs/
 
 docs_dir: docs
 
@@ -12,7 +12,7 @@ repo_name: winds
 repo_url: https://github.com/teogor/winds
 
 # Copyright
-copyright: Copyright &copy; 2023 Teodor Grigor (Teogor)
+copyright: Copyright &copy; 2024 Teodor Grigor (Teogor)
 
 # Page tree
 nav:
@@ -21,6 +21,7 @@ nav:
     - releases.md
     - Implementation: releases/implementation.md
     - Changelog:
+      - 1.0.0-beta02: releases/changelog/1.0.0-beta02.md
       - 1.0.0-beta01: releases/changelog/1.0.0-beta01.md
       - 1.0.0-alpha04: releases/changelog/1.0.0-alpha04.md
       - 1.0.0-alpha03: releases/changelog/1.0.0-alpha03.md

@@ -27,6 +27,7 @@ env:
 
 jobs:
   synchronize-documentation:
+    environment: PRODUCTION
     runs-on: ubuntu-latest
     name: Synchronize Repository Documentation
     steps:
@@ -63,8 +64,8 @@ jobs:
 
       - name: Relocate API References
         run: |
-          mkdir -p build/docs/${{ env.REPOSITORY }}/reference
-          cp -r build/dokka/htmlMultiModule/* build/docs/${{ env.REPOSITORY }}/reference
+          mkdir -p build/docs/${{ env.REPOSITORY }}/html
+          cp -r build/dokka/htmlMultiModule/* build/docs/${{ env.REPOSITORY }}/html
 
       - id: publish-docs
         name: Deploy Documentation
@@ -80,6 +81,7 @@ jobs:
           destination-branch-create: ${{ env.DESTINATION_BRANCH }}
 
   build-and-deploy:
+    environment: PRODUCTION
     needs: synchronize-documentation
     name: Build and Deploy Updated API Documentation
     runs-on: ubuntu-latest

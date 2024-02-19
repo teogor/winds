@@ -8,19 +8,15 @@ full potential.
 ### Project Overview
 
 Our project encompasses a suite of modules, each designed to address specific functionalities and
-enhance the overall developer experience. To delve into the intricacies of each module, refer to
-the dedicated documentation pages:
+enhance the overall developer experience. To delve into the intricacies of each module, refer to the
+dedicated documentation pages:
 
-- **[Winds 🔗](../reference):** Discover the heart of our project.
+### API Reference
 
-- **[API 🔗](../reference/api):** Navigate directly to the code-specific documentation for the
-  project's `:api` module
-
-- **[Common 🔗](../reference/common):** Navigate directly to the code-specific documentation for the
-  project's `:common` module
-
-- **[Plugin 🔗](../reference/gradle-plugin):** Navigate directly to the code-specific documentation
-  for the project's `:gradle-plugin` module
+* [`dev.teogor.winds`](../html/){:target="_blank"}
+* [`dev.teogor.winds:api`](../html/api){:target="_blank"}
+* [`dev.teogor.winds:common`](../html/common){:target="_blank"}
+* [`dev.teogor.winds:gradle-plugin`](../html/gradle-plugin){:target="_blank"}
 
 ### Contributions and Support
 
