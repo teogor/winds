@@ -21,6 +21,7 @@ import dev.teogor.winds.api.model.Contributor
 import dev.teogor.winds.api.model.ContributorImpl
 import dev.teogor.winds.api.model.Developer
 import dev.teogor.winds.api.model.DeveloperImpl
+import dev.teogor.winds.api.model.IssueManagement
 import dev.teogor.winds.api.model.LicenseType
 import dev.teogor.winds.api.model.Version
 import dev.teogor.winds.api.provider.Scm
@@ -49,6 +50,7 @@ interface MavenPublish {
   val isBoM: Boolean
   var inceptionYear: Int?
   val scm: Scm
+  val issueManagement: IssueManagement?
 
   fun addContributor(contributor: Contributor)
   fun addContributors(vararg contributors: Contributor)
@@ -59,4 +61,5 @@ interface MavenPublish {
   fun addLicense(license: LicenseType)
   fun defineBoM(init: BomOptions.() -> Unit = {})
   fun sourceControlManagement(scm: Scm)
+  fun issueManagement(issueManagement: IssueManagement)
 }

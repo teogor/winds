@@ -51,6 +51,7 @@ public abstract interface class dev/teogor/winds/api/MavenPublish {
 	public abstract fun getEnforceUniqueNames ()Z
 	public abstract fun getGroupId ()Ljava/lang/String;
 	public abstract fun getInceptionYear ()Ljava/lang/Integer;
+	public abstract fun getIssueManagement ()Ldev/teogor/winds/api/model/IssueManagement;
 	public abstract fun getLicenses ()Ljava/util/List;
 	public abstract fun getName ()Ljava/lang/String;
 	public abstract fun getScm ()Ldev/teogor/winds/api/provider/Scm;
@@ -60,6 +61,7 @@ public abstract interface class dev/teogor/winds/api/MavenPublish {
 	public abstract fun getUrl ()Ljava/lang/String;
 	public abstract fun getVersion ()Ldev/teogor/winds/api/model/Version;
 	public abstract fun isBoM ()Z
+	public abstract fun issueManagement (Ldev/teogor/winds/api/model/IssueManagement;)V
 	public abstract fun setArtifactIdElements (Ljava/lang/Integer;)V
 	public abstract fun setBomOptions (Ldev/teogor/winds/api/model/BomOptions;)V
 	public abstract fun setCanBePublished (Z)V
@@ -299,6 +301,91 @@ public final class dev/teogor/winds/api/model/DeveloperImpl : dev/teogor/winds/a
 	public fun setRoles (Ljava/util/List;)V
 	public fun setTimezone (Ljava/lang/String;)V
 	public fun setUrl (Ljava/lang/String;)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class dev/teogor/winds/api/model/IssueManagement {
+	public abstract fun getSystem ()Ljava/lang/String;
+	public abstract fun getUrl ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/api/model/IssueManagement$Bugzilla : dev/teogor/winds/api/model/IssueManagement {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ldev/teogor/winds/api/model/IssueManagement$Bugzilla;
+	public static synthetic fun copy$default (Ldev/teogor/winds/api/model/IssueManagement$Bugzilla;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ldev/teogor/winds/api/model/IssueManagement$Bugzilla;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getComponent ()Ljava/lang/String;
+	public final fun getProduct ()Ljava/lang/String;
+	public final fun getServerUrl ()Ljava/lang/String;
+	public fun getSystem ()Ljava/lang/String;
+	public fun getUrl ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/api/model/IssueManagement$Git : dev/teogor/winds/api/model/IssueManagement {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Ldev/teogor/winds/api/model/IssueManagement$Git;
+	public static synthetic fun copy$default (Ldev/teogor/winds/api/model/IssueManagement$Git;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ldev/teogor/winds/api/model/IssueManagement$Git;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getOwner ()Ljava/lang/String;
+	public final fun getRepo ()Ljava/lang/String;
+	public fun getSystem ()Ljava/lang/String;
+	public fun getUrl ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/api/model/IssueManagement$GitLab : dev/teogor/winds/api/model/IssueManagement {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Ldev/teogor/winds/api/model/IssueManagement$GitLab;
+	public static synthetic fun copy$default (Ldev/teogor/winds/api/model/IssueManagement$GitLab;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ldev/teogor/winds/api/model/IssueManagement$GitLab;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getGroup ()Ljava/lang/String;
+	public final fun getProject ()Ljava/lang/String;
+	public fun getSystem ()Ljava/lang/String;
+	public fun getUrl ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/api/model/IssueManagement$Jira : dev/teogor/winds/api/model/IssueManagement {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Ldev/teogor/winds/api/model/IssueManagement$Jira;
+	public static synthetic fun copy$default (Ldev/teogor/winds/api/model/IssueManagement$Jira;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ldev/teogor/winds/api/model/IssueManagement$Jira;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getProjectKey ()Ljava/lang/String;
+	public final fun getServerUrl ()Ljava/lang/String;
+	public fun getSystem ()Ljava/lang/String;
+	public fun getUrl ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/api/model/IssueManagement$Redmine : dev/teogor/winds/api/model/IssueManagement {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Ldev/teogor/winds/api/model/IssueManagement$Redmine;
+	public static synthetic fun copy$default (Ldev/teogor/winds/api/model/IssueManagement$Redmine;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ldev/teogor/winds/api/model/IssueManagement$Redmine;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBaseUrl ()Ljava/lang/String;
+	public final fun getProjectId ()Ljava/lang/String;
+	public fun getSystem ()Ljava/lang/String;
+	public fun getUrl ()Ljava/lang/String;
+	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
