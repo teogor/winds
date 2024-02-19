@@ -22,6 +22,7 @@ import dev.teogor.winds.api.model.Contributor
 import dev.teogor.winds.api.model.ContributorImpl
 import dev.teogor.winds.api.model.Developer
 import dev.teogor.winds.api.model.DeveloperImpl
+import dev.teogor.winds.api.model.IssueManagement
 import dev.teogor.winds.api.model.LicenseType
 import dev.teogor.winds.api.model.Version
 import dev.teogor.winds.api.provider.Scm
@@ -118,6 +119,14 @@ open class MavenPublishImpl : MavenPublish {
 
   var configured: Boolean = false
 
+  private var _scm: Scm? = null
+  override val scm: Scm
+    get() = _scm ?: error("no SCM provided")
+
+  private var _issueManagement: IssueManagement? = null
+  override val issueManagement: IssueManagement?
+    get() = _issueManagement
+
   override fun addContributors(vararg contributors: Contributor) {
     this.contributors = (this.contributors ?: emptyList()) + contributors
   }
@@ -152,14 +161,15 @@ open class MavenPublishImpl : MavenPublish {
     bomOptions = (bomOptions ?: BomOptions()).apply(init)
   }
 
-  private var _scm: Scm? = null
-  override val scm: Scm
-    get() = _scm ?: error("no SCM provided")
   override fun sourceControlManagement(scm: Scm) {
     _scm = scm
     scmConnection = scm.connection
     scmDeveloperConnection = scm.developerConnection
     scmUrl = scm.url
+  }
+
+  override fun issueManagement(issueManagement: IssueManagement) {
+    _issueManagement = issueManagement
   }
 
   fun <T> getter(selector: MavenPublish.() -> T?): T? {

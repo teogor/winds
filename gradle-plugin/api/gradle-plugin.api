@@ -78,6 +78,7 @@ public class dev/teogor/winds/api/impl/MavenPublishImpl : dev/teogor/winds/api/M
 	public fun getEnforceUniqueNames ()Z
 	public fun getGroupId ()Ljava/lang/String;
 	public fun getInceptionYear ()Ljava/lang/Integer;
+	public fun getIssueManagement ()Ldev/teogor/winds/api/model/IssueManagement;
 	public fun getLicenses ()Ljava/util/List;
 	public final fun getMavenPublishOptions ()Ljava/util/List;
 	public fun getName ()Ljava/lang/String;
@@ -90,6 +91,7 @@ public class dev/teogor/winds/api/impl/MavenPublishImpl : dev/teogor/winds/api/M
 	public final fun gets (Lkotlin/jvm/functions/Function1;)Ljava/util/List;
 	public final fun getter (Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
 	public fun isBoM ()Z
+	public fun issueManagement (Ldev/teogor/winds/api/model/IssueManagement;)V
 	public fun setArtifactIdElements (Ljava/lang/Integer;)V
 	public fun setBomOptions (Ldev/teogor/winds/api/model/BomOptions;)V
 	public fun setCanBePublished (Z)V

@@ -56,6 +56,15 @@ fun attachMavenData(pom: MavenPom, mavenPublish: MavenPublish) {
       it.connection.set(mavenPublish.scmConnection)
       it.developerConnection.set(mavenPublish.scmDeveloperConnection)
     }
+
+    issueManagement { mavenPomIssueManagement ->
+      mavenPublish.issueManagement?.system?.let {
+        mavenPomIssueManagement.system.set(it)
+      }
+      mavenPublish.issueManagement?.url?.let {
+        mavenPomIssueManagement.url.set(it)
+      }
+    }
   }
 }
 

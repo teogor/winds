@@ -6,6 +6,7 @@ import dev.teogor.winds.api.model.Developer
 import dev.teogor.winds.api.model.Contributor
 import dev.teogor.winds.api.model.LicenseType
 import dev.teogor.winds.api.provider.Scm
+import dev.teogor.winds.api.model.IssueManagement
 import dev.teogor.winds.gradle.utils.afterWindsPluginConfiguration
 import dev.teogor.winds.gradle.utils.attachTo
 
@@ -57,6 +58,13 @@ winds {
 
     sourceControlManagement(
       Scm.Git(
+        repo = "winds",
+        owner = "teogor",
+      ),
+    )
+
+    issueManagement(
+      IssueManagement.Git(
         repo = "winds",
         owner = "teogor",
       ),
