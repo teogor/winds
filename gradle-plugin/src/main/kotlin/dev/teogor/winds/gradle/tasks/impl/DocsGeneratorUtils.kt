@@ -17,7 +17,7 @@
 package dev.teogor.winds.gradle.tasks.impl
 
 import dev.teogor.winds.api.DocsGenerator
-import dev.teogor.winds.api.Winds
+import dev.teogor.winds.api.WindsLegacy
 import dev.teogor.winds.api.getValue
 import dev.teogor.winds.api.impl.DocsGeneratorImpl
 import dev.teogor.winds.api.model.WindsFeature
@@ -28,14 +28,14 @@ import org.gradle.kotlin.dsl.provideDelegate
 
 fun Project.configureDocsGenerator() {
   collectModulesInfo {
-    val winds: Winds by extensions
-    val docsGeneratorFeatureEnabled = winds isEnabled WindsFeature.DOCS_GENERATOR
-    val docsGenerator: DocsGenerator by winds
+    val windsLegacy: WindsLegacy by extensions
+    val docsGeneratorFeatureEnabled = windsLegacy isEnabled WindsFeature.DOCS_GENERATOR
+    val docsGenerator: DocsGenerator by windsLegacy
     val docsGeneratorImpl = docsGenerator as DocsGeneratorImpl
     docsGeneratorImpl.task?.isEnabled = docsGeneratorFeatureEnabled
     if (!docsGenerator.excludedModules.contains(path)) {
       if (docsGeneratorFeatureEnabled) {
-        (docsGeneratorImpl.task as? DocsGeneratorTask)?.addLibrary(it)
+        (docsGeneratorImpl.task as? DocsGeneratorTaskLegacy)?.addLibrary(it)
       }
     }
   }

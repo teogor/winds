@@ -5,7 +5,7 @@ plugins {
   id("java-library")
 }
 
-winds {
+windsLegacy {
   mavenPublish {
     displayName = "Library 1"
     name = "library-1"
@@ -13,6 +13,16 @@ winds {
 
     version = copyVersion {
       betaRelease(5)
+    }
+  }
+}
+
+winds {
+  moduleMetadata {
+    name = "Library 1"
+
+    artifactDescriptor {
+      name = "library-1"
     }
   }
 }

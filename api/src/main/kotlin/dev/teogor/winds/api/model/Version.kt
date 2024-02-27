@@ -16,8 +16,7 @@
 
 package dev.teogor.winds.api.model
 
-import dev.teogor.winds.api.util.Emoji
-import dev.teogor.winds.api.util.Emojis
+import dev.teogor.winds.api.ReleaseStatus
 import kotlinx.serialization.Serializable
 
 /**
@@ -74,7 +73,7 @@ data class Version(
   val major: Int,
   val minor: Int,
   val patch: Int,
-  var flag: LibraryFlag = LibraryFlag.None,
+  var flag: ReleaseStatus = ReleaseStatus.Stable,
   var isDeprecated: Boolean = false,
   private var versionQualifier: Int = 0,
   private var versionQualifierPadding: Int = 2,
@@ -86,7 +85,7 @@ data class Version(
    * @return True if the release flag is `LibraryFlag.Alpha`, false otherwise.
    */
   val isAlphaRelease: Boolean
-    get() = flag == LibraryFlag.Alpha
+    get() = flag == ReleaseStatus.Alpha
 
   /**
    * Checks if the version is a beta release.
@@ -94,7 +93,7 @@ data class Version(
    * @return True if the release flag is `LibraryFlag.Beta`, false otherwise.
    */
   val isBetaRelease: Boolean
-    get() = flag == LibraryFlag.Beta
+    get() = flag == ReleaseStatus.Beta
 
   /**
    * Creates a `VersionBuilder` object initialized with the current properties
@@ -117,6 +116,134 @@ data class Version(
   }
 
   /**
+   * A builder class for creating `Version` objects.
+   *
+   * This class provides a fluent and expressive way to configure the properties
+   * of a `Version` object.
+   * You can use method chaining to set the major, minor, and patch version
+   * numbers,
+   * as well as the release flag, version qualifier, and deprecated flag.
+   * Once you have configured the properties you want, you can call the `build()`
+   * method to create a new `Version` object.
+   *
+   * Example usage:
+   *
+   * ```kotlin
+   * val versionBuilder = VersionBuilder()
+   *   .major(1)
+   *   .minor(2)
+   *   .patch(3)
+   *   .alphaRelease(4)
+   *   .build()
+   *
+   * println(versionBuilder) // Output: 1.2.3-alpha04
+   * ```
+   */
+  class VersionBuilder {
+
+    /**
+     * The major version number.
+     */
+    var major: Int = 0
+
+    /**
+     * The minor version number.
+     */
+    var minor: Int = 0
+
+    /**
+     * The patch version number.
+     */
+    var patch: Int = 0
+
+    /**
+     * The release flag, indicating whether the version is an alpha or beta release.
+     */
+    internal var flag: ReleaseStatus = ReleaseStatus.Stable
+
+    /**
+     * The version qualifier, used for alpha and beta releases.
+     */
+    internal var versionQualifier: Int = 0
+
+    /**
+     * The padding for the version qualifier.
+     */
+    internal var versionQualifierPadding: Int = 2
+
+    /**
+     * Whether the version is deprecated.
+     */
+    internal var isDeprecated: Boolean = false
+
+    /**
+     * Sets the release flag to alpha and the version qualifier to the provided value.
+     *
+     * @param version The version qualifier for the alpha release.
+     * @return The `VersionBuilder` object, allowing method chaining.
+     */
+    fun alphaRelease(version: Int) = apply {
+      this.versionQualifier = version
+      this.flag = ReleaseStatus.Alpha
+    }
+
+    /**
+     * Sets the release flag to beta and the version qualifier to the provided value.
+     *
+     * @param version The version qualifier for the beta release.
+     * @return The `VersionBuilder` object, allowing method chaining.
+     */
+    fun betaRelease(version: Int) = apply {
+      this.versionQualifier = version
+      this.flag = ReleaseStatus.Beta
+    }
+
+    /**
+     * Sets the version qualifier to the provided value.
+     *
+     * @param versionQualifier The version qualifier.
+     * @return The `VersionBuilder` object, allowing method chaining.
+     */
+    fun versionQualifier(versionQualifier: Int) = apply {
+      this.versionQualifier = versionQualifier
+    }
+
+    /**
+     * Sets the padding for the version qualifier to the provided value.
+     *
+     * @param versionQualifierPadding The padding for the version qualifier.
+     * @return The `VersionBuilder` object, allowing method chaining.
+     */
+    fun versionQualifierPadding(versionQualifierPadding: Int) = apply {
+      this.versionQualifierPadding = versionQualifierPadding
+    }
+
+    /**
+     * Marks the version as deprecated.
+     *
+     * @return The `VersionBuilder` object, allowing method chaining.
+     */
+    fun setIsDeprecated() = apply {
+      this.isDeprecated = true
+    }
+
+    /**
+     * Builds and returns a new `Version` object with the configured properties.
+     *
+     * @return A new `Version` object.
+     */
+    fun build() = Version(
+      major = major,
+      minor = minor,
+      patch = patch,
+      flag = flag,
+      isDeprecated = isDeprecated,
+      versionQualifier = versionQualifier,
+      versionQualifierPadding = versionQualifierPadding,
+    )
+  }
+
+  /**
    * Converts the version object to a string representation.
    *
    * The string representation follows the semantic versioning format
@@ -130,7 +257,7 @@ data class Version(
    */
   override fun toString(): String {
     return when (flag) {
-      LibraryFlag.Alpha, LibraryFlag.Beta -> {
+      ReleaseStatus.Alpha, ReleaseStatus.Beta -> {
         val versionQualifierString = versionQualifier.toString().padStart(
           versionQualifierPadding,
           '0',
@@ -193,180 +320,3 @@ data class Version(
     }
   }
 }
-
-/**
- * Creates a new `Version` object with the specified major, minor,
- * and patch version numbers, and applies the provided configuration
- * block.
- *
- * @param major The major version number.
- * @param minor The minor version number.
- * @param patch The patch version number.
- * @param block An optional configuration block to apply to the newly
- * created `Version` object. If not provided, the default values will
- * be used.
- *
- * @return A new `Version` object with the specified version numbers
- * and applied configuration.
- */
-fun createVersion(
-  major: Int,
-  minor: Int,
-  patch: Int,
-  block: VersionBuilder.() -> Unit = {},
-): Version {
-  return VersionBuilder()
-    .apply {
-      this.major = major
-      this.minor = minor
-      this.patch = patch
-    }
-    .apply(block)
-    .build()
-}
-
-/**
- * Creates a new `Version` object using a fluent builder pattern.
- *
- * @param block A configuration block to apply to the newly created
- * `Version` object.
- *
- * @return A new `Version` object with the configured properties.
- */
-fun versionOf(block: VersionBuilder.() -> Unit) = VersionBuilder().apply(block).build()
-
-/**
- * A builder class for creating `Version` objects.
- *
- * This class provides a fluent and expressive way to configure the properties
- * of a `Version` object.
- * You can use method chaining to set the major, minor, and patch version
- * numbers,
- * as well as the release flag, version qualifier, and deprecated flag.
- * Once you have configured the properties you want, you can call the `build()`
- * method to create a new `Version` object.
- *
- * Example usage:
- *
- * ```kotlin
- * val versionBuilder = VersionBuilder()
- *   .major(1)
- *   .minor(2)
- *   .patch(3)
- *   .alphaRelease(4)
- *   .build()
- *
- * println(versionBuilder) // Output: 1.2.3-alpha04
- * ```
- */
-class VersionBuilder {
-
-  /**
-   * The major version number.
-   */
-  var major: Int = 0
-
-  /**
-   * The minor version number.
-   */
-  var minor: Int = 0
-
-  /**
-   * The patch version number.
-   */
-  var patch: Int = 0
-
-  /**
-   * The release flag, indicating whether the version is an alpha or beta release.
-   */
-  internal var flag: LibraryFlag = LibraryFlag.None
-
-  /**
-   * The version qualifier, used for alpha and beta releases.
-   */
-  internal var versionQualifier: Int = 0
-
-  /**
-   * The padding for the version qualifier.
-   */
-  internal var versionQualifierPadding: Int = 2
-
-  /**
-   * Whether the version is deprecated.
-   */
-  internal var isDeprecated: Boolean = false
-
-  /**
-   * Sets the release flag to alpha and the version qualifier to the provided value.
-   *
-   * @param version The version qualifier for the alpha release.
-   * @return The `VersionBuilder` object, allowing method chaining.
-   */
-  fun alphaRelease(version: Int) = apply {
-    this.versionQualifier = version
-    this.flag = LibraryFlag.Alpha
-  }
-
-  /**
-   * Sets the release flag to beta and the version qualifier to the provided value.
-   *
-   * @param version The version qualifier for the beta release.
-   * @return The `VersionBuilder` object, allowing method chaining.
-   */
-  fun betaRelease(version: Int) = apply {
-    this.versionQualifier = version
-    this.flag = LibraryFlag.Beta
-  }
-
-  /**
-   * Sets the version qualifier to the provided value.
-   *
-   * @param versionQualifier The version qualifier.
-   * @return The `VersionBuilder` object, allowing method chaining.
-   */
-  fun versionQualifier(versionQualifier: Int) = apply {
-    this.versionQualifier = versionQualifier
-  }
-
-  /**
-   * Sets the padding for the version qualifier to the provided value.
-   *
-   * @param versionQualifierPadding The padding for the version qualifier.
-   * @return The `VersionBuilder` object, allowing method chaining.
-   */
-  fun versionQualifierPadding(versionQualifierPadding: Int) = apply {
-    this.versionQualifierPadding = versionQualifierPadding
-  }
-
-  /**
-   * Marks the version as deprecated.
-   *
-   * @return The `VersionBuilder` object, allowing method chaining.
-   */
-  fun setIsDeprecated() = apply {
-    this.isDeprecated = true
-  }
-
-  /**
-   * Builds and returns a new `Version` object with the configured properties.
-   *
-   * @return A new `Version` object.
-   */
-  fun build() = Version(
-    major = major,
-    minor = minor,
-    patch = patch,
-    flag = flag,
-    isDeprecated = isDeprecated,
-    versionQualifier = versionQualifier,
-    versionQualifierPadding = versionQualifierPadding,
-  )
-}
-
-val Version.emoji: Emoji
-  get() = when (this.toString().lowercase()) {
-    "deprecated" -> Emojis.DEPRECATED
-    "alpha" -> Emojis.ALPHA
-    "beta" -> Emojis.BETA
-    else -> ""
-  }

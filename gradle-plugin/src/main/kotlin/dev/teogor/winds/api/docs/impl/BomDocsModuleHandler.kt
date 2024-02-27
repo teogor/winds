@@ -20,12 +20,12 @@ import dev.teogor.winds.api.DocsGenerator
 import dev.teogor.winds.api.docs.DocsModuleHandler
 import dev.teogor.winds.api.model.BillOfMaterialsRecord
 import dev.teogor.winds.api.model.ModuleInfo
-import dev.teogor.winds.api.util.directory
-import dev.teogor.winds.api.util.file
-import dev.teogor.winds.api.util.write
 import dev.teogor.winds.codegen.implementationBomMarkdownContent
 import dev.teogor.winds.codegen.releaseChangelogMarkdownContent
 import dev.teogor.winds.common.ErrorId
+import dev.teogor.winds.ktx.directory
+import dev.teogor.winds.ktx.file
+import dev.teogor.winds.ktx.write
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json

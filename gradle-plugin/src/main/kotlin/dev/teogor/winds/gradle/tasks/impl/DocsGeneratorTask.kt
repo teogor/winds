@@ -17,6 +17,7 @@
 package dev.teogor.winds.gradle.tasks.impl
 
 import dev.teogor.winds.api.DocsGenerator
+import dev.teogor.winds.api.ModuleMetadata
 import dev.teogor.winds.api.docs.impl.factory.DocsModuleHandlerFactory
 import dev.teogor.winds.api.model.ModuleInfo
 import dev.teogor.winds.gradle.tasks.BaseGeneratorTask
@@ -45,7 +46,7 @@ abstract class DocsGeneratorTask : BaseGeneratorTask(
   /**
    * A mutable list of ModuleInfo objects representing project dependencies.
    */
-  private val libraries = mutableListOf<ModuleInfo>()
+  private val libraries = mutableListOf<ModuleMetadata>()
 
   /**
    * The main action of the task, executed when the task is run.
@@ -58,18 +59,22 @@ abstract class DocsGeneratorTask : BaseGeneratorTask(
   @TaskAction
   override fun action() {
     val docsModuleHandlerFactory = DocsModuleHandlerFactory()
-    docsModuleHandler = docsModuleHandlerFactory.createHandler(
-      projectDir = projectDir,
-      docsGenerator = docsGenerator,
-      libraries = libraries,
-    )
-
-    docsModuleHandler.manageDependencies()
-    docsModuleHandler.writeReleaseNotes()
-
-    if (docsGenerator.mkdocsEnabled) {
-      docsModuleHandler.updateMkDocs()
+    libraries.forEach {
+      println("library - ${it.artifactDescriptor?.coordinates}")
     }
+    return
+    // docsModuleHandler = docsModuleHandlerFactory.createHandler(
+    //   projectDir = projectDir,
+    //   docsGenerator = docsGenerator,
+    //   libraries = libraries,
+    // )
+    //
+    // docsModuleHandler.manageDependencies()
+    // docsModuleHandler.writeReleaseNotes()
+    //
+    // if (docsGenerator.mkdocsEnabled) {
+    //   docsModuleHandler.updateMkDocs()
+    // }
   }
 
   /**
@@ -81,8 +86,11 @@ abstract class DocsGeneratorTask : BaseGeneratorTask(
    * @see provideDocsGenerator
    * @see provideProjectDir
    */
-  fun addLibrary(data: ModuleInfo) {
-    if (libraries.firstOrNull { it.module == data.module } == null) {
+  fun addLibrary(data: ModuleMetadata) {
+    if (libraries.firstOrNull {
+        it.artifactDescriptor!!.coordinates == data.artifactDescriptor!!.coordinates
+      } == null
+    ) {
       libraries.add(data)
     }
   }

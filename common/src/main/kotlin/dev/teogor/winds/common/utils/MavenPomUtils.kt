@@ -26,6 +26,7 @@ import org.gradle.api.publish.maven.MavenPomContributorSpec
 import org.gradle.api.publish.maven.MavenPomDeveloperSpec
 import org.gradle.api.publish.maven.MavenPomLicenseSpec
 
+@Deprecated("")
 fun attachMavenData(pom: MavenPom, mavenPublish: MavenPublish) {
   pom.apply {
     name.set(mavenPublish.completeName)
@@ -58,16 +59,17 @@ fun attachMavenData(pom: MavenPom, mavenPublish: MavenPublish) {
     }
 
     issueManagement { mavenPomIssueManagement ->
-      mavenPublish.issueManagement?.system?.let {
+      mavenPublish.ticketSystem?.system?.let {
         mavenPomIssueManagement.system.set(it)
       }
-      mavenPublish.issueManagement?.url?.let {
+      mavenPublish.ticketSystem?.url?.let {
         mavenPomIssueManagement.url.set(it)
       }
     }
   }
 }
 
+@Deprecated("")
 private fun List<Contributor>.toContributorSpec(
   mavenPomContributorSpec: MavenPomContributorSpec,
 ) {
@@ -85,6 +87,7 @@ private fun List<Contributor>.toContributorSpec(
   }
 }
 
+@Deprecated("")
 private fun List<Developer>.toDeveloperSpec(
   mavenPomDeveloperSpec: MavenPomDeveloperSpec,
 ) {
@@ -102,6 +105,7 @@ private fun List<Developer>.toDeveloperSpec(
   }
 }
 
+@Deprecated("")
 private fun List<LicenseType>.toLicenseSpec(
   mavenPomLicenseSpec: MavenPomLicenseSpec,
 ) {
@@ -115,6 +119,7 @@ private fun List<LicenseType>.toLicenseSpec(
   }
 }
 
+@Deprecated("")
 private fun licenseError(): Nothing = error(
   """
   Uh-oh! A license must be provided for your module. Please specify the license in the `mavenPublish` block within the `winds` extension.
@@ -125,6 +130,7 @@ private fun licenseError(): Nothing = error(
   """.trimIndent(),
 )
 
+@Deprecated("")
 private fun developerError(): Nothing = error(
   """
   Uh-oh! At least a developer must be provided for your module. Please add developer information in the `mavenPublish` block within the `winds` extension.
@@ -135,6 +141,7 @@ private fun developerError(): Nothing = error(
   """.trimIndent(),
 )
 
+@Deprecated("")
 private fun contributorError(): Nothing = error(
   """
   Uh-oh! At least a contributor must be provided for your module. Please add contributor information in the `mavenPublish` block within the `winds` extension.

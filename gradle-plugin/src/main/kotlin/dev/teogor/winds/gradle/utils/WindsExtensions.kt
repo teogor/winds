@@ -17,15 +17,14 @@
 package dev.teogor.winds.gradle.utils
 
 import dev.teogor.winds.api.MavenPublish
-import dev.teogor.winds.api.Winds
+import dev.teogor.winds.api.WindsLegacy
 import dev.teogor.winds.api.impl.MavenPublishImpl
-import dev.teogor.winds.api.impl.WindsOptions
+import dev.teogor.winds.api.impl.WindsLegacyOptions
 import dev.teogor.winds.api.model.DependencyDefinition
 import dev.teogor.winds.api.model.DependencyType
 import dev.teogor.winds.api.model.LocalProjectDependency
 import dev.teogor.winds.api.model.ModuleInfo
 import dev.teogor.winds.api.model.Version
-import dev.teogor.winds.api.model.VersionBuilder
 import dev.teogor.winds.common.dependencies.DependencyCollector
 import dev.teogor.winds.common.dependencies.filterVariants
 import dev.teogor.winds.common.dependencies.includePlatform
@@ -51,7 +50,7 @@ import org.gradle.kotlin.dsl.withType
  */
 inline fun Project.isWindsApplied(
   lazyStart: Boolean = true,
-  crossinline block: Winds.() -> Unit,
+  crossinline block: WindsLegacy.() -> Unit,
 ) {
   if (lazyStart) {
     lazy {
@@ -62,11 +61,11 @@ inline fun Project.isWindsApplied(
   }
 }
 
-inline fun Project.checkPluginApplied(crossinline block: Winds.() -> Unit) {
+inline fun Project.checkPluginApplied(crossinline block: WindsLegacy.() -> Unit) {
   val hasWinds = project.plugins.hasPlugin("dev.teogor.winds")
   if (hasWinds) {
-    val winds: Winds by extensions
-    winds.block()
+    val windsLegacy: WindsLegacy by extensions
+    windsLegacy.block()
   }
 }
 
@@ -84,7 +83,7 @@ private val publishPlugins = listOf(
   "version-catalog",
 )
 
-inline fun <reified T : DefaultTask> WindsOptions.registerTask(
+inline fun <reified T : DefaultTask> WindsLegacyOptions.registerTask(
   name: String,
 ) = project.tasks.register<T>(name)
 
@@ -102,49 +101,52 @@ fun Project.getAllDependencies(): List<DependencyDefinition> {
  * object.
  * @return A new version object with the applied configuration.
  */
+@Deprecated("")
 fun MavenPublish.copyVersion(
-  block: VersionBuilder.() -> Unit = {},
+  block: Version.VersionBuilder.() -> Unit = {},
 ): Version {
   return version!!.toBuilder().apply(block).build()
 }
 
+@Deprecated("")
 infix fun MavenPublish.attachTo(pom: MavenPom) {
   attachMavenData(pom, this)
 }
 
-fun Project.windsPluginConfiguration(action: Project.(Winds) -> Unit) {
+@Deprecated("")
+fun Project.windsPluginConfiguration(action: Project.(WindsLegacy) -> Unit) {
   subprojects {
     val project = this
     plugins.withType<WindsPlugin> {
-      val winds: Winds by extensions
-      project.action(winds)
+      val windsLegacy: WindsLegacy by extensions
+      project.action(windsLegacy)
     }
   }
 }
 
-fun Project.afterWindsPluginConfiguration(action: Project.(Winds) -> Unit) {
+fun Project.afterWindsPluginConfiguration(action: Project.(WindsLegacy) -> Unit) {
   processWindsChildProjects {
     plugins.withType<WindsPlugin> {
       if (state.executed) {
-        val winds: Winds by extensions
-        action(winds)
+        val windsLegacy: WindsLegacy by extensions
+        action(windsLegacy)
       } else {
         afterEvaluate {
-          val winds: Winds by extensions
-          action(winds)
+          val windsLegacy: WindsLegacy by extensions
+          action(windsLegacy)
         }
       }
     }
   }
 }
 
-fun Project.configureWindsPluginConfiguration(action: Project.(Winds) -> Unit) {
+fun Project.configureWindsPluginConfiguration(action: Project.(WindsLegacy) -> Unit) {
   if (state.executed) {
     processWindsChildProjects {
       plugins.withType<WindsPlugin> {
         afterEvaluate {
-          val winds: Winds by extensions
-          action(winds)
+          val windsLegacy: WindsLegacy by extensions
+          action(windsLegacy)
         }
       }
     }
@@ -153,8 +155,8 @@ fun Project.configureWindsPluginConfiguration(action: Project.(Winds) -> Unit) {
       processWindsChildProjects {
         plugins.withType<WindsPlugin> {
           afterEvaluate {
-            val winds: Winds by extensions
-            action(winds)
+            val windsLegacy: WindsLegacy by extensions
+            action(windsLegacy)
           }
         }
       }
@@ -175,15 +177,15 @@ inline fun Project.collectModulesInfo(
   val allDependencies = if (hasAndroidLibraryPlugin()) getAllDependencies() else emptyList()
 
   configureWindsPluginConfiguration {
-    val winds: Winds by extensions
+    val windsLegacy: WindsLegacy by extensions
 
-    val docsGenerator = winds.docsGenerator
+    val docsGenerator = windsLegacy.docsGenerator
     val dependencies = aggregateDependencies(
       allDependencies = allDependencies,
       dependencyGatheringType = docsGenerator.dependencyGatheringType,
     )
 
-    val mavenPublish = winds.mavenPublish as MavenPublishImpl
+    val mavenPublish = windsLegacy.mavenPublish as MavenPublishImpl
     val moduleInfo = ModuleInfo(
       completeName = mavenPublish.completeName,
       name = mavenPublish.name ?: "",

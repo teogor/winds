@@ -23,6 +23,30 @@
     ]
   },
   {
+    "completeName": "Winds Examples KMP Android",
+    "name": "android",
+    "displayName": "Android",
+    "description": "Examples on how to use Winds Plugin",
+    "groupId": "dev.teogor.winds.examples",
+    "artifactId": "kmp-android",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "patch": 0,
+      "flag": "Alpha",
+      "versionQualifier": 1
+    },
+    "path": ":kmp:android",
+    "dependencies": [
+    ],
+    "canBePublished": true,
+    "names": [
+      "Winds Examples",
+      "KMP",
+      "Android"
+    ]
+  },
+  {
     "completeName": "Winds Examples Module 1 Library 1",
     "name": "library-1",
     "displayName": "Library 1",

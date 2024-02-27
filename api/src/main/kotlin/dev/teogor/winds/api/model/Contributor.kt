@@ -29,6 +29,7 @@ import org.gradle.api.publish.maven.MavenPomContributor
  *
  * @see MavenPomContributor for the original interface definition.
  */
+@Deprecated("use contributor on winds metadata")
 interface Contributor {
 
   /**
@@ -71,22 +72,3 @@ interface Contributor {
    */
   val properties: Map<String, String>
 }
-
-/**
- * An implementation of the `Contributor` interface using String properties.
- *
- * This class provides concrete implementations for all properties of the [Contributor]
- * interface using String types.
- *
- * It is a convenient way to represent a contributor with basic information.
- */
-data class ContributorImpl(
-  override val name: String = "",
-  override val email: String = "",
-  override val url: String = "",
-  override val organization: String = "",
-  override val organizationUrl: String = "",
-  override val roles: List<String> = emptyList(),
-  override val timezone: String = "",
-  override val properties: Map<String, String> = emptyMap(),
-) : Contributor

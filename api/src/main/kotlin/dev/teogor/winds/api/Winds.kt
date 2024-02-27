@@ -17,43 +17,52 @@
 package dev.teogor.winds.api
 
 import dev.teogor.winds.api.model.WindsFeature
-import kotlin.reflect.KProperty
+import org.gradle.api.Project
 
 interface Winds {
-  var buildFeatures: BuildFeatures
+  val allSpecs: MutableList<ArtifactDescriptor>
 
-  fun buildFeatures(action: BuildFeatures.() -> Unit)
+  var windsFeatures: WindsFeatures
 
-  var mavenPublish: MavenPublish
+  fun windsFeatures(action: WindsFeatures.() -> Unit)
 
-  fun mavenPublish(action: MavenPublish.() -> Unit)
+  var moduleMetadata: ModuleMetadata
+
+  fun moduleMetadata(action: ModuleMetadata.() -> Unit)
+
+  var publishingOptions: PublishingOptions
+
+  fun publishingOptions(action: PublishingOptions.() -> Unit)
 
   var docsGenerator: DocsGenerator
 
   fun docsGenerator(action: DocsGenerator.() -> Unit)
 
+  var documentationBuilder: DocumentationBuilder
+
+  fun documentationBuilder(configure: DocumentationBuilder.() -> Unit)
+
   var workflowSynthesizer: WorkflowSynthesizer
 
   fun workflowSynthesizer(action: WorkflowSynthesizer.() -> Unit)
 
+  var codebaseOptions: CodebaseOptions
+
+  fun codebaseOptions(configure: CodebaseOptions.() -> Unit)
+
+  fun configureProjects(
+    includeRoot: Boolean = true,
+    action: Project.(Winds) -> Unit,
+  )
+
   infix fun isEnabled(feature: WindsFeature): Boolean {
     return when (feature) {
       WindsFeature.API_VALIDATOR -> false
-      WindsFeature.DOCS_GENERATOR -> buildFeatures.docsGenerator
+      WindsFeature.DOCS_GENERATOR -> windsFeatures.docsGenerator
       WindsFeature.DOKKA -> false
-      WindsFeature.MAVEN_PUBLISH -> buildFeatures.mavenPublish
+      WindsFeature.MAVEN_PUBLISH -> windsFeatures.mavenPublishing
       WindsFeature.SPOTLESS -> false
-      WindsFeature.WORKFLOW_SYNTHESIZER -> buildFeatures.workflowSynthesizer
+      WindsFeature.WORKFLOW_SYNTHESIZER -> windsFeatures.workflowSynthesizer
     }
-  }
-}
-
-inline operator fun <reified T> Winds.getValue(thisRef: Nothing?, property: KProperty<*>): T {
-  return when (T::class) {
-    BuildFeatures::class -> buildFeatures as T
-    MavenPublish::class -> mavenPublish as T
-    DocsGenerator::class -> docsGenerator as T
-    WorkflowSynthesizer::class -> workflowSynthesizer as T
-    else -> throw IllegalArgumentException("Unsupported property type: ${property.returnType}")
   }
 }

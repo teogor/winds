@@ -14,11 +14,15 @@
  * limitations under the License.
  */
 
-package dev.teogor.winds.api.model
+package dev.teogor.winds.api.impl
 
-enum class LibraryFlag {
-  None,
-  Alpha,
-  Beta,
-  Deprecated,
+import com.vanniktech.maven.publish.SonatypeHost
+import dev.teogor.winds.api.PublishingOptions
+
+open class PublishingOptionsImpl : PublishingOptions {
+  override var publish: Boolean = true
+  override var enablePublicationSigning: Boolean = true
+  override var optInForVanniktechPlugin: Boolean = true
+  override var cascadePublish: Boolean = true
+  override var sonatypeHost: SonatypeHost = SonatypeHost.DEFAULT
 }

@@ -18,6 +18,7 @@ package dev.teogor.winds.api.impl
 
 import dev.teogor.winds.api.BuildFeatures
 
+@Deprecated("Use WindsFeatures")
 open class BuildFeaturesImpl : BuildFeatures {
 
   override var mavenPublish: Boolean = false

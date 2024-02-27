@@ -21,7 +21,7 @@ plugins {
   alias(libs.plugins.vanniktech.maven) apply true
 }
 
-val javaVersion = JavaVersion.VERSION_1_8
+val javaVersion = JavaVersion.VERSION_11
 java {
   sourceCompatibility = javaVersion
   targetCompatibility = javaVersion
@@ -35,6 +35,7 @@ compileKotlin.kotlinOptions {
 
 dependencies {
   implementation(project(":api"))
+  implementation(libs.vanniktech.maven.api)
 }
 
 @Suppress("UnstableApiUsage")

@@ -21,8 +21,8 @@ import dev.teogor.winds.api.docs.DocsModuleHandler
 import dev.teogor.winds.api.docs.impl.BomDocsModuleHandler
 import dev.teogor.winds.api.docs.impl.StandardDocsModuleHandler
 import dev.teogor.winds.api.model.ModuleInfo
-import dev.teogor.winds.api.model.bom
-import dev.teogor.winds.api.model.sortByPath
+import dev.teogor.winds.ktx.bom
+import dev.teogor.winds.ktx.sortByPath
 import java.io.File
 
 /**
@@ -55,6 +55,7 @@ class DocsModuleHandlerFactory {
         libraries = libraries.sortByPath(),
         bomModule = libraries.bom()!!,
       )
+
       false -> StandardDocsModuleHandler(
         projectDir = projectDir,
         docsGenerator = docsGenerator,

@@ -23,6 +23,7 @@ package dev.teogor.winds.api
  *
  * This list applies to all plugin types.
  */
+@Deprecated("Use WindsFeatures")
 interface BuildFeatures {
 
   /**

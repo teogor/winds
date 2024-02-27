@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package dev.teogor.winds.api.util
+package dev.teogor.winds.ktx
 
 import java.io.BufferedReader
 import java.io.BufferedWriter

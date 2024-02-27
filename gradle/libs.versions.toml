@@ -10,6 +10,7 @@ kotlinx-serialization = "1.6.2"
 ksp = "1.9.22-1.0.17"
 spotless = "6.25.0"
 vanniktech-maven-plugin = "0.27.0"
+junit = "5.10.1"
 
 [libraries]
 gradle-plugin-kotlin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
@@ -17,6 +18,8 @@ gradle-plugin-ksp = { group = "com.google.devtools.ksp", name = "com.google.devt
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 kotlinx-serialization-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-core", version.ref = "kotlinx-serialization" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+vanniktech-maven-api = { module = "com.vanniktech.maven.publish.base:com.vanniktech.maven.publish.base.gradle.plugin", version.ref = "vanniktech-maven-plugin" }
+junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version.ref = "junit" }
 
 [plugins]
 api-validator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "api-validator" }
