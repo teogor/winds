@@ -33,7 +33,7 @@ To implement the Winds plugin, add the following plugin ID to your build.gradle 
 
     ```kotlin
     plugins {
-      id("dev.teogor.winds") version "1.0.0-beta02"
+      id("dev.teogor.winds") version "1.0.0-beta03"
     }
     ```
 
@@ -41,7 +41,7 @@ To implement the Winds plugin, add the following plugin ID to your build.gradle 
 
     ```groovy
     plugins {
-      id 'dev.teogor.winds' version '1.0.0-beta02'
+      id 'dev.teogor.winds' version '1.0.0-beta03'
     }
     ```
 
@@ -81,7 +81,7 @@ detailed explanations, examples, and best practices for using the library effect
 # License
 
 ```xml
-Designed and developed by 2023 teogor (Teodor Grigor)
+  Designed and developed by 2023 teogor (Teodor Grigor)
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.

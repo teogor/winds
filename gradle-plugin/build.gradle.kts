@@ -75,7 +75,7 @@ gradlePlugin {
 }
 
 buildConfig {
-  packageName("dev.teogor.winds")
+  packageName(group.toString())
 
   buildConfigField("String", "NAME", "\"${group}\"")
   buildConfigField("String", "VERSION", "\"${version}\"")

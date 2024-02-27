@@ -17,8 +17,9 @@ Winds build and publish libraries and applications for multiple platforms, simpl
 
 |   Latest Update   | Stable Release | Beta Release | Alpha Release |
 |:-----------------:|:--------------:|:------------:|:-------------:|
-| February 19, 2024 |       -        |      -       | 1.0.0-beta02  |
-| February 08, 2024 |       -        |      -       | 1.0.0-beta01  |
+| February 27, 2024 |       -        | 1.0.0-beta03 |       -       |
+| February 19, 2024 |       -        | 1.0.0-beta02 |       -       |
+| February 08, 2024 |       -        | 1.0.0-beta01 |       -       |
 | November 25, 2023 |       -        |      -       | 1.0.0-alpha04 |
 | November 20, 2023 |       -        |      -       | 1.0.0-alpha03 |
 | November 08, 2023 |       -        |      -       | 1.0.0-alpha02 |
@@ -35,7 +36,7 @@ Add the dependencies for the artifacts you need in the `build.gradle` file for y
 
     ```kotlin
     plugins {
-      id("dev.teogor.winds") version "1.0.0-beta02"
+      id("dev.teogor.winds") version "1.0.0-beta03"
     }
     ```
 
@@ -43,7 +44,7 @@ Add the dependencies for the artifacts you need in the `build.gradle` file for y
 
     ```groovy
     plugins {
-      id 'dev.teogor.winds' version '1.0.0-beta02'
+      id 'dev.teogor.winds' version '1.0.0-beta03'
     }
     ```
 
@@ -57,6 +58,17 @@ existing issue by clicking the star button.
 [Create a new issue](https://github.com/teogor/winds/issues/new){ .md-button }
 
 ### Version 1.0.0
+
+#### Version 1.0.0-beta03
+
+February 19, 2024
+
+`dev.teogor.winds:winds-*:1.0.0-beta03` is
+released. [Version 1.0.0-beta03 contains these commits.](https://github.com/teogor/winds/compare/1.0.0-beta02...1.0.0-beta03)
+
+**Enhancement**
+
+* Integrate ([#52](https://github.com/teogor/winds/pull/52)) by [@teogor](https://github.com/teogor)
 
 #### Version 1.0.0-beta02
 
