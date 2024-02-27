@@ -17,7 +17,7 @@
 package dev.teogor.winds.gradle.tasks.impl
 
 import dev.teogor.winds.api.MavenPublish
-import dev.teogor.winds.api.Winds
+import dev.teogor.winds.api.WindsLegacy
 import dev.teogor.winds.api.getValue
 import dev.teogor.winds.api.impl.MavenPublishImpl
 import dev.teogor.winds.api.model.WindsFeature
@@ -32,11 +32,12 @@ import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.getValue
 import org.gradle.kotlin.dsl.provideDelegate
 
-fun Project.configureMavenPublish() {
+@Deprecated("Use PublishingOptions")
+fun Project.configureMavenPublishLegacy() {
   // Apply publish plugins only for Android modules due to Maven plugin requirements
   if (hasAndroidLibraryPlugin()) {
-    val winds: Winds by extensions
-    val maven: MavenPublish by winds
+    val windsLegacy: WindsLegacy by extensions
+    val maven: MavenPublish by windsLegacy
     if (hasKotlinDslPlugin()) {
       plugins.apply("java-library")
       plugins.apply("com.vanniktech.maven.publish")
@@ -48,10 +49,10 @@ fun Project.configureMavenPublish() {
   }
 
   afterEvaluate {
-    val winds: Winds by extensions
-    val mavenPublishFeatureEnabled = winds isEnabled WindsFeature.MAVEN_PUBLISH
+    val windsLegacy: WindsLegacy by extensions
+    val mavenPublishFeatureEnabled = windsLegacy isEnabled WindsFeature.MAVEN_PUBLISH
     if (mavenPublishFeatureEnabled) {
-      val maven: MavenPublish by winds
+      val maven: MavenPublish by windsLegacy
 
       // Handle BOM and artifact publishing separately
       if (maven.isBoM) {
@@ -66,7 +67,7 @@ fun Project.configureMavenPublish() {
       }
 
       // Propagate Winds Maven Publish configuration to child projects
-      propagateMavenPublishToChildProjects(winds)
+      propagateMavenPublishToChildProjects(windsLegacy)
     }
   }
 }
@@ -81,6 +82,7 @@ fun Project.configureMavenPublish() {
  *
  * @see MavenPublish
  */
+@Deprecated("Use PublishingOptions")
 private fun Project.configureAndApplyBomPlugins(maven: MavenPublish) {
   if (!hasPublishPlugin()) {
     plugins.apply("java-platform")
@@ -100,6 +102,7 @@ private fun Project.configureAndApplyBomPlugins(maven: MavenPublish) {
  *
  * @see MavenPublish
  */
+@Deprecated("Use PublishingOptions")
 private fun Project.configureAndApplyPublicationPlugins(maven: MavenPublish) {
   if (hasKotlinDslPlugin()) {
     plugins.apply("java-library")
@@ -126,6 +129,7 @@ private fun Project.configureAndApplyPublicationPlugins(maven: MavenPublish) {
  *
  * @see MavenPublish
  */
+@Deprecated("Use PublishingOptions")
 private fun Project.createAndConfigureSubprojectPublishTask(maven: MavenPublish) {
   val isBomModule = maven.isBoM
   val artifactIdPrefix = maven.artifactId!!.split("-").mapIndexed { index, segment ->
@@ -159,21 +163,22 @@ private fun Project.createAndConfigureSubprojectPublishTask(maven: MavenPublish)
  * copies the current project's Maven Publish configuration (build features and options)
  * to them. This ensures consistent Maven Publish settings across the project hierarchy.
  *
- * @param winds The `Winds` instance for the current project.
+ * @param windsLegacy The `Winds` instance for the current project.
  *
  * @see MavenPublish
  * @see processWindsChildProjects
  */
-private fun Project.propagateMavenPublishToChildProjects(winds: Winds) {
+@Deprecated("Use PublishingOptions")
+private fun Project.propagateMavenPublishToChildProjects(windsLegacy: WindsLegacy) {
   processWindsChildProjects {
     afterEvaluate {
       if (hasWindsPlugin()) {
-        val childWinds = extensions.getByType<Winds>()
-        childWinds.buildFeatures.mavenPublish = winds.buildFeatures.mavenPublish
-        (childWinds.mavenPublish as MavenPublishImpl).let { childMavenPublish ->
+        val childWindsLegacy = extensions.getByType<WindsLegacy>()
+        childWindsLegacy.buildFeatures.mavenPublish = windsLegacy.buildFeatures.mavenPublish
+        (childWindsLegacy.mavenPublish as MavenPublishImpl).let { childMavenPublish ->
           childMavenPublish.mavenPublishOptions.apply {
-            add(winds.mavenPublish)
-            addAll((winds.mavenPublish as MavenPublishImpl).mavenPublishOptions)
+            add(windsLegacy.mavenPublish)
+            addAll((windsLegacy.mavenPublish as MavenPublishImpl).mavenPublishOptions)
           }
         }
       }

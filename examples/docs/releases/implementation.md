@@ -2,21 +2,22 @@
 
 ## Implementation
 
-### Versions
+### Latest Version
 
-Here's a summary of the latest versions:
+The latest release is [`1.0.0-alpha01`](../releases.md)
+
+### BoM Releases
+
+The BoM (Bill of Materials) is the central repository for managing library versions within the
+Winds Examples project. It streamlines the process of tracking the latest versions of key components and
+dependencies, ensuring that your project remains up-to-date and compatible with the latest
+advancements.
+
+Here's a summary of the latest BoM versions:
 
 |    Version    |               Release Notes                | Release Date |
 |:-------------:|:------------------------------------------:|:------------:|
-| 0.0.0 | [changelog 🔗](changelog/0.0.0.md) | 07 Feb 2024 |
-| 1.0.0-alpha01 | [changelog 🔗](changelog/1.0.0-alpha01.md) | 07 Feb 2024 |
-| 1.0.0-alpha01 | [changelog 🔗](changelog/1.0.0-alpha01.md) | 07 Feb 2024 |
-| 1.0.0-alpha01 | [changelog 🔗](changelog/1.0.0-alpha01.md) | 07 Feb 2024 |
-| 1.0.0-alpha01 | [changelog 🔗](changelog/1.0.0-alpha01.md) | 07 Feb 2024 |
-| 0.0.0-beta05 | [changelog 🔗](changelog/0.0.0-beta05.md) | 07 Feb 2024 |
-| 1.0.0-alpha01 | [changelog 🔗](changelog/1.0.0-alpha01.md) | 07 Feb 2024 |
-| 0.0.0 | [changelog 🔗](changelog/0.0.0.md) | 07 Feb 2024 |
-| 6.2.4 | [changelog 🔗](changelog/6.2.4.md) | 07 Feb 2024 |
+| 1.0.0-alpha01 | [changelog 🔗](changelog/1.0.0-alpha01.md) | 24 Feb 2024 |
 
 ### Using Version Catalog
 
@@ -45,12 +46,31 @@ Materials (BoM) and individual libraries, in TOML format.
     winds-examples-module-1-library-4 = { group = "dev.teogor.winds.examples", name = "module-1-library-4", version.ref = "winds-examples-module-1" }
     ```
 
+=== "Using BoM"
+
+    ```toml title="gradle/libs.versions.toml"
+    [versions]
+    winds examples-bom = "1.0.0-alpha01"
+
+    [libraries]
+    winds-examples-bom = { group = "dev.teogor.winds.examples", name = "bom", version.ref = "winds examples-bom" }
+    winds-examples-demo-tst-2 = { group = "dev.teogor.winds.examples", name = "winds-examples-demo-kotlin-dsl-tst2" }
+    winds-examples-kmp-android = { group = "dev.teogor.winds.examples", name = "kmp-android" }
+    winds-examples-module-1-library-1 = { group = "dev.teogor.winds.examples", name = "module-1-library-1" }
+    winds-examples-module-1-library-2 = { group = "dev.teogor.winds.examples", name = "module-1-library-2" }
+    winds-examples-module-1-library-3 = { group = "dev.teogor.winds.examples", name = "module-1-library-3" }
+    winds-examples-module-1-library-4 = { group = "dev.teogor.winds.examples", name = "module-1-library-4" }
+    ```
+
 #### Dependencies Implementation
 
 === "Kotlin"
 
     ```kotlin title="build.gradle.kts"
     dependencies {
+      // When Using Winds Examples BoM
+      implementation(platform(libs.winds.examples.bom))
+
       // Winds Examples Libraries
       implementation(libs.winds.examples.demo.tst.2)
       implementation(libs.winds.examples.kmp.android)
@@ -65,6 +85,9 @@ Materials (BoM) and individual libraries, in TOML format.
 
     ```groovy title="build.gradle"
     dependencies {
+      // When Using Winds Examples BoM
+      implementation platform(libs.winds.examples.bom)
+
       // Winds Examples Libraries
       implementation libs.winds.examples.demo.tst.2
       implementation libs.winds.examples.kmp.android

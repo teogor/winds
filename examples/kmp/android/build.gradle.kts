@@ -17,14 +17,23 @@
 plugins {
   alias(libs.plugins.jetbrains.kotlin.android)
   alias(libs.plugins.android.library)
-
   id("dev.teogor.winds")
 }
 
-winds {
+windsLegacy {
   mavenPublish {
     displayName = "Android"
     name = "android"
+  }
+}
+
+winds {
+  moduleMetadata {
+    name = "Android"
+
+    artifactDescriptor {
+      name = "android"
+    }
   }
 }
 

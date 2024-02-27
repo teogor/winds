@@ -23,7 +23,7 @@ plugins {
   alias(libs.plugins.vanniktech.maven)
 }
 
-val javaVersion = JavaVersion.VERSION_1_8
+val javaVersion = JavaVersion.VERSION_11
 java {
   sourceCompatibility = javaVersion
   targetCompatibility = javaVersion
@@ -35,10 +35,22 @@ compileKotlin.kotlinOptions {
   jvmTarget = javaVersion.toString()
 }
 
+val compileTestKotlin: KotlinCompile by tasks
+compileTestKotlin.kotlinOptions {
+  jvmTarget = javaVersion.toString()
+}
+
 dependencies {
   implementation(libs.kotlinx.serialization.core)
   implementation(libs.kotlinx.serialization.json)
   implementation(libs.gson)
+  implementation(libs.vanniktech.maven.api)
+
+  testImplementation(libs.junit.jupiter)
+}
+
+tasks.test {
+  useJUnitPlatform()
 }
 
 @Suppress("UnstableApiUsage")

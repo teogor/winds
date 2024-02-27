@@ -1,14 +1,17 @@
 import com.vanniktech.maven.publish.SonatypeHost
-import dev.teogor.winds.api.MavenPublish
-import dev.teogor.winds.api.getValue
+import dev.teogor.winds.api.ArtifactIdFormat
+import dev.teogor.winds.api.License
+import dev.teogor.winds.api.NameFormat
+import dev.teogor.winds.api.Person
+import dev.teogor.winds.api.Scm
+import dev.teogor.winds.api.TicketSystem
 import dev.teogor.winds.api.model.DependencyType
-import dev.teogor.winds.api.model.Developer
-import dev.teogor.winds.api.model.Contributor
-import dev.teogor.winds.api.model.LicenseType
-import dev.teogor.winds.api.provider.Scm
-import dev.teogor.winds.api.model.IssueManagement
-import dev.teogor.winds.gradle.utils.afterWindsPluginConfiguration
-import dev.teogor.winds.gradle.utils.attachTo
+import dev.teogor.winds.api.Distribution
+import dev.teogor.winds.ktx.createVersion
+import dev.teogor.winds.ktx.person
+import dev.teogor.winds.ktx.scm
+import dev.teogor.winds.ktx.ticketSystem
+import org.jetbrains.dokka.gradle.DokkaPlugin
 
 buildscript {
   repositories {
@@ -20,7 +23,7 @@ buildscript {
 // Lists all plugins used throughout the project without applying them.
 plugins {
   // Kotlin Suite
-  alias(libs.plugins.jetbrains.kotlin.jvm) apply false
+  alias(libs.plugins.jetbrains.kotlin.jvm) apply true
   alias(libs.plugins.jetbrains.kotlin.android) apply false
   alias(libs.plugins.jetbrains.kotlin.serialization) apply false
 
@@ -31,50 +34,144 @@ plugins {
   alias(libs.plugins.vanniktech.maven) apply true
 
   id("dev.teogor.winds")
+
+  // API Documentation and Validation Plugins
+  alias(libs.plugins.jetbrains.dokka) apply true
+}
+
+java {
+  toolchain {
+    languageVersion.set(JavaLanguageVersion.of(11))
+  }
+}
+tasks.withType<JavaCompile>().configureEach {
+  sourceCompatibility = JavaVersion.VERSION_11.toString()
+  targetCompatibility = JavaVersion.VERSION_11.toString()
 }
 
 winds {
+  windsFeatures {
+    mavenPublishing = true
+    docsGenerator = true
+    workflowSynthesizer = true
+  }
+
+  moduleMetadata {
+    name = "Winds Examples"
+    description = "Winds description example"
+    yearCreated = 2024
+    websiteUrl = "https://source.teogor.dev/winds/"
+    apiDocsUrl = "https://source.teogor.dev/winds/html/"
+
+    artifactDescriptor {
+      group = "dev.teogor.winds.example"
+      name = "example"
+      version = createVersion(1, 0, 0) {
+        alphaRelease(1)
+      }
+      nameFormat = NameFormat.FULL
+      artifactIdFormat = ArtifactIdFormat.MODULE_NAME_ONLY
+    }
+
+    // Providing SCM (Source Control Management)
+    scm<Scm.GitLab> {
+      owner = "teogor"
+      repository = "winds"
+    }
+    scm(Scm.GitHub::class) {
+      owner = "teogor"
+      repository = "winds"
+    }
+
+    // Providing Ticket System
+    ticketSystem(TicketSystem.Default::class) {
+      system = "teogor"
+    }
+    ticketSystem<TicketSystem.GitLab> {
+      project = "winds"
+      group = "teogor"
+    }
+    ticketSystem<TicketSystem.GitHub> {
+      repository = "winds"
+      owner = "teogor"
+    }
+
+    // Providing Licenses
+    this licensedUnder License.MIT()
+    licensedUnder(License.None)
+    this += License.MIT()
+    licenses += (License.Apache2())
+    licenses register License.MIT()
+    licenses {
+      add(
+        License.Apache2().apply {
+          comments = "To be used with caution"
+        },
+      )
+      register(License.MIT())
+    }
+    licenses(
+      License.None,
+      License.MIT(
+        distribution = Distribution.Repo,
+      ),
+    )
+
+    // Providing Persons
+    person<Person.DeveloperContributor> {
+      id = "teogor"
+      name = "Teodor Grigor"
+      email = "open-source@teogor.dev"
+      url = "https://teogor.dev"
+      roles = listOf("Code Owner", "Developer", "Designer", "Maintainer")
+      timezone = "UTC+2"
+      organization = "Teogor"
+      organizationUrl = "https://github.com/teogor"
+    }
+  }
+
+  publishingOptions {
+    publish = false
+    enablePublicationSigning = true
+    optInForVanniktechPlugin = true
+    cascadePublish = true
+    sonatypeHost = SonatypeHost.S01
+  }
+
+  documentationBuilder {
+    htmlPath = "html/"
+  }
+
+  codebaseOptions {
+    dokka {
+
+    }
+    spotless {
+
+    }
+    binaryCompatibility {
+
+    }
+  }
+
+  // not required. just an example
+  // configureProjects(
+  //   includeRoot = true,
+  // ) { winds ->
+  //   configureMavenPublishing(winds) {
+  //
+  //   }
+  // }
+}
+
+// todo context winds not windsOptions
+windsLegacy {
   buildFeatures {
     mavenPublish = true
 
     docsGenerator = true
 
     workflowSynthesizer = false
-  }
-
-  mavenPublish {
-    displayName = "Winds Examples"
-    name = "winds-examples"
-
-    canBePublished = false
-
-    description = "Examples on how to use Winds Plugin"
-
-    groupId = "dev.teogor.winds.examples"
-
-    artifactIdElements = 2
-
-    inceptionYear = 2023
-
-    sourceControlManagement(
-      Scm.Git(
-        repo = "winds",
-        owner = "teogor",
-      ),
-    )
-
-    issueManagement(
-      IssueManagement.Git(
-        repo = "winds",
-        owner = "teogor",
-      ),
-    )
-
-    addLicense(LicenseType.APACHE_2_0)
-
-    addDeveloper(TeogorDeveloper())
-
-    addContributor(TeogorContributor())
   }
 
   docsGenerator {
@@ -93,44 +190,6 @@ winds {
   }
 }
 
-afterWindsPluginConfiguration { winds ->
-  val mavenPublish: MavenPublish by winds
-  if (mavenPublish.canBePublished) {
-    mavenPublishing {
-      publishToMavenCentral(SonatypeHost.S01)
-      signAllPublications()
-
-      @Suppress("UnstableApiUsage")
-      pom {
-        coordinates(
-          groupId = mavenPublish.groupId!!,
-          artifactId = mavenPublish.artifactId!!,
-          version = mavenPublish.version!!.toString(),
-        )
-        mavenPublish attachTo this
-      }
-    }
-  }
+subprojects {
+  apply<DokkaPlugin>()
 }
-
-data class TeogorContributor(
-  override val name: String = "Teodor Grigor",
-  override val email: String = "open-source@teogor.dev",
-  override val url: String = "https://teogor.dev",
-  override val roles: List<String> = listOf("Code Owner", "Developer", "Designer", "Maintainer"),
-  override val timezone: String = "UTC+2",
-  override val organization: String = "Teogor",
-  override val organizationUrl: String = "https://github.com/teogor",
-  override val properties: Map<String, String> = emptyMap(),
-) : Contributor
-
-data class TeogorDeveloper(
-  override val id: String = "teogor",
-  override val name: String = "Teodor Grigor",
-  override val email: String = "open-source@teogor.dev",
-  override val url: String = "https://teogor.dev",
-  override val roles: List<String> = listOf("Code Owner", "Developer", "Designer", "Maintainer"),
-  override val timezone: String = "UTC+2",
-  override val organization: String = "Teogor",
-  override val organizationUrl: String = "https://github.com/teogor",
-) : Developer

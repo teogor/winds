@@ -16,6 +16,7 @@
 
 package dev.teogor.winds.api.model
 
+import dev.teogor.winds.ktx.getEmoji
 import kotlinx.serialization.Serializable
 
 /**
@@ -31,6 +32,7 @@ import kotlinx.serialization.Serializable
  * @param dependencies The dependencies of the module.
  */
 @Serializable
+@Deprecated("")
 data class ModuleInfo(
   val completeName: String,
   val name: String,
@@ -54,26 +56,5 @@ data class ModuleInfo(
 
   val localPath = path.replace(":", "/")
   val isBoM = artifactId.contains("bom")
-  val emoji = version.emoji
-}
-
-/**
- * Returns the first module in this list that is a BOM (Bill of Materials) module,
- * or null if no BOM module is found.
- *
- * @receiver The list of modules to search for a BOM module.
- * @return The BOM module, or null if not found.
- */
-fun MutableList<ModuleInfo>.bom(): ModuleInfo? = firstOrNull {
-  it.isBoM
-}
-
-/**
- * Sorts this list of modules in ascending order based on their `path` property.
- *
- * @receiver The list of modules to sort.
- * @return The same list, after sorting by path.
- */
-fun MutableList<ModuleInfo>.sortByPath(): MutableList<ModuleInfo> = also {
-  sortWith(compareBy(ModuleInfo::path))
+  val emoji = version.getEmoji()
 }

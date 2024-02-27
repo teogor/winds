@@ -17,8 +17,8 @@
 package dev.teogor.winds.api.docs
 
 import dev.teogor.winds.api.DocsGenerator
-import dev.teogor.winds.api.util.directory
-import dev.teogor.winds.api.util.file
+import dev.teogor.winds.ktx.directory
+import dev.teogor.winds.ktx.file
 import java.io.File
 
 /**

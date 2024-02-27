@@ -1,11 +1,11 @@
-import dev.teogor.winds.api.model.createVersion
+import dev.teogor.winds.ktx.createVersion
 
 plugins {
   `kotlin-dsl`
   id("dev.teogor.winds")
 }
 
-winds {
+windsLegacy {
   mavenPublish {
     displayName = "Demo Tst 2"
     name = "demo-kotlin-dsl-tst2"
@@ -13,6 +13,16 @@ winds {
 
     version = createVersion(1, 0, 0) {
       alphaRelease(1)
+    }
+  }
+}
+
+winds {
+  moduleMetadata {
+    name = "Demo 2"
+
+    artifactDescriptor {
+      name = "demo 2"
     }
   }
 }

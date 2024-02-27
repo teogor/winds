@@ -19,6 +19,7 @@ package dev.teogor.winds.api.model
 /**
  * A developer involved in the project.
  */
+@Deprecated("use developer on winds metadata")
 interface Developer {
 
   /**
@@ -61,14 +62,3 @@ interface Developer {
    */
   val organizationUrl: String
 }
-
-data class DeveloperImpl(
-  override var id: String = "",
-  override var name: String = "",
-  override var email: String = "",
-  override var url: String = "",
-  override var roles: List<String> = emptyList(),
-  override var timezone: String = "",
-  override var organization: String = "",
-  override var organizationUrl: String = "",
-) : Developer

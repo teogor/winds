@@ -5,7 +5,7 @@ plugins {
   id("java-library")
 }
 
-winds {
+windsLegacy {
   mavenPublish {
     displayName = "Library 4"
     name = "library-4"
@@ -15,5 +15,15 @@ winds {
       minor = 2,
       patch = 4,
     )
+  }
+}
+
+winds {
+  moduleMetadata {
+    name = "Library 4"
+
+    artifactDescriptor {
+      name = "library-4"
+    }
   }
 }

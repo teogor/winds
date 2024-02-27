@@ -16,6 +16,7 @@
 
 package dev.teogor.winds.api.model
 
+@Deprecated("Use BomOptions")
 data class BomOptions(
   var acceptedModules: List<String> = emptyList(),
   var acceptedPaths: List<String> = emptyList(),

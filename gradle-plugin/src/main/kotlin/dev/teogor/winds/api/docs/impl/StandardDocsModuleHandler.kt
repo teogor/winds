@@ -20,8 +20,8 @@ import dev.teogor.winds.api.DocsGenerator
 import dev.teogor.winds.api.docs.DocsModuleHandler
 import dev.teogor.winds.api.model.ModuleDependencyRecord
 import dev.teogor.winds.api.model.ModuleInfo
-import dev.teogor.winds.api.util.file
 import dev.teogor.winds.codegen.implementationStandardMarkdownContent
+import dev.teogor.winds.ktx.file
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json

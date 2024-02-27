@@ -17,17 +17,18 @@
 package dev.teogor.winds.api.impl
 
 import dev.teogor.winds.api.MavenPublish
+import dev.teogor.winds.api.TicketSystem
 import dev.teogor.winds.api.model.BomOptions
 import dev.teogor.winds.api.model.Contributor
-import dev.teogor.winds.api.model.ContributorImpl
 import dev.teogor.winds.api.model.Developer
-import dev.teogor.winds.api.model.DeveloperImpl
-import dev.teogor.winds.api.model.IssueManagement
 import dev.teogor.winds.api.model.LicenseType
 import dev.teogor.winds.api.model.Version
 import dev.teogor.winds.api.provider.Scm
+import dev.teogor.winds.api.util.ContributorImpl
+import dev.teogor.winds.api.util.DeveloperImpl
 import java.time.Year
 
+@Deprecated("Use PublishingOptions")
 open class MavenPublishImpl : MavenPublish {
   override var displayName: String? = null
     get() = field ?: getter { displayName }
@@ -123,9 +124,9 @@ open class MavenPublishImpl : MavenPublish {
   override val scm: Scm
     get() = _scm ?: error("no SCM provided")
 
-  private var _issueManagement: IssueManagement? = null
-  override val issueManagement: IssueManagement?
-    get() = _issueManagement
+  private var _ticketSystem: TicketSystem? = null
+  override val ticketSystem: TicketSystem?
+    get() = _ticketSystem
 
   override fun addContributors(vararg contributors: Contributor) {
     this.contributors = (this.contributors ?: emptyList()) + contributors
@@ -168,8 +169,8 @@ open class MavenPublishImpl : MavenPublish {
     scmUrl = scm.url
   }
 
-  override fun issueManagement(issueManagement: IssueManagement) {
-    _issueManagement = issueManagement
+  override fun issueManagement(ticketSystem: TicketSystem) {
+    _ticketSystem = ticketSystem
   }
 
   fun <T> getter(selector: MavenPublish.() -> T?): T? {

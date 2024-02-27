@@ -16,6 +16,7 @@
 
 package dev.teogor.winds.api.model
 
+@Deprecated("use license on winds metadata")
 enum class LicenseType(
   val title: String,
   val url: String,

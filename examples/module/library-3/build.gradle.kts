@@ -5,7 +5,7 @@ plugins {
   id("java-library")
 }
 
-winds {
+windsLegacy {
   mavenPublish {
     displayName = "Library 3"
     name = "library-3"
@@ -13,6 +13,16 @@ winds {
     version = copyVersion {
       versionQualifier(10)
       setIsDeprecated()
+    }
+  }
+}
+
+winds {
+  moduleMetadata {
+    name = "Library 3"
+
+    artifactDescriptor {
+      name = "library 3"
     }
   }
 }

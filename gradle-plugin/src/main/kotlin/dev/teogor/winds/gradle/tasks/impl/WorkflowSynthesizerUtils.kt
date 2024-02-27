@@ -16,7 +16,7 @@
 
 package dev.teogor.winds.gradle.tasks.impl
 
-import dev.teogor.winds.api.Winds
+import dev.teogor.winds.api.WindsLegacy
 import dev.teogor.winds.api.WorkflowSynthesizer
 import dev.teogor.winds.api.getValue
 import dev.teogor.winds.api.impl.MavenPublishImpl
@@ -35,9 +35,9 @@ import org.gradle.kotlin.dsl.provideDelegate
 fun Project.configureWorkflowSynthesizer() {
   lazy {
     val base = this
-    val winds: Winds by extensions
-    val workflowSynthesizerFeatureEnabled = winds isEnabled WindsFeature.WORKFLOW_SYNTHESIZER
-    val workflowSynthesizer: WorkflowSynthesizer by winds
+    val windsLegacy: WindsLegacy by extensions
+    val workflowSynthesizerFeatureEnabled = windsLegacy isEnabled WindsFeature.WORKFLOW_SYNTHESIZER
+    val workflowSynthesizer: WorkflowSynthesizer by windsLegacy
     val workflowSynthesizerImpl = workflowSynthesizer as WorkflowSynthesizerImpl
     workflowSynthesizerImpl.task?.isEnabled = workflowSynthesizerFeatureEnabled
     if (workflowSynthesizerFeatureEnabled) {
@@ -48,9 +48,9 @@ fun Project.configureWorkflowSynthesizer() {
         val projectBase = this
         isWindsApplied(lazyStart = true) {
           lazy {
-            val windsBase = projectBase.extensions.getByType<Winds>()
-            val mavenPublishFeatureEnabled = windsBase isEnabled WindsFeature.MAVEN_PUBLISH
-            val mavenPublish = windsBase.mavenPublish
+            val windsLegacyBase = projectBase.extensions.getByType<WindsLegacy>()
+            val mavenPublishFeatureEnabled = windsLegacyBase isEnabled WindsFeature.MAVEN_PUBLISH
+            val mavenPublish = windsLegacyBase.mavenPublish
             val moduleInfo = ModuleInfo(
               completeName = mavenPublish.completeName,
               name = mavenPublish.name ?: "",

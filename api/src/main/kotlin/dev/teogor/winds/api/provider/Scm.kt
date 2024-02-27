@@ -16,6 +16,7 @@
 
 package dev.teogor.winds.api.provider
 
+@Deprecated("Use Scm")
 interface Scm {
 
   /**

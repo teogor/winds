@@ -20,17 +20,18 @@ import dev.teogor.winds.api.BuildFeatures
 import dev.teogor.winds.api.DocsGenerator
 import dev.teogor.winds.api.MavenPublish
 import dev.teogor.winds.api.TaskBuilder
-import dev.teogor.winds.api.Winds
+import dev.teogor.winds.api.WindsLegacy
 import dev.teogor.winds.api.WorkflowSynthesizer
-import dev.teogor.winds.gradle.tasks.impl.DocsGeneratorTask
+import dev.teogor.winds.gradle.tasks.impl.DocsGeneratorTaskLegacy
 import dev.teogor.winds.gradle.tasks.impl.WorkflowSynthesizerTask
 import dev.teogor.winds.gradle.utils.registerTask
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
 
-abstract class WindsOptions(
+@Deprecated("use Winds instead.")
+abstract class WindsLegacyOptions(
   val project: Project,
-) : Winds {
+) : WindsLegacy {
   override var buildFeatures: BuildFeatures = BuildFeaturesImpl()
 
   override fun buildFeatures(action: BuildFeatures.() -> Unit) {
@@ -73,10 +74,10 @@ abstract class WindsOptions(
 
   private fun prepareDocsGeneratorTask() {
     if (buildFeatures.docsGenerator) {
-      docsGenerator.createTask<DocsGenerator, DocsGeneratorTask>(
-        name = "docsGeneratorTask",
+      docsGenerator.createTask<DocsGenerator, DocsGeneratorTaskLegacy>(
+        name = "docsGeneratorTaskLegacy",
       ) {
-        (task as DocsGeneratorTask).let {
+        (task as DocsGeneratorTaskLegacy).let {
           it.provideProjectDir(project.projectDir)
           it.provideDocsGenerator(this)
         }

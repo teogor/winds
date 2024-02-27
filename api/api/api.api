@@ -1,3 +1,100 @@
+public final class dev/teogor/winds/api/ArtifactDescriptor {
+	public static final field Companion Ldev/teogor/winds/api/ArtifactDescriptor$Companion;
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ldev/teogor/winds/api/model/Version;Ldev/teogor/winds/api/ArtifactIdFormat;Ldev/teogor/winds/api/NameFormat;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ldev/teogor/winds/api/model/Version;Ldev/teogor/winds/api/ArtifactIdFormat;Ldev/teogor/winds/api/NameFormat;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun addArtifact ([Ldev/teogor/winds/api/ArtifactDescriptor;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ldev/teogor/winds/api/model/Version;
+	public final fun component4 ()Ldev/teogor/winds/api/ArtifactIdFormat;
+	public final fun component5 ()Ldev/teogor/winds/api/NameFormat;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ldev/teogor/winds/api/model/Version;Ldev/teogor/winds/api/ArtifactIdFormat;Ldev/teogor/winds/api/NameFormat;)Ldev/teogor/winds/api/ArtifactDescriptor;
+	public static synthetic fun copy$default (Ldev/teogor/winds/api/ArtifactDescriptor;Ljava/lang/String;Ljava/lang/String;Ldev/teogor/winds/api/model/Version;Ldev/teogor/winds/api/ArtifactIdFormat;Ldev/teogor/winds/api/NameFormat;ILjava/lang/Object;)Ldev/teogor/winds/api/ArtifactDescriptor;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getArtifactId ()Ljava/lang/String;
+	public final fun getArtifactIdFormat ()Ldev/teogor/winds/api/ArtifactIdFormat;
+	public final fun getArtifactNames ()Ljava/util/List;
+	public final fun getArtifacts ()Ljava/util/List;
+	public final fun getCompleteName ()Ljava/lang/String;
+	public final fun getCoordinates ()Ljava/lang/String;
+	public final fun getGroup ()Ljava/lang/String;
+	public final fun getModule ()Ljava/lang/String;
+	public final fun getName ()Ljava/lang/String;
+	public final fun getNameFormat ()Ldev/teogor/winds/api/NameFormat;
+	public final fun getVersion ()Ldev/teogor/winds/api/model/Version;
+	public fun hashCode ()I
+	public final fun setArtifactIdFormat (Ldev/teogor/winds/api/ArtifactIdFormat;)V
+	public final fun setGroup (Ljava/lang/String;)V
+	public final fun setName (Ljava/lang/String;)V
+	public final fun setNameFormat (Ldev/teogor/winds/api/NameFormat;)V
+	public final fun setVersion (Ldev/teogor/winds/api/model/Version;)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/api/ArtifactDescriptor$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Ldev/teogor/winds/api/ArtifactDescriptor$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ldev/teogor/winds/api/ArtifactDescriptor;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Ldev/teogor/winds/api/ArtifactDescriptor;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class dev/teogor/winds/api/ArtifactDescriptor$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class dev/teogor/winds/api/ArtifactIdFormat : java/lang/Enum {
+	public static final field FULL Ldev/teogor/winds/api/ArtifactIdFormat;
+	public static final field GROUP_MODULE_NAME Ldev/teogor/winds/api/ArtifactIdFormat;
+	public static final field MODULE_NAME_ONLY Ldev/teogor/winds/api/ArtifactIdFormat;
+	public static final field NAME_ONLY Ldev/teogor/winds/api/ArtifactIdFormat;
+	public static fun valueOf (Ljava/lang/String;)Ldev/teogor/winds/api/ArtifactIdFormat;
+	public static fun values ()[Ldev/teogor/winds/api/ArtifactIdFormat;
+}
+
+public final class dev/teogor/winds/api/BinaryCompatibility {
+	public fun <init> ()V
+	public fun <init> (ZLjava/lang/String;Z)V
+	public synthetic fun <init> (ZLjava/lang/String;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Z
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Z
+	public final fun copy (ZLjava/lang/String;Z)Ldev/teogor/winds/api/BinaryCompatibility;
+	public static synthetic fun copy$default (Ldev/teogor/winds/api/BinaryCompatibility;ZLjava/lang/String;ZILjava/lang/Object;)Ldev/teogor/winds/api/BinaryCompatibility;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBaselineVersion ()Ljava/lang/String;
+	public final fun getEnabled ()Z
+	public final fun getFailOnIncompatibleChanges ()Z
+	public fun hashCode ()I
+	public final fun setBaselineVersion (Ljava/lang/String;)V
+	public final fun setEnabled (Z)V
+	public final fun setFailOnIncompatibleChanges (Z)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/api/BomOptions {
+	public fun <init> ()V
+	public fun <init> (Ljava/util/List;Ljava/util/List;Ljava/util/List;)V
+	public synthetic fun <init> (Ljava/util/List;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun component2 ()Ljava/util/List;
+	public final fun component3 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;Ljava/util/List;Ljava/util/List;)Ldev/teogor/winds/api/BomOptions;
+	public static synthetic fun copy$default (Ldev/teogor/winds/api/BomOptions;Ljava/util/List;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Ldev/teogor/winds/api/BomOptions;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAcceptedModules ()Ljava/util/List;
+	public final fun getAcceptedPaths ()Ljava/util/List;
+	public final fun getExcludedScopes ()Ljava/util/List;
+	public fun hashCode ()I
+	public final fun setAcceptedModules (Ljava/util/List;)V
+	public final fun setAcceptedPaths (Ljava/util/List;)V
+	public final fun setExcludedScopes (Ljava/util/List;)V
+	public fun toString ()Ljava/lang/String;
+}
+
 public abstract interface class dev/teogor/winds/api/BuildFeatures {
 	public abstract fun getDocsGenerator ()Z
 	public abstract fun getMavenPublish ()Z
@@ -10,6 +107,44 @@ public abstract interface class dev/teogor/winds/api/BuildFeatures {
 public abstract interface class dev/teogor/winds/api/CodeGen {
 	public abstract fun getDocs ()Ljava/io/File;
 	public abstract fun getRes ()Ljava/io/File;
+}
+
+public abstract interface class dev/teogor/winds/api/CodebaseOptions {
+	public abstract fun binaryCompatibility (Lkotlin/jvm/functions/Function1;)V
+	public abstract fun dokka (Lkotlin/jvm/functions/Function1;)V
+	public abstract fun getBinaryCompatibility ()Ldev/teogor/winds/api/BinaryCompatibility;
+	public abstract fun getDokka ()Ldev/teogor/winds/api/DokkaOptions;
+	public abstract fun getSpotless ()Ldev/teogor/winds/api/SpotlessOptions;
+	public abstract fun spotless (Lkotlin/jvm/functions/Function1;)V
+}
+
+public abstract interface class dev/teogor/winds/api/Distribution {
+	public abstract fun getAbbreviation ()Ljava/lang/String;
+	public abstract fun getName ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/api/Distribution$Binaries : dev/teogor/winds/api/Distribution {
+	public static final field INSTANCE Ldev/teogor/winds/api/Distribution$Binaries;
+	public fun getAbbreviation ()Ljava/lang/String;
+	public fun getName ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/api/Distribution$Doc : dev/teogor/winds/api/Distribution {
+	public static final field INSTANCE Ldev/teogor/winds/api/Distribution$Doc;
+	public fun getAbbreviation ()Ljava/lang/String;
+	public fun getName ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/api/Distribution$Repo : dev/teogor/winds/api/Distribution {
+	public static final field INSTANCE Ldev/teogor/winds/api/Distribution$Repo;
+	public fun getAbbreviation ()Ljava/lang/String;
+	public fun getName ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/api/Distribution$Source : dev/teogor/winds/api/Distribution {
+	public static final field INSTANCE Ldev/teogor/winds/api/Distribution$Source;
+	public fun getAbbreviation ()Ljava/lang/String;
+	public fun getName ()Ljava/lang/String;
 }
 
 public abstract interface class dev/teogor/winds/api/DocsGenerator : dev/teogor/winds/api/TaskBuilder {
@@ -25,6 +160,143 @@ public abstract interface class dev/teogor/winds/api/DocsGenerator : dev/teogor/
 	public abstract fun setIdentifier (Ljava/lang/String;)V
 	public abstract fun setMkdocsEnabled (Z)V
 	public abstract fun setName (Ljava/lang/String;)V
+}
+
+public abstract interface class dev/teogor/winds/api/DocumentationBuilder {
+	public abstract fun getAlertOnDependentModules ()Z
+	public abstract fun getCreateApiReference ()Z
+	public abstract fun getDependencyGatheringType ()Ldev/teogor/winds/api/model/DependencyType;
+	public abstract fun getGenerateReleaseTable ()Z
+	public abstract fun getHtmlPath ()Ljava/lang/String;
+	public abstract fun getIncludeAlphaRelease ()Z
+	public abstract fun getIncludeBetaRelease ()Z
+	public abstract fun getIncludeReleaseCandidate ()Z
+	public abstract fun getMkdocsEnabled ()Z
+	public abstract fun setAlertOnDependentModules (Z)V
+	public abstract fun setCreateApiReference (Z)V
+	public abstract fun setDependencyGatheringType (Ldev/teogor/winds/api/model/DependencyType;)V
+	public abstract fun setGenerateReleaseTable (Z)V
+	public abstract fun setHtmlPath (Ljava/lang/String;)V
+	public abstract fun setIncludeAlphaRelease (Z)V
+	public abstract fun setIncludeBetaRelease (Z)V
+	public abstract fun setIncludeReleaseCandidate (Z)V
+	public abstract fun setMkdocsEnabled (Z)V
+}
+
+public final class dev/teogor/winds/api/DokkaOptions {
+	public fun <init> ()V
+	public fun <init> (ZLjava/lang/String;Ljava/util/List;Ljava/util/List;)V
+	public synthetic fun <init> (ZLjava/lang/String;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Z
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/util/List;
+	public final fun component4 ()Ljava/util/List;
+	public final fun copy (ZLjava/lang/String;Ljava/util/List;Ljava/util/List;)Ldev/teogor/winds/api/DokkaOptions;
+	public static synthetic fun copy$default (Ldev/teogor/winds/api/DokkaOptions;ZLjava/lang/String;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Ldev/teogor/winds/api/DokkaOptions;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAdditionalIncludes ()Ljava/util/List;
+	public final fun getEnabled ()Z
+	public final fun getOutputDirectory ()Ljava/lang/String;
+	public final fun getSourceDirectories ()Ljava/util/List;
+	public fun hashCode ()I
+	public final fun setAdditionalIncludes (Ljava/util/List;)V
+	public final fun setEnabled (Z)V
+	public final fun setOutputDirectory (Ljava/lang/String;)V
+	public final fun setSourceDirectories (Ljava/util/List;)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class dev/teogor/winds/api/License {
+	public abstract fun getComments ()Ljava/lang/String;
+	public abstract fun getDistribution ()Ldev/teogor/winds/api/Distribution;
+	public abstract fun getName ()Ljava/lang/String;
+	public abstract fun getUrl ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/api/License$Apache2 : dev/teogor/winds/api/License {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;Ldev/teogor/winds/api/Distribution;)V
+	public synthetic fun <init> (Ljava/lang/String;Ldev/teogor/winds/api/Distribution;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ldev/teogor/winds/api/Distribution;
+	public final fun copy (Ljava/lang/String;Ldev/teogor/winds/api/Distribution;)Ldev/teogor/winds/api/License$Apache2;
+	public static synthetic fun copy$default (Ldev/teogor/winds/api/License$Apache2;Ljava/lang/String;Ldev/teogor/winds/api/Distribution;ILjava/lang/Object;)Ldev/teogor/winds/api/License$Apache2;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getComments ()Ljava/lang/String;
+	public fun getDistribution ()Ldev/teogor/winds/api/Distribution;
+	public fun getName ()Ljava/lang/String;
+	public fun getUrl ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun setComments (Ljava/lang/String;)V
+	public fun setDistribution (Ldev/teogor/winds/api/Distribution;)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/api/License$Custom : dev/teogor/winds/api/License {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ldev/teogor/winds/api/Distribution;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ldev/teogor/winds/api/Distribution;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ldev/teogor/winds/api/Distribution;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ldev/teogor/winds/api/Distribution;Ljava/lang/String;)Ldev/teogor/winds/api/License$Custom;
+	public static synthetic fun copy$default (Ldev/teogor/winds/api/License$Custom;Ljava/lang/String;Ljava/lang/String;Ldev/teogor/winds/api/Distribution;Ljava/lang/String;ILjava/lang/Object;)Ldev/teogor/winds/api/License$Custom;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getComments ()Ljava/lang/String;
+	public fun getDistribution ()Ldev/teogor/winds/api/Distribution;
+	public fun getName ()Ljava/lang/String;
+	public fun getUrl ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun setComments (Ljava/lang/String;)V
+	public fun setDistribution (Ldev/teogor/winds/api/Distribution;)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/api/License$GPLv3 : dev/teogor/winds/api/License {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;Ldev/teogor/winds/api/Distribution;)V
+	public synthetic fun <init> (Ljava/lang/String;Ldev/teogor/winds/api/Distribution;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ldev/teogor/winds/api/Distribution;
+	public final fun copy (Ljava/lang/String;Ldev/teogor/winds/api/Distribution;)Ldev/teogor/winds/api/License$GPLv3;
+	public static synthetic fun copy$default (Ldev/teogor/winds/api/License$GPLv3;Ljava/lang/String;Ldev/teogor/winds/api/Distribution;ILjava/lang/Object;)Ldev/teogor/winds/api/License$GPLv3;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getComments ()Ljava/lang/String;
+	public fun getDistribution ()Ldev/teogor/winds/api/Distribution;
+	public fun getName ()Ljava/lang/String;
+	public fun getUrl ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun setComments (Ljava/lang/String;)V
+	public fun setDistribution (Ldev/teogor/winds/api/Distribution;)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/api/License$MIT : dev/teogor/winds/api/License {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;Ldev/teogor/winds/api/Distribution;)V
+	public synthetic fun <init> (Ljava/lang/String;Ldev/teogor/winds/api/Distribution;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ldev/teogor/winds/api/Distribution;
+	public final fun copy (Ljava/lang/String;Ldev/teogor/winds/api/Distribution;)Ldev/teogor/winds/api/License$MIT;
+	public static synthetic fun copy$default (Ldev/teogor/winds/api/License$MIT;Ljava/lang/String;Ldev/teogor/winds/api/Distribution;ILjava/lang/Object;)Ldev/teogor/winds/api/License$MIT;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getComments ()Ljava/lang/String;
+	public fun getDistribution ()Ldev/teogor/winds/api/Distribution;
+	public fun getName ()Ljava/lang/String;
+	public fun getUrl ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun setComments (Ljava/lang/String;)V
+	public fun setDistribution (Ldev/teogor/winds/api/Distribution;)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/api/License$None : dev/teogor/winds/api/License {
+	public static final field INSTANCE Ldev/teogor/winds/api/License$None;
+	public fun getComments ()Ljava/lang/String;
+	public fun getDistribution ()Ldev/teogor/winds/api/Distribution;
+	public fun getName ()Ljava/lang/String;
+	public fun getUrl ()Ljava/lang/String;
+	public fun setComments (Ljava/lang/String;)V
 }
 
 public abstract interface class dev/teogor/winds/api/MavenPublish {
@@ -51,17 +323,17 @@ public abstract interface class dev/teogor/winds/api/MavenPublish {
 	public abstract fun getEnforceUniqueNames ()Z
 	public abstract fun getGroupId ()Ljava/lang/String;
 	public abstract fun getInceptionYear ()Ljava/lang/Integer;
-	public abstract fun getIssueManagement ()Ldev/teogor/winds/api/model/IssueManagement;
 	public abstract fun getLicenses ()Ljava/util/List;
 	public abstract fun getName ()Ljava/lang/String;
 	public abstract fun getScm ()Ldev/teogor/winds/api/provider/Scm;
 	public abstract fun getScmConnection ()Ljava/lang/String;
 	public abstract fun getScmDeveloperConnection ()Ljava/lang/String;
 	public abstract fun getScmUrl ()Ljava/lang/String;
+	public abstract fun getTicketSystem ()Ldev/teogor/winds/api/TicketSystem;
 	public abstract fun getUrl ()Ljava/lang/String;
 	public abstract fun getVersion ()Ldev/teogor/winds/api/model/Version;
 	public abstract fun isBoM ()Z
-	public abstract fun issueManagement (Ldev/teogor/winds/api/model/IssueManagement;)V
+	public abstract fun issueManagement (Ldev/teogor/winds/api/TicketSystem;)V
 	public abstract fun setArtifactIdElements (Ljava/lang/Integer;)V
 	public abstract fun setBomOptions (Ldev/teogor/winds/api/model/BomOptions;)V
 	public abstract fun setCanBePublished (Z)V
@@ -82,12 +354,531 @@ public abstract interface class dev/teogor/winds/api/MavenPublish {
 	public abstract fun sourceControlManagement (Ldev/teogor/winds/api/provider/Scm;)V
 }
 
+public abstract interface class dev/teogor/winds/api/ModuleMetadata {
+	public abstract fun artifactDescriptor (Lkotlin/jvm/functions/Function1;)V
+	public abstract fun bomOptions (Lkotlin/jvm/functions/Function1;)V
+	public abstract fun copy (Ldev/teogor/winds/api/ModuleMetadata;)Ldev/teogor/winds/api/ModuleMetadata;
+	public abstract fun getApiDocsUrl ()Ljava/lang/String;
+	public abstract fun getArtifactDescriptor ()Ldev/teogor/winds/api/ArtifactDescriptor;
+	public abstract fun getBomOptions ()Ldev/teogor/winds/api/BomOptions;
+	public abstract fun getDescription ()Ljava/lang/String;
+	public abstract fun getLicenses ()Ljava/util/List;
+	public abstract fun getName ()Ljava/lang/String;
+	public abstract fun getPersons ()Ljava/util/List;
+	public abstract fun getScm ()Ldev/teogor/winds/api/Scm;
+	public abstract fun getTicketSystem ()Ldev/teogor/winds/api/TicketSystem;
+	public abstract fun getWebsiteUrl ()Ljava/lang/String;
+	public abstract fun getYearCreated ()I
+	public abstract fun isBom ()Z
+	public abstract fun licensedUnder (Ldev/teogor/winds/api/ModuleMetadata;Ldev/teogor/winds/api/License;)V
+	public abstract fun licenses (Lkotlin/jvm/functions/Function1;)V
+	public abstract fun licenses ([Ldev/teogor/winds/api/License;)V
+	public abstract fun person (Lkotlin/reflect/KClass;Lkotlin/jvm/functions/Function1;)V
+	public abstract fun plusAssign (Ldev/teogor/winds/api/License;)V
+	public abstract fun plusAssign (Ljava/util/List;Ldev/teogor/winds/api/License;)V
+	public abstract fun register (Ljava/util/List;Ldev/teogor/winds/api/License;)V
+	public abstract fun scm (Lkotlin/reflect/KClass;Lkotlin/jvm/functions/Function1;)V
+	public abstract fun setApiDocsUrl (Ljava/lang/String;)V
+	public abstract fun setBom (Z)V
+	public abstract fun setDescription (Ljava/lang/String;)V
+	public abstract fun setName (Ljava/lang/String;)V
+	public abstract fun setWebsiteUrl (Ljava/lang/String;)V
+	public abstract fun setYearCreated (I)V
+	public abstract fun ticketSystem (Lkotlin/reflect/KClass;Lkotlin/jvm/functions/Function1;)V
+}
+
+public final class dev/teogor/winds/api/NameFormat : java/lang/Enum {
+	public static final field FULL Ldev/teogor/winds/api/NameFormat;
+	public static final field GROUP_MODULE_NAME Ldev/teogor/winds/api/NameFormat;
+	public static final field MODULE_NAME_ONLY Ldev/teogor/winds/api/NameFormat;
+	public static final field NAME_ONLY Ldev/teogor/winds/api/NameFormat;
+	public static fun valueOf (Ljava/lang/String;)Ldev/teogor/winds/api/NameFormat;
+	public static fun values ()[Ldev/teogor/winds/api/NameFormat;
+}
+
+public abstract interface class dev/teogor/winds/api/Person {
+	public static final field Companion Ldev/teogor/winds/api/Person$Companion;
+	public abstract fun getEmail ()Ljava/lang/String;
+	public abstract fun getName ()Ljava/lang/String;
+	public abstract fun getOrganization ()Ljava/lang/String;
+	public abstract fun getOrganizationUrl ()Ljava/lang/String;
+	public abstract fun getProperties ()Ljava/util/Map;
+	public abstract fun getRoles ()Ljava/util/List;
+	public abstract fun getTimezone ()Ljava/lang/String;
+	public abstract fun getUrl ()Ljava/lang/String;
+	public fun isContributor ()Z
+	public fun isDeveloper ()Z
+}
+
+public final class dev/teogor/winds/api/Person$Companion {
+	public final fun default (Lkotlin/reflect/KClass;)Ldev/teogor/winds/api/Person;
+}
+
+public final class dev/teogor/winds/api/Person$Contributor : dev/teogor/winds/api/Person {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/util/List;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/lang/String;
+	public final fun component7 ()Ljava/lang/String;
+	public final fun component8 ()Ljava/util/Map;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)Ldev/teogor/winds/api/Person$Contributor;
+	public static synthetic fun copy$default (Ldev/teogor/winds/api/Person$Contributor;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;ILjava/lang/Object;)Ldev/teogor/winds/api/Person$Contributor;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getEmail ()Ljava/lang/String;
+	public fun getName ()Ljava/lang/String;
+	public fun getOrganization ()Ljava/lang/String;
+	public fun getOrganizationUrl ()Ljava/lang/String;
+	public fun getProperties ()Ljava/util/Map;
+	public fun getRoles ()Ljava/util/List;
+	public fun getTimezone ()Ljava/lang/String;
+	public fun getUrl ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun setEmail (Ljava/lang/String;)V
+	public fun setName (Ljava/lang/String;)V
+	public fun setOrganization (Ljava/lang/String;)V
+	public fun setOrganizationUrl (Ljava/lang/String;)V
+	public fun setProperties (Ljava/util/Map;)V
+	public fun setRoles (Ljava/util/List;)V
+	public fun setTimezone (Ljava/lang/String;)V
+	public fun setUrl (Ljava/lang/String;)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/api/Person$Developer : dev/teogor/winds/api/Person {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/util/List;
+	public final fun component6 ()Ljava/lang/String;
+	public final fun component7 ()Ljava/lang/String;
+	public final fun component8 ()Ljava/lang/String;
+	public final fun component9 ()Ljava/util/Map;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)Ldev/teogor/winds/api/Person$Developer;
+	public static synthetic fun copy$default (Ldev/teogor/winds/api/Person$Developer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;ILjava/lang/Object;)Ldev/teogor/winds/api/Person$Developer;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getEmail ()Ljava/lang/String;
+	public final fun getId ()Ljava/lang/String;
+	public fun getName ()Ljava/lang/String;
+	public fun getOrganization ()Ljava/lang/String;
+	public fun getOrganizationUrl ()Ljava/lang/String;
+	public fun getProperties ()Ljava/util/Map;
+	public fun getRoles ()Ljava/util/List;
+	public fun getTimezone ()Ljava/lang/String;
+	public fun getUrl ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun setEmail (Ljava/lang/String;)V
+	public final fun setId (Ljava/lang/String;)V
+	public fun setName (Ljava/lang/String;)V
+	public fun setOrganization (Ljava/lang/String;)V
+	public fun setOrganizationUrl (Ljava/lang/String;)V
+	public fun setProperties (Ljava/util/Map;)V
+	public fun setRoles (Ljava/util/List;)V
+	public fun setTimezone (Ljava/lang/String;)V
+	public fun setUrl (Ljava/lang/String;)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/api/Person$DeveloperContributor : dev/teogor/winds/api/Person {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/util/List;
+	public final fun component6 ()Ljava/lang/String;
+	public final fun component7 ()Ljava/lang/String;
+	public final fun component8 ()Ljava/lang/String;
+	public final fun component9 ()Ljava/util/Map;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)Ldev/teogor/winds/api/Person$DeveloperContributor;
+	public static synthetic fun copy$default (Ldev/teogor/winds/api/Person$DeveloperContributor;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;ILjava/lang/Object;)Ldev/teogor/winds/api/Person$DeveloperContributor;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getEmail ()Ljava/lang/String;
+	public final fun getId ()Ljava/lang/String;
+	public fun getName ()Ljava/lang/String;
+	public fun getOrganization ()Ljava/lang/String;
+	public fun getOrganizationUrl ()Ljava/lang/String;
+	public fun getProperties ()Ljava/util/Map;
+	public fun getRoles ()Ljava/util/List;
+	public fun getTimezone ()Ljava/lang/String;
+	public fun getUrl ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun setEmail (Ljava/lang/String;)V
+	public final fun setId (Ljava/lang/String;)V
+	public fun setName (Ljava/lang/String;)V
+	public fun setOrganization (Ljava/lang/String;)V
+	public fun setOrganizationUrl (Ljava/lang/String;)V
+	public fun setProperties (Ljava/util/Map;)V
+	public fun setRoles (Ljava/util/List;)V
+	public fun setTimezone (Ljava/lang/String;)V
+	public fun setUrl (Ljava/lang/String;)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class dev/teogor/winds/api/PublishingOptions {
+	public abstract fun getCascadePublish ()Z
+	public abstract fun getEnablePublicationSigning ()Z
+	public abstract fun getOptInForVanniktechPlugin ()Z
+	public abstract fun getPublish ()Z
+	public abstract fun getSonatypeHost ()Lcom/vanniktech/maven/publish/SonatypeHost;
+	public abstract fun setCascadePublish (Z)V
+	public abstract fun setEnablePublicationSigning (Z)V
+	public abstract fun setOptInForVanniktechPlugin (Z)V
+	public abstract fun setPublish (Z)V
+	public abstract fun setSonatypeHost (Lcom/vanniktech/maven/publish/SonatypeHost;)V
+}
+
+public final class dev/teogor/winds/api/ReleaseStatus : java/lang/Enum {
+	public static final field Alpha Ldev/teogor/winds/api/ReleaseStatus;
+	public static final field Beta Ldev/teogor/winds/api/ReleaseStatus;
+	public static final field Deprecated Ldev/teogor/winds/api/ReleaseStatus;
+	public static final field ReleaseCandidate Ldev/teogor/winds/api/ReleaseStatus;
+	public static final field Stable Ldev/teogor/winds/api/ReleaseStatus;
+	public static fun valueOf (Ljava/lang/String;)Ldev/teogor/winds/api/ReleaseStatus;
+	public static fun values ()[Ldev/teogor/winds/api/ReleaseStatus;
+}
+
+public abstract interface class dev/teogor/winds/api/Scm {
+	public static final field Companion Ldev/teogor/winds/api/Scm$Companion;
+	public abstract fun getConnection ()Ljava/lang/String;
+	public abstract fun getDeveloperConnection ()Ljava/lang/String;
+	public abstract fun getOwner ()Ljava/lang/String;
+	public abstract fun getRepository ()Ljava/lang/String;
+	public abstract fun getRepositoryUrl ()Ljava/lang/String;
+	public fun hasVersionControl ()Z
+}
+
+public final class dev/teogor/winds/api/Scm$Bitbucket : dev/teogor/winds/api/Scm {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ldev/teogor/winds/api/Scm$Bitbucket;
+	public static synthetic fun copy$default (Ldev/teogor/winds/api/Scm$Bitbucket;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ldev/teogor/winds/api/Scm$Bitbucket;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getConnection ()Ljava/lang/String;
+	public fun getDeveloperConnection ()Ljava/lang/String;
+	public fun getOwner ()Ljava/lang/String;
+	public fun getRepository ()Ljava/lang/String;
+	public fun getRepositoryUrl ()Ljava/lang/String;
+	public final fun getWorkspaceName ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun setOwner (Ljava/lang/String;)V
+	public fun setRepository (Ljava/lang/String;)V
+	public final fun setWorkspaceName (Ljava/lang/String;)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/api/Scm$Companion {
+	public final fun default (Lkotlin/reflect/KClass;)Ldev/teogor/winds/api/Scm;
+}
+
+public final class dev/teogor/winds/api/Scm$Custom : dev/teogor/winds/api/Scm {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ldev/teogor/winds/api/Scm$Custom;
+	public static synthetic fun copy$default (Ldev/teogor/winds/api/Scm$Custom;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ldev/teogor/winds/api/Scm$Custom;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getConnection ()Ljava/lang/String;
+	public fun getDeveloperConnection ()Ljava/lang/String;
+	public final fun getDomain ()Ljava/lang/String;
+	public fun getOwner ()Ljava/lang/String;
+	public fun getRepository ()Ljava/lang/String;
+	public fun getRepositoryUrl ()Ljava/lang/String;
+	public fun hashCode ()I
+	public final fun setDomain (Ljava/lang/String;)V
+	public fun setOwner (Ljava/lang/String;)V
+	public fun setRepository (Ljava/lang/String;)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/api/Scm$CustomExplicit : dev/teogor/winds/api/Scm {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ldev/teogor/winds/api/Scm$CustomExplicit;
+	public static synthetic fun copy$default (Ldev/teogor/winds/api/Scm$CustomExplicit;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ldev/teogor/winds/api/Scm$CustomExplicit;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getConnection ()Ljava/lang/String;
+	public fun getDeveloperConnection ()Ljava/lang/String;
+	public fun getOwner ()Ljava/lang/String;
+	public fun getRepository ()Ljava/lang/String;
+	public fun getRepositoryUrl ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun setConnection (Ljava/lang/String;)V
+	public fun setDeveloperConnection (Ljava/lang/String;)V
+	public fun setOwner (Ljava/lang/String;)V
+	public fun setRepository (Ljava/lang/String;)V
+	public fun setRepositoryUrl (Ljava/lang/String;)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/api/Scm$Default : dev/teogor/winds/api/Scm {
+	public static final field INSTANCE Ldev/teogor/winds/api/Scm$Default;
+	public fun getConnection ()Ljava/lang/String;
+	public fun getDeveloperConnection ()Ljava/lang/String;
+	public fun getOwner ()Ljava/lang/String;
+	public fun getRepository ()Ljava/lang/String;
+	public fun getRepositoryUrl ()Ljava/lang/String;
+	public fun setConnection (Ljava/lang/String;)V
+	public fun setDeveloperConnection (Ljava/lang/String;)V
+	public fun setOwner (Ljava/lang/String;)V
+	public fun setRepository (Ljava/lang/String;)V
+	public fun setRepositoryUrl (Ljava/lang/String;)V
+}
+
+public final class dev/teogor/winds/api/Scm$GitHub : dev/teogor/winds/api/Scm {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Ldev/teogor/winds/api/Scm$GitHub;
+	public static synthetic fun copy$default (Ldev/teogor/winds/api/Scm$GitHub;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ldev/teogor/winds/api/Scm$GitHub;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getConnection ()Ljava/lang/String;
+	public fun getDeveloperConnection ()Ljava/lang/String;
+	public fun getOwner ()Ljava/lang/String;
+	public fun getRepository ()Ljava/lang/String;
+	public fun getRepositoryUrl ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun setOwner (Ljava/lang/String;)V
+	public fun setRepository (Ljava/lang/String;)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/api/Scm$GitLab : dev/teogor/winds/api/Scm {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ldev/teogor/winds/api/Scm$GitLab;
+	public static synthetic fun copy$default (Ldev/teogor/winds/api/Scm$GitLab;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ldev/teogor/winds/api/Scm$GitLab;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getConnection ()Ljava/lang/String;
+	public fun getDeveloperConnection ()Ljava/lang/String;
+	public final fun getGroupName ()Ljava/lang/String;
+	public fun getOwner ()Ljava/lang/String;
+	public fun getRepository ()Ljava/lang/String;
+	public fun getRepositoryUrl ()Ljava/lang/String;
+	public fun hashCode ()I
+	public final fun setGroupName (Ljava/lang/String;)V
+	public fun setOwner (Ljava/lang/String;)V
+	public fun setRepository (Ljava/lang/String;)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/api/Scm$Local : dev/teogor/winds/api/Scm {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ldev/teogor/winds/api/Scm$Local;
+	public static synthetic fun copy$default (Ldev/teogor/winds/api/Scm$Local;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ldev/teogor/winds/api/Scm$Local;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getConnection ()Ljava/lang/String;
+	public fun getDeveloperConnection ()Ljava/lang/String;
+	public fun getOwner ()Ljava/lang/String;
+	public final fun getPath ()Ljava/lang/String;
+	public fun getRepository ()Ljava/lang/String;
+	public fun getRepositoryUrl ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun setOwner (Ljava/lang/String;)V
+	public final fun setPath (Ljava/lang/String;)V
+	public fun setRepository (Ljava/lang/String;)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/api/SpotlessOptions {
+	public fun <init> ()V
+	public fun <init> (ZLjava/lang/String;Ljava/util/List;Ljava/util/List;)V
+	public synthetic fun <init> (ZLjava/lang/String;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Z
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/util/List;
+	public final fun component4 ()Ljava/util/List;
+	public final fun copy (ZLjava/lang/String;Ljava/util/List;Ljava/util/List;)Ldev/teogor/winds/api/SpotlessOptions;
+	public static synthetic fun copy$default (Ldev/teogor/winds/api/SpotlessOptions;ZLjava/lang/String;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Ldev/teogor/winds/api/SpotlessOptions;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getEnabled ()Z
+	public final fun getExcludeFiles ()Ljava/util/List;
+	public final fun getFormat ()Ljava/lang/String;
+	public final fun getIncludeFiles ()Ljava/util/List;
+	public fun hashCode ()I
+	public final fun setEnabled (Z)V
+	public final fun setExcludeFiles (Ljava/util/List;)V
+	public final fun setFormat (Ljava/lang/String;)V
+	public final fun setIncludeFiles (Ljava/util/List;)V
+	public fun toString ()Ljava/lang/String;
+}
+
 public abstract interface class dev/teogor/winds/api/TaskBuilder {
 	public abstract fun getTask ()Lorg/gradle/api/DefaultTask;
 	public abstract fun setTask (Lorg/gradle/api/DefaultTask;)V
 }
 
+public abstract interface class dev/teogor/winds/api/TicketSystem {
+	public static final field Companion Ldev/teogor/winds/api/TicketSystem$Companion;
+	public abstract fun getSystem ()Ljava/lang/String;
+	public abstract fun getUrl ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/api/TicketSystem$Bugzilla : dev/teogor/winds/api/TicketSystem {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ldev/teogor/winds/api/TicketSystem$Bugzilla;
+	public static synthetic fun copy$default (Ldev/teogor/winds/api/TicketSystem$Bugzilla;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ldev/teogor/winds/api/TicketSystem$Bugzilla;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getComponent ()Ljava/lang/String;
+	public final fun getProduct ()Ljava/lang/String;
+	public final fun getServerUrl ()Ljava/lang/String;
+	public fun getSystem ()Ljava/lang/String;
+	public fun getUrl ()Ljava/lang/String;
+	public fun hashCode ()I
+	public final fun setComponent (Ljava/lang/String;)V
+	public final fun setProduct (Ljava/lang/String;)V
+	public final fun setServerUrl (Ljava/lang/String;)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/api/TicketSystem$Companion {
+	public final fun default (Lkotlin/reflect/KClass;)Ldev/teogor/winds/api/TicketSystem;
+}
+
+public final class dev/teogor/winds/api/TicketSystem$Default : dev/teogor/winds/api/TicketSystem {
+	public static final field INSTANCE Ldev/teogor/winds/api/TicketSystem$Default;
+	public fun getSystem ()Ljava/lang/String;
+	public fun getUrl ()Ljava/lang/String;
+	public fun setSystem (Ljava/lang/String;)V
+	public fun setUrl (Ljava/lang/String;)V
+}
+
+public final class dev/teogor/winds/api/TicketSystem$GitHub : dev/teogor/winds/api/TicketSystem {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Ldev/teogor/winds/api/TicketSystem$GitHub;
+	public static synthetic fun copy$default (Ldev/teogor/winds/api/TicketSystem$GitHub;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ldev/teogor/winds/api/TicketSystem$GitHub;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getOwner ()Ljava/lang/String;
+	public final fun getRepository ()Ljava/lang/String;
+	public fun getSystem ()Ljava/lang/String;
+	public fun getUrl ()Ljava/lang/String;
+	public fun hashCode ()I
+	public final fun setOwner (Ljava/lang/String;)V
+	public final fun setRepository (Ljava/lang/String;)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/api/TicketSystem$GitLab : dev/teogor/winds/api/TicketSystem {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Ldev/teogor/winds/api/TicketSystem$GitLab;
+	public static synthetic fun copy$default (Ldev/teogor/winds/api/TicketSystem$GitLab;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ldev/teogor/winds/api/TicketSystem$GitLab;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getGroup ()Ljava/lang/String;
+	public final fun getProject ()Ljava/lang/String;
+	public fun getSystem ()Ljava/lang/String;
+	public fun getUrl ()Ljava/lang/String;
+	public fun hashCode ()I
+	public final fun setGroup (Ljava/lang/String;)V
+	public final fun setProject (Ljava/lang/String;)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/api/TicketSystem$Jira : dev/teogor/winds/api/TicketSystem {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Ldev/teogor/winds/api/TicketSystem$Jira;
+	public static synthetic fun copy$default (Ldev/teogor/winds/api/TicketSystem$Jira;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ldev/teogor/winds/api/TicketSystem$Jira;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getProjectKey ()Ljava/lang/String;
+	public final fun getServerUrl ()Ljava/lang/String;
+	public fun getSystem ()Ljava/lang/String;
+	public fun getUrl ()Ljava/lang/String;
+	public fun hashCode ()I
+	public final fun setProjectKey (Ljava/lang/String;)V
+	public final fun setServerUrl (Ljava/lang/String;)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/api/TicketSystem$Redmine : dev/teogor/winds/api/TicketSystem {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Ldev/teogor/winds/api/TicketSystem$Redmine;
+	public static synthetic fun copy$default (Ldev/teogor/winds/api/TicketSystem$Redmine;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ldev/teogor/winds/api/TicketSystem$Redmine;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBaseUrl ()Ljava/lang/String;
+	public final fun getProjectId ()Ljava/lang/String;
+	public fun getSystem ()Ljava/lang/String;
+	public fun getUrl ()Ljava/lang/String;
+	public fun hashCode ()I
+	public final fun setBaseUrl (Ljava/lang/String;)V
+	public final fun setProjectId (Ljava/lang/String;)V
+	public fun toString ()Ljava/lang/String;
+}
+
 public abstract interface class dev/teogor/winds/api/Winds {
+	public abstract fun codebaseOptions (Lkotlin/jvm/functions/Function1;)V
+	public abstract fun configureProjects (ZLkotlin/jvm/functions/Function2;)V
+	public static synthetic fun configureProjects$default (Ldev/teogor/winds/api/Winds;ZLkotlin/jvm/functions/Function2;ILjava/lang/Object;)V
+	public abstract fun docsGenerator (Lkotlin/jvm/functions/Function1;)V
+	public abstract fun documentationBuilder (Lkotlin/jvm/functions/Function1;)V
+	public abstract fun getAllSpecs ()Ljava/util/List;
+	public abstract fun getCodebaseOptions ()Ldev/teogor/winds/api/CodebaseOptions;
+	public abstract fun getDocsGenerator ()Ldev/teogor/winds/api/DocsGenerator;
+	public abstract fun getDocumentationBuilder ()Ldev/teogor/winds/api/DocumentationBuilder;
+	public abstract fun getModuleMetadata ()Ldev/teogor/winds/api/ModuleMetadata;
+	public abstract fun getPublishingOptions ()Ldev/teogor/winds/api/PublishingOptions;
+	public abstract fun getWindsFeatures ()Ldev/teogor/winds/api/WindsFeatures;
+	public abstract fun getWorkflowSynthesizer ()Ldev/teogor/winds/api/WorkflowSynthesizer;
+	public fun isEnabled (Ldev/teogor/winds/api/model/WindsFeature;)Z
+	public abstract fun moduleMetadata (Lkotlin/jvm/functions/Function1;)V
+	public abstract fun publishingOptions (Lkotlin/jvm/functions/Function1;)V
+	public abstract fun setCodebaseOptions (Ldev/teogor/winds/api/CodebaseOptions;)V
+	public abstract fun setDocsGenerator (Ldev/teogor/winds/api/DocsGenerator;)V
+	public abstract fun setDocumentationBuilder (Ldev/teogor/winds/api/DocumentationBuilder;)V
+	public abstract fun setModuleMetadata (Ldev/teogor/winds/api/ModuleMetadata;)V
+	public abstract fun setPublishingOptions (Ldev/teogor/winds/api/PublishingOptions;)V
+	public abstract fun setWindsFeatures (Ldev/teogor/winds/api/WindsFeatures;)V
+	public abstract fun setWorkflowSynthesizer (Ldev/teogor/winds/api/WorkflowSynthesizer;)V
+	public abstract fun windsFeatures (Lkotlin/jvm/functions/Function1;)V
+	public abstract fun workflowSynthesizer (Lkotlin/jvm/functions/Function1;)V
+}
+
+public abstract interface class dev/teogor/winds/api/WindsFeatures {
+	public abstract fun getDocsGenerator ()Z
+	public abstract fun getMavenPublishing ()Z
+	public abstract fun getWorkflowSynthesizer ()Z
+	public abstract fun setDocsGenerator (Z)V
+	public abstract fun setMavenPublishing (Z)V
+	public abstract fun setWorkflowSynthesizer (Z)V
+}
+
+public abstract interface class dev/teogor/winds/api/WindsLegacy {
 	public abstract fun buildFeatures (Lkotlin/jvm/functions/Function1;)V
 	public abstract fun docsGenerator (Lkotlin/jvm/functions/Function1;)V
 	public abstract fun getBuildFeatures ()Ldev/teogor/winds/api/BuildFeatures;
@@ -184,33 +975,6 @@ public abstract interface class dev/teogor/winds/api/model/Contributor {
 	public abstract fun getUrl ()Ljava/lang/String;
 }
 
-public final class dev/teogor/winds/api/model/ContributorImpl : dev/teogor/winds/api/model/Contributor {
-	public fun <init> ()V
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/util/Map;)V
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun component2 ()Ljava/lang/String;
-	public final fun component3 ()Ljava/lang/String;
-	public final fun component4 ()Ljava/lang/String;
-	public final fun component5 ()Ljava/lang/String;
-	public final fun component6 ()Ljava/util/List;
-	public final fun component7 ()Ljava/lang/String;
-	public final fun component8 ()Ljava/util/Map;
-	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/util/Map;)Ldev/teogor/winds/api/model/ContributorImpl;
-	public static synthetic fun copy$default (Ldev/teogor/winds/api/model/ContributorImpl;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/util/Map;ILjava/lang/Object;)Ldev/teogor/winds/api/model/ContributorImpl;
-	public fun equals (Ljava/lang/Object;)Z
-	public fun getEmail ()Ljava/lang/String;
-	public fun getName ()Ljava/lang/String;
-	public fun getOrganization ()Ljava/lang/String;
-	public fun getOrganizationUrl ()Ljava/lang/String;
-	public fun getProperties ()Ljava/util/Map;
-	public fun getRoles ()Ljava/util/List;
-	public fun getTimezone ()Ljava/lang/String;
-	public fun getUrl ()Ljava/lang/String;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
 public final class dev/teogor/winds/api/model/Dependency : dev/teogor/winds/api/model/DependencyDefinition {
 	public static final field Companion Ldev/teogor/winds/api/model/Dependency$Companion;
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
@@ -267,135 +1031,6 @@ public abstract interface class dev/teogor/winds/api/model/Developer {
 	public abstract fun getRoles ()Ljava/util/List;
 	public abstract fun getTimezone ()Ljava/lang/String;
 	public abstract fun getUrl ()Ljava/lang/String;
-}
-
-public final class dev/teogor/winds/api/model/DeveloperImpl : dev/teogor/winds/api/model/Developer {
-	public fun <init> ()V
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun component2 ()Ljava/lang/String;
-	public final fun component3 ()Ljava/lang/String;
-	public final fun component4 ()Ljava/lang/String;
-	public final fun component5 ()Ljava/util/List;
-	public final fun component6 ()Ljava/lang/String;
-	public final fun component7 ()Ljava/lang/String;
-	public final fun component8 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ldev/teogor/winds/api/model/DeveloperImpl;
-	public static synthetic fun copy$default (Ldev/teogor/winds/api/model/DeveloperImpl;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ldev/teogor/winds/api/model/DeveloperImpl;
-	public fun equals (Ljava/lang/Object;)Z
-	public fun getEmail ()Ljava/lang/String;
-	public fun getId ()Ljava/lang/String;
-	public fun getName ()Ljava/lang/String;
-	public fun getOrganization ()Ljava/lang/String;
-	public fun getOrganizationUrl ()Ljava/lang/String;
-	public fun getRoles ()Ljava/util/List;
-	public fun getTimezone ()Ljava/lang/String;
-	public fun getUrl ()Ljava/lang/String;
-	public fun hashCode ()I
-	public fun setEmail (Ljava/lang/String;)V
-	public fun setId (Ljava/lang/String;)V
-	public fun setName (Ljava/lang/String;)V
-	public fun setOrganization (Ljava/lang/String;)V
-	public fun setOrganizationUrl (Ljava/lang/String;)V
-	public fun setRoles (Ljava/util/List;)V
-	public fun setTimezone (Ljava/lang/String;)V
-	public fun setUrl (Ljava/lang/String;)V
-	public fun toString ()Ljava/lang/String;
-}
-
-public abstract interface class dev/teogor/winds/api/model/IssueManagement {
-	public abstract fun getSystem ()Ljava/lang/String;
-	public abstract fun getUrl ()Ljava/lang/String;
-}
-
-public final class dev/teogor/winds/api/model/IssueManagement$Bugzilla : dev/teogor/winds/api/model/IssueManagement {
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun component2 ()Ljava/lang/String;
-	public final fun component3 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ldev/teogor/winds/api/model/IssueManagement$Bugzilla;
-	public static synthetic fun copy$default (Ldev/teogor/winds/api/model/IssueManagement$Bugzilla;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ldev/teogor/winds/api/model/IssueManagement$Bugzilla;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getComponent ()Ljava/lang/String;
-	public final fun getProduct ()Ljava/lang/String;
-	public final fun getServerUrl ()Ljava/lang/String;
-	public fun getSystem ()Ljava/lang/String;
-	public fun getUrl ()Ljava/lang/String;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class dev/teogor/winds/api/model/IssueManagement$Git : dev/teogor/winds/api/model/IssueManagement {
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun component2 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Ldev/teogor/winds/api/model/IssueManagement$Git;
-	public static synthetic fun copy$default (Ldev/teogor/winds/api/model/IssueManagement$Git;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ldev/teogor/winds/api/model/IssueManagement$Git;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getOwner ()Ljava/lang/String;
-	public final fun getRepo ()Ljava/lang/String;
-	public fun getSystem ()Ljava/lang/String;
-	public fun getUrl ()Ljava/lang/String;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class dev/teogor/winds/api/model/IssueManagement$GitLab : dev/teogor/winds/api/model/IssueManagement {
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun component2 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Ldev/teogor/winds/api/model/IssueManagement$GitLab;
-	public static synthetic fun copy$default (Ldev/teogor/winds/api/model/IssueManagement$GitLab;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ldev/teogor/winds/api/model/IssueManagement$GitLab;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getGroup ()Ljava/lang/String;
-	public final fun getProject ()Ljava/lang/String;
-	public fun getSystem ()Ljava/lang/String;
-	public fun getUrl ()Ljava/lang/String;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class dev/teogor/winds/api/model/IssueManagement$Jira : dev/teogor/winds/api/model/IssueManagement {
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun component2 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Ldev/teogor/winds/api/model/IssueManagement$Jira;
-	public static synthetic fun copy$default (Ldev/teogor/winds/api/model/IssueManagement$Jira;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ldev/teogor/winds/api/model/IssueManagement$Jira;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getProjectKey ()Ljava/lang/String;
-	public final fun getServerUrl ()Ljava/lang/String;
-	public fun getSystem ()Ljava/lang/String;
-	public fun getUrl ()Ljava/lang/String;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class dev/teogor/winds/api/model/IssueManagement$Redmine : dev/teogor/winds/api/model/IssueManagement {
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun component2 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Ldev/teogor/winds/api/model/IssueManagement$Redmine;
-	public static synthetic fun copy$default (Ldev/teogor/winds/api/model/IssueManagement$Redmine;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ldev/teogor/winds/api/model/IssueManagement$Redmine;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getBaseUrl ()Ljava/lang/String;
-	public final fun getProjectId ()Ljava/lang/String;
-	public fun getSystem ()Ljava/lang/String;
-	public fun getUrl ()Ljava/lang/String;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class dev/teogor/winds/api/model/LibraryFlag : java/lang/Enum {
-	public static final field Alpha Ldev/teogor/winds/api/model/LibraryFlag;
-	public static final field Beta Ldev/teogor/winds/api/model/LibraryFlag;
-	public static final field Deprecated Ldev/teogor/winds/api/model/LibraryFlag;
-	public static final field None Ldev/teogor/winds/api/model/LibraryFlag;
-	public static fun valueOf (Ljava/lang/String;)Ldev/teogor/winds/api/model/LibraryFlag;
-	public static fun values ()[Ldev/teogor/winds/api/model/LibraryFlag;
 }
 
 public final class dev/teogor/winds/api/model/LicenseType : java/lang/Enum {
@@ -471,6 +1106,53 @@ public final class dev/teogor/winds/api/model/ModuleDependencyRecord$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
+public final class dev/teogor/winds/api/model/ModuleDescriptor {
+	public static final field Companion Ldev/teogor/winds/api/model/ModuleDescriptor$Companion;
+	public fun <init> (Ljava/lang/String;Ldev/teogor/winds/api/model/Path;Ldev/teogor/winds/api/ArtifactDescriptor;Ljava/util/List;ZZLjava/lang/String;Ljava/lang/String;Ldev/teogor/winds/api/DocumentationBuilder;Ldev/teogor/winds/api/TicketSystem;Ldev/teogor/winds/api/Scm;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component10 ()Ldev/teogor/winds/api/TicketSystem;
+	public final fun component11 ()Ldev/teogor/winds/api/Scm;
+	public final fun component2 ()Ldev/teogor/winds/api/model/Path;
+	public final fun component3 ()Ldev/teogor/winds/api/ArtifactDescriptor;
+	public final fun component4 ()Ljava/util/List;
+	public final fun component5 ()Z
+	public final fun component6 ()Z
+	public final fun component7 ()Ljava/lang/String;
+	public final fun component8 ()Ljava/lang/String;
+	public final fun component9 ()Ldev/teogor/winds/api/DocumentationBuilder;
+	public final fun copy (Ljava/lang/String;Ldev/teogor/winds/api/model/Path;Ldev/teogor/winds/api/ArtifactDescriptor;Ljava/util/List;ZZLjava/lang/String;Ljava/lang/String;Ldev/teogor/winds/api/DocumentationBuilder;Ldev/teogor/winds/api/TicketSystem;Ldev/teogor/winds/api/Scm;)Ldev/teogor/winds/api/model/ModuleDescriptor;
+	public static synthetic fun copy$default (Ldev/teogor/winds/api/model/ModuleDescriptor;Ljava/lang/String;Ldev/teogor/winds/api/model/Path;Ldev/teogor/winds/api/ArtifactDescriptor;Ljava/util/List;ZZLjava/lang/String;Ljava/lang/String;Ldev/teogor/winds/api/DocumentationBuilder;Ldev/teogor/winds/api/TicketSystem;Ldev/teogor/winds/api/Scm;ILjava/lang/Object;)Ldev/teogor/winds/api/model/ModuleDescriptor;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getArtifact ()Ldev/teogor/winds/api/ArtifactDescriptor;
+	public final fun getCompleteName ()Ljava/lang/String;
+	public final fun getDependencies ()Ljava/util/List;
+	public final fun getDescription ()Ljava/lang/String;
+	public final fun getDocumentationBuilder ()Ldev/teogor/winds/api/DocumentationBuilder;
+	public final fun getName ()Ljava/lang/String;
+	public final fun getPath ()Ldev/teogor/winds/api/model/Path;
+	public final fun getPublish ()Z
+	public final fun getScm ()Ldev/teogor/winds/api/Scm;
+	public final fun getTicketSystem ()Ldev/teogor/winds/api/TicketSystem;
+	public fun hashCode ()I
+	public final fun isBom ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/api/model/ModuleDescriptor$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Ldev/teogor/winds/api/model/ModuleDescriptor$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ldev/teogor/winds/api/model/ModuleDescriptor;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Ldev/teogor/winds/api/model/ModuleDescriptor;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class dev/teogor/winds/api/model/ModuleDescriptor$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
 public final class dev/teogor/winds/api/model/ModuleInfo {
 	public static final field Companion Ldev/teogor/winds/api/model/ModuleInfo$Companion;
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ldev/teogor/winds/api/model/Version;Ljava/lang/String;Ljava/util/List;ZLjava/util/List;)V
@@ -524,25 +1206,88 @@ public final class dev/teogor/winds/api/model/ModuleInfo$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
-public final class dev/teogor/winds/api/model/ModuleInfoKt {
-	public static final fun bom (Ljava/util/List;)Ldev/teogor/winds/api/model/ModuleInfo;
-	public static final fun sortByPath (Ljava/util/List;)Ljava/util/List;
+public final class dev/teogor/winds/api/model/ModuleMetadataDefault {
+	public static final field Companion Ldev/teogor/winds/api/model/ModuleMetadataDefault$Companion;
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ldev/teogor/winds/api/model/Version;Z)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ldev/teogor/winds/api/model/Version;
+	public final fun component5 ()Z
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ldev/teogor/winds/api/model/Version;Z)Ldev/teogor/winds/api/model/ModuleMetadataDefault;
+	public static synthetic fun copy$default (Ldev/teogor/winds/api/model/ModuleMetadataDefault;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ldev/teogor/winds/api/model/Version;ZILjava/lang/Object;)Ldev/teogor/winds/api/model/ModuleMetadataDefault;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getArtifactId ()Ljava/lang/String;
+	public final fun getCanBePublished ()Z
+	public final fun getCompleteName ()Ljava/lang/String;
+	public final fun getName ()Ljava/lang/String;
+	public final fun getVersion ()Ldev/teogor/winds/api/model/Version;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/api/model/ModuleMetadataDefault$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Ldev/teogor/winds/api/model/ModuleMetadataDefault$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ldev/teogor/winds/api/model/ModuleMetadataDefault;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Ldev/teogor/winds/api/model/ModuleMetadataDefault;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class dev/teogor/winds/api/model/ModuleMetadataDefault$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class dev/teogor/winds/api/model/Path {
+	public static final field Companion Ldev/teogor/winds/api/model/Path$Companion;
+	public fun <init> (Ljava/lang/String;)V
+	public final fun asPartialLocalPath ()Ljava/lang/String;
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Ldev/teogor/winds/api/model/Path;
+	public static synthetic fun copy$default (Ldev/teogor/winds/api/model/Path;Ljava/lang/String;ILjava/lang/Object;)Ldev/teogor/winds/api/model/Path;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAbsolutePath ()Ljava/lang/String;
+	public final fun getValue ()Ljava/lang/String;
+	public fun hashCode ()I
+	public final fun isRoot ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/api/model/Path$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Ldev/teogor/winds/api/model/Path$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ldev/teogor/winds/api/model/Path;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Ldev/teogor/winds/api/model/Path;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class dev/teogor/winds/api/model/Path$Companion {
+	public final fun fixPath (Ljava/lang/String;)Ljava/lang/String;
+	public final fun from (Ljava/lang/String;Ljava/lang/String;)Ldev/teogor/winds/api/model/Path;
+	public final fun from (Lorg/gradle/api/Project;)Ldev/teogor/winds/api/model/Path;
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
 public final class dev/teogor/winds/api/model/Version {
 	public static final field Companion Ldev/teogor/winds/api/model/Version$Companion;
-	public fun <init> (IIILdev/teogor/winds/api/model/LibraryFlag;ZII)V
-	public synthetic fun <init> (IIILdev/teogor/winds/api/model/LibraryFlag;ZIIILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (IIILdev/teogor/winds/api/ReleaseStatus;ZII)V
+	public synthetic fun <init> (IIILdev/teogor/winds/api/ReleaseStatus;ZIIILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun compareTo (Ldev/teogor/winds/api/model/Version;)I
 	public final fun component1 ()I
 	public final fun component2 ()I
 	public final fun component3 ()I
-	public final fun component4 ()Ldev/teogor/winds/api/model/LibraryFlag;
+	public final fun component4 ()Ldev/teogor/winds/api/ReleaseStatus;
 	public final fun component5 ()Z
-	public final fun copy (IIILdev/teogor/winds/api/model/LibraryFlag;ZII)Ldev/teogor/winds/api/model/Version;
-	public static synthetic fun copy$default (Ldev/teogor/winds/api/model/Version;IIILdev/teogor/winds/api/model/LibraryFlag;ZIIILjava/lang/Object;)Ldev/teogor/winds/api/model/Version;
+	public final fun copy (IIILdev/teogor/winds/api/ReleaseStatus;ZII)Ldev/teogor/winds/api/model/Version;
+	public static synthetic fun copy$default (Ldev/teogor/winds/api/model/Version;IIILdev/teogor/winds/api/ReleaseStatus;ZIIILjava/lang/Object;)Ldev/teogor/winds/api/model/Version;
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getFlag ()Ldev/teogor/winds/api/model/LibraryFlag;
+	public final fun getFlag ()Ldev/teogor/winds/api/ReleaseStatus;
 	public final fun getMajor ()I
 	public final fun getMinor ()I
 	public final fun getPatch ()I
@@ -551,8 +1296,8 @@ public final class dev/teogor/winds/api/model/Version {
 	public final fun isBetaRelease ()Z
 	public final fun isDeprecated ()Z
 	public final fun setDeprecated (Z)V
-	public final fun setFlag (Ldev/teogor/winds/api/model/LibraryFlag;)V
-	public final fun toBuilder ()Ldev/teogor/winds/api/model/VersionBuilder;
+	public final fun setFlag (Ldev/teogor/winds/api/ReleaseStatus;)V
+	public final fun toBuilder ()Ldev/teogor/winds/api/model/Version$VersionBuilder;
 	public fun toString ()Ljava/lang/String;
 }
 
@@ -572,27 +1317,20 @@ public final class dev/teogor/winds/api/model/Version$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
-public final class dev/teogor/winds/api/model/VersionBuilder {
+public final class dev/teogor/winds/api/model/Version$VersionBuilder {
 	public fun <init> ()V
-	public final fun alphaRelease (I)Ldev/teogor/winds/api/model/VersionBuilder;
-	public final fun betaRelease (I)Ldev/teogor/winds/api/model/VersionBuilder;
+	public final fun alphaRelease (I)Ldev/teogor/winds/api/model/Version$VersionBuilder;
+	public final fun betaRelease (I)Ldev/teogor/winds/api/model/Version$VersionBuilder;
 	public final fun build ()Ldev/teogor/winds/api/model/Version;
 	public final fun getMajor ()I
 	public final fun getMinor ()I
 	public final fun getPatch ()I
-	public final fun setIsDeprecated ()Ldev/teogor/winds/api/model/VersionBuilder;
+	public final fun setIsDeprecated ()Ldev/teogor/winds/api/model/Version$VersionBuilder;
 	public final fun setMajor (I)V
 	public final fun setMinor (I)V
 	public final fun setPatch (I)V
-	public final fun versionQualifier (I)Ldev/teogor/winds/api/model/VersionBuilder;
-	public final fun versionQualifierPadding (I)Ldev/teogor/winds/api/model/VersionBuilder;
-}
-
-public final class dev/teogor/winds/api/model/VersionKt {
-	public static final fun createVersion (IIILkotlin/jvm/functions/Function1;)Ldev/teogor/winds/api/model/Version;
-	public static synthetic fun createVersion$default (IIILkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ldev/teogor/winds/api/model/Version;
-	public static final fun getEmoji (Ldev/teogor/winds/api/model/Version;)Ljava/lang/String;
-	public static final fun versionOf (Lkotlin/jvm/functions/Function1;)Ldev/teogor/winds/api/model/Version;
+	public final fun versionQualifier (I)Ldev/teogor/winds/api/model/Version$VersionBuilder;
+	public final fun versionQualifierPadding (I)Ldev/teogor/winds/api/model/Version$VersionBuilder;
 }
 
 public abstract class dev/teogor/winds/api/model/VersionedDependencyRecord {
@@ -723,6 +1461,68 @@ public final class dev/teogor/winds/api/provider/Scm$SVN : dev/teogor/winds/api/
 	public fun toString ()Ljava/lang/String;
 }
 
+public final class dev/teogor/winds/api/util/ContributorImpl : dev/teogor/winds/api/model/Contributor {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/util/Map;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/util/List;
+	public final fun component7 ()Ljava/lang/String;
+	public final fun component8 ()Ljava/util/Map;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/util/Map;)Ldev/teogor/winds/api/util/ContributorImpl;
+	public static synthetic fun copy$default (Ldev/teogor/winds/api/util/ContributorImpl;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/util/Map;ILjava/lang/Object;)Ldev/teogor/winds/api/util/ContributorImpl;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getEmail ()Ljava/lang/String;
+	public fun getName ()Ljava/lang/String;
+	public fun getOrganization ()Ljava/lang/String;
+	public fun getOrganizationUrl ()Ljava/lang/String;
+	public fun getProperties ()Ljava/util/Map;
+	public fun getRoles ()Ljava/util/List;
+	public fun getTimezone ()Ljava/lang/String;
+	public fun getUrl ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/api/util/DeveloperImpl : dev/teogor/winds/api/model/Developer {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/util/List;
+	public final fun component6 ()Ljava/lang/String;
+	public final fun component7 ()Ljava/lang/String;
+	public final fun component8 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ldev/teogor/winds/api/util/DeveloperImpl;
+	public static synthetic fun copy$default (Ldev/teogor/winds/api/util/DeveloperImpl;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ldev/teogor/winds/api/util/DeveloperImpl;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getEmail ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
+	public fun getName ()Ljava/lang/String;
+	public fun getOrganization ()Ljava/lang/String;
+	public fun getOrganizationUrl ()Ljava/lang/String;
+	public fun getRoles ()Ljava/util/List;
+	public fun getTimezone ()Ljava/lang/String;
+	public fun getUrl ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun setEmail (Ljava/lang/String;)V
+	public fun setId (Ljava/lang/String;)V
+	public fun setName (Ljava/lang/String;)V
+	public fun setOrganization (Ljava/lang/String;)V
+	public fun setOrganizationUrl (Ljava/lang/String;)V
+	public fun setRoles (Ljava/util/List;)V
+	public fun setTimezone (Ljava/lang/String;)V
+	public fun setUrl (Ljava/lang/String;)V
+	public fun toString ()Ljava/lang/String;
+}
+
 public final class dev/teogor/winds/api/util/Emojis {
 	public static final field ALPHA Ljava/lang/String;
 	public static final field BETA Ljava/lang/String;
@@ -730,11 +1530,31 @@ public final class dev/teogor/winds/api/util/Emojis {
 	public static final field INSTANCE Ldev/teogor/winds/api/util/Emojis;
 }
 
-public final class dev/teogor/winds/api/util/FileUtilsKt {
-	public static final fun directory (Ljava/io/File;Ljava/lang/String;)Ljava/io/File;
-	public static final fun file (Ljava/io/File;Ljava/lang/String;)Ljava/io/File;
-	public static final fun read (Ljava/io/File;Lkotlin/jvm/functions/Function1;)V
-	public static final fun write (Ljava/io/File;Lkotlin/jvm/functions/Function1;)V
+public final class dev/teogor/winds/api/util/ExceptionsKt {
+	public static final fun moduleMetadataException (Ljava/lang/String;)Ljava/lang/Void;
+}
+
+public final class dev/teogor/winds/api/util/InvalidLicenseException : dev/teogor/winds/api/util/ModuleMetadataException {
+	public fun <init> (Ljava/lang/String;)V
+}
+
+public final class dev/teogor/winds/api/util/InvalidPersonException : dev/teogor/winds/api/util/ModuleMetadataException {
+	public fun <init> (Ljava/lang/String;)V
+}
+
+public final class dev/teogor/winds/api/util/InvalidScmConfigurationException : dev/teogor/winds/api/util/ModuleMetadataException {
+	public fun <init> (Ljava/lang/String;)V
+}
+
+public final class dev/teogor/winds/api/util/MissingRequiredFieldException : dev/teogor/winds/api/util/ModuleMetadataException {
+	public fun <init> (Ljava/lang/String;)V
+}
+
+public class dev/teogor/winds/api/util/ModuleMetadataException : java/lang/RuntimeException {
+	public fun <init> (Ljava/lang/String;)V
+}
+
+public abstract interface class dev/teogor/winds/gradle/BaseWindsPlugin : org/gradle/api/Plugin {
 }
 
 public abstract class dev/teogor/winds/gradle/tasks/BaseGeneratorTask : org/gradle/api/DefaultTask {
@@ -747,5 +1567,72 @@ public abstract class dev/teogor/winds/gradle/tasks/BaseGeneratorTask : org/grad
 	public final fun read (Ljava/io/File;Lkotlin/jvm/functions/Function1;)V
 	public abstract fun setDocsModuleHandler (Ldev/teogor/winds/api/docs/DocsModuleHandler;)V
 	public final fun write (Ljava/io/File;Lkotlin/jvm/functions/Function1;)V
+}
+
+public final class dev/teogor/winds/ktx/ArtifactDescriptorExtensionsKt {
+	public static final fun getShowcaseCoordinates (Ldev/teogor/winds/api/ArtifactDescriptor;)Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/ktx/CollectionExtensionsKt {
+	public static final fun hasDuplicates (Ljava/util/Collection;)Z
+}
+
+public final class dev/teogor/winds/ktx/FileExtensionsKt {
+	public static final fun directory (Ljava/io/File;Ljava/lang/String;)Ljava/io/File;
+	public static final fun file (Ljava/io/File;Ljava/lang/String;)Ljava/io/File;
+	public static final fun read (Ljava/io/File;Lkotlin/jvm/functions/Function1;)V
+	public static final fun write (Ljava/io/File;Lkotlin/jvm/functions/Function1;)V
+}
+
+public final class dev/teogor/winds/ktx/GroupDetailsExtensionsKt {
+	public static final fun groupByModule (Ljava/lang/Iterable;)Ljava/util/Map;
+}
+
+public final class dev/teogor/winds/ktx/LicenseExtensionsKt {
+	public static final fun filterNonEmptyLicenses (Ljava/util/List;)Ljava/util/List;
+}
+
+public final class dev/teogor/winds/ktx/ModuleInfoExtensionsKt {
+	public static final fun bom (Ljava/util/List;)Ldev/teogor/winds/api/model/ModuleInfo;
+	public static final fun sortByPath (Ljava/util/List;)Ljava/util/List;
+}
+
+public final class dev/teogor/winds/ktx/PersonExtensionsKt {
+	public static final fun filterContributors (Ljava/util/List;)Ljava/util/List;
+	public static final fun filterDevelopers (Ljava/util/List;)Ljava/util/List;
+}
+
+public final class dev/teogor/winds/ktx/ProjectExtensionsKt {
+	public static final fun isRootProject (Lorg/gradle/api/Project;)Z
+}
+
+public final class dev/teogor/winds/ktx/ScmExtensionsKt {
+	public static final fun validate (Ldev/teogor/winds/api/Scm;)Ldev/teogor/winds/api/Scm;
+}
+
+public final class dev/teogor/winds/ktx/StringExtensionsKt {
+	public static final fun sanitizeArtifactId (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun toValidArtifactId (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun validateAndFormatArtifactId (Ljava/lang/String;)Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/ktx/TicketSystemExtensionsKt {
+	public static final fun validate (Ldev/teogor/winds/api/TicketSystem;)Ldev/teogor/winds/api/TicketSystem;
+}
+
+public final class dev/teogor/winds/ktx/VersionExtensionsKt {
+	public static final fun createVersion (IIILkotlin/jvm/functions/Function1;)Ldev/teogor/winds/api/model/Version;
+	public static synthetic fun createVersion$default (IIILkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ldev/teogor/winds/api/model/Version;
+	public static final fun getEmoji (Ldev/teogor/winds/api/model/Version;)Ljava/lang/String;
+	public static final fun versionOf (Lkotlin/jvm/functions/Function1;)Ldev/teogor/winds/api/model/Version;
+}
+
+public final class dev/teogor/winds/ktx/WindsExtensionsKt {
+	public static final fun copyVersion (Ldev/teogor/winds/api/ModuleMetadata;Lkotlin/jvm/functions/Function1;)Ldev/teogor/winds/api/model/Version;
+	public static synthetic fun copyVersion$default (Ldev/teogor/winds/api/ModuleMetadata;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ldev/teogor/winds/api/model/Version;
+	public static final fun hasWindsPlugin (Lorg/gradle/api/Project;)Z
+	public static final fun inheritFromParentWinds (Lorg/gradle/api/Project;Ldev/teogor/winds/api/Winds;)V
+	public static final fun processProjectsWithWinds (Lorg/gradle/api/Project;ZLkotlin/jvm/functions/Function1;)V
+	public static synthetic fun processProjectsWithWinds$default (Lorg/gradle/api/Project;ZLkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
 }
 

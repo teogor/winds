@@ -51,6 +51,18 @@ public final class dev/teogor/winds/common/ErrorId$PomLicenseError : dev/teogor/
 	public fun getErrorIdString ()Ljava/lang/String;
 }
 
+public final class dev/teogor/winds/common/MarkdownTable {
+	public static final field Companion Ldev/teogor/winds/common/MarkdownTable$Companion;
+	public fun <init> (Ljava/util/List;)V
+	public final fun addRow (Ljava/util/List;)V
+	public final fun addRows ([Ljava/util/List;)V
+	public final fun build ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/common/MarkdownTable$Companion {
+	public final fun withTitles ([Ljava/lang/String;)Ldev/teogor/winds/common/MarkdownTable;
+}
+
 public final class dev/teogor/winds/common/dependencies/CollectedContainer : java/io/Serializable {
 	public fun <init> (Ljava/util/Map;)V
 	public final fun component1 ()Ljava/util/Map;
@@ -75,6 +87,30 @@ public final class dev/teogor/winds/common/dependencies/DependencyCollectorKt {
 	public static final fun getIncludePlatform ()Z
 	public static final fun setFilterVariants ([Ljava/lang/String;)V
 	public static final fun setIncludePlatform (Z)V
+}
+
+public final class dev/teogor/winds/common/ktx/LicenseExtensionsKt {
+	public static final fun toLicensesSpec (Ldev/teogor/winds/api/ModuleMetadata;Lorg/gradle/api/publish/maven/MavenPom;)V
+}
+
+public final class dev/teogor/winds/common/ktx/MavenExtensionsKt {
+	public static final fun attachMavenData (Lorg/gradle/api/publish/maven/MavenPom;Ldev/teogor/winds/api/ModuleMetadata;)V
+	public static final fun toPom (Ldev/teogor/winds/api/ModuleMetadata;Lorg/gradle/api/publish/maven/MavenPom;)V
+}
+
+public final class dev/teogor/winds/common/ktx/PersonExtensionsKt {
+	public static final fun toContributorsSpec (Ljava/util/List;Lorg/gradle/api/publish/maven/MavenPom;)V
+	public static final fun toDevelopersSpec (Ljava/util/List;Lorg/gradle/api/publish/maven/MavenPom;)V
+}
+
+public final class dev/teogor/winds/common/ktx/VanniktechMavenExtensionsKt {
+	public static final fun getVanniktechMavenPlugin (Lorg/gradle/api/Project;)Lcom/vanniktech/maven/publish/MavenPublishPlugin;
+	public static final fun hasVanniktechMavenPlugin (Lorg/gradle/api/Project;)Z
+}
+
+public final class dev/teogor/winds/common/maven/MavenPublishUtilsKt {
+	public static final fun configureMavenPublishing (Lorg/gradle/api/Project;Ldev/teogor/winds/api/Winds;Lkotlin/jvm/functions/Function1;)V
+	public static synthetic fun configureMavenPublishing$default (Lorg/gradle/api/Project;Ldev/teogor/winds/api/Winds;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
 }
 
 public final class dev/teogor/winds/common/utils/MavenPomUtilsKt {

@@ -1,10 +1,10 @@
-import dev.teogor.winds.api.model.createVersion
+import dev.teogor.winds.ktx.createVersion
 
 plugins {
   id("dev.teogor.winds")
 }
 
-winds {
+windsLegacy {
   mavenPublish {
     displayName = "KMP"
     name = "kmp"
@@ -15,6 +15,24 @@ winds {
 
     version = createVersion(1, 0, 0) {
       alphaRelease(1)
+    }
+  }
+}
+
+winds {
+  moduleMetadata {
+    name = "KMP"
+
+    artifactDescriptor {
+      name = "kmp"
+      version = createVersion(1, 0, 0) {
+        betaRelease(1)
+      }
+    }
+
+    publishingOptions {
+      cascadePublish = false
+      publish = false
     }
   }
 }

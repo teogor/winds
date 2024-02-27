@@ -32,7 +32,7 @@ repositories {
   maven(url = "https://plugins.gradle.org/m2/")
 }
 
-val javaVersion = JavaVersion.VERSION_1_8
+val javaVersion = JavaVersion.VERSION_11
 java {
   sourceCompatibility = javaVersion
   targetCompatibility = javaVersion
@@ -51,6 +51,7 @@ dependencies {
   implementation(libs.kotlinx.serialization.core)
   implementation(libs.kotlinx.serialization.json)
   implementation(libs.gson)
+  implementation(libs.vanniktech.maven.api)
 
   compileOnly(gradleApi())
   compileOnly(libs.gradle.plugin.kotlin)
