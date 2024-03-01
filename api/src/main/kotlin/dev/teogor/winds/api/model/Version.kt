@@ -304,16 +304,25 @@ data class Version(
      * the provided string is not a valid version format.
      */
     fun from(versionString: String): Version? {
-      val parts = versionString.split(".")
-      if (parts.size != 3) {
-        return null
-      }
+      val regex = Regex("""(\d+)\.(\d+)\.(\d+)(?:-([a-zA-Z]+)(\d+)?)?""")
+      val match = regex.matchEntire(versionString) ?: return null
+
+      val (major, minor, patch, preReleaseType, preReleaseNumber) = match.destructured
 
       return try {
-        val major = parts[0].toInt()
-        val minor = parts[1].toInt()
-        val patch = parts[2].toInt()
-        Version(major, minor, patch)
+        return VersionBuilder().apply {
+          this.major = major.toInt()
+          this.minor = minor.toInt()
+          this.patch = patch.toInt()
+          when (preReleaseType.lowercase()) {
+            ReleaseStatus.Alpha.name.lowercase() -> alphaRelease(
+              version = preReleaseNumber.toInt(),
+            )
+            ReleaseStatus.Beta.name.lowercase() -> betaRelease(
+              version = preReleaseNumber.toInt(),
+            )
+          }
+        }.build()
       } catch (e: NumberFormatException) {
         null
       }
