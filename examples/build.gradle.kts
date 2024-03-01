@@ -154,14 +154,10 @@ winds {
     }
   }
 
-  // not required. just an example
-  // configureProjects(
-  //   includeRoot = true,
-  // ) { winds ->
-  //   configureMavenPublishing(winds) {
-  //
-  //   }
-  // }
+  configureProjects(
+    includeRoot = true,
+  ) { winds ->
+  }
 }
 
 // todo context winds not windsOptions
