@@ -20,7 +20,9 @@ import com.vanniktech.maven.publish.MavenPublishBaseExtension
 import dev.teogor.winds.api.Winds
 import dev.teogor.winds.common.ktx.hasVanniktechMavenPlugin
 import dev.teogor.winds.common.ktx.toPom
+import dev.teogor.winds.ktx.hasPublishGradlePlugin
 import org.gradle.api.Project
+import org.gradle.plugin.devel.GradlePluginDevelopmentExtension
 
 fun Project.configureMavenPublishing(
   winds: Winds,
@@ -38,12 +40,21 @@ fun Project.configureMavenPublishing(
 
       @Suppress("UnstableApiUsage")
       pom { mavenPom ->
-        metadata.artifactDescriptor?.let { dependencySpec ->
-          coordinates(
-            groupId = dependencySpec.group,
-            artifactId = dependencySpec.artifactId,
-            version = dependencySpec.version.toString(),
-          )
+        if (hasPublishGradlePlugin()) {
+          extensions.findByType(GradlePluginDevelopmentExtension::class.java)?.let {
+            with(it) {
+              website.set(metadata.websiteUrl)
+              vcsUrl.set(metadata.scm?.repositoryUrl)
+            }
+          }
+        } else {
+          metadata.artifactDescriptor?.let { dependencySpec ->
+            coordinates(
+              groupId = dependencySpec.group,
+              artifactId = dependencySpec.artifactId,
+              version = dependencySpec.version.toString(),
+            )
+          }
         }
 
         metadata toPom mavenPom

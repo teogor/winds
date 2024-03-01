@@ -71,6 +71,10 @@ class WindsPlugin : BaseWindsPlugin {
           inheritFromParentWinds(this)
           configureMavenPublish(this)
 
+          val depSpec = this@withWinds.moduleMetadata.artifactDescriptor
+          project.group = depSpec?.group ?: "unspecified"
+          project.version = depSpec?.version?.toString() ?: "unspecified"
+
           if (isRootProject()) {
             val collectWindsExtensions = configureCollectWindsExtensionsTask()
             tasks.register<DocsGeneratorTask>("docsGeneratorTask") {
