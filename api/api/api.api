@@ -1275,11 +1275,12 @@ public final class dev/teogor/winds/api/model/Path$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
-public final class dev/teogor/winds/api/model/Version {
+public final class dev/teogor/winds/api/model/Version : java/lang/Comparable {
 	public static final field Companion Ldev/teogor/winds/api/model/Version$Companion;
 	public fun <init> (IIILdev/teogor/winds/api/ReleaseStatus;ZII)V
 	public synthetic fun <init> (IIILdev/teogor/winds/api/ReleaseStatus;ZIIILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun compareTo (Ldev/teogor/winds/api/model/Version;)I
+	public fun compareTo (Ldev/teogor/winds/api/model/Version;)I
+	public synthetic fun compareTo (Ljava/lang/Object;)I
 	public final fun component1 ()I
 	public final fun component2 ()I
 	public final fun component3 ()I

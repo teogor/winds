@@ -22,20 +22,6 @@ package dev.teogor.winds.api
 enum class ReleaseStatus {
 
   /**
-   * Indicates the library is in an early stage of development and not yet publicly available.
-   * Use this status for libraries that are still undergoing significant changes
-   * and might not be feature-complete or stable.
-   */
-  Alpha,
-
-  /**
-   * Indicates the library is nearing completion and is undergoing beta testing.
-   * Use this status for libraries that are functionally complete but might still
-   * contain bugs or have features under development.
-   */
-  Beta,
-
-  /**
    * Indicates the library is considered stable and suitable for most use cases.
    * Use this status for libraries that are thoroughly tested and meet the expected
    * quality standards for production use. (**Default value**)
@@ -48,6 +34,20 @@ enum class ReleaseStatus {
    * are ready for wider release, potentially after addressing any final fixes.
    */
   ReleaseCandidate,
+
+  /**
+   * Indicates the library is nearing completion and is undergoing beta testing.
+   * Use this status for libraries that are functionally complete but might still
+   * contain bugs or have features under development.
+   */
+  Beta,
+
+  /**
+   * Indicates the library is in an early stage of development and not yet publicly available.
+   * Use this status for libraries that are still undergoing significant changes
+   * and might not be feature-complete or stable.
+   */
+  Alpha,
 
   /**
    * Indicates the library is no longer actively maintained and may have security vulnerabilities
