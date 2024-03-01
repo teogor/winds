@@ -77,7 +77,7 @@ data class Version(
   var isDeprecated: Boolean = false,
   private var versionQualifier: Int = 0,
   private var versionQualifierPadding: Int = 2,
-) {
+) : Comparable<Version> {
 
   /**
    * Checks if the version is an alpha release.
@@ -269,7 +269,7 @@ data class Version(
     }
   }
 
-  operator fun compareTo(other: Version): Int {
+  override operator fun compareTo(other: Version): Int {
     // 1. Compare major versions:
     val majorDiff = major - other.major
     if (majorDiff != 0) return majorDiff
@@ -282,12 +282,18 @@ data class Version(
     val patchDiff = patch - other.patch
     if (patchDiff != 0) return patchDiff
 
-    // 4. If all components are equal, compare version qualifiers:
-    val qualifierDiff = versionQualifier - other.versionQualifier
-    if (qualifierDiff != 0) return qualifierDiff
+    // 4. If all components are equal except flag, compare flags:
+    val flagDiff = flag.ordinal - other.flag.ordinal
+    if (flagDiff != 0) return -flagDiff
 
-    // 5. Finally, compare flags:
-    return flag.ordinal - other.flag.ordinal
+    // 5. If all components except flag and qualifier are equal, compare version qualifiers:
+    if (flag == other.flag) {
+      val qualifierDiff = versionQualifier - other.versionQualifier
+      if (qualifierDiff != 0) return qualifierDiff
+    }
+
+    // 6. All components are equal, consider equal
+    return 0
   }
 
   companion object {
@@ -318,6 +324,7 @@ data class Version(
             ReleaseStatus.Alpha.name.lowercase() -> alphaRelease(
               version = preReleaseNumber.toInt(),
             )
+
             ReleaseStatus.Beta.name.lowercase() -> betaRelease(
               version = preReleaseNumber.toInt(),
             )
