@@ -25,4 +25,12 @@ open class PublishingOptionsImpl : PublishingOptions {
   override var optInForVanniktechPlugin: Boolean = true
   override var cascadePublish: Boolean = true
   override var sonatypeHost: SonatypeHost = SonatypeHost.DEFAULT
+
+  override fun copy(from: PublishingOptions): PublishingOptions {
+    enablePublicationSigning = from.enablePublicationSigning
+    optInForVanniktechPlugin = from.optInForVanniktechPlugin
+    cascadePublish = from.cascadePublish
+    sonatypeHost = from.sonatypeHost
+    return this
+  }
 }

@@ -526,6 +526,7 @@ public final class dev/teogor/winds/api/Person$DeveloperContributor : dev/teogor
 }
 
 public abstract interface class dev/teogor/winds/api/PublishingOptions {
+	public abstract fun copy (Ldev/teogor/winds/api/PublishingOptions;)Ldev/teogor/winds/api/PublishingOptions;
 	public abstract fun getCascadePublish ()Z
 	public abstract fun getEnablePublicationSigning ()Z
 	public abstract fun getOptInForVanniktechPlugin ()Z

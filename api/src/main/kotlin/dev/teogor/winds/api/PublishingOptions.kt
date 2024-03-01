@@ -24,4 +24,6 @@ interface PublishingOptions {
   var optInForVanniktechPlugin: Boolean
   var cascadePublish: Boolean
   var sonatypeHost: SonatypeHost
+
+  fun copy(from: PublishingOptions): PublishingOptions
 }

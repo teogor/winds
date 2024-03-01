@@ -124,7 +124,6 @@ class WindsPlugin : BaseWindsPlugin {
         configureMavenPublishing(this)
         if (!hasVanniktechMavenPlugin()) {
           publishingOptions.publish = false
-          println("$path can not be published. ${publishingOptions.publish}")
         }
 
         fun getPublishTask(project: Project): Task {
