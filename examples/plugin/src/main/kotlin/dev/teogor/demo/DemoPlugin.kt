@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 teogor (Teodor Grigor)
+ * Copyright 2023 teogor (Teodor Grigor)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,14 +14,12 @@
  * limitations under the License.
  */
 
-package dev.teogor.winds.ktx
+package dev.teogor.demo
 
+import org.gradle.api.Plugin
 import org.gradle.api.Project
 
-fun Project.isRootProject(): Boolean {
-  return project.projectDir == rootProject.rootDir
-}
-
-fun Project.hasPublishGradlePlugin(): Boolean {
-  return plugins.hasPlugin("com.gradle.plugin-publish")
+class DemoPlugin : Plugin<Project> {
+  override fun apply(target: Project) {
+  }
 }

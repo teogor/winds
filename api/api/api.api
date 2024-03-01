@@ -1604,6 +1604,7 @@ public final class dev/teogor/winds/ktx/PersonExtensionsKt {
 }
 
 public final class dev/teogor/winds/ktx/ProjectExtensionsKt {
+	public static final fun hasPublishGradlePlugin (Lorg/gradle/api/Project;)Z
 	public static final fun isRootProject (Lorg/gradle/api/Project;)Z
 }
 
