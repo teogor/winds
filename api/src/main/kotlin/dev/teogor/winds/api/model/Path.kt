@@ -18,6 +18,8 @@ package dev.teogor.winds.api.model
 
 import kotlinx.serialization.Serializable
 import org.gradle.api.Project
+import java.net.MalformedURLException
+import java.net.URL
 
 @Serializable
 data class Path(
@@ -27,15 +29,32 @@ data class Path(
     return value == "/"
   }
 
+  fun isUrl(): Boolean {
+    try {
+      URL(value)
+      return true
+    } catch (e: MalformedURLException) {
+      return false
+    }
+  }
+
   fun asPartialLocalPath(): String {
     return value.replace(":", "/")
   }
 
   val absolutePath: String = "@winds://${value.drop(1)}"
 
+  override fun toString(): String {
+    return value
+  }
+
   companion object {
     fun from(project: Project): Path {
       return Path(project.path.replace(":", "/"))
+    }
+
+    fun from(root: Path, newPath: String): Path {
+      return Path(fixPath("$root/$newPath"))
     }
 
     fun from(root: String, newPath: String): Path {

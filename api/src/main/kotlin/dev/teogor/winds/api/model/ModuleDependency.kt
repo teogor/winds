@@ -16,25 +16,11 @@
 
 package dev.teogor.winds.api.model
 
-import dev.teogor.winds.api.ArtifactDescriptor
-import dev.teogor.winds.api.DocumentationBuilder
-import dev.teogor.winds.api.Scm
-import dev.teogor.winds.api.TicketSystem
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ModuleDescriptor(
-  val name: String,
-  val path: Path,
-  val artifact: ArtifactDescriptor,
-  val dependencies: List<ArtifactDescriptor>,
-  val publish: Boolean,
-  val completeName: String,
-  val description: String?,
-  val documentationBuilder: DocumentationBuilder,
-  val ticketSystem: TicketSystem?,
-  val scm: Scm?,
-  val isBom: Boolean,
-  val isPlugin: Boolean,
-  val windsChangelogYml: String,
+data class ModuleDependency(
+  val module: String,
+  val version: Version,
+  val date: Long,
 )

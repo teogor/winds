@@ -163,6 +163,7 @@ public abstract interface class dev/teogor/winds/api/DocsGenerator : dev/teogor/
 }
 
 public abstract interface class dev/teogor/winds/api/DocumentationBuilder {
+	public abstract fun copy (Ldev/teogor/winds/api/DocumentationBuilder;)Ldev/teogor/winds/api/DocumentationBuilder;
 	public abstract fun getAlertOnDependentModules ()Z
 	public abstract fun getCreateApiReference ()Z
 	public abstract fun getDependencyGatheringType ()Ldev/teogor/winds/api/model/DependencyType;
@@ -171,8 +172,13 @@ public abstract interface class dev/teogor/winds/api/DocumentationBuilder {
 	public abstract fun getIncludeAlphaRelease ()Z
 	public abstract fun getIncludeBetaRelease ()Z
 	public abstract fun getIncludeReleaseCandidate ()Z
+	public abstract fun getMarkdownNewlineSeparator ()Ljava/lang/String;
 	public abstract fun getMkdocsEnabled ()Z
+	public abstract fun getPluginIds ()Ljava/util/List;
+	public abstract fun isCompiler ()Z
+	public abstract fun isOptional ()Z
 	public abstract fun setAlertOnDependentModules (Z)V
+	public abstract fun setCompiler (Z)V
 	public abstract fun setCreateApiReference (Z)V
 	public abstract fun setDependencyGatheringType (Ldev/teogor/winds/api/model/DependencyType;)V
 	public abstract fun setGenerateReleaseTable (Z)V
@@ -180,7 +186,9 @@ public abstract interface class dev/teogor/winds/api/DocumentationBuilder {
 	public abstract fun setIncludeAlphaRelease (Z)V
 	public abstract fun setIncludeBetaRelease (Z)V
 	public abstract fun setIncludeReleaseCandidate (Z)V
+	public abstract fun setMarkdownNewlineSeparator (Ljava/lang/String;)V
 	public abstract fun setMkdocsEnabled (Z)V
+	public abstract fun setOptional (Z)V
 }
 
 public final class dev/teogor/winds/api/DokkaOptions {
@@ -1007,6 +1015,40 @@ public final class dev/teogor/winds/api/model/Dependency$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
+public final class dev/teogor/winds/api/model/DependencyBundle {
+	public static final field Companion Ldev/teogor/winds/api/model/DependencyBundle$Companion;
+	public fun <init> (Ljava/lang/String;Ldev/teogor/winds/api/model/Version;JLjava/util/List;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ldev/teogor/winds/api/model/Version;
+	public final fun component3 ()J
+	public final fun component4 ()Ljava/util/List;
+	public final fun copy (Ljava/lang/String;Ldev/teogor/winds/api/model/Version;JLjava/util/List;)Ldev/teogor/winds/api/model/DependencyBundle;
+	public static synthetic fun copy$default (Ldev/teogor/winds/api/model/DependencyBundle;Ljava/lang/String;Ldev/teogor/winds/api/model/Version;JLjava/util/List;ILjava/lang/Object;)Ldev/teogor/winds/api/model/DependencyBundle;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDate ()J
+	public final fun getDependencies ()Ljava/util/List;
+	public final fun getModule ()Ljava/lang/String;
+	public final fun getVersion ()Ldev/teogor/winds/api/model/Version;
+	public fun hashCode ()I
+	public final fun setDependencies (Ljava/util/List;)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/api/model/DependencyBundle$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Ldev/teogor/winds/api/model/DependencyBundle$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ldev/teogor/winds/api/model/DependencyBundle;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Ldev/teogor/winds/api/model/DependencyBundle;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class dev/teogor/winds/api/model/DependencyBundle$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
 public abstract interface class dev/teogor/winds/api/model/DependencyDefinition {
 	public static final field Companion Ldev/teogor/winds/api/model/DependencyDefinition$Companion;
 }
@@ -1076,6 +1118,37 @@ public final class dev/teogor/winds/api/model/LocalProjectDependency$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
+public final class dev/teogor/winds/api/model/ModuleDependency {
+	public static final field Companion Ldev/teogor/winds/api/model/ModuleDependency$Companion;
+	public fun <init> (Ljava/lang/String;Ldev/teogor/winds/api/model/Version;J)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ldev/teogor/winds/api/model/Version;
+	public final fun component3 ()J
+	public final fun copy (Ljava/lang/String;Ldev/teogor/winds/api/model/Version;J)Ldev/teogor/winds/api/model/ModuleDependency;
+	public static synthetic fun copy$default (Ldev/teogor/winds/api/model/ModuleDependency;Ljava/lang/String;Ldev/teogor/winds/api/model/Version;JILjava/lang/Object;)Ldev/teogor/winds/api/model/ModuleDependency;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDate ()J
+	public final fun getModule ()Ljava/lang/String;
+	public final fun getVersion ()Ldev/teogor/winds/api/model/Version;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/api/model/ModuleDependency$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Ldev/teogor/winds/api/model/ModuleDependency$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ldev/teogor/winds/api/model/ModuleDependency;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Ldev/teogor/winds/api/model/ModuleDependency;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class dev/teogor/winds/api/model/ModuleDependency$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
 public final class dev/teogor/winds/api/model/ModuleDependencyRecord : dev/teogor/winds/api/model/VersionedDependencyRecord {
 	public static final field Companion Ldev/teogor/winds/api/model/ModuleDependencyRecord$Companion;
 	public fun <init> (Ljava/lang/String;Ldev/teogor/winds/api/model/Version;J)V
@@ -1109,20 +1182,22 @@ public final class dev/teogor/winds/api/model/ModuleDependencyRecord$Companion {
 
 public final class dev/teogor/winds/api/model/ModuleDescriptor {
 	public static final field Companion Ldev/teogor/winds/api/model/ModuleDescriptor$Companion;
-	public fun <init> (Ljava/lang/String;Ldev/teogor/winds/api/model/Path;Ldev/teogor/winds/api/ArtifactDescriptor;Ljava/util/List;ZZLjava/lang/String;Ljava/lang/String;Ldev/teogor/winds/api/DocumentationBuilder;Ldev/teogor/winds/api/TicketSystem;Ldev/teogor/winds/api/Scm;)V
+	public fun <init> (Ljava/lang/String;Ldev/teogor/winds/api/model/Path;Ldev/teogor/winds/api/ArtifactDescriptor;Ljava/util/List;ZLjava/lang/String;Ljava/lang/String;Ldev/teogor/winds/api/DocumentationBuilder;Ldev/teogor/winds/api/TicketSystem;Ldev/teogor/winds/api/Scm;ZZLjava/lang/String;)V
 	public final fun component1 ()Ljava/lang/String;
-	public final fun component10 ()Ldev/teogor/winds/api/TicketSystem;
-	public final fun component11 ()Ldev/teogor/winds/api/Scm;
+	public final fun component10 ()Ldev/teogor/winds/api/Scm;
+	public final fun component11 ()Z
+	public final fun component12 ()Z
+	public final fun component13 ()Ljava/lang/String;
 	public final fun component2 ()Ldev/teogor/winds/api/model/Path;
 	public final fun component3 ()Ldev/teogor/winds/api/ArtifactDescriptor;
 	public final fun component4 ()Ljava/util/List;
 	public final fun component5 ()Z
-	public final fun component6 ()Z
+	public final fun component6 ()Ljava/lang/String;
 	public final fun component7 ()Ljava/lang/String;
-	public final fun component8 ()Ljava/lang/String;
-	public final fun component9 ()Ldev/teogor/winds/api/DocumentationBuilder;
-	public final fun copy (Ljava/lang/String;Ldev/teogor/winds/api/model/Path;Ldev/teogor/winds/api/ArtifactDescriptor;Ljava/util/List;ZZLjava/lang/String;Ljava/lang/String;Ldev/teogor/winds/api/DocumentationBuilder;Ldev/teogor/winds/api/TicketSystem;Ldev/teogor/winds/api/Scm;)Ldev/teogor/winds/api/model/ModuleDescriptor;
-	public static synthetic fun copy$default (Ldev/teogor/winds/api/model/ModuleDescriptor;Ljava/lang/String;Ldev/teogor/winds/api/model/Path;Ldev/teogor/winds/api/ArtifactDescriptor;Ljava/util/List;ZZLjava/lang/String;Ljava/lang/String;Ldev/teogor/winds/api/DocumentationBuilder;Ldev/teogor/winds/api/TicketSystem;Ldev/teogor/winds/api/Scm;ILjava/lang/Object;)Ldev/teogor/winds/api/model/ModuleDescriptor;
+	public final fun component8 ()Ldev/teogor/winds/api/DocumentationBuilder;
+	public final fun component9 ()Ldev/teogor/winds/api/TicketSystem;
+	public final fun copy (Ljava/lang/String;Ldev/teogor/winds/api/model/Path;Ldev/teogor/winds/api/ArtifactDescriptor;Ljava/util/List;ZLjava/lang/String;Ljava/lang/String;Ldev/teogor/winds/api/DocumentationBuilder;Ldev/teogor/winds/api/TicketSystem;Ldev/teogor/winds/api/Scm;ZZLjava/lang/String;)Ldev/teogor/winds/api/model/ModuleDescriptor;
+	public static synthetic fun copy$default (Ldev/teogor/winds/api/model/ModuleDescriptor;Ljava/lang/String;Ldev/teogor/winds/api/model/Path;Ldev/teogor/winds/api/ArtifactDescriptor;Ljava/util/List;ZLjava/lang/String;Ljava/lang/String;Ldev/teogor/winds/api/DocumentationBuilder;Ldev/teogor/winds/api/TicketSystem;Ldev/teogor/winds/api/Scm;ZZLjava/lang/String;ILjava/lang/Object;)Ldev/teogor/winds/api/model/ModuleDescriptor;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getArtifact ()Ldev/teogor/winds/api/ArtifactDescriptor;
 	public final fun getCompleteName ()Ljava/lang/String;
@@ -1134,8 +1209,10 @@ public final class dev/teogor/winds/api/model/ModuleDescriptor {
 	public final fun getPublish ()Z
 	public final fun getScm ()Ldev/teogor/winds/api/Scm;
 	public final fun getTicketSystem ()Ldev/teogor/winds/api/TicketSystem;
+	public final fun getWindsChangelogYml ()Ljava/lang/String;
 	public fun hashCode ()I
 	public final fun isBom ()Z
+	public final fun isPlugin ()Z
 	public fun toString ()Ljava/lang/String;
 }
 
@@ -1254,6 +1331,7 @@ public final class dev/teogor/winds/api/model/Path {
 	public final fun getValue ()Ljava/lang/String;
 	public fun hashCode ()I
 	public final fun isRoot ()Z
+	public final fun isUrl ()Z
 	public fun toString ()Ljava/lang/String;
 }
 
@@ -1270,6 +1348,7 @@ public final class dev/teogor/winds/api/model/Path$$serializer : kotlinx/seriali
 
 public final class dev/teogor/winds/api/model/Path$Companion {
 	public final fun fixPath (Ljava/lang/String;)Ljava/lang/String;
+	public final fun from (Ldev/teogor/winds/api/model/Path;Ljava/lang/String;)Ldev/teogor/winds/api/model/Path;
 	public final fun from (Ljava/lang/String;Ljava/lang/String;)Ldev/teogor/winds/api/model/Path;
 	public final fun from (Lorg/gradle/api/Project;)Ldev/teogor/winds/api/model/Path;
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
@@ -1572,7 +1651,8 @@ public abstract class dev/teogor/winds/gradle/tasks/BaseGeneratorTask : org/grad
 }
 
 public final class dev/teogor/winds/ktx/ArtifactDescriptorExtensionsKt {
-	public static final fun getShowcaseCoordinates (Ldev/teogor/winds/api/ArtifactDescriptor;)Ljava/lang/String;
+	public static final fun getShowcaseCoordinates (Ldev/teogor/winds/api/ArtifactDescriptor;Ldev/teogor/winds/api/model/Version;)Ljava/lang/String;
+	public static synthetic fun getShowcaseCoordinates$default (Ldev/teogor/winds/api/ArtifactDescriptor;Ldev/teogor/winds/api/model/Version;ILjava/lang/Object;)Ljava/lang/String;
 }
 
 public final class dev/teogor/winds/ktx/CollectionExtensionsKt {
@@ -1588,6 +1668,7 @@ public final class dev/teogor/winds/ktx/FileExtensionsKt {
 
 public final class dev/teogor/winds/ktx/GroupDetailsExtensionsKt {
 	public static final fun groupByModule (Ljava/lang/Iterable;)Ljava/util/Map;
+	public static final fun groupModulesByDependency (Ljava/lang/Iterable;)Ljava/util/Map;
 }
 
 public final class dev/teogor/winds/ktx/LicenseExtensionsKt {
@@ -1627,6 +1708,8 @@ public final class dev/teogor/winds/ktx/VersionExtensionsKt {
 	public static final fun createVersion (IIILkotlin/jvm/functions/Function1;)Ldev/teogor/winds/api/model/Version;
 	public static synthetic fun createVersion$default (IIILkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ldev/teogor/winds/api/model/Version;
 	public static final fun getEmoji (Ldev/teogor/winds/api/model/Version;)Ljava/lang/String;
+	public static final fun getMajorMinorPatchVersion (Ldev/teogor/winds/api/model/Version;)Ljava/lang/String;
+	public static final fun getMajorMinorVersion (Ldev/teogor/winds/api/model/Version;)Ljava/lang/String;
 	public static final fun versionOf (Lkotlin/jvm/functions/Function1;)Ldev/teogor/winds/api/model/Version;
 }
 

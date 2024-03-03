@@ -24,15 +24,16 @@ import dev.teogor.winds.api.model.Path
 import dev.teogor.winds.common.ktx.hasVanniktechMavenPlugin
 import dev.teogor.winds.common.ktx.register
 import dev.teogor.winds.common.maven.configureMavenPublishing
+import dev.teogor.winds.gradle.tasks.ReleaseNotesTask
 import dev.teogor.winds.gradle.tasks.configureMavenPublish
 import dev.teogor.winds.gradle.tasks.impl.CollectWindsExtensionsTask
-import dev.teogor.winds.gradle.tasks.impl.DocsGeneratorTask
 import dev.teogor.winds.gradle.tasks.impl.collectWindsExtensionsTaskName
 import dev.teogor.winds.gradle.tasks.impl.configureCollectWindsExtensionsTask
 import dev.teogor.winds.gradle.tasks.impl.configureDocsGenerator
 import dev.teogor.winds.gradle.tasks.impl.configureMavenPublishLegacy
 import dev.teogor.winds.gradle.tasks.impl.configureWorkflowSynthesizer
 import dev.teogor.winds.gradle.tasks.impl.getCollectWindsExtensionsTask
+import dev.teogor.winds.ktx.hasPublishGradlePlugin
 import dev.teogor.winds.ktx.inheritFromParentWinds
 import dev.teogor.winds.ktx.isRootProject
 import org.gradle.api.Project
@@ -40,6 +41,7 @@ import org.gradle.api.Task
 import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.findByType
 import org.gradle.kotlin.dsl.getByType
+import java.io.File
 
 /**
  * A Gradle plugin that adds Winds support to projects.
@@ -77,11 +79,6 @@ class WindsPlugin : BaseWindsPlugin {
 
           if (isRootProject()) {
             val collectWindsExtensions = configureCollectWindsExtensionsTask()
-            tasks.register<DocsGeneratorTask>("docsGeneratorTask") {
-              provideProjectDir(project.projectDir)
-              provideDocsGenerator(this@withWinds.docsGenerator)
-              dependsOn(collectWindsExtensions)
-            }
             allprojects.toList()
               .filterNot { it == target }
               .forEach { subProject ->
@@ -103,13 +100,6 @@ class WindsPlugin : BaseWindsPlugin {
         },
       ) {
         val collectWindsExtensions = getCollectWindsExtensionsTask()
-
-        fun Project?.getDocsGeneratorTask(): DocsGeneratorTask? {
-          return this?.tasks?.findByName("docsGeneratorTask") as? DocsGeneratorTask
-        }
-        parent.getDocsGeneratorTask()?.apply {
-          addLibrary(this@withWinds.moduleMetadata)
-        }
 
         collectWindsExtensions.setModuleMetadata(this@withWinds.moduleMetadata)
 
@@ -142,6 +132,14 @@ class WindsPlugin : BaseWindsPlugin {
 
         val taskName = "windsMd"
         tasks.register<ReleaseNotesTask>(taskName) {
+          val forceDateUpdate = properties
+            .getOrDefault("forceDateUpdate", "false")
+            .toString().toBoolean()
+          setForceDateUpdate(forceDateUpdate)
+          if (properties.containsKey("forceDateUpdate")) {
+            project.setProperty("forceDateUpdate", "false")
+          }
+
           subprojects.forEach {
             dependsOn("${it.path}:$taskName")
           }
@@ -153,12 +151,14 @@ class WindsPlugin : BaseWindsPlugin {
                 artifact = winds.moduleMetadata.artifactDescriptor!!,
                 dependencies = winds.moduleMetadata.artifactDescriptor!!.artifacts.drop(1),
                 publish = winds.publishingOptions.publish,
-                isBom = winds.moduleMetadata.isBom,
                 completeName = winds.moduleMetadata.artifactDescriptor!!.completeName,
                 description = winds.moduleMetadata.description,
                 documentationBuilder = winds.documentationBuilder,
                 ticketSystem = winds.moduleMetadata.ticketSystem,
                 scm = winds.moduleMetadata.scm,
+                isBom = winds.moduleMetadata.isBom,
+                isPlugin = hasPublishGradlePlugin(),
+                windsChangelogYml = File(project.projectDir, "winds-changelog.yml").absolutePath,
               ),
             )
           }
@@ -172,12 +172,14 @@ class WindsPlugin : BaseWindsPlugin {
                     artifact = winds.moduleMetadata.artifactDescriptor!!,
                     dependencies = winds.moduleMetadata.artifactDescriptor!!.artifacts.drop(1),
                     publish = winds.publishingOptions.publish,
-                    isBom = winds.moduleMetadata.isBom,
                     completeName = winds.moduleMetadata.artifactDescriptor!!.completeName,
                     description = winds.moduleMetadata.description,
                     documentationBuilder = winds.documentationBuilder,
                     ticketSystem = winds.moduleMetadata.ticketSystem,
                     scm = winds.moduleMetadata.scm,
+                    isBom = winds.moduleMetadata.isBom,
+                    isPlugin = it.hasPublishGradlePlugin(),
+                    windsChangelogYml = File(it.projectDir, "winds-changelog.yml").absolutePath,
                   ),
                 )
               }
@@ -193,7 +195,7 @@ fun Project.collectAndPropagateChildMetadata(
   winds: Winds,
   collectWindsExtensions: CollectWindsExtensionsTask,
 ) {
-  rootProject.getCollectWindsExtensionsTask {
+  (parent ?: rootProject).getCollectWindsExtensionsTask {
     addChildMetadata(winds.moduleMetadata)
     collectWindsExtensions.propagateChildMetadata {
       // addChildMetadata(this)

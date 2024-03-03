@@ -79,3 +79,7 @@ fun Version.getEmoji(): String? {
     else -> null
   }
 }
+
+fun Version.getMajorMinorVersion() = "$major.$minor"
+
+fun Version.getMajorMinorPatchVersion() = "$major.$minor.$patch"
