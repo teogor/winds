@@ -1,5 +1,3 @@
-import dev.teogor.winds.api.ArtifactIdFormat
-
 plugins {
   id("dev.teogor.winds")
   id("java-library")
@@ -18,7 +16,6 @@ winds {
 
     artifactDescriptor {
       name = "library-2"
-      artifactIdFormat = ArtifactIdFormat.FULL
     }
   }
 }

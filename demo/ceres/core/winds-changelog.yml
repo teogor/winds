@@ -1,0 +1,59 @@
+1.0.0-alpha01:
+  info: "February 19, 2024"
+  content: "🎊 **Initial Release** 🎊"
+1.0.0-alpha02:
+  info: "February 21, 2024"
+  sections:
+    - Bug Fixes:
+        - "Fixing Illegal `groupId` Modification in Gradle Plugin Subproject (#63) by @teogor"
+    - Enhancement:
+        - "Fixing Illegal `groupId` Modification in Gradle Plugin Subproject (#63) by @teogor"
+        - "Fixing Illegal `groupId` Modification in Gradle Plugin Subproject (#63) by @teogor"
+1.0.0-alpha03:
+  info: "February 21, 2024"
+  sections:
+    - Bug Fixes:
+        - "Fixing Illegal `groupId` Modification in Gradle Plugin Subproject (#63) by @teogor"
+    - Enhancement:
+        - "Fixing Illegal `groupId` Modification in Gradle Plugin Subproject (#63) by @teogor"
+        - "Fixing Illegal `groupId` Modification in Gradle Plugin Subproject (#63) by @teogor"
+1.0.0-alpha04:
+  info: "February 21, 2024"
+  sections:
+    - Bug Fixes:
+        - "Fixing Illegal `groupId` Modification in Gradle Plugin Subproject (#63) by @teogor"
+    - Enhancement:
+        - "Fixing Illegal `groupId` Modification in Gradle Plugin Subproject (#63) by @teogor"
+        - "Fixing Illegal `groupId` Modification in Gradle Plugin Subproject (#63) by @teogor"
+1.0.0-alpha05:
+  info: "February 21, 2024"
+  sections:
+    - Bug Fixes:
+        - "Fixing Illegal `groupId` Modification in Gradle Plugin Subproject (#63) by @teogor"
+    - Enhancement:
+        - "Fixing Illegal `groupId` Modification in Gradle Plugin Subproject (#63) by @teogor"
+        - "Fixing Illegal `groupId` Modification in Gradle Plugin Subproject (#63) by @teogor"
+1.0.0-beta01:
+  info: "February 21, 2024"
+  sections:
+    - Bug Fixes:
+        - "Fixing Illegal `groupId` Modification in Gradle Plugin Subproject (#63) by @teogor"
+    - Enhancement:
+        - "Fixing Illegal `groupId` Modification in Gradle Plugin Subproject (#63) by @teogor"
+        - "Fixing Illegal `groupId` Modification in Gradle Plugin Subproject (#63) by @teogor"
+1.0.0-beta02:
+  info: "February 21, 2024"
+  sections:
+    - Bug Fixes:
+        - "Fixing Illegal `groupId` Modification in Gradle Plugin Subproject (#63) by @teogor"
+    - Enhancement:
+        - "Fixing Illegal `groupId` Modification in Gradle Plugin Subproject (#63) by @teogor"
+        - "Fixing Illegal `groupId` Modification in Gradle Plugin Subproject (#63) by @teogor"
+1.0.0-beta03:
+  info: "February 21, 2024"
+  sections:
+    - Bug Fixes:
+        - "Fixing Illegal `groupId` Modification in Gradle Plugin Subproject (#63) by @teogor"
+    - Enhancement:
+        - "Fixing Illegal `groupId` Modification in Gradle Plugin Subproject (#63) by @teogor"
+        - "Fixing Illegal `groupId` Modification in Gradle Plugin Subproject (#63) by @teogor"

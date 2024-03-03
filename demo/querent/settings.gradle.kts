@@ -1,5 +1,5 @@
 pluginManagement {
-  includeBuild("../")
+  includeBuild("../../")
   repositories {
     google()
     mavenCentral()
@@ -16,20 +16,10 @@ dependencyResolutionManagement {
 
   versionCatalogs {
     create("libs") {
-      from(files("${rootDir.parentFile}/gradle/libs.versions.toml"))
+      from(files("../../gradle/libs.versions.toml"))
     }
   }
 }
 
-include(":bom")
-
-include(":demo")
-include(":demo-1")
-include(":demo-2")
-
-include(":kmp:android")
-
-include(":module:library-1")
-include(":module:library-2")
-include(":module:library-3")
-include(":module:library-4")
+include(":gradle-plugin")
+include(":gradle-plugin-api")
