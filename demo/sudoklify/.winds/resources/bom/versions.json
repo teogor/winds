@@ -1,0 +1,20 @@
+[
+  {
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "patch": 0,
+      "flag": "Alpha",
+      "versionQualifier": 1
+    },
+    "date": 1708814378,
+    "bomVersion": {
+      "major": 1,
+      "minor": 0,
+      "patch": 0,
+      "flag": "Alpha",
+      "versionQualifier": 1
+    },
+    "bomDate": 1708814378
+  }
+]

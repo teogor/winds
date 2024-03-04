@@ -19,13 +19,33 @@ package dev.teogor.winds.api
 import dev.teogor.winds.api.model.DependencyType
 
 interface DocumentationBuilder {
+
+  // Output Configuration
   var htmlPath: String
+  var mkdocsEnabled: Boolean
+
+  // Content Generation
   var createApiReference: Boolean
   var generateReleaseTable: Boolean
+
+  // Release Filtering
   var includeReleaseCandidate: Boolean
   var includeBetaRelease: Boolean
   var includeAlphaRelease: Boolean
+
+  // Dependency Management
   var alertOnDependentModules: Boolean
   var dependencyGatheringType: DependencyType
-  var mkdocsEnabled: Boolean
+
+  // Project Properties
+  var isCompiler: Boolean
+  var isOptional: Boolean
+
+  // Plugin Configuration (Optional)
+  val pluginIds: MutableList<String>
+
+  // Newline Separator (Optional)
+  var markdownNewlineSeparator: String
+
+  fun copy(from: DocumentationBuilder): DocumentationBuilder
 }

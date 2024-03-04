@@ -16,186 +16,178 @@
 
 package dev.teogor.winds.gradle.docs
 
-import dev.teogor.winds.api.DocsGenerator
-import dev.teogor.winds.api.model.ModuleDependencyRecord
-import dev.teogor.winds.api.model.ModuleInfo
-import dev.teogor.winds.codegen.implementationStandardMarkdownContent
+import dev.teogor.winds.api.model.DependencyBundle
+import dev.teogor.winds.api.model.ModuleDependency
+import dev.teogor.winds.api.model.ModuleDescriptor
+import dev.teogor.winds.gradle.docs.utils.createBomGroupNotes
+import dev.teogor.winds.gradle.docs.utils.createModuleNotes
+import dev.teogor.winds.gradle.docs.utils.createReleaseNotes
+import dev.teogor.winds.gradle.utils.escapeAlias
 import dev.teogor.winds.ktx.file
-import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 import java.io.File
-import java.time.Instant
-import java.time.ZoneId
-import java.time.format.DateTimeFormatter
 
-/**
- * DocsModuleHandler implementation for projects without a BOM dependency.
- *
- * @param projectDir The root directory of the project.
- * @param docsGenerator The DocsGenerator instance to use for documentation
- * generation.
- * @param libraries A mutable list of ModuleInfo objects representing project
- * dependencies.
- */
 class StandardDocsModuleHandler(
-  projectDir: File,
-  docsGenerator: DocsGenerator,
-  private val libraries: MutableList<ModuleInfo>,
-) : DocsModuleHandler(projectDir, docsGenerator) {
+  private val bundle: ModuleDescriptor,
+  private val dependencies: List<ModuleDescriptor>,
+  private val projectDir: File,
+  private val outputDir: File,
+  private val buildOutputDir: File,
+  private val forceDateUpdate: Boolean,
+) : DocsModuleHandler(bundle, projectDir, outputDir, buildOutputDir, forceDateUpdate) {
+  override fun updateDependencyBundles() {
+    val fileName = artifact.completeName.escapeAlias("-")
+    val inputFile = outputDir.resolve("assets/winds") file "$fileName.json"
+    val outputFile = buildDocsOutputDir.resolve("assets/winds") file "$fileName.json"
+    inputFile.copyTo(outputFile, true)
 
-  private val nowString: String
-    get() {
-      val instant = Instant.ofEpochSecond(Instant.now().epochSecond)
-      val zoneId = ZoneId.of("UTC")
-      val zonedDateTime = instant.atZone(zoneId)
-      val formatter = DateTimeFormatter.ofPattern("dd MMM yyyy")
-      return formatter.format(zonedDateTime)
+    val bundles = readDependencyBundlesFromFile(outputFile)
+      .toMutableMap()
+
+    val key = "${artifact.module}:${artifact.version}"
+    val existingBundle = bundles[key]
+
+    val updatedBundle = when {
+      existingBundle == null -> {
+        DependencyBundle(
+          date = currentTimestamp,
+          module = artifact.module,
+          version = artifact.version,
+          dependencies = dependencies.filter { it.publish }
+            .map {
+              ModuleDependency(
+                it.artifact.module,
+                it.artifact.version,
+                currentTimestamp,
+              )
+            },
+        )
+      }
+
+      forceDateUpdate -> {
+        val existingDependencies = existingBundle.dependencies.toSet()
+        val updatedDependencies = dependencies.filter { it.publish }
+          .map {
+            ModuleDependency(
+              it.artifact.module,
+              it.artifact.version,
+              currentTimestamp,
+            )
+          }
+          .map { newDependency ->
+            if (existingDependencies.contains(newDependency)) {
+              existingBundle.dependencies.find {
+                it.module == newDependency.module && it.version == newDependency.version
+              }!!.copy(
+                date = currentTimestamp,
+              )
+            } else {
+              newDependency
+            }
+          }
+
+        existingBundle.copy(
+          date = currentTimestamp,
+          dependencies = updatedDependencies,
+        )
+      }
+
+      else -> {
+        val existingDependencies = existingBundle.dependencies
+        val updatedDependencies = dependencies.filter { it.publish }
+          .map {
+            ModuleDependency(
+              it.artifact.module,
+              it.artifact.version,
+              currentTimestamp,
+            )
+          }
+          .map { newDependency ->
+            val existingDependency = existingDependencies.firstOrNull {
+              it.module == newDependency.module
+            }
+            if (existingDependency != null) {
+              if (existingDependency.version != newDependency.version) {
+                println("Version increased")
+              }
+              existingDependency.copy(version = newDependency.version)
+            } else {
+              newDependency
+            }
+          }
+
+        existingBundle.copy(
+          dependencies = updatedDependencies,
+        )
+      }
     }
 
-  private val modulesFile by lazy { resFolder file "modules.json" }
+    bundles[key] = updatedBundle
 
-  private fun readBomVersions(
-    file: File = modulesFile,
-  ) = if (file.exists()) {
-    val jsonString = file.readText()
-    try {
-      val bomInfoList = Json.decodeFromString<List<ModuleDependencyRecord>>(jsonString)
-      bomInfoList.sortedByDescending { it.date }
-    } catch (_: Exception) {
-      emptyList()
+    writeDependencyBundleToFile(bundles.values.toList(), outputFile)
+
+    // TODO error
+    bundleInfo = bundles[key] ?: error("Something went wrong")
+  }
+
+  override fun createReleaseNotes() {
+    val fileName = if (bundle.path.isRoot()) {
+      "index"
+    } else {
+      bundle.name.escapeAlias("-").lowercase()
     }
-  } else {
-    emptyList()
-  }
-
-  @OptIn(ExperimentalSerializationApi::class)
-  private fun writeBomVersions(
-    bomInfoList: List<ModuleDependencyRecord>,
-    file: File = modulesFile,
-  ) {
-    val json = Json {
-      prettyPrint = true
-      prettyPrintIndent = "  "
-    }
-    val jsonString = json.encodeToString(bomInfoList.sortedBy { it.date })
-    file.writeText(jsonString)
-  }
-
-  override fun manageDependencies() {
-    val bomInfoList = readBomVersions()
-
-    val librariesToUpdate = findOutdatedLibraries(bomInfoList, libraries)
-
-    if (librariesToUpdate.isNotEmpty()) {
-      writeBomVersions(
-        bomInfoList = bomInfoList + librariesToUpdate,
-      )
-    }
-  }
-
-  private fun findOutdatedLibraries(
-    bomInfoList: List<ModuleDependencyRecord>,
-    libraries: MutableList<ModuleInfo>,
-  ): List<ModuleDependencyRecord> {
-    return libraries.filter { library ->
-      !bomInfoList.any { bomInfo -> bomInfo.module == library.module } ||
-        bomInfoList.any { bomInfo ->
-          bomInfo.module == library.module && bomInfo.version < library.version
-        }
-    }.map {
-      ModuleDependencyRecord(
-        it.module,
-        it.version,
-        Instant.now().epochSecond,
-      )
-    }
-  }
-
-  override fun writeReleaseNotes() {
-    generateReleaseDocumentation()
-  }
-
-  override fun updateMkDocs(mkDocsPath: String, section: String) {
-    // writeMkDocs(mkDocsPath, section, "version")
-  }
-
-  private fun generateReleaseDocumentation() {
-    val versionsTable = libraries.joinToString("\n") {
-      "| ${it.version} | [changelog \uD83D\uDD17](changelog/${it.version}.md) | $nowString |"
-    }
-
-    val implementationMarkdown = generateImplementationMarkdown(
-      versionsTable,
+    createReleaseNotes(
+      bundle = bundle,
+      bundleInfo = bundleInfo,
+      dependencies = dependencies,
+      inputDir = outputDir.resolve("releases"),
+      outputDir = buildDocsOutputDir.resolve("releases"),
+      fileName = fileName,
+      includeOwner = true,
+      asModule = false,
     )
-
-    releasesDir.file("implementation.md").writeText(implementationMarkdown)
   }
 
-  private fun generateImplementationMarkdown(
-    versionsTable: String,
-  ): String {
-    val versionCatalogDefaultVersions = libraries
-      .filter { it.canBePublished }
-      .map { library ->
-        val versionRefName =
-          library.names.dropLast(1).joinToString(separator = "-").lowercase().replace(" ", "-")
-        "$versionRefName = \"${library.version}\""
-      }
-      .distinct()
-      .joinToString(separator = "\n    ")
-    val versionCatalogDefaultLibraries = libraries
-      .filter { it.canBePublished }
-      .joinToString(separator = "\n    ") { library ->
-        val name = library.names.joinToString(separator = "-").lowercase().replace(" ", "-")
-        val versionRefName =
-          library.names.dropLast(1).joinToString(separator = "-").lowercase().replace(" ", "-")
-        "$name = { group = \"${library.groupId}\", name = \"${library.artifactId}\", version.ref = \"$versionRefName\" }"
-      }
-    val versionCatalogDefault = """[versions]
-    $versionCatalogDefaultVersions
+  override fun createDependencyDocumentation() {
+    val outputDirPath = if (bundle.path.isRoot()) {
+      ""
+    } else {
+      bundle.name.escapeAlias("-").lowercase()
+    }
+    createModuleNotes(
+      module = bundle,
+      modules = dependencies,
+      inputDir = outputDir.resolve(outputDirPath),
+      outputDir = buildDocsOutputDir.resolve(outputDirPath),
+      includeOwner = true,
+      asModule = false,
+      fileName = "index",
+    )
+  }
 
-    [libraries]
-    $versionCatalogDefaultLibraries
-    """.trimIndent()
+  override fun createRootNotes() {
+    val fileName = if (bundle.path.isRoot()) {
+      "index"
+    } else {
+      bundle.name.escapeAlias("-").lowercase()
+    }
 
-    val dependenciesImplementationKotlin = buildString {
-      appendLine("      // ${docsGenerator.name} Libraries")
-      libraries
-        .filter { it.canBePublished }
-        .forEach { library ->
-          val name = library.names.joinToString(separator = ".")
-            .lowercase()
-            .replace(" ", ".")
-            .replace("-", ".")
-          appendLine(
-            "      implementation(libs.$name)",
-          )
-        }
-    }.trimEnd()
-
-    val dependenciesImplementationGroovy = buildString {
-      appendLine("      // ${docsGenerator.name} Libraries")
-      libraries
-        .filter { it.canBePublished }
-        .forEach { library ->
-          val name = library.names.joinToString(separator = ".")
-            .lowercase()
-            .replace(" ", ".")
-            .replace("-", ".")
-          appendLine(
-            "      implementation libs.$name",
-          )
-        }
-    }.trimEnd()
-
-    val content = implementationStandardMarkdownContent
-      .replace("&&projectName&&", docsGenerator.name)
-      .replace("&&versionsTable&&", versionsTable)
-      .replace("&&versionCatalogDefault&&", versionCatalogDefault)
-      .replace("&&dependenciesImplementationKotlin&&", dependenciesImplementationKotlin)
-      .replace("&&dependenciesImplementationGroovy&&", dependenciesImplementationGroovy)
-
-    return content
+    createBomGroupNotes(
+      bundle = bundle,
+      bundlesInfo = dependencies.map {
+        val moduleFileName = it.artifact.completeName.escapeAlias("-")
+        val inputFile = buildDocsOutputDir.resolve("assets/winds") file "$moduleFileName.json"
+        val bundle = readDependencyBundlesFromFile(inputFile)
+          .toMutableMap()
+          .values
+          .first()
+        bundle
+      },
+      dependencies = dependencies,
+      inputDir = outputDir,
+      outputDir = buildDocsOutputDir,
+      fileName = fileName,
+      includeOwner = true,
+      asModule = false,
+    )
   }
 }

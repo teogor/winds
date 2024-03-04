@@ -54,6 +54,9 @@ fun Project.inheritFromParentWinds(winds: Winds) {
     winds.publishingOptions = winds.publishingOptions.copy(
       from = parentWinds.publishingOptions,
     )
+    winds.documentationBuilder = winds.documentationBuilder.copy(
+      from = parentWinds.documentationBuilder,
+    )
 
     val dependencySpec = parentWinds.moduleMetadata.artifactDescriptor
     winds.allSpecs.addAll(parentWinds.allSpecs.toList().asReversed())

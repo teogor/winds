@@ -26,7 +26,6 @@ include(":bom")
 include(":demo")
 include(":demo-1")
 include(":demo-2")
-include(":plugin")
 
 include(":kmp:android")
 

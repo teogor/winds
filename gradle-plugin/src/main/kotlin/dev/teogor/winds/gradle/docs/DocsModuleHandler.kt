@@ -16,103 +16,80 @@
 
 package dev.teogor.winds.gradle.docs
 
-import dev.teogor.winds.api.DocsGenerator
-import dev.teogor.winds.ktx.directory
-import dev.teogor.winds.ktx.file
+import dev.teogor.winds.api.ArtifactDescriptor
+import dev.teogor.winds.api.model.DependencyBundle
+import dev.teogor.winds.api.model.ModuleDescriptor
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import java.io.File
+import java.time.Instant
 
-/**
- * Abstract class handling documentation module tasks.
- *
- * @param projectDir The root directory of the project.
- * @param docsGenerator A DocsGenerator instance for generating documentation.
- */
 abstract class DocsModuleHandler(
-  projectDir: File,
-  protected val docsGenerator: DocsGenerator,
+  private val bundle: ModuleDescriptor,
+  private val projectDir: File,
+  private val outputDir: File,
+  private val buildOutputDir: File,
+  private val forceDateUpdate: Boolean,
 ) {
-  /**
-   * Manages dependencies for the documentation module.
-   * (Implementations should provide specific logic).
-   */
-  abstract fun manageDependencies()
+  // region Properties
+  protected val currentTimestamp: Long = Instant.now().epochSecond
+  protected val artifact: ArtifactDescriptor = bundle.artifact
+  protected var buildDocsOutputDir: File = buildOutputDir.resolve("docs")
+  protected lateinit var bundleInfo: DependencyBundle
+  // endregion Properties
 
-  /**
-   * Writes release notes for the current version.
-   * (Implementations should provide specific logic).
-   */
-  abstract fun writeReleaseNotes()
+  // region Abstract method
+  abstract fun updateDependencyBundles()
 
-  /**
-   * Updates the MkDocs configuration file.
-   * (Implementations should provide specific logic).
-   *
-   * @param mkDocsPath The path to the MkDocs configuration file (default: "mkdocs.yml").
-   * @param section The section to update (default: "Changelog").
-   */
-  abstract fun updateMkDocs(
-    mkDocsPath: String = "mkdocs.yml",
-    section: String = "Changelog",
-  )
+  abstract fun createReleaseNotes()
 
-  /**
-   * Writes a new entry to the specified section in the MkDocs Changelog.
-   *
-   * @param mkDocsPath The path to the MkDocs configuration file.
-   * @param section The section to update.
-   * @param version The version to add to the Changelog.
-   */
-  fun writeMkDocs(
-    mkDocsPath: String,
-    section: String,
-    version: String,
-  ) {
-    val mkDocsFile = root file mkDocsPath
-    if (!mkDocsFile.exists()) {
-      return
-    }
+  abstract fun createDependencyDocumentation()
 
-    val mkDocsFileContent = mkDocsFile.readText()
-    val mkDocsFileLines = mkDocsFileContent.split("\n").toMutableList()
-    val changelogIndex = mkDocsFileLines.indexOfFirst { it.trimStart().startsWith("- $section:") }
+  abstract fun createRootNotes()
+  // endregion Abstract method
 
-    if (changelogIndex == -1) {
-      return
-    }
-
-    val categoryIndent = mkDocsFileLines[changelogIndex].takeWhile { it.isWhitespace() }.length
-    var hasFoundDifferentIndent = false
-    val filteredChangelogEntries = mkDocsFileLines
-      .subList(changelogIndex + 1, mkDocsFileLines.size)
-      .takeWhile { line ->
-        val lineWhitespaceLength = line.takeWhile { it.isWhitespace() }.length
-        if (lineWhitespaceLength <= categoryIndent || hasFoundDifferentIndent) {
-          hasFoundDifferentIndent = true
-          false
-        } else {
-          true
+  // region Protected methods
+  protected fun readDependencyBundlesFromFile(
+    sourceFile: File,
+  ): Map<String, DependencyBundle> = if (sourceFile.exists()) {
+    val jsonString = sourceFile.readText()
+    try {
+      Json.decodeFromString<List<DependencyBundle>>(jsonString)
+        .associateBy { "${it.module}:${it.version}" }
+        .mapValues { (_, bundle) ->
+          bundle.copy(
+            dependencies = bundle.dependencies.sortedByDescending {
+              it.date
+            },
+          )
         }
-      }
-      .map { it.substringAfter("-").substringBefore(":").trim() }
-
-    if (!filteredChangelogEntries.any { it == version }) {
-      val padding = buildString {
-        repeat(categoryIndent) {
-          append(" ")
-        }
-        append("  ")
-      }
-      val newChangelogEntry = "$padding- $version: releases/changelog/$version.md"
-      mkDocsFileLines.add(changelogIndex + 1, newChangelogEntry)
-      val updatedMkDocsFileContent = mkDocsFileLines.joinToString("\n")
-      mkDocsFile.writeText(updatedMkDocsFileContent)
+    } catch (_: Exception) {
+      emptyMap()
     }
+  } else {
+    emptyMap()
   }
 
-  // Protected properties for file paths:
-  protected val root = projectDir
-  protected val docsFolder by lazy { root directory "docs" }
-  protected val resFolder by lazy { root directory ".winds/resources" }
-  protected val releasesDir by lazy { docsFolder directory "releases" }
-  protected val changelogDir by lazy { releasesDir directory "changelog" }
+  @OptIn(ExperimentalSerializationApi::class)
+  protected fun writeDependencyBundleToFile(
+    dependencyBundles: List<DependencyBundle>,
+    destinationFile: File,
+  ) {
+    val json = Json {
+      prettyPrint = true
+      prettyPrintIndent = "  "
+    }
+    dependencyBundles.map {
+      it.copy(
+        dependencies = it.dependencies.sortedBy {
+          it.date
+        },
+      )
+    }.also {
+      val jsonString = json.encodeToString(it)
+      destinationFile.writeText(jsonString)
+    }
+  }
+  // endregion Protected methods
 }

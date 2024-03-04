@@ -50,6 +50,7 @@ dependencies {
 
   implementation(libs.kotlinx.serialization.core)
   implementation(libs.kotlinx.serialization.json)
+  implementation(libs.yaml.snakeyaml)
   implementation(libs.gson)
   implementation(libs.vanniktech.maven.api)
 
@@ -69,7 +70,15 @@ gradlePlugin {
       implementationClass = "dev.teogor.winds.gradle.WindsPlugin"
       displayName = "Winds Plugin"
       description = "Automates project workflows, Maven publishing, and documentation generation."
-      tags = listOf("workflow", "Maven", "documentation", "automation", "project-management", "publishing", "reporting")
+      tags = listOf(
+        "workflow",
+        "Maven",
+        "documentation",
+        "automation",
+        "project-management",
+        "publishing",
+        "reporting",
+      )
     }
   }
 }

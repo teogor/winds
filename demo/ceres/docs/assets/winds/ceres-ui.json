@@ -1,0 +1,37 @@
+[
+  {
+    "module": "dev.teogor.ceres:ceres-ui",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "patch": 0,
+      "flag": "Alpha",
+      "versionQualifier": 2
+    },
+    "date": 1709493265,
+    "dependencies": [
+      {
+        "module": "dev.teogor.ceres:ui-design-system",
+        "version": {
+          "major": 1,
+          "minor": 0,
+          "patch": 0,
+          "flag": "Alpha",
+          "versionQualifier": 2
+        },
+        "date": 1709493265
+      },
+      {
+        "module": "dev.teogor.ceres:ui",
+        "version": {
+          "major": 1,
+          "minor": 0,
+          "patch": 0,
+          "flag": "Alpha",
+          "versionQualifier": 2
+        },
+        "date": 1709493265
+      }
+    ]
+  }
+]

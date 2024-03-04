@@ -1,0 +1,34 @@
+1.0.0-alpha01:
+  info: February 19, 2024
+  content: 🎊 \*\*Initial Release\*\* 🎊
+1.0.1-alpha02:
+  info: February 19, 2024
+  content: 🎊 \*\*Initial Release\*\* 🎊
+1.0.2-alpha04:
+  info: February 19, 2024
+  content: 🎊 \*\*Initial Release\*\* 🎊
+1.0.3:
+  info: February 19, 2024
+  content: 🎊 \*\*Initial Release\*\* 🎊
+1.1.0:
+  info: February 19, 2024
+  content: 🎊 \*\*Initial Release\*\* 🎊
+1.2.0:
+  info: February 19, 2024
+  content: 🎊 \*\*Initial Release\*\* 🎊
+1.0.0-alpha02:
+  info: February 21, 2024
+  sections:
+    - Bug Fixes:
+      - Fixing Illegal `groupId` Modification in Gradle Plugin Subproject (#63) by @teogor
+    - Enhancement:
+      - Fixing Illegal `groupId` Modification in Gradle Plugin Subproject (#63) by @teogor
+      - Fixing Illegal `groupId` Modification in Gradle Plugin Subproject (#63) by @teogor
+2.0.0-alpha01:
+  info: February 23, 2024
+  sections:
+    - Bug Fixes:
+        - Fixing Illegal `groupId` Modification in Gradle Plugin Subproject (#63) by @teogor
+    - Enhancement:
+        - Fixing Illegal `groupId` Modification in Gradle Plugin Subproject (#63) by @teogor
+        - Fixing Illegal `groupId` Modification in Gradle Plugin Subproject (#63) by @teogor

@@ -29,10 +29,12 @@ data class ModuleDescriptor(
   val artifact: ArtifactDescriptor,
   val dependencies: List<ArtifactDescriptor>,
   val publish: Boolean,
-  val isBom: Boolean,
   val completeName: String,
   val description: String?,
   val documentationBuilder: DocumentationBuilder,
   val ticketSystem: TicketSystem?,
   val scm: Scm?,
+  val isBom: Boolean,
+  val isPlugin: Boolean,
+  val windsChangelogYml: String,
 )

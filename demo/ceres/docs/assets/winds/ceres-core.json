@@ -1,0 +1,81 @@
+[
+  {
+    "module": "dev.teogor.ceres:ceres-core",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "patch": 0,
+      "flag": "Beta",
+      "versionQualifier": 2
+    },
+    "date": 1709493265,
+    "dependencies": [
+      {
+        "module": "dev.teogor.ceres:core-common",
+        "version": {
+          "major": 1,
+          "minor": 0,
+          "patch": 0,
+          "flag": "Beta",
+          "versionQualifier": 2
+        },
+        "date": 1709493265
+      },
+      {
+        "module": "dev.teogor.ceres:core-design-system",
+        "version": {
+          "major": 1,
+          "minor": 0,
+          "patch": 0,
+          "flag": "Beta",
+          "versionQualifier": 2
+        },
+        "date": 1709493265
+      },
+      {
+        "module": "dev.teogor.ceres:core-domain",
+        "version": {
+          "major": 1,
+          "minor": 0,
+          "patch": 0,
+          "flag": "Beta",
+          "versionQualifier": 2
+        },
+        "date": 1709493265
+      },
+      {
+        "module": "dev.teogor.ceres:core-ksp",
+        "version": {
+          "major": 1,
+          "minor": 0,
+          "patch": 0,
+          "flag": "Beta",
+          "versionQualifier": 2
+        },
+        "date": 1709493265
+      },
+      {
+        "module": "dev.teogor.ceres:core-ktx",
+        "version": {
+          "major": 1,
+          "minor": 0,
+          "patch": 0,
+          "flag": "Beta",
+          "versionQualifier": 2
+        },
+        "date": 1709493265
+      },
+      {
+        "module": "dev.teogor.ceres:core-network",
+        "version": {
+          "major": 1,
+          "minor": 0,
+          "patch": 0,
+          "flag": "Beta",
+          "versionQualifier": 2
+        },
+        "date": 1709493265
+      }
+    ]
+  }
+]

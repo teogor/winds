@@ -22,7 +22,6 @@ import dev.teogor.winds.api.MavenPublish
 import dev.teogor.winds.api.TaskBuilder
 import dev.teogor.winds.api.WindsLegacy
 import dev.teogor.winds.api.WorkflowSynthesizer
-import dev.teogor.winds.gradle.tasks.impl.DocsGeneratorTaskLegacy
 import dev.teogor.winds.gradle.tasks.impl.WorkflowSynthesizerTask
 import dev.teogor.winds.gradle.utils.registerTask
 import org.gradle.api.DefaultTask
@@ -74,14 +73,6 @@ abstract class WindsLegacyOptions(
 
   private fun prepareDocsGeneratorTask() {
     if (buildFeatures.docsGenerator) {
-      docsGenerator.createTask<DocsGenerator, DocsGeneratorTaskLegacy>(
-        name = "docsGeneratorTaskLegacy",
-      ) {
-        (task as DocsGeneratorTaskLegacy).let {
-          it.provideProjectDir(project.projectDir)
-          it.provideDocsGenerator(this)
-        }
-      }
     }
   }
 

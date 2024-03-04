@@ -71,7 +71,7 @@ mavenPublishing {
           "Code Owner",
           "Developer",
           "Designer",
-          "Maintainer"
+          "Maintainer",
         )
         timezone.set("UTC+2")
         organization.set("Teogor")

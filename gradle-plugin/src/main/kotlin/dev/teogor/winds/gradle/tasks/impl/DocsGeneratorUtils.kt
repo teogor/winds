@@ -26,6 +26,7 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.getValue
 import org.gradle.kotlin.dsl.provideDelegate
 
+@Deprecated("Use ReleaseNotesTask")
 fun Project.configureDocsGenerator() {
   collectModulesInfo {
     val windsLegacy: WindsLegacy by extensions
@@ -33,10 +34,5 @@ fun Project.configureDocsGenerator() {
     val docsGenerator: DocsGenerator by windsLegacy
     val docsGeneratorImpl = docsGenerator as DocsGeneratorImpl
     docsGeneratorImpl.task?.isEnabled = docsGeneratorFeatureEnabled
-    if (!docsGenerator.excludedModules.contains(path)) {
-      if (docsGeneratorFeatureEnabled) {
-        (docsGeneratorImpl.task as? DocsGeneratorTaskLegacy)?.addLibrary(it)
-      }
-    }
   }
 }

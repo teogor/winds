@@ -23,3 +23,20 @@ fun Iterable<ModuleDescriptor>.groupByModule(): Map<String?, List<ModuleDescript
     it.dependencies.firstOrNull()?.name
   }
 }
+
+fun Iterable<ModuleDescriptor>.groupModulesByDependency(): Map<ModuleDescriptor, List<ModuleDescriptor>> {
+  return groupBy {
+    it.dependencies.firstOrNull()?.module
+  }.mapKeys { (key, _) ->
+    if (key != null) {
+      val baseModule = firstOrNull { it.artifact.module == key }
+      baseModule
+    } else {
+      null
+    }
+  }.filterKeys {
+    it != null
+  }.mapKeys { (key, _) ->
+    key!!
+  }
+}

@@ -52,15 +52,40 @@ public final class dev/teogor/winds/common/ErrorId$PomLicenseError : dev/teogor/
 }
 
 public final class dev/teogor/winds/common/MarkdownTable {
-	public static final field Companion Ldev/teogor/winds/common/MarkdownTable$Companion;
-	public fun <init> (Ljava/util/List;)V
+	public fun <init> (Ljava/util/List;Ljava/util/List;Ljava/util/List;)V
+	public synthetic fun <init> (Ljava/util/List;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun addRow (Ljava/util/List;)V
 	public final fun addRows ([Ljava/util/List;)V
 	public final fun build ()Ljava/lang/String;
 }
 
-public final class dev/teogor/winds/common/MarkdownTable$Companion {
-	public final fun withTitles ([Ljava/lang/String;)Ldev/teogor/winds/common/MarkdownTable;
+public final class dev/teogor/winds/common/MarkdownTable$Align : java/lang/Enum {
+	public static final field Center Ldev/teogor/winds/common/MarkdownTable$Align;
+	public static final field Left Ldev/teogor/winds/common/MarkdownTable$Align;
+	public static final field Right Ldev/teogor/winds/common/MarkdownTable$Align;
+	public static fun valueOf (Ljava/lang/String;)Ldev/teogor/winds/common/MarkdownTable$Align;
+	public static fun values ()[Ldev/teogor/winds/common/MarkdownTable$Align;
+}
+
+public final class dev/teogor/winds/common/MarkdownTable$Builder {
+	public fun <init> ()V
+	public final fun addColumn (Ljava/lang/String;Ldev/teogor/winds/common/MarkdownTable$Align;)V
+	public static synthetic fun addColumn$default (Ldev/teogor/winds/common/MarkdownTable$Builder;Ljava/lang/String;Ldev/teogor/winds/common/MarkdownTable$Align;ILjava/lang/Object;)V
+	public final fun build ()Ldev/teogor/winds/common/MarkdownTable;
+	public final fun row (ZLkotlin/jvm/functions/Function1;)V
+	public static synthetic fun row$default (Ldev/teogor/winds/common/MarkdownTable$Builder;ZLkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
+}
+
+public final class dev/teogor/winds/common/MarkdownTable$Builder$RowBuilder {
+	public fun <init> (Ldev/teogor/winds/common/MarkdownTable$Builder;Z)V
+	public final fun addValue (Ljava/lang/String;)V
+	public final fun addValueAt (ILjava/lang/String;)V
+	public final fun addValues ([Ljava/lang/String;)V
+	public final fun getRow ()Ljava/util/List;
+}
+
+public final class dev/teogor/winds/common/MarkdownTableKt {
+	public static final fun markdownTable (Lkotlin/jvm/functions/Function1;)Ldev/teogor/winds/common/MarkdownTable;
 }
 
 public final class dev/teogor/winds/common/dependencies/CollectedContainer : java/io/Serializable {
@@ -111,6 +136,58 @@ public final class dev/teogor/winds/common/ktx/VanniktechMavenExtensionsKt {
 public final class dev/teogor/winds/common/maven/MavenPublishUtilsKt {
 	public static final fun configureMavenPublishing (Lorg/gradle/api/Project;Ldev/teogor/winds/api/Winds;Lkotlin/jvm/functions/Function1;)V
 	public static synthetic fun configureMavenPublishing$default (Lorg/gradle/api/Project;Ldev/teogor/winds/api/Winds;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
+}
+
+public final class dev/teogor/winds/common/utils/ChangelogEntry {
+	public fun <init> (Ldev/teogor/winds/api/model/Version;Ldev/teogor/winds/api/model/Version;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;)V
+	public final fun component1 ()Ldev/teogor/winds/api/model/Version;
+	public final fun component2 ()Ldev/teogor/winds/api/model/Version;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/util/List;
+	public final fun copy (Ldev/teogor/winds/api/model/Version;Ldev/teogor/winds/api/model/Version;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;)Ldev/teogor/winds/common/utils/ChangelogEntry;
+	public static synthetic fun copy$default (Ldev/teogor/winds/common/utils/ChangelogEntry;Ldev/teogor/winds/api/model/Version;Ldev/teogor/winds/api/model/Version;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;ILjava/lang/Object;)Ldev/teogor/winds/common/utils/ChangelogEntry;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getContent ()Ljava/lang/String;
+	public final fun getInfo ()Ljava/lang/String;
+	public final fun getPreviousVersion ()Ldev/teogor/winds/api/model/Version;
+	public final fun getSections ()Ljava/util/List;
+	public final fun getVersion ()Ldev/teogor/winds/api/model/Version;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/common/utils/ChangelogItem {
+	public fun <init> (Ljava/lang/String;Ljava/util/List;Ljava/util/List;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/util/List;
+	public final fun component3 ()Ljava/util/List;
+	public final fun copy (Ljava/lang/String;Ljava/util/List;Ljava/util/List;)Ldev/teogor/winds/common/utils/ChangelogItem;
+	public static synthetic fun copy$default (Ldev/teogor/winds/common/utils/ChangelogItem;Ljava/lang/String;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Ldev/teogor/winds/common/utils/ChangelogItem;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAuthors ()Ljava/util/List;
+	public final fun getElements ()Ljava/util/List;
+	public final fun getMessage ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/common/utils/ChangelogSection {
+	public fun <init> (Ljava/lang/String;Ljava/util/List;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/util/List;
+	public final fun copy (Ljava/lang/String;Ljava/util/List;)Ldev/teogor/winds/common/utils/ChangelogSection;
+	public static synthetic fun copy$default (Ldev/teogor/winds/common/utils/ChangelogSection;Ljava/lang/String;Ljava/util/List;ILjava/lang/Object;)Ldev/teogor/winds/common/utils/ChangelogSection;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getItems ()Ljava/util/List;
+	public final fun getType ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/common/utils/ChangelogUtilsKt {
+	public static final fun decodeAsChangelogs (Ljava/util/Map;)Ljava/util/List;
 }
 
 public final class dev/teogor/winds/common/utils/MavenPomUtilsKt {

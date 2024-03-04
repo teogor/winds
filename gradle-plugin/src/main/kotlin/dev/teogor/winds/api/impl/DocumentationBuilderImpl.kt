@@ -20,13 +20,54 @@ import dev.teogor.winds.api.DocumentationBuilder
 import dev.teogor.winds.api.model.DependencyType
 
 class DocumentationBuilderImpl : DocumentationBuilder {
+  // Output Configuration
   override var htmlPath: String = ""
+  override var mkdocsEnabled: Boolean = false
+
+  // Content Generation
   override var createApiReference: Boolean = true
   override var generateReleaseTable: Boolean = true
+
+  // Release Filtering
   override var includeReleaseCandidate: Boolean = true
   override var includeBetaRelease: Boolean = true
   override var includeAlphaRelease: Boolean = true
+
+  // Dependency Management
   override var alertOnDependentModules: Boolean = true
   override var dependencyGatheringType: DependencyType = DependencyType.NONE
-  override var mkdocsEnabled: Boolean = false
+
+  // Project Properties
+  override var isCompiler: Boolean = false
+  override var isOptional: Boolean = false
+
+  // Plugin Configuration (Optional)
+  override val pluginIds: MutableList<String> = mutableListOf()
+
+  // Newline Separator (Optional)
+  override var markdownNewlineSeparator: String = "  "
+
+  override fun copy(from: DocumentationBuilder): DocumentationBuilder {
+    // Output Configuration
+    htmlPath = from.htmlPath
+    mkdocsEnabled = from.mkdocsEnabled
+
+    // Content Generation
+    createApiReference = from.createApiReference
+    generateReleaseTable = from.generateReleaseTable
+
+    // Release Filtering
+    includeReleaseCandidate = from.includeReleaseCandidate
+    includeBetaRelease = from.includeBetaRelease
+    includeAlphaRelease = from.includeAlphaRelease
+
+    // Dependency Management
+    alertOnDependentModules = from.alertOnDependentModules
+    dependencyGatheringType = from.dependencyGatheringType
+
+    // Newline Separator (Optional)
+    markdownNewlineSeparator = from.markdownNewlineSeparator
+
+    return this
+  }
 }

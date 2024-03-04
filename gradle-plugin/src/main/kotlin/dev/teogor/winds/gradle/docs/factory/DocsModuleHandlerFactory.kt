@@ -16,49 +16,38 @@
 
 package dev.teogor.winds.gradle.docs.factory
 
-import dev.teogor.winds.api.DocsGenerator
-import dev.teogor.winds.api.model.ModuleInfo
+import dev.teogor.winds.api.model.ModuleDescriptor
 import dev.teogor.winds.gradle.docs.BomDocsModuleHandler
 import dev.teogor.winds.gradle.docs.DocsModuleHandler
 import dev.teogor.winds.gradle.docs.StandardDocsModuleHandler
-import dev.teogor.winds.ktx.bom
-import dev.teogor.winds.ktx.sortByPath
 import java.io.File
 
-/**
- * Factory class responsible for creating appropriate DocsModuleHandler instances
- * based on project dependencies.
- */
 class DocsModuleHandlerFactory {
-
-  /**
-   * Creates the suitable DocsModuleHandler based on the presence of a BOM
-   * (Bill of Materials) dependency.
-   *
-   * @param projectDir The root directory of the project.
-   * @param docsGenerator The DocsGenerator instance to use for documentation
-   * generation.
-   * @param libraries A mutable list of ModuleInfo objects representing project
-   * dependencies.
-   * @return The appropriate DocsModuleHandler instance, either BomDocsModuleHandler
-   * or StandardDocsModuleHandler.
-   */
   fun createHandler(
     projectDir: File,
-    docsGenerator: DocsGenerator,
-    libraries: MutableList<ModuleInfo>,
+    bundle: ModuleDescriptor,
+    dependencies: List<ModuleDescriptor>,
+    outputDir: File,
+    buildOutputDir: File,
+    forceDateUpdate: Boolean,
   ): DocsModuleHandler {
-    return when (libraries.bom() != null) {
+    return when (bundle.isBom) {
       true -> BomDocsModuleHandler(
+        bundle = bundle,
+        dependencies = dependencies,
         projectDir = projectDir,
-        docsGenerator = docsGenerator,
-        libraries = libraries.sortByPath(),
-        bomModule = libraries.bom()!!,
+        outputDir = outputDir,
+        buildOutputDir = buildOutputDir,
+        forceDateUpdate = forceDateUpdate,
       )
+
       false -> StandardDocsModuleHandler(
+        bundle = bundle,
+        dependencies = dependencies,
         projectDir = projectDir,
-        docsGenerator = docsGenerator,
-        libraries = libraries.sortByPath(),
+        outputDir = outputDir,
+        buildOutputDir = buildOutputDir,
+        forceDateUpdate = forceDateUpdate,
       )
     }
   }

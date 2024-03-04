@@ -17,7 +17,10 @@
 package dev.teogor.winds.ktx
 
 import dev.teogor.winds.api.ArtifactDescriptor
+import dev.teogor.winds.api.model.Version
 
-fun ArtifactDescriptor.getShowcaseCoordinates(): String {
-  return "$group:$name-*:$version"
+fun ArtifactDescriptor.getShowcaseCoordinates(
+  version: Version = this.version,
+): String {
+  return "$group:${name.lowercase()}-*:$version"
 }

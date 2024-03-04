@@ -56,7 +56,7 @@ data class ArtifactDescriptor(
             else -> error("Unexpected format: $nameFormat")
           }
 
-          elementsToUse.joinToString(separator = " ").capitalizeWords()
+          elementsToUse.distinct().joinToString(separator = " ").capitalizeWords()
         }
 
         NameFormat.NAME_ONLY -> {
@@ -83,7 +83,10 @@ data class ArtifactDescriptor(
   private fun buildArtifactId(
     separator: String = "-",
   ): String {
-    val safeArtifacts = artifactNames.map { it.validateAndFormatArtifactId() }
+    val safeArtifacts = artifactNames.map {
+      it.replace(" ", separator)
+        .replace(".", separator)
+    }.map { it.validateAndFormatArtifactId() }
 
     return when (artifactIdFormat) {
       ArtifactIdFormat.FULL,
@@ -97,7 +100,7 @@ data class ArtifactDescriptor(
           else -> error("Unexpected format: $artifactIdFormat")
         }
 
-        elementsToUse.joinToString(separator = separator)
+        elementsToUse.distinct().joinToString(separator = separator)
       }
 
       ArtifactIdFormat.NAME_ONLY -> {

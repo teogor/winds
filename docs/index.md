@@ -18,11 +18,6 @@ libraries and applications.
 * Support for multiple publication formats (Maven, AAR, etc.)
 * Automatic documentation generation
 
-### Requirements
-
-* Android Gradle Plugin 7.0+
-* Kotlin Gradle Plugin 1.7+
-
 ### How to Apply
 
 **Plugin implementation**
@@ -65,11 +60,41 @@ winds {
 }
 ```
 
-**Getting Started**
+**Generating Documentation**
 
-To get started with Winds, refer to the comprehensive documentation available at
-[source.teogor.dev/winds](https://source.teogor.dev/winds). The documentation provides
-detailed explanations, examples, and best practices for using the library effectively.
+This project utilizes Gradle tasks to manage documentation generation.
+
+**Running Documentation Generation:**
+
+1. **Winds Markdown Task:**
+   To generate documentation using the provided Markdown templates, execute the following command in
+   your project's root directory:
+
+   ```shell
+   ./gradlew :windsMd
+   ```
+
+   This command runs the `windsMd` task, which processes the templates and generates the final
+   documentation files.
+
+**Updating Dates without Regeneration:**
+
+In some scenarios, you might want to update timestamps within existing documentation without
+regenerating the entire content. To achieve this, use the `forceDateUpdate` parameter with
+the `windsMd` task:
+
+   ```shell
+   ./gradlew :windsMd -PforceDateUpdate=false
+   ```
+
+- **`-PforceDateUpdate=false`:** This parameter instructs the task to skip content regeneration and
+  only update timestamps within the existing documentation. Setting it to `true` would normally
+  force complete regeneration (not recommended for date updates).
+
+**Generated Documentation Location:**
+
+The generated documentation files will be located in the project's `docs/` directory. You can
+access these files to view the project's API reference and other documentation.
 
 ## Find this repository useful? 🩷
 
