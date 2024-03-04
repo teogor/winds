@@ -17,6 +17,7 @@ Winds build and publish libraries and applications for multiple platforms, simpl
 
 |   Latest Update   | Stable Release | Beta Release | Alpha Release |
 |:-----------------:|:--------------:|:------------:|:-------------:|
+|   March 4, 2024   |       -        | 1.0.0-beta04 |       -       |
 | February 27, 2024 |       -        | 1.0.0-beta03 |       -       |
 | February 19, 2024 |       -        | 1.0.0-beta02 |       -       |
 | February 08, 2024 |       -        | 1.0.0-beta01 |       -       |
@@ -36,7 +37,7 @@ Add the dependencies for the artifacts you need in the `build.gradle` file for y
 
     ```kotlin
     plugins {
-      id("dev.teogor.winds") version "1.0.0-beta03"
+      id("dev.teogor.winds") version "1.0.0-beta04"
     }
     ```
 
@@ -44,7 +45,7 @@ Add the dependencies for the artifacts you need in the `build.gradle` file for y
 
     ```groovy
     plugins {
-      id 'dev.teogor.winds' version '1.0.0-beta03'
+      id 'dev.teogor.winds' version '1.0.0-beta04'
     }
     ```
 
@@ -59,16 +60,33 @@ existing issue by clicking the star button.
 
 ### Version 1.0.0
 
+#### Version 1.0.0-beta04
+
+March 04, 2024
+
+`dev.teogor.winds:winds-*:1.0.0-beta04` is
+released. [Version 1.0.0-beta04 contains these commits.](https://github.com/teogor/winds/compare/1.0.0-beta03...1.0.0-beta04)
+
+**Enhancement**
+
+* Enable Architecture Documentation with `windsMd` Gradle Task ([#65](https://github.com/teogor/winds/pull/65)) by [@teogor](https://github.com/teogor)
+* Enhance Version Handling with Improved Comparison and String Parsing ([#64](https://github.com/teogor/winds/pull/64)) by [@teogor](https://github.com/teogor)
+
+**Bug Fixes**
+
+* Fixing Illegal `groupId` Modification in Gradle Plugin Subproject ([#63](https://github.com/teogor/winds/pull/63)) by [@teogor](https://github.com/teogor)
+* Resolve Publishing Option Inheritance Issue in Winds Subprojects ([#61](https://github.com/teogor/winds/pull/61)) by [@teogor](https://github.com/teogor)
+
 #### Version 1.0.0-beta03
 
-February 19, 2024
+February 27, 2024
 
 `dev.teogor.winds:winds-*:1.0.0-beta03` is
 released. [Version 1.0.0-beta03 contains these commits.](https://github.com/teogor/winds/compare/1.0.0-beta02...1.0.0-beta03)
 
 **Enhancement**
 
-* Integrate ([#52](https://github.com/teogor/winds/pull/52)) by [@teogor](https://github.com/teogor)
+* Refactored Winds Plugin with Granular Options ([#55](https://github.com/teogor/winds/pull/55)) by [@teogor](https://github.com/teogor)
 
 #### Version 1.0.0-beta02
 

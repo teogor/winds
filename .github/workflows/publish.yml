@@ -2,6 +2,8 @@ name: Publish
 
 on:
   workflow_dispatch:
+  release:
+    types: [ published ]
 
 jobs:
   publish:
@@ -33,5 +35,4 @@ jobs:
 
       - name: Publish to MavenCentral
         run: |
-          ./gradlew :api:publish --no-configuration-cache
-          ./gradlew :common:publish --no-configuration-cache
+          ./gradlew publish --no-configuration-cache
