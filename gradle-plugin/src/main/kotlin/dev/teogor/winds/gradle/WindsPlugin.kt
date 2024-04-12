@@ -141,8 +141,13 @@ class WindsPlugin : BaseWindsPlugin {
           }
 
           subprojects.forEach {
-            dependsOn("${it.path}:$taskName")
+            it.afterEvaluate {
+              it.tasks.findByName(taskName)?.let { task ->
+                dependsOn(task)
+              }
+            }
           }
+
           this@withWinds.let { winds ->
             addModuleDescriptor(
               ModuleDescriptor(

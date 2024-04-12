@@ -24,6 +24,7 @@ dependencyResolutionManagement {
   }
 }
 
+include(":no-winds")
 include(":bom")
 include(":core:common")
 include(":core:designsystem")
