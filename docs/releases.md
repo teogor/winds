@@ -17,6 +17,7 @@ Winds build and publish libraries and applications for multiple platforms, simpl
 
 |   Latest Update   | Stable Release | Beta Release | Alpha Release |
 |:-----------------:|:--------------:|:------------:|:-------------:|
+|  April 15, 2024   |     1.0.0      |      -       |       -       |
 |   March 4, 2024   |       -        | 1.0.0-beta04 |       -       |
 | February 27, 2024 |       -        | 1.0.0-beta03 |       -       |
 | February 19, 2024 |       -        | 1.0.0-beta02 |       -       |
@@ -37,7 +38,7 @@ Add the dependencies for the artifacts you need in the `build.gradle` file for y
 
     ```kotlin
     plugins {
-      id("dev.teogor.winds") version "1.0.0-beta04"
+      id("dev.teogor.winds") version "1.0.0"
     }
     ```
 
@@ -45,7 +46,7 @@ Add the dependencies for the artifacts you need in the `build.gradle` file for y
 
     ```groovy
     plugins {
-      id 'dev.teogor.winds' version '1.0.0-beta04'
+      id 'dev.teogor.winds' version '1.0.0'
     }
     ```
 
@@ -59,6 +60,19 @@ existing issue by clicking the star button.
 [Create a new issue](https://github.com/teogor/winds/issues/new){ .md-button }
 
 ### Version 1.0.0
+
+April 15, 2024
+
+`dev.teogor.winds:winds-*:1.0.0` is
+released. [Version 1.0.0 contains these commits.](https://github.com/teogor/winds/compare/1.0.0-beta04...1.0.0)
+
+**Bug Fixes**
+
+* Address Subproject Task Dependency Issues: Ensure Existence ([#68](https://github.com/teogor/winds/pull/68)) by [@teogor](https://github.com/teogor)
+
+**Others**
+
+* Remove Deprecated Elements ([#69](https://github.com/teogor/winds/pull/69)) by [@teogor](https://github.com/teogor)
 
 #### Version 1.0.0-beta04
 

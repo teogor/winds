@@ -1,9 +1,3 @@
-public final class dev/teogor/winds/BuildConfig {
-	public static final field INSTANCE Ldev/teogor/winds/BuildConfig;
-	public static final field NAME Ljava/lang/String;
-	public static final field VERSION Ljava/lang/String;
-}
-
 public final class dev/teogor/winds/api/impl/CodebaseOptionsImpl : dev/teogor/winds/api/CodebaseOptions {
 	public fun <init> ()V
 	public fun binaryCompatibility (Lkotlin/jvm/functions/Function1;)V
