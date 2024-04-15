@@ -113,7 +113,7 @@ abstract class CollectWindsExtensionsTask : DefaultTask() {
   fun getProjectPath() = projectPath
 }
 
-val collectWindsExtensionsTaskName = "collectWindsExtensions"
+const val collectWindsExtensionsTaskName = "collectWindsExtensions"
 
 fun Project.configureCollectWindsExtensionsTask(): CollectWindsExtensionsTask {
   val projectPath = path

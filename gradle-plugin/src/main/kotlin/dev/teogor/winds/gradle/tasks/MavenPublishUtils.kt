@@ -59,9 +59,6 @@ fun Project.configureMavenPublish(winds: Winds) {
       // todo enable task creation. handling based on actual publish value
       //  createAndConfigureSubprojectPublishTask(metadata)
     }
-
-    // Propagate Winds Maven Publish configuration to child projects
-    propagateMavenPublishToChildProjects(winds)
   }
 }
 
@@ -98,27 +95,10 @@ private fun Project.createAndConfigureSubprojectPublishTask(metadata: ModuleMeta
         val parentPublishTask = subproject.parent!!.tasks.findByName(taskName)
         subproject.afterEvaluate {
           subproject.tasks.findByName("publish")?.let { task ->
-            parentPublishTask?.dependsOn(task)
+            // parentPublishTask?.dependsOn(task)
           }
         }
       }
     }
   }
-}
-
-private fun Project.propagateMavenPublishToChildProjects(winds: Winds) {
-  // processWindsChildProjects {
-  //   afterEvaluate {
-  //     if (hasWindsPlugin()) {
-  //       val childWinds = extensions.getByType<Winds>()
-  //       childWinds.buildFeatures.mavenPublish = winds.buildFeatures.mavenPublish
-  //       (childWinds.mavenPublish as MavenPublishImpl).let { childMavenPublish ->
-  //         childMavenPublish.mavenPublishOptions.apply {
-  //           add(winds.mavenPublish)
-  //           addAll((winds.mavenPublish as MavenPublishImpl).mavenPublishOptions)
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
 }

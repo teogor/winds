@@ -18,7 +18,6 @@ package dev.teogor.winds.gradle
 
 import dev.teogor.winds.api.Winds
 import dev.teogor.winds.api.impl.WindsImpl
-import dev.teogor.winds.api.impl.WindsLegacyOptions
 import dev.teogor.winds.api.model.ModuleDescriptor
 import dev.teogor.winds.api.model.Path
 import dev.teogor.winds.common.ktx.hasVanniktechMavenPlugin
@@ -27,11 +26,7 @@ import dev.teogor.winds.common.maven.configureMavenPublishing
 import dev.teogor.winds.gradle.tasks.ReleaseNotesTask
 import dev.teogor.winds.gradle.tasks.configureMavenPublish
 import dev.teogor.winds.gradle.tasks.impl.CollectWindsExtensionsTask
-import dev.teogor.winds.gradle.tasks.impl.collectWindsExtensionsTaskName
 import dev.teogor.winds.gradle.tasks.impl.configureCollectWindsExtensionsTask
-import dev.teogor.winds.gradle.tasks.impl.configureDocsGenerator
-import dev.teogor.winds.gradle.tasks.impl.configureMavenPublishLegacy
-import dev.teogor.winds.gradle.tasks.impl.configureWorkflowSynthesizer
 import dev.teogor.winds.gradle.tasks.impl.getCollectWindsExtensionsTask
 import dev.teogor.winds.ktx.hasPublishGradlePlugin
 import dev.teogor.winds.ktx.inheritFromParentWinds
@@ -40,7 +35,6 @@ import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.findByType
-import org.gradle.kotlin.dsl.getByType
 import java.io.File
 
 /**
@@ -54,20 +48,6 @@ import java.io.File
 class WindsPlugin : BaseWindsPlugin {
   override fun apply(target: Project) {
     with(target) {
-      // region Deprecated
-      // Creates the `Winds` extension object for the project.
-      createWindsLegacyExtension()
-
-      // Configures Maven publishing for the project.
-      configureMavenPublishLegacy()
-
-      // Configures documentation generation for the project.
-      configureDocsGenerator()
-
-      // Configures workflow synthesis for the project.
-      configureWorkflowSynthesizer()
-      // endregion
-
       withWinds(
         onWindsAvailable = {
           inheritFromParentWinds(this)
@@ -83,18 +63,18 @@ class WindsPlugin : BaseWindsPlugin {
               .filterNot { it == target }
               .forEach { subProject ->
                 subProject.configureCollectWindsExtensionsTask()
-                collectWindsExtensions.dependsOn(
-                  "${subProject.path}:$collectWindsExtensionsTaskName",
-                )
+                // collectWindsExtensions.dependsOn(
+                //   "${subProject.path}:$collectWindsExtensionsTaskName",
+                // )
               }
           } else {
             val collectWindsExtensions = getCollectWindsExtensionsTask()
             allprojects.toList()
               .filterNot { it == target }
               .forEach { subProject ->
-                collectWindsExtensions.dependsOn(
-                  "${subProject.path}:$collectWindsExtensionsTaskName",
-                )
+                // collectWindsExtensions.dependsOn(
+                //   "${subProject.path}:$collectWindsExtensionsTaskName",
+                // )
               }
           }
         },
@@ -126,7 +106,7 @@ class WindsPlugin : BaseWindsPlugin {
 
         if (publishingOptions.cascadePublish) {
           if (parent != null) {
-            getPublishTask(parent!!).dependsOn("$path:publish")
+            // getPublishTask(parent!!).dependsOn("$path:publish")
           }
         }
 
@@ -143,7 +123,7 @@ class WindsPlugin : BaseWindsPlugin {
           subprojects.forEach {
             it.afterEvaluate {
               it.tasks.findByName(taskName)?.let { task ->
-                dependsOn(task)
+                // dependsOn(task)
               }
             }
           }
@@ -233,24 +213,4 @@ private fun Project.createWindsExtension(): Winds {
     name = "winds",
     instanceType = WindsImpl::class,
   )
-}
-
-/**
- * Creates a `WindsOptions` extension for the project and propagates
- * its `buildFeatures` property to child projects. If the parent project
- * has the `dev.teogor.winds` plugin, the `buildFeatures` and `docsGenerator`
- * properties are copied from the parent project's `WindsOptions` extension.
- */
-private fun Project.createWindsLegacyExtension() {
-  // Check if the WindsOptions extension already exists
-  extensions.findByType<WindsLegacyOptions>() ?: let {
-    val rootHas = parent?.plugins?.hasPlugin("dev.teogor.winds") ?: false
-    extensions.create<WindsLegacyOptions>(name = "windsLegacy").also {
-      if (rootHas) {
-        val rootWindsOptions = parent!!.extensions.getByType<WindsLegacyOptions>()
-        it.buildFeatures = rootWindsOptions.buildFeatures
-        it.docsGenerator = rootWindsOptions.docsGenerator
-      }
-    }
-  }
 }
