@@ -20,6 +20,9 @@ plugins {
   alias(libs.plugins.jetbrains.dokka) apply true
   alias(libs.plugins.spotless) apply true
   alias(libs.plugins.api.validator) apply true
+
+  alias(libs.plugins.ben.manes.versions) apply true
+  alias(libs.plugins.littlerobots.version.catalog.update) apply true
 }
 
 // Explicitly set the group and version for all subprojects
@@ -97,5 +100,16 @@ apiValidation {
 subprojects {
   if (!excludedProjects.contains(project.name)) {
     apply<DokkaPlugin>()
+  }
+}
+
+versionCatalogUpdate {
+  keep {
+    // keep versions without any library or plugin reference
+    keepUnusedVersions = true
+    // keep all libraries that aren't used in the project
+    keepUnusedLibraries = true
+    // keep all plugins that aren't used in the project
+    keepUnusedPlugins = true
   }
 }
