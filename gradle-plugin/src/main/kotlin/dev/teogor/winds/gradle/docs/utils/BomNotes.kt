@@ -128,9 +128,13 @@ fun bomMd(
   val ticketSystem = bomModule.ticketSystem
   val libraryByVersion = modules.filterNot {
     it.isBomLibrary()
+  }.filter {
+    it.publish
   }.random(Random(0))
   val library = modules.filterNot {
     it.isBomLibrary()
+  }.filter {
+    it.publish
   }.random(Random(1))
 
   file.replaceContentsWithinRegion(
