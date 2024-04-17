@@ -87,51 +87,54 @@ class WindsPlugin : BaseWindsPlugin {
             }
           }
 
-          this@withWinds.let { winds ->
-            addModuleDescriptor(
-              ModuleDescriptor(
-                name = winds.moduleMetadata.artifactDescriptor!!.name,
-                path = Path.from(this@with),
-                artifact = winds.moduleMetadata.artifactDescriptor!!,
-                dependencies = winds.moduleMetadata.artifactDescriptor!!.artifacts.drop(1),
-                publish = winds.publishingOptions.publish,
-                completeName = winds.moduleMetadata.artifactDescriptor!!.completeName,
-                description = winds.moduleMetadata.description,
-                documentationBuilder = winds.documentationBuilder,
-                ticketSystem = winds.moduleMetadata.ticketSystem,
-                scm = winds.moduleMetadata.scm,
-                isBom = winds.moduleMetadata.isBom,
-                isPlugin = hasPublishGradlePlugin(),
-                windsChangelogYml = File(project.projectDir, "winds-changelog.yml").absolutePath,
-              ),
-            )
-          }
-          subprojects.forEach {
-            it.afterEvaluate {
-              it.extensions.findByType<Winds>()?.let { winds ->
-                addModuleDescriptor(
-                  ModuleDescriptor(
-                    name = winds.moduleMetadata.artifactDescriptor!!.name,
-                    path = Path.from(it),
-                    artifact = winds.moduleMetadata.artifactDescriptor!!,
-                    dependencies = winds.moduleMetadata.artifactDescriptor!!.artifacts.drop(1),
-                    publish = winds.publishingOptions.publish,
-                    completeName = winds.moduleMetadata.artifactDescriptor!!.completeName,
-                    description = winds.moduleMetadata.description,
-                    documentationBuilder = winds.documentationBuilder,
-                    ticketSystem = winds.moduleMetadata.ticketSystem,
-                    scm = winds.moduleMetadata.scm,
-                    isBom = winds.moduleMetadata.isBom,
-                    isPlugin = it.hasPublishGradlePlugin(),
-                    windsChangelogYml = File(it.projectDir, "winds-changelog.yml").absolutePath,
-                  ),
-                )
-              }
-            }
-          }
+          collectModuleDescriptors(winds = this@withWinds)
         }
       }
     }
+  }
+
+  private fun ReleaseNotesTask.collectModuleDescriptors(winds: Winds) {
+    addModuleDescriptor(
+      moduleDescriptor = buildModuleDescriptor(
+        project = project,
+        winds = winds,
+      ),
+    )
+
+    project.subprojects.forEach { subproject ->
+      subproject.afterEvaluate {
+        subproject.extensions.findByType<Winds>()?.let { winds ->
+          addModuleDescriptor(
+            moduleDescriptor = buildModuleDescriptor(
+              project = subproject,
+              winds = winds,
+            ),
+          )
+        }
+      }
+    }
+  }
+
+  private fun buildModuleDescriptor(project: Project, winds: Winds): ModuleDescriptor {
+    val artifactDescriptor = winds.moduleMetadata.artifactDescriptor ?: error(
+      message = "Artifact descriptor is missing",
+    )
+
+    return ModuleDescriptor(
+      name = artifactDescriptor.name,
+      path = Path.from(project),
+      artifact = artifactDescriptor,
+      dependencies = artifactDescriptor.artifacts.drop(1),
+      publish = winds.publishingOptions.publish,
+      completeName = artifactDescriptor.completeName,
+      description = winds.moduleMetadata.description,
+      documentationBuilder = winds.documentationBuilder,
+      ticketSystem = winds.moduleMetadata.ticketSystem,
+      scm = winds.moduleMetadata.scm,
+      isBom = winds.moduleMetadata.isBom,
+      isPlugin = project.hasPublishGradlePlugin(),
+      windsChangelogYml = File(project.projectDir, "winds-changelog.yml").absolutePath,
+    )
   }
 
   /**
