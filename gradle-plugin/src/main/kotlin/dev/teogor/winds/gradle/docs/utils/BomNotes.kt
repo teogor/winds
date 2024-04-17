@@ -115,7 +115,7 @@ fun bomMd(
   asModule: Boolean,
 ) {
   val file = File(inputDir, "index.md").also { file ->
-    if (!file.exists() || true) {
+    if (!file.exists()) {
       file.writeText(
         buildString {
           append(bomMdDefault)
@@ -268,7 +268,7 @@ fun bomMappingMd(
   modules: List<ModuleDescriptor>,
 ) {
   val file = File(inputDir, "bom-mapping.md").also { file ->
-    if (!file.exists() || true) {
+    if (!file.exists()) {
       file.writeText(
         buildString {
           append(bomMappingMdContent)
