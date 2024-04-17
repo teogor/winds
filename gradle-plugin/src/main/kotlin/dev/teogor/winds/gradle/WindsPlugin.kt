@@ -16,6 +16,7 @@
 
 package dev.teogor.winds.gradle
 
+import dev.teogor.winds.api.ArtifactDescriptor
 import dev.teogor.winds.api.Winds
 import dev.teogor.winds.api.impl.WindsImpl
 import dev.teogor.winds.api.model.ModuleDescriptor
@@ -53,9 +54,9 @@ class WindsPlugin : BaseWindsPlugin {
           inheritFromParentWinds(this)
           configureMavenPublish(this)
 
-          val depSpec = this@withWinds.moduleMetadata.artifactDescriptor
-          project.group = depSpec?.group ?: "unspecified"
-          project.version = depSpec?.version?.toString() ?: "unspecified"
+          extractAndSetProjectDetails(
+            depSpec = this@withWinds.moduleMetadata.artifactDescriptor,
+          )
 
           if (isRootProject()) {
             val collectWindsExtensions = configureCollectWindsExtensionsTask()
@@ -88,11 +89,9 @@ class WindsPlugin : BaseWindsPlugin {
           collectWindsExtensions = collectWindsExtensions,
         )
 
-        // Set project group and version based on module metadata or defaults
-        // TODO instead of ?: 'unspecified' use project.group or project.version
-        val depSpec = this@withWinds.moduleMetadata.artifactDescriptor
-        project.group = depSpec?.group ?: "unspecified"
-        project.version = depSpec?.version?.toString() ?: "unspecified"
+        extractAndSetProjectDetails(
+          depSpec = this@withWinds.moduleMetadata.artifactDescriptor,
+        )
 
         configureMavenPublish(this)
         configureMavenPublishing(this)
@@ -173,6 +172,19 @@ class WindsPlugin : BaseWindsPlugin {
         }
       }
     }
+  }
+
+  /**
+   * Extracts group and version information from the provided artifact descriptor and sets
+   * the project's group and version if they are not already set. If the artifact descriptor
+   * is null or doesn't contain the information, it falls back to using the existing project
+   * group and version or defaults to "unspecified".
+   *
+   * @param depSpec The artifact descriptor to extract information from, can be null.
+   */
+  private fun Project.extractAndSetProjectDetails(depSpec: ArtifactDescriptor?) {
+    project.group = depSpec?.group ?: project.group ?: "unspecified"
+    project.version = depSpec?.version?.toString() ?: project.version ?: "unspecified"
   }
 }
 
