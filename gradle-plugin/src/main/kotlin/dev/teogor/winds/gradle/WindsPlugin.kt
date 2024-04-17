@@ -26,12 +26,8 @@ import dev.teogor.winds.common.ktx.register
 import dev.teogor.winds.common.maven.configureMavenPublishing
 import dev.teogor.winds.gradle.tasks.ReleaseNotesTask
 import dev.teogor.winds.gradle.tasks.configureMavenPublish
-import dev.teogor.winds.gradle.tasks.impl.CollectWindsExtensionsTask
-import dev.teogor.winds.gradle.tasks.impl.configureCollectWindsExtensionsTask
-import dev.teogor.winds.gradle.tasks.impl.getCollectWindsExtensionsTask
 import dev.teogor.winds.ktx.hasPublishGradlePlugin
 import dev.teogor.winds.ktx.inheritFromParentWinds
-import dev.teogor.winds.ktx.isRootProject
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.kotlin.dsl.create
@@ -57,38 +53,8 @@ class WindsPlugin : BaseWindsPlugin {
           extractAndSetProjectDetails(
             depSpec = this@withWinds.moduleMetadata.artifactDescriptor,
           )
-
-          if (isRootProject()) {
-            val collectWindsExtensions = configureCollectWindsExtensionsTask()
-            allprojects.toList()
-              .filterNot { it == target }
-              .forEach { subProject ->
-                subProject.configureCollectWindsExtensionsTask()
-                // collectWindsExtensions.dependsOn(
-                //   "${subProject.path}:$collectWindsExtensionsTaskName",
-                // )
-              }
-          } else {
-            val collectWindsExtensions = getCollectWindsExtensionsTask()
-            allprojects.toList()
-              .filterNot { it == target }
-              .forEach { subProject ->
-                // collectWindsExtensions.dependsOn(
-                //   "${subProject.path}:$collectWindsExtensionsTaskName",
-                // )
-              }
-          }
         },
       ) {
-        val collectWindsExtensions = getCollectWindsExtensionsTask()
-
-        collectWindsExtensions.setModuleMetadata(this@withWinds.moduleMetadata)
-
-        collectAndPropagateChildMetadata(
-          winds = this,
-          collectWindsExtensions = collectWindsExtensions,
-        )
-
         extractAndSetProjectDetails(
           depSpec = this@withWinds.moduleMetadata.artifactDescriptor,
         )
@@ -185,18 +151,6 @@ class WindsPlugin : BaseWindsPlugin {
   private fun Project.extractAndSetProjectDetails(depSpec: ArtifactDescriptor?) {
     project.group = depSpec?.group ?: project.group ?: "unspecified"
     project.version = depSpec?.version?.toString() ?: project.version ?: "unspecified"
-  }
-}
-
-fun Project.collectAndPropagateChildMetadata(
-  winds: Winds,
-  collectWindsExtensions: CollectWindsExtensionsTask,
-) {
-  (parent ?: rootProject).getCollectWindsExtensionsTask {
-    addChildMetadata(winds.moduleMetadata)
-    collectWindsExtensions.propagateChildMetadata {
-      // addChildMetadata(this)
-    }
   }
 }
 
