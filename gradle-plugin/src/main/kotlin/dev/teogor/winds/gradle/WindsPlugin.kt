@@ -65,15 +65,9 @@ class WindsPlugin : BaseWindsPlugin {
           publishingOptions.publish = false
         }
 
-        fun getPublishTask(project: Project): Task {
-          return project.tasks.findByName("publish") ?: project.tasks.create("publish")
-        }
-
-        if (publishingOptions.cascadePublish) {
-          if (parent != null) {
-            // getPublishTask(parent!!).dependsOn("$path:publish")
-          }
-        }
+        configurePublishTask(
+          cascadePublish = publishingOptions.cascadePublish,
+        )
 
         val taskName = "windsMd"
         tasks.register<ReleaseNotesTask>(taskName) {
@@ -151,6 +145,36 @@ class WindsPlugin : BaseWindsPlugin {
   private fun Project.extractAndSetProjectDetails(depSpec: ArtifactDescriptor?) {
     project.group = depSpec?.group ?: project.group ?: "unspecified"
     project.version = depSpec?.version?.toString() ?: project.version ?: "unspecified"
+  }
+
+  /**
+   * Configures a dependency on the parent project's "publish" task for the current
+   * project's "publish" task, based on the provided `cascadePublish` flag.
+   *
+   * This function is used to ensure that the current project's publishing process
+   * is triggered after the parent project's publishing is complete, following a cascading
+   * publishing behavior when enabled.
+   *
+   * @param cascadePublish A boolean flag indicating whether to configure the dependency.
+   */
+  private fun Project.configurePublishTask(cascadePublish: Boolean) {
+    if (cascadePublish && parent != null) {
+      val publishTask = getPublishTask(parent!!)
+      publishTask.dependsOn("$path:publish")
+    }
+  }
+
+  /**
+   * Retrieves the "publish" task from the provided project.
+   *
+   * This function first attempts to find a task named "publish" using `findByName`.
+   * If the task is not found, it creates a new task named "publish" using `create`.
+   *
+   * @param project The project from which to retrieve the task.
+   * @return The "publish" task from the project, either existing or newly created.
+   */
+  private fun getPublishTask(project: Project): Task {
+    return project.tasks.findByName("publish") ?: project.tasks.create("publish")
   }
 }
 
