@@ -60,6 +60,26 @@ public final class dev/teogor/winds/api/impl/DocumentationBuilderImpl : dev/teog
 	public fun setOptional (Z)V
 }
 
+public final class dev/teogor/winds/api/impl/FeaturesImpl : dev/teogor/winds/api/Features {
+	public fun <init> ()V
+	public fun <init> (ZZZ)V
+	public synthetic fun <init> (ZZZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Z
+	public final fun component2 ()Z
+	public final fun component3 ()Z
+	public final fun copy (ZZZ)Ldev/teogor/winds/api/impl/FeaturesImpl;
+	public static synthetic fun copy$default (Ldev/teogor/winds/api/impl/FeaturesImpl;ZZZILjava/lang/Object;)Ldev/teogor/winds/api/impl/FeaturesImpl;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getDocsGenerator ()Z
+	public fun getMavenPublishing ()Z
+	public fun getWorkflowSynthesizer ()Z
+	public fun hashCode ()I
+	public fun setDocsGenerator (Z)V
+	public fun setMavenPublishing (Z)V
+	public fun setWorkflowSynthesizer (Z)V
+	public fun toString ()Ljava/lang/String;
+}
+
 public class dev/teogor/winds/api/impl/ModuleMetadataImpl : dev/teogor/winds/api/ModuleMetadata {
 	public fun <init> ()V
 	public fun artifactDescriptor (Lkotlin/jvm/functions/Function1;)V
@@ -140,10 +160,12 @@ public abstract class dev/teogor/winds/api/impl/WindsImpl : dev/teogor/winds/api
 	public fun configureProjects (ZLkotlin/jvm/functions/Function2;)V
 	public fun docsGenerator (Lkotlin/jvm/functions/Function1;)V
 	public fun documentationBuilder (Lkotlin/jvm/functions/Function1;)V
+	public fun features (Lkotlin/jvm/functions/Function1;)V
 	public fun getAllSpecs ()Ljava/util/List;
 	public fun getCodebaseOptions ()Ldev/teogor/winds/api/CodebaseOptions;
 	public fun getDocsGenerator ()Ldev/teogor/winds/api/DocsGenerator;
 	public fun getDocumentationBuilder ()Ldev/teogor/winds/api/DocumentationBuilder;
+	public fun getFeatures ()Ldev/teogor/winds/api/Features;
 	public fun getModuleMetadata ()Ldev/teogor/winds/api/ModuleMetadata;
 	public fun getPublishing ()Ldev/teogor/winds/api/Publishing;
 	public fun getPublishingOptions ()Ldev/teogor/winds/api/PublishingOptions;
@@ -155,6 +177,7 @@ public abstract class dev/teogor/winds/api/impl/WindsImpl : dev/teogor/winds/api
 	public fun setCodebaseOptions (Ldev/teogor/winds/api/CodebaseOptions;)V
 	public fun setDocsGenerator (Ldev/teogor/winds/api/DocsGenerator;)V
 	public fun setDocumentationBuilder (Ldev/teogor/winds/api/DocumentationBuilder;)V
+	public fun setFeatures (Ldev/teogor/winds/api/Features;)V
 	public fun setModuleMetadata (Ldev/teogor/winds/api/ModuleMetadata;)V
 	public fun setPublishing (Ldev/teogor/winds/api/Publishing;)V
 	public fun setPublishingOptions (Ldev/teogor/winds/api/PublishingOptions;)V

@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 teogor (Teodor Grigor)
+ * Copyright 2024 teogor (Teodor Grigor)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,11 +22,7 @@ package dev.teogor.winds.api
  * This interface allows enabling or disabling specific features
  * that are relevant for projects leveraging the `winds` functionality.
  */
-@Deprecated(
-  message = "Use Features interface instead. This interface is deprecated and will be removed in future versions.",
-  replaceWith = ReplaceWith(expression = "Features"),
-)
-interface WindsFeatures {
+interface Features {
 
   /**
    * Enables or disables Maven publishing for the project.
