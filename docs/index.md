@@ -28,7 +28,7 @@ To implement the Winds plugin, add the following plugin ID to your build.gradle 
 
     ```kotlin
     plugins {
-      id("dev.teogor.winds") version "1.0.0"
+      id("dev.teogor.winds") version "1.0.1"
     }
     ```
 
@@ -36,7 +36,7 @@ To implement the Winds plugin, add the following plugin ID to your build.gradle 
 
     ```groovy
     plugins {
-      id 'dev.teogor.winds' version '1.0.0'
+      id 'dev.teogor.winds' version '1.0.1'
     }
     ```
 
