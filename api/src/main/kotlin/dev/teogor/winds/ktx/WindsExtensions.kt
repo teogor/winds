@@ -19,6 +19,7 @@ package dev.teogor.winds.ktx
 import dev.teogor.winds.api.CodebaseOptions
 import dev.teogor.winds.api.DocsGenerator
 import dev.teogor.winds.api.DocumentationBuilder
+import dev.teogor.winds.api.Features
 import dev.teogor.winds.api.ModuleMetadata
 import dev.teogor.winds.api.Publishing
 import dev.teogor.winds.api.PublishingOptions
@@ -75,6 +76,7 @@ fun Project.inheritFromParentWinds(winds: Winds) {
 
 inline operator fun <reified T> Winds.getValue(thisRef: Nothing?, property: KProperty<*>): T {
   return when (T::class) {
+    Features::class -> features as T
     WindsFeatures::class -> windsFeatures as T
     DocumentationBuilder::class -> documentationBuilder as T
     ModuleMetadata::class -> moduleMetadata as T

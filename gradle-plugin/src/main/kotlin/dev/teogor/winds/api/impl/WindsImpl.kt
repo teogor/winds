@@ -21,6 +21,7 @@ import dev.teogor.winds.api.ArtifactDescriptor
 import dev.teogor.winds.api.CodebaseOptions
 import dev.teogor.winds.api.DocsGenerator
 import dev.teogor.winds.api.DocumentationBuilder
+import dev.teogor.winds.api.Features
 import dev.teogor.winds.api.ModuleMetadata
 import dev.teogor.winds.api.Publishing
 import dev.teogor.winds.api.PublishingOptions
@@ -39,10 +40,31 @@ abstract class WindsImpl(
 ) : Winds {
   override val allSpecs: MutableList<ArtifactDescriptor> = mutableListOf()
 
+  override var features: Features = FeaturesImpl()
+
+  override fun features(action: Features.() -> Unit) {
+    features = features.apply(action)
+  }
+
+  @Suppress("DEPRECATION")
+  @Deprecated(
+    message = "Use features instead.",
+    replaceWith = ReplaceWith("features"),
+  )
   override var windsFeatures: WindsFeatures = WindsFeaturesImpl()
 
+  @Suppress("DEPRECATION")
+  @Deprecated(
+    message = "Use features(action) instead.",
+    replaceWith = ReplaceWith("features(action)"),
+  )
   override fun windsFeatures(action: WindsFeatures.() -> Unit) {
     windsFeatures = windsFeatures.apply(action)
+    with(windsFeatures) {
+      features.mavenPublishing = mavenPublishing
+      features.docsGenerator = docsGenerator
+      features.workflowSynthesizer = workflowSynthesizer
+    }
   }
 
   override var moduleMetadata: ModuleMetadata = ModuleMetadataImpl()

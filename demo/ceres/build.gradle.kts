@@ -46,6 +46,12 @@ tasks.withType<JavaCompile>().configureEach {
 }
 
 winds {
+  features {
+    mavenPublishing = true
+    docsGenerator = true
+    workflowSynthesizer = true
+  }
+
   windsFeatures {
     mavenPublishing = true
     docsGenerator = true

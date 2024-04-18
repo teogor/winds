@@ -22,8 +22,22 @@ import org.gradle.api.Project
 interface Winds {
   val allSpecs: MutableList<ArtifactDescriptor>
 
+  var features: Features
+
+  fun features(action: Features.() -> Unit)
+
+  @Suppress("DEPRECATION")
+  @Deprecated(
+    message = "Use features instead.",
+    replaceWith = ReplaceWith(expression = "features"),
+  )
   var windsFeatures: WindsFeatures
 
+  @Suppress("DEPRECATION")
+  @Deprecated(
+    message = "Use features(action) instead.",
+    replaceWith = ReplaceWith(expression = "features(action)"),
+  )
   fun windsFeatures(action: WindsFeatures.() -> Unit)
 
   var moduleMetadata: ModuleMetadata
@@ -72,11 +86,11 @@ interface Winds {
   infix fun isEnabled(feature: WindsFeature): Boolean {
     return when (feature) {
       WindsFeature.API_VALIDATOR -> false
-      WindsFeature.DOCS_GENERATOR -> windsFeatures.docsGenerator
+      WindsFeature.DOCS_GENERATOR -> features.docsGenerator
       WindsFeature.DOKKA -> false
-      WindsFeature.MAVEN_PUBLISH -> windsFeatures.mavenPublishing
+      WindsFeature.MAVEN_PUBLISH -> features.mavenPublishing
       WindsFeature.SPOTLESS -> false
-      WindsFeature.WORKFLOW_SYNTHESIZER -> windsFeatures.workflowSynthesizer
+      WindsFeature.WORKFLOW_SYNTHESIZER -> features.workflowSynthesizer
     }
   }
 }
