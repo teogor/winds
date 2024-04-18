@@ -32,6 +32,7 @@ import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.findByType
+import org.gradle.util.GradleVersion
 import java.io.File
 
 /**
@@ -43,52 +44,58 @@ import java.io.File
  * - Configures documentation generation for the project.
  */
 class WindsPlugin : BaseWindsPlugin {
-  override fun apply(target: Project) {
-    with(target) {
-      withWinds(
-        onWindsAvailable = {
-          inheritFromParentWinds(this)
-          configureMavenPublish(this)
 
-          extractAndSetProjectDetails(
-            depSpec = this@withWinds.moduleMetadata.artifactDescriptor,
-          )
-        },
-      ) {
+  companion object {
+    const val MIN_GRADLE_VERSION = "7.0"
+  }
+
+  override fun apply(project: Project) = with(project) {
+    check(GradleVersion.current() >= GradleVersion.version(MIN_GRADLE_VERSION)) {
+      "Gradle version must be at least $MIN_GRADLE_VERSION"
+    }
+    withWinds(
+      onWindsAvailable = {
+        inheritFromParentWinds(this)
+        configureMavenPublish(this)
+
         extractAndSetProjectDetails(
           depSpec = this@withWinds.moduleMetadata.artifactDescriptor,
         )
+      },
+    ) {
+      extractAndSetProjectDetails(
+        depSpec = this@withWinds.moduleMetadata.artifactDescriptor,
+      )
 
-        configureMavenPublish(this)
-        configureMavenPublishing(this)
-        if (!hasVanniktechMavenPlugin()) {
-          publishing.enabled = false
+      configureMavenPublish(this)
+      configureMavenPublishing(this)
+      if (!hasVanniktechMavenPlugin()) {
+        publishing.enabled = false
+      }
+
+      configurePublishTask(
+        cascadePublish = publishing.cascade,
+      )
+
+      val taskName = "windsMd"
+      tasks.register<ReleaseNotesTask>(taskName) {
+        val forceDateUpdate = properties
+          .getOrDefault("forceDateUpdate", "false")
+          .toString().toBoolean()
+        setForceDateUpdate(forceDateUpdate)
+        if (properties.containsKey("forceDateUpdate")) {
+          project.setProperty("forceDateUpdate", "false")
         }
 
-        configurePublishTask(
-          cascadePublish = publishing.cascade,
-        )
-
-        val taskName = "windsMd"
-        tasks.register<ReleaseNotesTask>(taskName) {
-          val forceDateUpdate = properties
-            .getOrDefault("forceDateUpdate", "false")
-            .toString().toBoolean()
-          setForceDateUpdate(forceDateUpdate)
-          if (properties.containsKey("forceDateUpdate")) {
-            project.setProperty("forceDateUpdate", "false")
-          }
-
-          subprojects.forEach {
-            it.afterEvaluate {
-              it.tasks.findByName(taskName)?.let { task ->
-                // dependsOn(task)
-              }
+        subprojects.forEach {
+          it.afterEvaluate {
+            it.tasks.findByName(taskName)?.let { task ->
+              // dependsOn(task)
             }
           }
-
-          collectModuleDescriptors(winds = this@withWinds)
         }
+
+        collectModuleDescriptors(winds = this@withWinds)
       }
     }
   }
