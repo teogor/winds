@@ -17,6 +17,7 @@ Winds build and publish libraries and applications for multiple platforms, simpl
 
 |   Latest Update   | Stable Release | Beta Release | Alpha Release |
 |:-----------------:|:--------------:|:------------:|:-------------:|
+|  April 18, 2024   |     1.0.1      |      -       |       -       |
 |  April 15, 2024   |     1.0.0      |      -       |       -       |
 |   March 4, 2024   |       -        | 1.0.0-beta04 |       -       |
 | February 27, 2024 |       -        | 1.0.0-beta03 |       -       |
@@ -38,7 +39,7 @@ Add the dependencies for the artifacts you need in the `build.gradle` file for y
 
     ```kotlin
     plugins {
-      id("dev.teogor.winds") version "1.0.0"
+      id("dev.teogor.winds") version "1.0.1"
     }
     ```
 
@@ -46,7 +47,7 @@ Add the dependencies for the artifacts you need in the `build.gradle` file for y
 
     ```groovy
     plugins {
-      id 'dev.teogor.winds' version '1.0.0'
+      id 'dev.teogor.winds' version '1.0.1'
     }
     ```
 
@@ -58,6 +59,32 @@ the [existing ones](https://github.com/teogor/winds) in this library. You can ad
 existing issue by clicking the star button.
 
 [Create a new issue](https://github.com/teogor/winds/issues/new){ .md-button }
+
+### Version 1.0.1
+
+April 18, 2024
+
+`dev.teogor.winds:winds-*:1.0.1` is
+released. [Version 1.0.1 contains these commits.](https://github.com/teogor/winds/compare/1.0.0...1.0.1)
+
+**Enhancement**
+
+* Use Dedicated Features Interface instead of WindsFeatures ([#82](https://github.com/teogor/winds/pull/82)) by [@teogor](https://github.com/teogor)
+* Enable vanniktech-maven-publish Integration with SonatypeHost ([#81](https://github.com/teogor/winds/pull/81)) by [@teogor](https://github.com/teogor)
+* Deprecate PublishingOptions and Migrate to Publishing Interface ([#80](https://github.com/teogor/winds/pull/80)) by [@teogor](https://github.com/teogor)
+* Simplify Release Notes by Extracting Module Descriptor Logic ([#79](https://github.com/teogor/winds/pull/79)) by [@teogor](https://github.com/teogor)
+* Refine Random Library Selection with Publish Filter ([#78](https://github.com/teogor/winds/pull/78)) by [@teogor](https://github.com/teogor)
+* Enable Conditional Dependency on Parent Project's Publish Task ([#75](https://github.com/teogor/winds/pull/75)) by [@teogor](https://github.com/teogor)
+* Optimize Project Group and Version Extraction using Module Metadata ([#73](https://github.com/teogor/winds/pull/73)) by [@teogor](https://github.com/teogor)
+
+**Bug Fixes**
+
+* Fix bomMd Function by Removing Unnecessary True Flag ([#77](https://github.com/teogor/winds/pull/77)) by [@teogor](https://github.com/teogor)
+
+**Maintenance**
+
+* Improved Code Clarity and Maintainability ([#83](https://github.com/teogor/winds/pull/83)) by [@teogor](https://github.com/teogor)
+* Remove Unnecessary `CollectWindsExtensionsTask` ([#74](https://github.com/teogor/winds/pull/74)) by [@teogor](https://github.com/teogor)
 
 ### Version 1.0.0
 
