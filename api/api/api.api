@@ -475,12 +475,12 @@ public abstract interface class dev/teogor/winds/api/Publishing {
 	public abstract fun getEnablePublicationSigning ()Z
 	public abstract fun getEnabled ()Z
 	public abstract fun getOptInForVanniktechPlugin ()Z
-	public abstract fun getSonatypeHost ()Lcom/vanniktech/maven/publish/SonatypeHost;
+	public abstract fun getSonatypeHost ()Ldev/teogor/winds/api/SonatypeHost;
 	public abstract fun setCascade (Z)V
 	public abstract fun setEnablePublicationSigning (Z)V
 	public abstract fun setEnabled (Z)V
 	public abstract fun setOptInForVanniktechPlugin (Z)V
-	public abstract fun setSonatypeHost (Lcom/vanniktech/maven/publish/SonatypeHost;)V
+	public abstract fun setSonatypeHost (Ldev/teogor/winds/api/SonatypeHost;)V
 }
 
 public abstract interface class dev/teogor/winds/api/PublishingOptions {
@@ -661,6 +661,17 @@ public final class dev/teogor/winds/api/Scm$Local : dev/teogor/winds/api/Scm {
 	public final fun setPath (Ljava/lang/String;)V
 	public fun setRepository (Ljava/lang/String;)V
 	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/api/SonatypeHost : java/lang/Enum {
+	public static final field CENTRAL_PORTAL Ldev/teogor/winds/api/SonatypeHost;
+	public static final field DEFAULT Ldev/teogor/winds/api/SonatypeHost;
+	public static final field S01 Ldev/teogor/winds/api/SonatypeHost;
+	public final fun getRootUrl ()Ljava/lang/String;
+	public final fun isCentralPortal ()Z
+	public final fun toVanniktechSonatypeHost ()Lcom/vanniktech/maven/publish/SonatypeHost;
+	public static fun valueOf (Ljava/lang/String;)Ldev/teogor/winds/api/SonatypeHost;
+	public static fun values ()[Ldev/teogor/winds/api/SonatypeHost;
 }
 
 public final class dev/teogor/winds/api/SpotlessOptions {

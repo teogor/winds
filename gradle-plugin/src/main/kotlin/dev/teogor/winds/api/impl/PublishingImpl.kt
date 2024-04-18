@@ -16,8 +16,8 @@
 
 package dev.teogor.winds.api.impl
 
-import com.vanniktech.maven.publish.SonatypeHost
 import dev.teogor.winds.api.Publishing
+import dev.teogor.winds.api.SonatypeHost
 
 open class PublishingImpl : Publishing {
   override var enabled: Boolean = true

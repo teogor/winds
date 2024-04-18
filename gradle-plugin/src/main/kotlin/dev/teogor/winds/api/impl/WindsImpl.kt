@@ -16,6 +16,7 @@
 
 package dev.teogor.winds.api.impl
 
+import com.vanniktech.maven.publish.SonatypeHost
 import dev.teogor.winds.api.ArtifactDescriptor
 import dev.teogor.winds.api.CodebaseOptions
 import dev.teogor.winds.api.DocsGenerator
@@ -73,7 +74,11 @@ abstract class WindsImpl(
     with(publishingOptions) {
       publishing.enabled = publish
       publishing.cascade = cascadePublish
-      publishing.sonatypeHost = sonatypeHost
+      publishing.sonatypeHost = when (sonatypeHost) {
+        SonatypeHost.CENTRAL_PORTAL -> dev.teogor.winds.api.SonatypeHost.CENTRAL_PORTAL
+        SonatypeHost.S01 -> dev.teogor.winds.api.SonatypeHost.S01
+        else -> dev.teogor.winds.api.SonatypeHost.DEFAULT
+      }
       publishing.optInForVanniktechPlugin = optInForVanniktechPlugin
       publishing.enablePublicationSigning = enablePublicationSigning
     }
