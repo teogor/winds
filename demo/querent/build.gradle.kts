@@ -101,11 +101,11 @@ winds {
     }
   }
 
-  publishingOptions {
-    publish = false
+  publishing {
+    enabled = false
+    cascade = true
     enablePublicationSigning = true
     optInForVanniktechPlugin = true
-    cascadePublish = true
     sonatypeHost = SonatypeHost.S01
   }
 

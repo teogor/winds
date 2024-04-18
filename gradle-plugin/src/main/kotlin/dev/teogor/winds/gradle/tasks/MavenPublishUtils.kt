@@ -18,7 +18,7 @@ package dev.teogor.winds.gradle.tasks
 
 import dev.teogor.winds.api.BomOptions
 import dev.teogor.winds.api.ModuleMetadata
-import dev.teogor.winds.api.PublishingOptions
+import dev.teogor.winds.api.Publishing
 import dev.teogor.winds.api.Winds
 import dev.teogor.winds.common.utils.hasAndroidLibraryPlugin
 import dev.teogor.winds.common.utils.hasKotlinDslPlugin
@@ -30,7 +30,7 @@ import org.gradle.kotlin.dsl.provideDelegate
 fun Project.configureMavenPublish(winds: Winds) {
   // Apply publish plugins only for Android modules due to Maven plugin requirements
   if (hasAndroidLibraryPlugin()) {
-    val publishingOptions: PublishingOptions by winds
+    val publishing: Publishing by winds
     val metadata: ModuleMetadata by winds
     if (hasKotlinDslPlugin()) {
       plugins.apply("java-library")
@@ -38,24 +38,24 @@ fun Project.configureMavenPublish(winds: Winds) {
     } else if (hasPublishPlugin()) {
       plugins.apply("com.vanniktech.maven.publish")
     } else {
-      publishingOptions.publish = false
+      publishing.enabled = false
     }
   }
 
   afterEvaluate {
-    val publishingOptions: PublishingOptions by winds
+    val publishing: Publishing by winds
     val metadata: ModuleMetadata by winds
 
     // Handle BoM and artifact publishing separately
     if (metadata.isBom) {
-      configureAndApplyBomPlugins(publishingOptions, metadata.bomOptions)
-    } else if (publishingOptions.publish) {
-      configureAndApplyPublicationPlugins(publishingOptions)
+      configureAndApplyBomPlugins(publishing, metadata.bomOptions)
+    } else if (publishing.enabled) {
+      configureAndApplyPublicationPlugins(publishing)
     }
 
     // Create custom publish task for child projects not directly publishing
     // TODO better handling for path is ':'
-    if (path != ":" && !publishingOptions.publish) {
+    if (path != ":" && !publishing.enabled) {
       // todo enable task creation. handling based on actual publish value
       //  createAndConfigureSubprojectPublishTask(metadata)
     }
@@ -63,24 +63,24 @@ fun Project.configureMavenPublish(winds: Winds) {
 }
 
 private fun Project.configureAndApplyBomPlugins(
-  publishingOptions: PublishingOptions,
+  publishing: Publishing,
   bomOptions: BomOptions?,
 ) {
   if (!hasPublishPlugin()) {
     plugins.apply("java-platform")
   }
   plugins.apply("com.vanniktech.maven.publish")
-  configureBomModule(publishingOptions, bomOptions)
+  configureBomModule(publishing, bomOptions)
 }
 
-private fun Project.configureAndApplyPublicationPlugins(publishingOptions: PublishingOptions) {
+private fun Project.configureAndApplyPublicationPlugins(publishing: Publishing) {
   if (hasKotlinDslPlugin()) {
     plugins.apply("java-library")
     plugins.apply("com.vanniktech.maven.publish")
   } else if (hasPublishPlugin()) {
     plugins.apply("com.vanniktech.maven.publish")
   } else {
-    publishingOptions.publish = false
+    publishing.enabled = false
   }
 }
 

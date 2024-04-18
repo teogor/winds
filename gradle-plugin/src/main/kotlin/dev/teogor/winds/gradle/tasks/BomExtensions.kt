@@ -17,7 +17,7 @@
 package dev.teogor.winds.gradle.tasks
 
 import dev.teogor.winds.api.BomOptions
-import dev.teogor.winds.api.PublishingOptions
+import dev.teogor.winds.api.Publishing
 import dev.teogor.winds.api.Winds
 import dev.teogor.winds.common.ErrorId
 import dev.teogor.winds.gradle.WindsPlugin
@@ -30,10 +30,10 @@ import org.gradle.kotlin.dsl.provideDelegate
 import org.gradle.kotlin.dsl.withType
 
 fun Project.configureBomModule(
-  publishingOptions: PublishingOptions,
+  publishing: Publishing,
   bomOptions: BomOptions?,
 ) {
-  collectBomConstraints(publishingOptions, bomOptions)
+  collectBomConstraints(publishing, bomOptions)
 }
 
 private fun bomOptionsError(): Nothing = error(
@@ -47,7 +47,7 @@ private fun bomOptionsError(): Nothing = error(
 )
 
 private fun Project.collectBomConstraints(
-  publishingOptions: PublishingOptions,
+  publishing: Publishing,
   bomOptions: BomOptions?,
 ) {
   // Collects the BoM constraints for the project.
@@ -58,9 +58,9 @@ private fun Project.collectBomConstraints(
 
   getter { module ->
     if (module != bomProject) {
-      val modulePublishingOptions: PublishingOptions by this
+      val modulePublishing: Publishing by this
       // Checks if the subproject can be published.
-      if (modulePublishingOptions.publish) {
+      if (modulePublishing.enabled) {
         // Adds the subproject as a dependency (api) of the BoM.
         moduleMetadata.artifactDescriptor?.let { bomConstraints.api(it.coordinates) }
       }

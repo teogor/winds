@@ -30,8 +30,22 @@ interface Winds {
 
   fun moduleMetadata(action: ModuleMetadata.() -> Unit)
 
+  var publishing: Publishing
+
+  fun publishing(action: Publishing.() -> Unit)
+
+  @Suppress("DEPRECATION")
+  @Deprecated(
+    message = "Use publishing instead.",
+    replaceWith = ReplaceWith(expression = "publishing"),
+  )
   var publishingOptions: PublishingOptions
 
+  @Suppress("DEPRECATION")
+  @Deprecated(
+    message = "Use publishing(action) instead.",
+    replaceWith = ReplaceWith(expression = "publishing(action)"),
+  )
   fun publishingOptions(action: PublishingOptions.() -> Unit)
 
   var docsGenerator: DocsGenerator

@@ -21,6 +21,7 @@ import dev.teogor.winds.api.CodebaseOptions
 import dev.teogor.winds.api.DocsGenerator
 import dev.teogor.winds.api.DocumentationBuilder
 import dev.teogor.winds.api.ModuleMetadata
+import dev.teogor.winds.api.Publishing
 import dev.teogor.winds.api.PublishingOptions
 import dev.teogor.winds.api.Winds
 import dev.teogor.winds.api.WindsFeatures
@@ -33,7 +34,7 @@ import org.gradle.kotlin.dsl.provideDelegate
 import org.gradle.kotlin.dsl.withType
 
 abstract class WindsImpl(
-  val project: Project,
+  private val project: Project,
 ) : Winds {
   override val allSpecs: MutableList<ArtifactDescriptor> = mutableListOf()
 
@@ -49,10 +50,33 @@ abstract class WindsImpl(
     moduleMetadata = moduleMetadata.apply(action)
   }
 
+  override var publishing: Publishing = PublishingImpl()
+
+  override fun publishing(action: Publishing.() -> Unit) {
+    publishing = publishing.apply(action)
+  }
+
+  @Suppress("DEPRECATION")
+  @Deprecated(
+    message = "Use publishing instead.",
+    replaceWith = ReplaceWith("publishing"),
+  )
   override var publishingOptions: PublishingOptions = PublishingOptionsImpl()
 
+  @Suppress("DEPRECATION")
+  @Deprecated(
+    message = "Use publishing(action) instead.",
+    replaceWith = ReplaceWith("publishing(action)"),
+  )
   override fun publishingOptions(action: PublishingOptions.() -> Unit) {
     publishingOptions = publishingOptions.apply(action)
+    with(publishingOptions) {
+      publishing.enabled = publish
+      publishing.cascade = cascadePublish
+      publishing.sonatypeHost = sonatypeHost
+      publishing.optInForVanniktechPlugin = optInForVanniktechPlugin
+      publishing.enablePublicationSigning = enablePublicationSigning
+    }
   }
 
   override var docsGenerator: DocsGenerator = DocsGeneratorImpl()

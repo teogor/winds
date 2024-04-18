@@ -94,6 +94,21 @@ public class dev/teogor/winds/api/impl/ModuleMetadataImpl : dev/teogor/winds/api
 	public fun ticketSystem (Lkotlin/reflect/KClass;Lkotlin/jvm/functions/Function1;)V
 }
 
+public class dev/teogor/winds/api/impl/PublishingImpl : dev/teogor/winds/api/Publishing {
+	public fun <init> ()V
+	public fun copy (Ldev/teogor/winds/api/Publishing;)Ldev/teogor/winds/api/Publishing;
+	public fun getCascade ()Z
+	public fun getEnablePublicationSigning ()Z
+	public fun getEnabled ()Z
+	public fun getOptInForVanniktechPlugin ()Z
+	public fun getSonatypeHost ()Lcom/vanniktech/maven/publish/SonatypeHost;
+	public fun setCascade (Z)V
+	public fun setEnablePublicationSigning (Z)V
+	public fun setEnabled (Z)V
+	public fun setOptInForVanniktechPlugin (Z)V
+	public fun setSonatypeHost (Lcom/vanniktech/maven/publish/SonatypeHost;)V
+}
+
 public class dev/teogor/winds/api/impl/PublishingOptionsImpl : dev/teogor/winds/api/PublishingOptions {
 	public fun <init> ()V
 	public fun copy (Ldev/teogor/winds/api/PublishingOptions;)Ldev/teogor/winds/api/PublishingOptions;
@@ -130,16 +145,18 @@ public abstract class dev/teogor/winds/api/impl/WindsImpl : dev/teogor/winds/api
 	public fun getDocsGenerator ()Ldev/teogor/winds/api/DocsGenerator;
 	public fun getDocumentationBuilder ()Ldev/teogor/winds/api/DocumentationBuilder;
 	public fun getModuleMetadata ()Ldev/teogor/winds/api/ModuleMetadata;
-	public final fun getProject ()Lorg/gradle/api/Project;
+	public fun getPublishing ()Ldev/teogor/winds/api/Publishing;
 	public fun getPublishingOptions ()Ldev/teogor/winds/api/PublishingOptions;
 	public fun getWindsFeatures ()Ldev/teogor/winds/api/WindsFeatures;
 	public fun getWorkflowSynthesizer ()Ldev/teogor/winds/api/WorkflowSynthesizer;
 	public fun moduleMetadata (Lkotlin/jvm/functions/Function1;)V
+	public fun publishing (Lkotlin/jvm/functions/Function1;)V
 	public fun publishingOptions (Lkotlin/jvm/functions/Function1;)V
 	public fun setCodebaseOptions (Ldev/teogor/winds/api/CodebaseOptions;)V
 	public fun setDocsGenerator (Ldev/teogor/winds/api/DocsGenerator;)V
 	public fun setDocumentationBuilder (Ldev/teogor/winds/api/DocumentationBuilder;)V
 	public fun setModuleMetadata (Ldev/teogor/winds/api/ModuleMetadata;)V
+	public fun setPublishing (Ldev/teogor/winds/api/Publishing;)V
 	public fun setPublishingOptions (Ldev/teogor/winds/api/PublishingOptions;)V
 	public fun setWindsFeatures (Ldev/teogor/winds/api/WindsFeatures;)V
 	public fun setWorkflowSynthesizer (Ldev/teogor/winds/api/WorkflowSynthesizer;)V
@@ -314,7 +331,7 @@ public final class dev/teogor/winds/gradle/ktx/StringBuilderExtensionsKt {
 }
 
 public final class dev/teogor/winds/gradle/tasks/BomExtensionsKt {
-	public static final fun configureBomModule (Lorg/gradle/api/Project;Ldev/teogor/winds/api/PublishingOptions;Ldev/teogor/winds/api/BomOptions;)V
+	public static final fun configureBomModule (Lorg/gradle/api/Project;Ldev/teogor/winds/api/Publishing;Ldev/teogor/winds/api/BomOptions;)V
 }
 
 public final class dev/teogor/winds/gradle/tasks/BomExtensionsKt$inlined$sam$i$org_gradle_api_Action$0 : org/gradle/api/Action {

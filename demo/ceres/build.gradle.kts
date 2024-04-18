@@ -95,11 +95,21 @@ winds {
     }
   }
 
-  publishingOptions {
-    publish = false
+  publishing {
+    enabled = false
+    cascade = true
+
     enablePublicationSigning = true
     optInForVanniktechPlugin = true
+    sonatypeHost = SonatypeHost.S01
+  }
+
+  publishingOptions {
+    publish = false
     cascadePublish = true
+
+    enablePublicationSigning = true
+    optInForVanniktechPlugin = true
     sonatypeHost = SonatypeHost.S01
   }
 

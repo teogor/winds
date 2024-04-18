@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 teogor (Teodor Grigor)
+ * Copyright 2024 teogor (Teodor Grigor)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,29 +17,19 @@
 package dev.teogor.winds.api.impl
 
 import com.vanniktech.maven.publish.SonatypeHost
-import dev.teogor.winds.api.PublishingOptions
+import dev.teogor.winds.api.Publishing
 
-open class PublishingOptionsImpl : PublishingOptions {
-  @Deprecated(
-    message = "Use 'enabled' in Publishing instead.",
-    replaceWith = ReplaceWith("enabled"),
-  )
-  override var publish: Boolean = true
-
-  @Deprecated(
-    message = "Use 'cascade' in Publishing instead.",
-    replaceWith = ReplaceWith("cascade"),
-  )
-  override var cascadePublish: Boolean = true
-
+open class PublishingImpl : Publishing {
+  override var enabled: Boolean = true
   override var enablePublicationSigning: Boolean = true
   override var optInForVanniktechPlugin: Boolean = true
+  override var cascade: Boolean = true
   override var sonatypeHost: SonatypeHost = SonatypeHost.DEFAULT
 
-  override fun copy(from: PublishingOptions): PublishingOptions {
+  override fun copy(from: Publishing): Publishing {
     enablePublicationSigning = from.enablePublicationSigning
     optInForVanniktechPlugin = from.optInForVanniktechPlugin
-    cascadePublish = from.cascadePublish
+    cascade = from.cascade
     sonatypeHost = from.sonatypeHost
     return this
   }
