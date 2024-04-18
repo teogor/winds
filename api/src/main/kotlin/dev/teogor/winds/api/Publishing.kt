@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 teogor (Teodor Grigor)
+ * Copyright 2024 teogor (Teodor Grigor)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,26 +18,13 @@ package dev.teogor.winds.api
 
 import com.vanniktech.maven.publish.SonatypeHost
 
-@Deprecated(
-  message = "Use Publishing instead.",
-  replaceWith = ReplaceWith(expression = "Publishing", "dev.teogor.winds.api.Publishing"),
-)
-interface PublishingOptions {
-  @Deprecated(
-    message = "Use 'enabled' in Publishing instead.",
-    replaceWith = ReplaceWith(expression = "enabled"),
-  )
-  var publish: Boolean
-
-  @Deprecated(
-    message = "Use 'cascade' in Publishing instead.",
-    replaceWith = ReplaceWith(expression = "cascade"),
-  )
-  var cascadePublish: Boolean
+interface Publishing {
+  var enabled: Boolean
+  var cascade: Boolean
 
   var enablePublicationSigning: Boolean
   var optInForVanniktechPlugin: Boolean
   var sonatypeHost: SonatypeHost
 
-  fun copy(from: PublishingOptions): PublishingOptions
+  fun copy(from: Publishing): Publishing
 }

@@ -20,6 +20,7 @@ import dev.teogor.winds.api.CodebaseOptions
 import dev.teogor.winds.api.DocsGenerator
 import dev.teogor.winds.api.DocumentationBuilder
 import dev.teogor.winds.api.ModuleMetadata
+import dev.teogor.winds.api.Publishing
 import dev.teogor.winds.api.PublishingOptions
 import dev.teogor.winds.api.Winds
 import dev.teogor.winds.api.WindsFeatures
@@ -51,6 +52,9 @@ fun Project.inheritFromParentWinds(winds: Winds) {
     winds.moduleMetadata = winds.moduleMetadata.copy(
       fromObj = parentWinds.moduleMetadata,
     )
+    winds.publishing = winds.publishing.copy(
+      from = parentWinds.publishing,
+    )
     winds.publishingOptions = winds.publishingOptions.copy(
       from = parentWinds.publishingOptions,
     )
@@ -74,6 +78,7 @@ inline operator fun <reified T> Winds.getValue(thisRef: Nothing?, property: KPro
     WindsFeatures::class -> windsFeatures as T
     DocumentationBuilder::class -> documentationBuilder as T
     ModuleMetadata::class -> moduleMetadata as T
+    Publishing::class -> publishing as T
     PublishingOptions::class -> publishingOptions as T
     DocsGenerator::class -> docsGenerator as T
     WorkflowSynthesizer::class -> workflowSynthesizer as T

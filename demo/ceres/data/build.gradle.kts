@@ -14,7 +14,7 @@ winds {
     }
   }
 
-  publishingOptions {
-    publish = false
+  publishing {
+    enabled = false
   }
 }
