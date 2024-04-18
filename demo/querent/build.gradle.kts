@@ -1,5 +1,5 @@
-import com.vanniktech.maven.publish.SonatypeHost
 import dev.teogor.winds.api.ArtifactIdFormat
+import dev.teogor.winds.api.SonatypeHost
 import dev.teogor.winds.api.License
 import dev.teogor.winds.api.NameFormat
 import dev.teogor.winds.api.Person

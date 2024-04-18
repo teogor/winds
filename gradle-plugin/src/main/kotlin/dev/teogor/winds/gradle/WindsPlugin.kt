@@ -62,11 +62,11 @@ class WindsPlugin : BaseWindsPlugin {
         configureMavenPublish(this)
         configureMavenPublishing(this)
         if (!hasVanniktechMavenPlugin()) {
-          publishingOptions.publish = false
+          publishing.enabled = false
         }
 
         configurePublishTask(
-          cascadePublish = publishingOptions.cascadePublish,
+          cascadePublish = publishing.cascade,
         )
 
         val taskName = "windsMd"
@@ -125,7 +125,7 @@ class WindsPlugin : BaseWindsPlugin {
       path = Path.from(project),
       artifact = artifactDescriptor,
       dependencies = artifactDescriptor.artifacts.drop(1),
-      publish = winds.publishingOptions.publish,
+      publish = winds.publishing.enabled,
       completeName = artifactDescriptor.completeName,
       description = winds.moduleMetadata.description,
       documentationBuilder = winds.documentationBuilder,

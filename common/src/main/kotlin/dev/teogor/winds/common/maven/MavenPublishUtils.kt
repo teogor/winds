@@ -29,12 +29,12 @@ fun Project.configureMavenPublishing(
   configureAction: MavenPublishBaseExtension.() -> Unit = {},
 ) {
   val metadata = winds.moduleMetadata
-  val publishingOptions = winds.publishingOptions
-  if (publishingOptions.publish && hasVanniktechMavenPlugin()) {
+  val publishing = winds.publishing
+  if (publishing.enabled && hasVanniktechMavenPlugin()) {
     val mavenPublishing = extensions.getByType(MavenPublishBaseExtension::class.java)
     mavenPublishing.apply {
-      publishToMavenCentral(publishingOptions.sonatypeHost)
-      if (publishingOptions.enablePublicationSigning) {
+      publishToMavenCentral(publishing.sonatypeHost.toVanniktechSonatypeHost())
+      if (publishing.enablePublicationSigning) {
         signAllPublications()
       }
 

@@ -16,8 +16,6 @@
 
 package dev.teogor.winds.api
 
-import com.vanniktech.maven.publish.SonatypeHost
-
 interface Publishing {
   var enabled: Boolean
   var cascade: Boolean

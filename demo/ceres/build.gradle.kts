@@ -1,4 +1,4 @@
-import com.vanniktech.maven.publish.SonatypeHost
+import dev.teogor.winds.api.SonatypeHost
 import dev.teogor.winds.api.ArtifactIdFormat
 import dev.teogor.winds.api.License
 import dev.teogor.winds.api.Person
@@ -110,7 +110,7 @@ winds {
 
     enablePublicationSigning = true
     optInForVanniktechPlugin = true
-    sonatypeHost = SonatypeHost.S01
+    sonatypeHost = com.vanniktech.maven.publish.SonatypeHost.S01
   }
 
   documentationBuilder {
