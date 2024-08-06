@@ -17,6 +17,7 @@ Winds build and publish libraries and applications for multiple platforms, simpl
 
 |   Latest Update   | Stable Release | Beta Release | Alpha Release |
 |:-----------------:|:--------------:|:------------:|:-------------:|
+|  August 06, 2024  |     1.0.2      |      -       |       -       |
 |  April 18, 2024   |     1.0.1      |      -       |       -       |
 |  April 15, 2024   |     1.0.0      |      -       |       -       |
 |   March 4, 2024   |       -        | 1.0.0-beta04 |       -       |
@@ -39,7 +40,7 @@ Add the dependencies for the artifacts you need in the `build.gradle` file for y
 
     ```kotlin
     plugins {
-      id("dev.teogor.winds") version "1.0.1"
+      id("dev.teogor.winds") version "1.0.2"
     }
     ```
 
@@ -47,7 +48,7 @@ Add the dependencies for the artifacts you need in the `build.gradle` file for y
 
     ```groovy
     plugins {
-      id 'dev.teogor.winds' version '1.0.1'
+      id 'dev.teogor.winds' version '1.0.2'
     }
     ```
 
@@ -59,6 +60,17 @@ the [existing ones](https://github.com/teogor/winds) in this library. You can ad
 existing issue by clicking the star button.
 
 [Create a new issue](https://github.com/teogor/winds/issues/new){ .md-button }
+
+### Version 1.0.2
+
+August 06, 2024
+
+`dev.teogor.winds:winds-*:1.0.2` is
+released. [Version 1.0.2 contains these commits.](https://github.com/teogor/winds/compare/1.0.1...1.0.2)
+
+**Enhancement**
+
+* Enable publishing Kotlin Multiplatform libraries ([#86](https://github.com/teogor/winds/pull/86)) by [@teogor](https://github.com/teogor)
 
 ### Version 1.0.1
 
