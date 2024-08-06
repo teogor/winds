@@ -49,11 +49,15 @@ fun Project.configureMavenPublishing(
           }
         } else {
           metadata.artifactDescriptor?.let { dependencySpec ->
-            coordinates(
-              groupId = dependencySpec.group,
-              artifactId = dependencySpec.artifactId,
-              version = dependencySpec.version.toString(),
-            )
+            try {
+              coordinates(
+                groupId = dependencySpec.group,
+                artifactId = dependencySpec.artifactId,
+                version = dependencySpec.version.toString(),
+              )
+            } catch (_: Exception) {
+              // TODO better handling
+            }
           }
         }
 

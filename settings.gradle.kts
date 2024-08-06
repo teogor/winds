@@ -17,5 +17,3 @@ dependencyResolutionManagement {
 include("api")
 include("common")
 include("gradle-plugin")
-
-includeBuild("demo")

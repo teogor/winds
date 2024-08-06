@@ -45,6 +45,15 @@ fun Project.hasAndroidLibraryPlugin(): Boolean {
 }
 
 /**
+ * Checks whether the project has the Kotlin Multiplatform plugin applied.
+ *
+ * @return `true` if the project has the Kotlin Multiplatform plugin applied, `false` otherwise.
+ */
+fun Project.hasKotlinMultiplatformPlugin(): Boolean {
+  return plugins.hasPlugin("org.jetbrains.kotlin.multiplatform")
+}
+
+/**
  * Checks whether the project has the Kotlin DSL plugin applied.
  *
  * @return `true` if the project has the Kotlin DSL plugin applied, `false` otherwise.

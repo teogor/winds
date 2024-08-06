@@ -1,19 +1,19 @@
 [versions]
 agp = "8.3.2"
-api-validator = "0.15.0-Beta.2"
+api-validator = "0.16.3"
 ben-manes-versions = "0.51.0"
-build-config = "5.3.5"
+build-config = "5.4.0"
 dokka = "1.9.20"
 gradle-publish = "1.2.1"
-gson = "2.10.1"
-junit = "5.10.2"
-kotlin = "2.0.0-RC1"
-kotlinx-serialization = "1.6.3"
-ksp = "2.0.0-RC1-1.0.20"
+gson = "2.11.0"
+junit = "5.11.0-RC1"
+kotlin = "2.0.20-RC"
+kotlinx-serialization = "1.7.1"
+ksp = "2.0.20-RC-1.0.24"
 littlerobots-version-catalog-update = "0.8.4"
 snakeyaml = "2.2"
-spotless = "6.25.0"
-vanniktech-maven-plugin = "0.28.0"
+spotless = "7.0.0.BETA1"
+vanniktech-maven-plugin = "0.29.0"
 
 [libraries]
 gradle-plugin-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
@@ -35,6 +35,7 @@ gradle-publish = { id = "com.gradle.plugin-publish", version.ref = "gradle-publi
 jetbrains-dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+jetbrains-kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 jetbrains-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 littlerobots-version-catalog-update = { id = "nl.littlerobots.version-catalog-update", version.ref = "littlerobots-version-catalog-update" }

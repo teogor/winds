@@ -22,6 +22,7 @@ import dev.teogor.winds.api.Publishing
 import dev.teogor.winds.api.Winds
 import dev.teogor.winds.common.utils.hasAndroidLibraryPlugin
 import dev.teogor.winds.common.utils.hasKotlinDslPlugin
+import dev.teogor.winds.common.utils.hasKotlinMultiplatformPlugin
 import dev.teogor.winds.common.utils.hasPublishPlugin
 import dev.teogor.winds.ktx.getValue
 import org.gradle.api.Project
@@ -39,6 +40,11 @@ fun Project.configureMavenPublish(winds: Winds) {
       plugins.apply("com.vanniktech.maven.publish")
     } else {
       publishing.enabled = false
+    }
+  } else if (hasKotlinMultiplatformPlugin()) {
+    val publishing: Publishing by winds
+    if (publishing.enabled) {
+      plugins.apply("com.vanniktech.maven.publish")
     }
   }
 

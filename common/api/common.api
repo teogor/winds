@@ -167,6 +167,7 @@ public final class dev/teogor/winds/common/utils/ChangelogUtilsKt {
 public final class dev/teogor/winds/common/utils/ProjectPluginUtilsKt {
 	public static final fun hasAndroidLibraryPlugin (Lorg/gradle/api/Project;)Z
 	public static final fun hasKotlinDslPlugin (Lorg/gradle/api/Project;)Z
+	public static final fun hasKotlinMultiplatformPlugin (Lorg/gradle/api/Project;)Z
 	public static final fun hasPublishPlugin (Lorg/gradle/api/Project;)Z
 	public static final fun hasWindsPlugin (Lorg/gradle/api/Project;)Z
 	public static final fun processWindsChildProjects (Lorg/gradle/api/Project;Lkotlin/jvm/functions/Function1;)V

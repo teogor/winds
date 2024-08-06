@@ -57,4 +57,12 @@ freeline.py
 freeline/
 freeline_project_description.json
 
+# Dokka
 /docs/dokka/
+
+# Kotlin
+.kotlin
+
+/demo/**/docs/
+
+*.gpg
