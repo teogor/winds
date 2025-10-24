@@ -23,15 +23,16 @@ import org.gradle.api.Project
  * These plugins are typically used to publish libraries or other artifacts to a repository.
  */
 private val publishPlugins = listOf(
+  "com.android.fused-library",
+  "com.android.kotlin.multiplatform.library",
   "com.android.library",
   "com.gradle.plugin-publish",
-  "org.jetbrains.kotlin.multiplatform",
-  "org.jetbrains.kotlin.jvm",
-  "org.jetbrains.kotlin.js",
   "java",
+  "java-gradle-plugin",
   "java-library",
   "java-platform",
-  "java-gradle-plugin",
+  "org.jetbrains.kotlin.jvm",
+  "org.jetbrains.kotlin.multiplatform",
   "version-catalog",
 )
 
