@@ -28,7 +28,7 @@ plugins {
 // Explicitly set the group and version for all subprojects
 allprojects {
   group = "dev.teogor.winds"
-  version = "1.0.2"
+  version = "1.0.3"
 }
 
 val ktlintVersion = "0.50.0"

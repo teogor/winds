@@ -40,7 +40,7 @@ Add the dependencies for the artifacts you need in the `build.gradle` file for y
 
     ```kotlin
     plugins {
-      id("dev.teogor.winds") version "1.0.2"
+      id("dev.teogor.winds") version "1.0.3"
     }
     ```
 
@@ -48,7 +48,7 @@ Add the dependencies for the artifacts you need in the `build.gradle` file for y
 
     ```groovy
     plugins {
-      id 'dev.teogor.winds' version '1.0.2'
+      id 'dev.teogor.winds' version '1.0.3'
     }
     ```
 

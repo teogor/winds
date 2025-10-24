@@ -4,7 +4,7 @@
 
 ### Latest Version
 
-The latest release is [`1.0.2`](../releases.md)
+The latest release is [`1.0.3`](../releases.md)
 
 ### Plugin Releases
 
@@ -12,6 +12,7 @@ Here's a summary of the latest versions:
 
 |    Version    |               Release Notes                | Release Date |
 |:-------------:|:------------------------------------------:|:------------:|
+|     1.0.3     |     [changelog 🔗](changelog/1.0.3.md)     | 24 Oct 2025  |
 |     1.0.2     |     [changelog 🔗](changelog/1.0.2.md)     | 06 Aug 2024  |
 |     1.0.1     |     [changelog 🔗](changelog/1.0.1.md)     | 18 Apr 2024  |
 |     1.0.0     |     [changelog 🔗](changelog/1.0.0.md)     | 15 Apr 2024  |
@@ -35,7 +36,7 @@ TOML format.
 
     ```toml title="gradle/libs.versions.toml"
     [versions]
-    teogor-winds = "1.0.2"
+    teogor-winds = "1.0.3"
 
     [plugins]
     teogor-winds = { id = "dev.teogor.winds", version.ref = "teogor-winds" }
@@ -45,7 +46,7 @@ TOML format.
 
     ```toml title="gradle/libs.versions.toml"
     [versions]
-    teogor-winds = "1.0.2"
+    teogor-winds = "1.0.3"
 
     [libraries]
     teogor-winds-api = { module = "dev.teogor.winds:api", version.ref = "teogor-winds" }
