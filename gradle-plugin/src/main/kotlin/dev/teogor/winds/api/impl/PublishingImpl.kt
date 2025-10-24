@@ -23,11 +23,13 @@ open class PublishingImpl : Publishing {
   override var enablePublicationSigning: Boolean = true
   override var optInForVanniktechPlugin: Boolean = true
   override var cascade: Boolean = true
+  override var automaticPublishing: Boolean = false
 
   override fun copy(from: Publishing): Publishing {
     enablePublicationSigning = from.enablePublicationSigning
     optInForVanniktechPlugin = from.optInForVanniktechPlugin
     cascade = from.cascade
+    automaticPublishing = from.automaticPublishing
     return this
   }
 }
