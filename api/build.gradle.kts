@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -53,9 +52,8 @@ tasks.test {
   useJUnitPlatform()
 }
 
-@Suppress("UnstableApiUsage")
 mavenPublishing {
-  publishToMavenCentral(SonatypeHost.S01)
+  publishToMavenCentral(automaticRelease = true)
   signAllPublications()
 
   pom {

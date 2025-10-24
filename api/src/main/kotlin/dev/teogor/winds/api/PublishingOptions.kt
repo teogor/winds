@@ -16,8 +16,6 @@
 
 package dev.teogor.winds.api
 
-import com.vanniktech.maven.publish.SonatypeHost
-
 @Deprecated(
   message = "Use Publishing instead.",
   replaceWith = ReplaceWith(expression = "Publishing", "dev.teogor.winds.api.Publishing"),
@@ -37,7 +35,6 @@ interface PublishingOptions {
 
   var enablePublicationSigning: Boolean
   var optInForVanniktechPlugin: Boolean
-  var sonatypeHost: SonatypeHost
 
   fun copy(from: PublishingOptions): PublishingOptions
 }

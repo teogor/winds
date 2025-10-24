@@ -17,20 +17,17 @@
 package dev.teogor.winds.api.impl
 
 import dev.teogor.winds.api.Publishing
-import dev.teogor.winds.api.SonatypeHost
 
 open class PublishingImpl : Publishing {
   override var enabled: Boolean = true
   override var enablePublicationSigning: Boolean = true
   override var optInForVanniktechPlugin: Boolean = true
   override var cascade: Boolean = true
-  override var sonatypeHost: SonatypeHost = SonatypeHost.DEFAULT
 
   override fun copy(from: Publishing): Publishing {
     enablePublicationSigning = from.enablePublicationSigning
     optInForVanniktechPlugin = from.optInForVanniktechPlugin
     cascade = from.cascade
-    sonatypeHost = from.sonatypeHost
     return this
   }
 }

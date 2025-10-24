@@ -13,7 +13,7 @@ ksp = "2.0.20-RC-1.0.24"
 littlerobots-version-catalog-update = "0.8.4"
 snakeyaml = "2.2"
 spotless = "7.0.0.BETA1"
-vanniktech-maven-plugin = "0.29.0"
+vanniktech-maven-plugin = "0.34.0"
 
 [libraries]
 gradle-plugin-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }

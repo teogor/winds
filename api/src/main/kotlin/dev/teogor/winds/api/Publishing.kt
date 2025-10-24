@@ -22,7 +22,6 @@ interface Publishing {
 
   var enablePublicationSigning: Boolean
   var optInForVanniktechPlugin: Boolean
-  var sonatypeHost: SonatypeHost
 
   fun copy(from: Publishing): Publishing
 }

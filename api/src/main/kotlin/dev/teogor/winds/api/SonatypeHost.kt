@@ -22,6 +22,11 @@ package dev.teogor.winds.api
  *
  * See [New Users on S01.oss.sonatype.org](https://central.sonatype.org/articles/2021/Feb/23/new-users-on-s01osssonatypeorg/) for more information.
  */
+@Deprecated(
+  message = "SonatypeHost enum is deprecated and will be removed; no longer needed with updated Maven Publish plugin.",
+  replaceWith = ReplaceWith(""),
+  level = DeprecationLevel.WARNING,
+)
 enum class SonatypeHost(
   /** The root URL for the Sonatype host. */
   val rootUrl: String,
@@ -51,19 +56,4 @@ enum class SonatypeHost(
    * Central Portal: True
    */
   CENTRAL_PORTAL("https://central.sonatype.com", true),
-  ;
-
-  /**
-   * Converts this SonatypeHost enum instance to a [com.vanniktech.maven.publish.SonatypeHost]
-   * instance.
-   *
-   * @return A new [com.vanniktech.maven.publish.SonatypeHost] instance.
-   */
-  fun toVanniktechSonatypeHost(): com.vanniktech.maven.publish.SonatypeHost {
-    return when (this) {
-      DEFAULT -> com.vanniktech.maven.publish.SonatypeHost.DEFAULT
-      S01 -> com.vanniktech.maven.publish.SonatypeHost.S01
-      CENTRAL_PORTAL -> com.vanniktech.maven.publish.SonatypeHost.CENTRAL_PORTAL
-    }
-  }
 }
