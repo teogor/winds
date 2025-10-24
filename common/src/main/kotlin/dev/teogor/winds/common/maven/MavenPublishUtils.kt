@@ -33,7 +33,7 @@ fun Project.configureMavenPublishing(
   if (publishing.enabled && hasVanniktechMavenPlugin()) {
     val mavenPublishing = extensions.getByType(MavenPublishBaseExtension::class.java)
     mavenPublishing.apply {
-      publishToMavenCentral()
+      publishToMavenCentral(automaticRelease = publishing.automaticPublishing)
       if (publishing.enablePublicationSigning) {
         signAllPublications()
       }

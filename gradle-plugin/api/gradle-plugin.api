@@ -117,10 +117,12 @@ public class dev/teogor/winds/api/impl/ModuleMetadataImpl : dev/teogor/winds/api
 public class dev/teogor/winds/api/impl/PublishingImpl : dev/teogor/winds/api/Publishing {
 	public fun <init> ()V
 	public fun copy (Ldev/teogor/winds/api/Publishing;)Ldev/teogor/winds/api/Publishing;
+	public fun getAutomaticPublishing ()Z
 	public fun getCascade ()Z
 	public fun getEnablePublicationSigning ()Z
 	public fun getEnabled ()Z
 	public fun getOptInForVanniktechPlugin ()Z
+	public fun setAutomaticPublishing (Z)V
 	public fun setCascade (Z)V
 	public fun setEnablePublicationSigning (Z)V
 	public fun setEnabled (Z)V

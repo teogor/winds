@@ -23,5 +23,11 @@ interface Publishing {
   var enablePublicationSigning: Boolean
   var optInForVanniktechPlugin: Boolean
 
+  /**
+   * Determines whether to automatically trigger publishing upon build
+   * or require manual execution for release validation.
+   */
+  var automaticPublishing: Boolean
+
   fun copy(from: Publishing): Publishing
 }
