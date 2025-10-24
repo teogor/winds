@@ -16,7 +16,6 @@
 
 package dev.teogor.winds.api.impl
 
-import com.vanniktech.maven.publish.SonatypeHost
 import dev.teogor.winds.api.PublishingOptions
 
 open class PublishingOptionsImpl : PublishingOptions {
@@ -34,13 +33,11 @@ open class PublishingOptionsImpl : PublishingOptions {
 
   override var enablePublicationSigning: Boolean = true
   override var optInForVanniktechPlugin: Boolean = true
-  override var sonatypeHost: SonatypeHost = SonatypeHost.DEFAULT
 
   override fun copy(from: PublishingOptions): PublishingOptions {
     enablePublicationSigning = from.enablePublicationSigning
     optInForVanniktechPlugin = from.optInForVanniktechPlugin
     cascadePublish = from.cascadePublish
-    sonatypeHost = from.sonatypeHost
     return this
   }
 }

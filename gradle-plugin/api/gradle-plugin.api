@@ -121,12 +121,10 @@ public class dev/teogor/winds/api/impl/PublishingImpl : dev/teogor/winds/api/Pub
 	public fun getEnablePublicationSigning ()Z
 	public fun getEnabled ()Z
 	public fun getOptInForVanniktechPlugin ()Z
-	public fun getSonatypeHost ()Ldev/teogor/winds/api/SonatypeHost;
 	public fun setCascade (Z)V
 	public fun setEnablePublicationSigning (Z)V
 	public fun setEnabled (Z)V
 	public fun setOptInForVanniktechPlugin (Z)V
-	public fun setSonatypeHost (Ldev/teogor/winds/api/SonatypeHost;)V
 }
 
 public class dev/teogor/winds/api/impl/PublishingOptionsImpl : dev/teogor/winds/api/PublishingOptions {
@@ -136,12 +134,10 @@ public class dev/teogor/winds/api/impl/PublishingOptionsImpl : dev/teogor/winds/
 	public fun getEnablePublicationSigning ()Z
 	public fun getOptInForVanniktechPlugin ()Z
 	public fun getPublish ()Z
-	public fun getSonatypeHost ()Lcom/vanniktech/maven/publish/SonatypeHost;
 	public fun setCascadePublish (Z)V
 	public fun setEnablePublicationSigning (Z)V
 	public fun setOptInForVanniktechPlugin (Z)V
 	public fun setPublish (Z)V
-	public fun setSonatypeHost (Lcom/vanniktech/maven/publish/SonatypeHost;)V
 }
 
 public class dev/teogor/winds/api/impl/WindsFeaturesImpl : dev/teogor/winds/api/WindsFeatures {
