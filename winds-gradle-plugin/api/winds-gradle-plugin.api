@@ -396,6 +396,10 @@ public abstract class dev/teogor/winds/gradle/tasks/ReleaseNotesTask : org/gradl
 	public final fun setOutputDir (Ljava/io/File;)V
 }
 
+public final class dev/teogor/winds/gradle/tasks/SpotlessUtilsKt {
+	public static final fun configureSpotless (Lorg/gradle/api/Project;Ldev/teogor/winds/api/Winds;)V
+}
+
 public final class dev/teogor/winds/gradle/utils/ExtensionsKt {
 	public static final fun appendContent (Ljava/lang/StringBuilder;Lkotlin/jvm/functions/Function1;)V
 	public static final fun appendTo (Ljava/lang/String;Ljava/lang/StringBuilder;)V
