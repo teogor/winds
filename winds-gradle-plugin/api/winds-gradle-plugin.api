@@ -62,20 +62,29 @@ public final class dev/teogor/winds/api/impl/DocumentationBuilderImpl : dev/teog
 
 public final class dev/teogor/winds/api/impl/FeaturesImpl : dev/teogor/winds/api/Features {
 	public fun <init> ()V
-	public fun <init> (ZZZ)V
-	public synthetic fun <init> (ZZZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (ZZZZZZ)V
+	public synthetic fun <init> (ZZZZZZILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Z
 	public final fun component2 ()Z
 	public final fun component3 ()Z
-	public final fun copy (ZZZ)Ldev/teogor/winds/api/impl/FeaturesImpl;
-	public static synthetic fun copy$default (Ldev/teogor/winds/api/impl/FeaturesImpl;ZZZILjava/lang/Object;)Ldev/teogor/winds/api/impl/FeaturesImpl;
+	public final fun component4 ()Z
+	public final fun component5 ()Z
+	public final fun component6 ()Z
+	public final fun copy (ZZZZZZ)Ldev/teogor/winds/api/impl/FeaturesImpl;
+	public static synthetic fun copy$default (Ldev/teogor/winds/api/impl/FeaturesImpl;ZZZZZZILjava/lang/Object;)Ldev/teogor/winds/api/impl/FeaturesImpl;
 	public fun equals (Ljava/lang/Object;)Z
+	public fun getApiValidator ()Z
 	public fun getDocsGenerator ()Z
+	public fun getDokka ()Z
 	public fun getMavenPublishing ()Z
+	public fun getSpotless ()Z
 	public fun getWorkflowSynthesizer ()Z
 	public fun hashCode ()I
+	public fun setApiValidator (Z)V
 	public fun setDocsGenerator (Z)V
+	public fun setDokka (Z)V
 	public fun setMavenPublishing (Z)V
+	public fun setSpotless (Z)V
 	public fun setWorkflowSynthesizer (Z)V
 	public fun toString ()Ljava/lang/String;
 }
@@ -363,6 +372,10 @@ public final class dev/teogor/winds/gradle/tasks/BomExtensionsKt {
 public final class dev/teogor/winds/gradle/tasks/BomExtensionsKt$inlined$sam$i$org_gradle_api_Action$0 : org/gradle/api/Action {
 	public fun <init> (Lkotlin/jvm/functions/Function1;)V
 	public final synthetic fun execute (Ljava/lang/Object;)V
+}
+
+public final class dev/teogor/winds/gradle/tasks/DokkaUtilsKt {
+	public static final fun configureDokka (Lorg/gradle/api/Project;Ldev/teogor/winds/api/Winds;)V
 }
 
 public final class dev/teogor/winds/gradle/tasks/MavenPublishUtilsKt {

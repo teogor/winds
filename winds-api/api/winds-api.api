@@ -206,11 +206,17 @@ public final class dev/teogor/winds/api/DokkaOptions {
 }
 
 public abstract interface class dev/teogor/winds/api/Features {
+	public abstract fun getApiValidator ()Z
 	public abstract fun getDocsGenerator ()Z
+	public abstract fun getDokka ()Z
 	public abstract fun getMavenPublishing ()Z
+	public abstract fun getSpotless ()Z
 	public abstract fun getWorkflowSynthesizer ()Z
+	public abstract fun setApiValidator (Z)V
 	public abstract fun setDocsGenerator (Z)V
+	public abstract fun setDokka (Z)V
 	public abstract fun setMavenPublishing (Z)V
+	public abstract fun setSpotless (Z)V
 	public abstract fun setWorkflowSynthesizer (Z)V
 }
 
