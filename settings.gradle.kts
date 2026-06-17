@@ -14,9 +14,9 @@ dependencyResolutionManagement {
   }
 }
 
-include("api")
-include("common")
-include("gradle-plugin")
+include("winds-api")
+include("winds-common")
+include("winds-gradle-plugin")
 
 includeBuild("examples/ceres")
 includeBuild("examples/querent")
