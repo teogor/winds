@@ -5,14 +5,14 @@ github-ben-manes-versions = "0.54.0"
 github-gmazzo-buildconfig = "6.0.10"
 jetbrains-dokka = "2.2.0"
 gradle-plugin-publish = "2.1.1"
-google-code-gson = "2.13.2"
-junit-jupiter = "5.14.4"
+google-code-gson = "2.14.0"
+junit-jupiter = "6.1.0"
 jetbrains-kotlin = "2.4.0"
-jetbrains-kotlinx-serialization = "2.4.0"
+jetbrains-kotlinx-serialization-runtime = "1.11.0"
 google-devtools-ksp = "2.3.9"
 littlerobots-version-catalog-update = "1.1.0"
 yaml-snakeyaml = "2.6"
-diffplug-spotless = "8.6.0"
+diffplug-spotless = "8.7.0"
 vanniktech-maven-publish = "0.36.0"
 
 [libraries]
@@ -20,9 +20,9 @@ jetbrains-kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-
 google-devtools-ksp-gradle-plugin = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin", version.ref = "google-devtools-ksp" }
 google-code-gson = { module = "com.google.code.gson:gson", version.ref = "google-code-gson" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit-jupiter" }
-jetbrains-kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "jetbrains-kotlinx-serialization" }
-jetbrains-kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "jetbrains-kotlinx-serialization" }
-vanniktech-maven-publish-api = { module = "com.vanniktech.maven.publish.base:com.vanniktech.maven.publish.base.gradle.plugin", version.ref = "vanniktech-maven-publish" }
+jetbrains-kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "jetbrains-kotlinx-serialization-runtime" }
+jetbrains-kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "jetbrains-kotlinx-serialization-runtime" }
+vanniktech-maven-publish-base-gradle-plugin = { module = "com.vanniktech.maven.publish.base:com.vanniktech.maven.publish.base.gradle.plugin", version.ref = "vanniktech-maven-publish" }
 yaml-snakeyaml = { module = "org.yaml:snakeyaml", version.ref = "yaml-snakeyaml" }
 
 [plugins]

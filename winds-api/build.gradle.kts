@@ -43,7 +43,7 @@ dependencies {
   implementation(libs.jetbrains.kotlinx.serialization.core)
   implementation(libs.jetbrains.kotlinx.serialization.json)
   implementation(libs.google.code.gson)
-  implementation(libs.vanniktech.maven.publish.api)
+  implementation(libs.vanniktech.maven.publish.base.gradle.plugin)
 
   testImplementation(libs.junit.jupiter)
 }

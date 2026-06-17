@@ -34,7 +34,7 @@ compileKotlin.kotlinOptions {
 
 dependencies {
   implementation(project(":winds-api"))
-  implementation(libs.vanniktech.maven.publish.api)
+  implementation(libs.vanniktech.maven.publish.base.gradle.plugin)
 }
 
 mavenPublishing {

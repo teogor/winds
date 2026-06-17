@@ -52,7 +52,7 @@ dependencies {
   implementation(libs.jetbrains.kotlinx.serialization.json)
   implementation(libs.yaml.snakeyaml)
   implementation(libs.google.code.gson)
-  implementation(libs.vanniktech.maven.publish.api)
+  implementation(libs.vanniktech.maven.publish.base.gradle.plugin)
 
   compileOnly(gradleApi())
   compileOnly(libs.jetbrains.kotlin.gradle.plugin)
