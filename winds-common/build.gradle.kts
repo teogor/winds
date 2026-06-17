@@ -33,7 +33,7 @@ compileKotlin.kotlinOptions {
 }
 
 dependencies {
-  implementation(project(":api"))
+  implementation(project(":winds-api"))
   implementation(libs.vanniktech.maven.api)
 }
 

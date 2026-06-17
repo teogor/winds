@@ -45,8 +45,8 @@ compileKotlin.kotlinOptions {
 }
 
 dependencies {
-  implementation(project(":api"))
-  implementation(project(":common"))
+  implementation(project(":winds-api"))
+  implementation(project(":winds-common"))
 
   implementation(libs.kotlinx.serialization.core)
   implementation(libs.kotlinx.serialization.json)
