@@ -17,6 +17,16 @@ copyright: Copyright &copy; 2024 Teodor Grigor (Teogor)
 # Page tree
 nav:
   - Home: index.md
+  - Getting Started: getting-started.md
+  - Configuration:
+    - Overview: configuration/index.md
+    - Features: configuration/features.md
+    - Module Metadata: configuration/module-metadata.md
+    - Publishing: configuration/publishing.md
+  - Features:
+    - Maven Publishing: features/maven-publishing.md
+    - Documentation: features/documentation.md
+    - Workflow Synthesizer: features/workflow-synthesizer.md
   - Releases:
     - releases.md
     - Implementation: releases/implementation.md
