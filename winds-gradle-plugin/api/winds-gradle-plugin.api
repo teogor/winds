@@ -365,6 +365,10 @@ public final class dev/teogor/winds/gradle/ktx/StringBuilderExtensionsKt {
 	public static final fun replace (Ljava/lang/StringBuilder;Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Ljava/lang/StringBuilder;
 }
 
+public final class dev/teogor/winds/gradle/tasks/ApiValidatorUtilsKt {
+	public static final fun configureApiValidator (Lorg/gradle/api/Project;Ldev/teogor/winds/api/Winds;)V
+}
+
 public final class dev/teogor/winds/gradle/tasks/BomExtensionsKt {
 	public static final fun configureBomModule (Lorg/gradle/api/Project;Ldev/teogor/winds/api/Publishing;Ldev/teogor/winds/api/BomOptions;)V
 }

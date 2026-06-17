@@ -25,6 +25,7 @@ import dev.teogor.winds.common.ktx.hasVanniktechMavenPlugin
 import dev.teogor.winds.common.ktx.register
 import dev.teogor.winds.common.maven.configureMavenPublishing
 import dev.teogor.winds.gradle.tasks.ReleaseNotesTask
+import dev.teogor.winds.gradle.tasks.configureApiValidator
 import dev.teogor.winds.gradle.tasks.configureDokka
 import dev.teogor.winds.gradle.tasks.configureMavenPublish
 import dev.teogor.winds.gradle.tasks.configureSpotless
@@ -59,6 +60,7 @@ class WindsPlugin : BaseWindsPlugin {
       onWindsAvailable = {
         inheritFromParentWinds(this)
         configureMavenPublish(this)
+        configureApiValidator(this)
         configureDokka(this)
         configureSpotless(this)
 
@@ -72,6 +74,7 @@ class WindsPlugin : BaseWindsPlugin {
       )
 
       configureMavenPublish(this)
+      configureApiValidator(this)
       configureDokka(this)
       configureSpotless(this)
       configureMavenPublishing(this)
