@@ -374,6 +374,10 @@ public final class dev/teogor/winds/gradle/tasks/BomExtensionsKt$inlined$sam$i$o
 	public final synthetic fun execute (Ljava/lang/Object;)V
 }
 
+public final class dev/teogor/winds/gradle/tasks/DokkaUtilsKt {
+	public static final fun configureDokka (Lorg/gradle/api/Project;Ldev/teogor/winds/api/Winds;)V
+}
+
 public final class dev/teogor/winds/gradle/tasks/MavenPublishUtilsKt {
 	public static final fun configureMavenPublish (Lorg/gradle/api/Project;Ldev/teogor/winds/api/Winds;)V
 }
