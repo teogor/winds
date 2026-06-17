@@ -17,3 +17,8 @@ dependencyResolutionManagement {
 include("api")
 include("common")
 include("gradle-plugin")
+
+includeBuild("examples/ceres")
+includeBuild("examples/querent")
+includeBuild("examples/sudoklify")
+includeBuild("examples/multiplatform")
