@@ -378,6 +378,10 @@ public final class dev/teogor/winds/gradle/tasks/BomExtensionsKt$inlined$sam$i$o
 	public final synthetic fun execute (Ljava/lang/Object;)V
 }
 
+public final class dev/teogor/winds/gradle/tasks/DokkaUtilsKt {
+	public static final fun configureDokka (Lorg/gradle/api/Project;Ldev/teogor/winds/api/Winds;)V
+}
+
 public final class dev/teogor/winds/gradle/tasks/MavenPublishUtilsKt {
 	public static final fun configureMavenPublish (Lorg/gradle/api/Project;Ldev/teogor/winds/api/Winds;)V
 }
@@ -394,6 +398,10 @@ public abstract class dev/teogor/winds/gradle/tasks/ReleaseNotesTask : org/gradl
 	public final fun setBuildOutputDir (Ljava/io/File;)V
 	public final fun setForceDateUpdate (Z)V
 	public final fun setOutputDir (Ljava/io/File;)V
+}
+
+public final class dev/teogor/winds/gradle/tasks/SpotlessUtilsKt {
+	public static final fun configureSpotless (Lorg/gradle/api/Project;Ldev/teogor/winds/api/Winds;)V
 }
 
 public final class dev/teogor/winds/gradle/utils/ExtensionsKt {
