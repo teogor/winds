@@ -60,9 +60,9 @@ private fun Project.collectBomConstraints(
     if (module != bomProject) {
       val modulePublishing: Publishing by this
       // Checks if the subproject can be published.
-      if (modulePublishing.enabled) {
+      if (modulePublishing.enabled.getOrElse(false)) {
         // Adds the subproject as a dependency (api) of the BoM.
-        moduleMetadata.artifactDescriptor?.let { bomConstraints.api(it.coordinates) }
+        moduleMetadata.artifactDescriptor.orNull?.let { bomConstraints.api(it.coordinates) }
       }
     }
   }

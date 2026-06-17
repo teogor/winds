@@ -65,12 +65,12 @@ class WindsPlugin : BaseWindsPlugin {
         configureSpotless(this)
 
         extractAndSetProjectDetails(
-          depSpec = this@withWinds.moduleMetadata.artifactDescriptor,
+          depSpec = this@withWinds.moduleMetadata.artifactDescriptor.orNull,
         )
       },
     ) {
       extractAndSetProjectDetails(
-        depSpec = this@withWinds.moduleMetadata.artifactDescriptor,
+        depSpec = this@withWinds.moduleMetadata.artifactDescriptor.orNull,
       )
 
       configureMavenPublish(this)
@@ -79,11 +79,11 @@ class WindsPlugin : BaseWindsPlugin {
       configureSpotless(this)
       configureMavenPublishing(this)
       if (!hasVanniktechMavenPlugin()) {
-        publishing.enabled = false
+        publishing.enabled.set(false)
       }
 
       configurePublishTask(
-        cascadePublish = publishing.cascade,
+        cascadePublish = publishing.cascade.getOrElse(true),
       )
 
       val taskName = "windsMd"
@@ -132,22 +132,22 @@ class WindsPlugin : BaseWindsPlugin {
   }
 
   private fun buildModuleDescriptor(project: Project, winds: Winds): ModuleDescriptor {
-    val artifactDescriptor = winds.moduleMetadata.artifactDescriptor ?: error(
+    val artifactDescriptor = winds.moduleMetadata.artifactDescriptor.orNull ?: error(
       message = "Artifact descriptor is missing",
     )
 
     return ModuleDescriptor(
-      name = artifactDescriptor.name,
+      name = artifactDescriptor.name.get(),
       path = Path.from(project),
       artifact = artifactDescriptor,
       dependencies = artifactDescriptor.artifacts.drop(1),
-      publish = winds.publishing.enabled,
+      publish = winds.publishing.enabled.getOrElse(false),
       completeName = artifactDescriptor.completeName,
-      description = winds.moduleMetadata.description,
+      description = winds.moduleMetadata.description.orNull,
       documentationBuilder = winds.documentationBuilder,
-      ticketSystem = winds.moduleMetadata.ticketSystem,
-      scm = winds.moduleMetadata.scm,
-      isBom = winds.moduleMetadata.isBom,
+      ticketSystem = winds.moduleMetadata.ticketSystem.orNull,
+      scm = winds.moduleMetadata.scm.orNull,
+      isBom = winds.moduleMetadata.isBom.getOrElse(false),
       isPlugin = project.hasPublishGradlePlugin(),
       windsChangelogYml = File(project.projectDir, "winds-changelog.yml").absolutePath,
     )
@@ -162,8 +162,8 @@ class WindsPlugin : BaseWindsPlugin {
    * @param depSpec The artifact descriptor to extract information from, can be null.
    */
   private fun Project.extractAndSetProjectDetails(depSpec: ArtifactDescriptor?) {
-    project.group = depSpec?.group ?: project.group ?: "unspecified"
-    project.version = depSpec?.version?.toString() ?: project.version ?: "unspecified"
+    project.group = depSpec?.group?.orNull ?: project.group ?: "unspecified"
+    project.version = depSpec?.version?.orNull?.toString() ?: project.version ?: "unspecified"
   }
 
   /**

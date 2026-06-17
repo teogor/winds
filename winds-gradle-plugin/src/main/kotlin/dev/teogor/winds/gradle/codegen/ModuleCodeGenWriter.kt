@@ -24,12 +24,16 @@ import dev.teogor.winds.gradle.utils.escapeAlias
 import dev.teogor.winds.gradle.utils.isBomLibrary
 import dev.teogor.winds.gradle.utils.isLibrary
 import dev.teogor.winds.gradle.utils.retrieveLibraryAlias
-import org.gradle.configurationcache.extensions.capitalized
+import java.util.Locale
 
 class ModuleCodeGenWriter(
   private val module: ModuleDescriptor,
   private val modules: List<ModuleDescriptor>,
 ) {
+
+  private fun String.capitalized(): String {
+    return replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.US) else it.toString() }
+  }
 
   fun getPluginIds(
     applyPlugins: Boolean = false,
@@ -38,14 +42,14 @@ class ModuleCodeGenWriter(
     // Filter plugin modules and create pluginId to artifact pairs
     val pluginIds = modules.filter { it.isPlugin }
       .flatMap {
-        it.documentationBuilder.pluginIds.toList().map { pluginId -> pluginId to it.artifact }
+        it.documentationBuilder.pluginIds.get().map { pluginId -> pluginId to it.artifact }
       }
 
     // Generate plugin declarations for Groovy or Kotlin with optional apply
     val pluginDeclarations = pluginIds.map { (pluginId, artifact) ->
       when {
-        forKotlin -> "id(\"$pluginId\")" + if (applyPlugins) " version \"${artifact.version}\" apply false" else ""
-        else -> "id '$pluginId'" + if (applyPlugins) " version '${artifact.version}' apply false" else ""
+        forKotlin -> "id(\"$pluginId\")" + if (applyPlugins) " version \"${artifact.version.get()}\" apply false" else ""
+        else -> "id '$pluginId'" + if (applyPlugins) " version '${artifact.version.get()}' apply false" else ""
       }
     }
 
@@ -61,7 +65,7 @@ class ModuleCodeGenWriter(
     // Filter plugin modules and create pluginId to artifact pairs
     val pluginIds = modules.filter { it.isPlugin }
       .flatMap {
-        it.documentationBuilder.pluginIds.toList().map { pluginId ->
+        it.documentationBuilder.pluginIds.get().map { pluginId ->
           val pluginAlias = retrieveLibraryAlias(
             library = it,
             pluginId = pluginId,
@@ -92,38 +96,40 @@ class ModuleCodeGenWriter(
 
     // Version
     dependencies.append(
-      "${if (forKotlin) "val" else "def"} $moduleAliasVar = \"${module.artifact.version}\"\n\n",
+      "${if (forKotlin) "val" else "def"} $moduleAliasVar = \"${module.artifact.version.get()}\"\n\n",
     )
 
     modules.filter { it.isLibrary() }.forEach { depsModule ->
-      val artifactName = depsModule.artifact.name.capitalized()
+      val artifactName = depsModule.artifact.name.get().capitalized()
       val moduleName = module.name.capitalized()
 
       when {
-        depsModule.documentationBuilder.isCompiler -> {
+        depsModule.documentationBuilder.isCompiler.getOrElse(false) -> {
           dependencies.append("\n")
           dependencies.append(
-            if (forKotlin) {
-              """
+            (
+              if (forKotlin) {
+                """
               |// To use Kotlin annotation processing tool (kapt)
               |kapt("${depsModule.artifact.module}:$$moduleAliasVar")
               |// To use Kotlin Symbol Processing (KSP)
               |ksp("${depsModule.artifact.module}:$$moduleAliasVar")
-              """.trimMargin()
-            } else {
-              """
+                """.trimMargin()
+              } else {
+                """
               |// To use Kotlin annotation processing tool (kapt)
               |kapt "${depsModule.artifact.module}:$$moduleAliasVar"
               |// To use Kotlin Symbol Processing (KSP)
               |ksp "${depsModule.artifact.module}:$$moduleAliasVar"
-              """.trimMargin()
-            },
+                """.trimMargin()
+              }
+              ),
           )
           dependencies.append("\n")
         }
 
         else -> {
-          if (depsModule.documentationBuilder.isOptional) {
+          if (depsModule.documentationBuilder.isOptional.getOrElse(false)) {
             dependencies.append("\n// optional - $artifactName support for $moduleName\n")
           }
           if (forKotlin) {
@@ -151,7 +157,7 @@ class ModuleCodeGenWriter(
 
     if (isBom) {
       modules.filter { it.isBomLibrary() }.forEach { depsModule ->
-        val artifactName = depsModule.artifact.name.capitalized()
+        val artifactName = depsModule.artifact.name.get().capitalized()
         val moduleName = module.name.capitalized()
         val libraryAlias = if (includeOwner && scm?.owner != null) {
           "${scm.owner} ${depsModule.completeName}"
@@ -171,7 +177,7 @@ class ModuleCodeGenWriter(
     }
 
     modules.filter { it.isLibrary() && (!isBom || (!it.isBomLibrary())) }.forEach { depsModule ->
-      val artifactName = depsModule.artifact.name.capitalized()
+      val artifactName = depsModule.artifact.name.get().capitalized()
       val moduleName = module.name.capitalized()
       val libraryAlias = if (includeOwner && scm?.owner != null) {
         "${scm.owner} ${depsModule.completeName}"
@@ -180,7 +186,7 @@ class ModuleCodeGenWriter(
       }.escapeAlias(".")
 
       when {
-        depsModule.documentationBuilder.isCompiler -> {
+        depsModule.documentationBuilder.isCompiler.getOrElse(false) -> {
           dependencies.append("\n")
           dependencies.append(
             if (forKotlin) {
@@ -203,7 +209,7 @@ class ModuleCodeGenWriter(
         }
 
         else -> {
-          if (depsModule.documentationBuilder.isOptional) {
+          if (depsModule.documentationBuilder.isOptional.getOrElse(false)) {
             dependencies.append("\n// optional - $artifactName support for $moduleName\n")
           }
           if (forKotlin) {
@@ -229,11 +235,11 @@ class ModuleCodeGenWriter(
     hasPlugin: Boolean,
     isBom: Boolean = false,
   ): String {
-    val versionCatalog = buildString {
+    val versionCatalog = StringBuilder().apply {
       val versionRef = moduleAlias.escapeAlias("-")
       appendLine("```toml title=\"gradle/libs.versions.toml\"")
       appendLine("[versions]")
-      appendLine("$versionRef = \"${module.artifact.version}\"")
+      appendLine("$versionRef = \"${module.artifact.version.get()}\"")
       appendLine()
       appendLine("[libraries]")
       if (isBom) {
@@ -283,7 +289,7 @@ class ModuleCodeGenWriter(
         appendLine("[plugins]")
         modules.filter { it.isPlugin }
           .forEach { library ->
-            library.documentationBuilder.pluginIds.forEach { pluginId ->
+            library.documentationBuilder.pluginIds.get().forEach { pluginId ->
               appendLine(
                 asVersionCatalogValue(
                   library = library,
@@ -299,11 +305,9 @@ class ModuleCodeGenWriter(
           }
       }
       appendLine("```")
-
-      indent("|    ").toString()
     }
 
-    return versionCatalog
+    return versionCatalog.indent("|    ").toString()
   }
 
   fun generateDependencyDocumentation(
@@ -337,7 +341,7 @@ class ModuleCodeGenWriter(
     )
     val hasPlugin = modules.any { it.isPlugin }.let {
       val totalDeclaredPlugins = modules.filter { it.isPlugin }
-        .sumOf { it.documentationBuilder.pluginIds.size }
+        .sumOf { it.documentationBuilder.pluginIds.get().size }
 
       totalDeclaredPlugins != 0
     }
@@ -372,7 +376,7 @@ class ModuleCodeGenWriter(
     )
     val stringBuilder = StringBuilder()
     if (!short) {
-      val newlineSeparator = module.documentationBuilder.markdownNewlineSeparator
+      val newlineSeparator = module.documentationBuilder.markdownNewlineSeparator.get()
       stringBuilder.appendLine(
         """
         |## Getting Started with $libraryName
@@ -633,5 +637,10 @@ class ModuleCodeGenWriter(
       .replace(libraryName, module.name.capitalized())
       .replace(libraryNameLowercase, module.name.lowercase().escapeAlias("-"))
       .trimEnd()
+  }
+
+  companion object {
+    private const val libraryName = "LIBRARY_NAME"
+    private const val libraryNameLowercase = "LIBRARY_NAME_LOWERCASE"
   }
 }

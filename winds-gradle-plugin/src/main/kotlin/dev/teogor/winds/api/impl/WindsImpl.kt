@@ -23,105 +23,73 @@ import dev.teogor.winds.api.DocumentationBuilder
 import dev.teogor.winds.api.Features
 import dev.teogor.winds.api.ModuleMetadata
 import dev.teogor.winds.api.Publishing
-import dev.teogor.winds.api.PublishingOptions
 import dev.teogor.winds.api.Winds
-import dev.teogor.winds.api.WindsFeatures
 import dev.teogor.winds.api.WorkflowSynthesizer
 import dev.teogor.winds.gradle.WindsPlugin
 import dev.teogor.winds.ktx.processProjectsWithWinds
 import org.gradle.api.Project
+import org.gradle.api.model.ObjectFactory
+import org.gradle.api.provider.ListProperty
 import org.gradle.kotlin.dsl.getValue
 import org.gradle.kotlin.dsl.provideDelegate
 import org.gradle.kotlin.dsl.withType
+import javax.inject.Inject
 
-abstract class WindsImpl(
+abstract class WindsImpl @Inject constructor(
   private val project: Project,
 ) : Winds {
-  override val allSpecs: MutableList<ArtifactDescriptor> = mutableListOf()
+  private val objects: ObjectFactory = project.objects
 
-  override var features: Features = FeaturesImpl()
+  override val allSpecs: ListProperty<ArtifactDescriptor> = objects.listProperty(
+    ArtifactDescriptor::class.java,
+  ).convention(emptyList())
+
+  override val features: Features = objects.newInstance(FeaturesImpl::class.java)
 
   override fun features(action: Features.() -> Unit) {
-    features = features.apply(action)
+    features.apply(action)
   }
 
-  @Suppress("DEPRECATION")
-  @Deprecated(
-    message = "Use features instead.",
-    replaceWith = ReplaceWith("features"),
-  )
-  override var windsFeatures: WindsFeatures = WindsFeaturesImpl()
-
-  @Suppress("DEPRECATION")
-  @Deprecated(
-    message = "Use features(action) instead.",
-    replaceWith = ReplaceWith("features(action)"),
-  )
-  override fun windsFeatures(action: WindsFeatures.() -> Unit) {
-    windsFeatures = windsFeatures.apply(action)
-    with(windsFeatures) {
-      features.mavenPublishing = mavenPublishing
-      features.docsGenerator = docsGenerator
-      features.workflowSynthesizer = workflowSynthesizer
-    }
-  }
-
-  override var moduleMetadata: ModuleMetadata = ModuleMetadataImpl()
+  override val moduleMetadata: ModuleMetadata = objects.newInstance(ModuleMetadataImpl::class.java)
 
   override fun moduleMetadata(action: ModuleMetadata.() -> Unit) {
-    moduleMetadata = moduleMetadata.apply(action)
+    moduleMetadata.apply(action)
   }
 
-  override var publishing: Publishing = PublishingImpl()
+  override val publishing: Publishing = objects.newInstance(PublishingImpl::class.java)
 
   override fun publishing(action: Publishing.() -> Unit) {
-    publishing = publishing.apply(action)
+    publishing.apply(action)
   }
 
-  @Suppress("DEPRECATION")
-  @Deprecated(
-    message = "Use publishing instead.",
-    replaceWith = ReplaceWith("publishing"),
-  )
-  override var publishingOptions: PublishingOptions = PublishingOptionsImpl()
-
-  @Suppress("DEPRECATION")
-  @Deprecated(
-    message = "Use publishing(action) instead.",
-    replaceWith = ReplaceWith("publishing(action)"),
-  )
-  override fun publishingOptions(action: PublishingOptions.() -> Unit) {
-    publishingOptions = publishingOptions.apply(action)
-    with(publishingOptions) {
-      publishing.enabled = publish
-      publishing.cascade = cascadePublish
-      publishing.optInForVanniktechPlugin = optInForVanniktechPlugin
-      publishing.enablePublicationSigning = enablePublicationSigning
-    }
-  }
-
-  override var docsGenerator: DocsGenerator = DocsGeneratorImpl()
+  override val docsGenerator: DocsGenerator = objects.newInstance(DocsGeneratorImpl::class.java)
 
   override fun docsGenerator(action: DocsGenerator.() -> Unit) {
-    docsGenerator = docsGenerator.apply(action)
+    docsGenerator.apply(action)
   }
 
-  override var documentationBuilder: DocumentationBuilder = DocumentationBuilderImpl()
+  override val documentationBuilder: DocumentationBuilder = objects.newInstance(
+    DocumentationBuilderImpl::class.java,
+  )
 
   override fun documentationBuilder(configure: DocumentationBuilder.() -> Unit) {
-    documentationBuilder = documentationBuilder.apply(configure)
+    documentationBuilder.apply(configure)
   }
 
-  override var workflowSynthesizer: WorkflowSynthesizer = WorkflowSynthesizerImpl()
+  override val workflowSynthesizer: WorkflowSynthesizer = objects.newInstance(
+    WorkflowSynthesizerImpl::class.java,
+  )
 
   override fun workflowSynthesizer(action: WorkflowSynthesizer.() -> Unit) {
-    workflowSynthesizer = workflowSynthesizer.apply(action)
+    workflowSynthesizer.apply(action)
   }
 
-  override var codebaseOptions: CodebaseOptions = CodebaseOptionsImpl()
+  override val codebaseOptions: CodebaseOptions = objects.newInstance(
+    CodebaseOptionsImpl::class.java,
+  )
 
   override fun codebaseOptions(configure: CodebaseOptions.() -> Unit) {
-    codebaseOptions = codebaseOptions.apply(configure)
+    codebaseOptions.apply(configure)
   }
 
   override fun configureProjects(

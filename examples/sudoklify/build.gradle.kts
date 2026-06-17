@@ -1,5 +1,4 @@
 import dev.teogor.winds.api.ArtifactIdFormat
-import dev.teogor.winds.api.SonatypeHost
 import dev.teogor.winds.api.License
 import dev.teogor.winds.api.NameFormat
 import dev.teogor.winds.api.Person
@@ -31,7 +30,7 @@ plugins {
 
   alias(libs.plugins.vanniktech.maven) apply true
 
-  id("dev.teogor.winds") version "1.0.3"
+  id("dev.teogor.winds") version "1.0.4-SNAPSHOT"
 
   // API Documentation and Validation Plugins
   alias(libs.plugins.jetbrains.dokka) apply true
@@ -49,28 +48,28 @@ tasks.withType<JavaCompile>().configureEach {
 
 winds {
   features {
-    mavenPublishing = true
-    docsGenerator = true
-    workflowSynthesizer = true
+    mavenPublishing.set(true)
+    docsGenerator.set(true)
+    workflowSynthesizer.set(true)
   }
 
   moduleMetadata {
-    name = "Sudoklify"
-    description = """
+    name.set("Sudoklify")
+    description.set("""
     |Sudoklify stands as a versatile and user-friendly Sudoku puzzle generation library crafted in Kotlin. Effortlessly generate, manipulate, and solve Sudoku puzzles with ease.
-    """.trimMargin()
-    yearCreated = 2024
-    websiteUrl = "https://source.teogor.dev/sudoklify/"
-    apiDocsUrl = "https://source.teogor.dev/sudoklify/html/"
+    """.trimMargin())
+    yearCreated.set(2024)
+    websiteUrl.set("https://source.teogor.dev/sudoklify/")
+    apiDocsUrl.set("https://source.teogor.dev/sudoklify/html/")
 
     artifactDescriptor {
-      group = "dev.teogor.sudoklify"
-      name = "sudoklify"
-      version = createVersion(1, 0, 0) {
+      group.set("dev.teogor.sudoklify")
+      name.set("sudoklify")
+      version.set(createVersion(1, 0, 0) {
         betaRelease(2)
-      }
-      nameFormat = NameFormat.FULL
-      artifactIdFormat = ArtifactIdFormat.MODULE_NAME_ONLY
+      })
+      nameFormat.set(NameFormat.FULL)
+      artifactIdFormat.set(ArtifactIdFormat.MODULE_NAME_ONLY)
     }
 
     // Providing SCM (Source Control Management)
@@ -102,14 +101,14 @@ winds {
   }
 
   publishing {
-    enabled = false
-    cascade = true
-    enablePublicationSigning = true
-    optInForVanniktechPlugin = true
+    enabled.set(false)
+    cascade.set(true)
+    enablePublicationSigning.set(true)
+    optInForVanniktechPlugin.set(true)
   }
 
   documentationBuilder {
-    htmlPath = "html/"
+    htmlPath.set("html/")
   }
 }
 

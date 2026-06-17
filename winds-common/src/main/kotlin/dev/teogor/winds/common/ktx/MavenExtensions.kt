@@ -26,19 +26,19 @@ infix fun ModuleMetadata.toPom(pom: MavenPom) {
 
 fun attachMavenData(pom: MavenPom, metadata: ModuleMetadata) {
   pom.apply {
-    name.set(metadata.artifactDescriptor?.completeName ?: metadata.name)
+    name.set(metadata.artifactDescriptor.orNull?.completeName ?: metadata.name.orNull)
     description.set(metadata.description)
-    inceptionYear.set(metadata.yearCreated.toString())
+    inceptionYear.set(metadata.yearCreated.map { it.toString() })
     url.set(metadata.websiteUrl)
 
-    metadata.persons toContributorsSpec pom
+    metadata.persons.get() toContributorsSpec pom
 
-    metadata.persons toDevelopersSpec pom
+    metadata.persons.get() toDevelopersSpec pom
 
     metadata toLicensesSpec pom
 
     scm { mavenPomScm ->
-      metadata.scm?.let { scm ->
+      metadata.scm.orNull?.let { scm ->
         mavenPomScm.url.set(scm.repositoryUrl)
         mavenPomScm.connection.set(scm.connection)
         mavenPomScm.developerConnection.set(scm.developerConnection)
@@ -46,7 +46,7 @@ fun attachMavenData(pom: MavenPom, metadata: ModuleMetadata) {
     }
 
     issueManagement { mavenPomIssueManagement ->
-      metadata.ticketSystem?.let { ticketSystem ->
+      metadata.ticketSystem.orNull?.let { ticketSystem ->
         ticketSystem.system.takeIf { it.isNotEmpty() }.let {
           mavenPomIssueManagement.system.set(it)
         }

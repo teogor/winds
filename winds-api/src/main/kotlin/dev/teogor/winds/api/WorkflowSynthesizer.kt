@@ -16,10 +16,13 @@
 
 package dev.teogor.winds.api
 
-interface WorkflowSynthesizer : TaskBuilder {
-  var name: String
-  var identifier: String
+import org.gradle.api.provider.ListProperty
+import org.gradle.api.provider.Property
 
-  val excludedModules: List<String>
+interface WorkflowSynthesizer : TaskBuilder {
+  val name: Property<String>
+  val identifier: Property<String>
+
+  val excludedModules: ListProperty<String>
   fun excludeModules(block: () -> List<String>)
 }

@@ -17,15 +17,17 @@
 package dev.teogor.winds.api
 
 import dev.teogor.winds.api.model.DependencyType
+import org.gradle.api.provider.ListProperty
+import org.gradle.api.provider.Property
 
 interface DocsGenerator : TaskBuilder {
-  var name: String
-  var identifier: String
-  var alertOnDependentModules: Boolean
-  var dependencyGatheringType: DependencyType
+  val name: Property<String>
+  val identifier: Property<String>
+  val alertOnDependentModules: Property<Boolean>
+  val dependencyGatheringType: Property<DependencyType>
 
-  val excludedModules: List<String>
+  val excludedModules: ListProperty<String>
   fun excludeModules(block: () -> List<String>)
 
-  var mkdocsEnabled: Boolean
+  val mkdocsEnabled: Property<Boolean>
 }

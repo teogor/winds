@@ -16,20 +16,21 @@
 
 package dev.teogor.winds.api.impl
 
-import dev.teogor.winds.api.Publishing
+import dev.teogor.winds.api.BomOptions
+import org.gradle.api.model.ObjectFactory
+import org.gradle.api.provider.ListProperty
+import javax.inject.Inject
 
-open class PublishingImpl : Publishing {
-  override var enabled: Boolean = true
-  override var enablePublicationSigning: Boolean = true
-  override var optInForVanniktechPlugin: Boolean = true
-  override var cascade: Boolean = true
-  override var automaticPublishing: Boolean = false
-
-  override fun copy(from: Publishing): Publishing {
-    enablePublicationSigning = from.enablePublicationSigning
-    optInForVanniktechPlugin = from.optInForVanniktechPlugin
-    cascade = from.cascade
-    automaticPublishing = from.automaticPublishing
-    return this
-  }
+open class BomOptionsImpl @Inject constructor(
+  objects: ObjectFactory,
+) : BomOptions {
+  override val excludedScopes: ListProperty<String> = objects.listProperty(
+    String::class.java,
+  ).convention(emptyList())
+  override val acceptedModules: ListProperty<String> = objects.listProperty(
+    String::class.java,
+  ).convention(emptyList())
+  override val acceptedPaths: ListProperty<String> = objects.listProperty(
+    String::class.java,
+  ).convention(emptyList())
 }

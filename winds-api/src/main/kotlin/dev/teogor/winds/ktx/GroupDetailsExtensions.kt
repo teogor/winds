@@ -20,7 +20,7 @@ import dev.teogor.winds.api.model.ModuleDescriptor
 
 fun Iterable<ModuleDescriptor>.groupByModule(): Map<String?, List<ModuleDescriptor>> {
   return groupBy {
-    it.dependencies.firstOrNull()?.name
+    it.dependencies.firstOrNull()?.name?.orNull
   }
 }
 

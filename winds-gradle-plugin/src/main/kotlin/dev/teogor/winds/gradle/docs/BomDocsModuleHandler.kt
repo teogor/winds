@@ -41,7 +41,7 @@ class BomDocsModuleHandler(
     val bundles = readDependencyBundlesFromFile(outputFile)
       .toMutableMap()
 
-    val key = "${artifact.module}:${artifact.version}"
+    val key = "${artifact.module}:${artifact.version.get()}"
     val existingBundle = bundles[key]
 
     val updatedBundle = when {
@@ -49,12 +49,12 @@ class BomDocsModuleHandler(
         DependencyBundle(
           date = currentTimestamp,
           module = artifact.module,
-          version = artifact.version,
+          version = artifact.version.get(),
           dependencies = dependencies.filter { it.publish }
             .map {
               ModuleDependency(
                 it.artifact.module,
-                it.artifact.version,
+                it.artifact.version.get(),
                 currentTimestamp,
               )
             },
@@ -67,7 +67,7 @@ class BomDocsModuleHandler(
           .map {
             ModuleDependency(
               it.artifact.module,
-              it.artifact.version,
+              it.artifact.version.get(),
               currentTimestamp,
             )
           }
@@ -95,7 +95,7 @@ class BomDocsModuleHandler(
           .map {
             ModuleDependency(
               it.artifact.module,
-              it.artifact.version,
+              it.artifact.version.get(),
               currentTimestamp,
             )
           }

@@ -16,8 +16,8 @@
 Defines Maven coordinates.
 ```kotlin
 artifactDescriptor {
-    group = "dev.teogor.winds"
-    name = "winds"
+    group.set("dev.teogor.winds")
+    name.set("winds")
 }
 ```
 

@@ -18,9 +18,9 @@ The `features` block allows you to toggle various functionalities of the Winds p
 ```kotlin
 winds {
     features {
-        mavenPublishing = true
-        spotless = true
-        dokka = true
+        mavenPublishing.set(true)
+        spotless.set(true)
+        dokka.set(true)
     }
 }
 ```

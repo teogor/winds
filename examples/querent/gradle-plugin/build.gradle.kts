@@ -1,16 +1,16 @@
 plugins {
   alias(libs.plugins.gradle.publish)
-  id("dev.teogor.winds")
+  id("dev.teogor.winds") version "1.0.4-SNAPSHOT"
 }
 
 winds {
   moduleMetadata {
     artifactDescriptor {
-      name = "Gradle Plugin"
+      name.set("Gradle Plugin")
     }
 
     documentationBuilder {
-      pluginIds += listOf(
+      pluginIds.addAll(
         "dev.teogor.querent",
       )
     }

@@ -43,7 +43,7 @@ class StandardDocsModuleHandler(
     val bundles = readDependencyBundlesFromFile(outputFile)
       .toMutableMap()
 
-    val key = "${artifact.module}:${artifact.version}"
+    val key = "${artifact.module}:${artifact.version.get()}"
     val existingBundle = bundles[key]
 
     val updatedBundle = when {
@@ -51,12 +51,12 @@ class StandardDocsModuleHandler(
         DependencyBundle(
           date = currentTimestamp,
           module = artifact.module,
-          version = artifact.version,
+          version = artifact.version.get(),
           dependencies = dependencies.filter { it.publish }
             .map {
               ModuleDependency(
                 it.artifact.module,
-                it.artifact.version,
+                it.artifact.version.get(),
                 currentTimestamp,
               )
             },
@@ -69,7 +69,7 @@ class StandardDocsModuleHandler(
           .map {
             ModuleDependency(
               it.artifact.module,
-              it.artifact.version,
+              it.artifact.version.get(),
               currentTimestamp,
             )
           }
@@ -97,7 +97,7 @@ class StandardDocsModuleHandler(
           .map {
             ModuleDependency(
               it.artifact.module,
-              it.artifact.version,
+              it.artifact.version.get(),
               currentTimestamp,
             )
           }
@@ -157,7 +157,7 @@ class StandardDocsModuleHandler(
       module = bundle,
       modules = dependencies,
       inputDir = outputDir.resolve(outputDirPath),
-      outputDir = buildDocsOutputDir.resolve(outputDirPath),
+      outputDir = buildOutputDir.resolve("docs/$outputDirPath"), // Corrected buildOutputDir use
       includeOwner = true,
       asModule = false,
       fileName = "index",

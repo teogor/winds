@@ -20,7 +20,7 @@ import dev.teogor.winds.api.Winds
 import org.gradle.api.Project
 
 fun Project.configureDokka(winds: Winds) {
-  if (winds.features.dokka) {
+  if (winds.features.dokka.getOrElse(false)) {
     plugins.apply("org.jetbrains.dokka")
   }
 }

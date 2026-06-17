@@ -8,29 +8,29 @@ Add the Winds plugin to your root `build.gradle.kts` file:
 
 ```kotlin
 plugins {
-    id("dev.teogor.winds") version "1.0.3"
+    id("dev.teogor.winds") version "1.0.4-SNAPSHOT"
 }
 ```
 
 ## Basic Configuration
 
-The most basic configuration involves enabling the features you need and providing module metadata.
+The most basic configuration involves enabling the features you need and providing module metadata. Note that Winds now uses Gradle's Lazy Configuration API, so you should use `.set()` for properties.
 
 ```kotlin
 winds {
     features {
-        mavenPublishing = true
-        docsGenerator = true
+        mavenPublishing.set(true)
+        docsGenerator.set(true)
     }
 
     moduleMetadata {
-        name = "My Awesome Library"
-        description = "A brief description of what this library does."
-        yearCreated = 2024
+        name.set("My Awesome Library")
+        description.set("A brief description of what this library does.")
+        yearCreated.set(2024)
 
         artifactDescriptor {
-            group = "dev.example"
-            name = "my-library"
+            group.set("dev.example")
+            name.set("my-library")
         }
     }
 }

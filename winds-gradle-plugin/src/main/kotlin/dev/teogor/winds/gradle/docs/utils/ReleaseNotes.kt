@@ -35,10 +35,14 @@ import dev.teogor.winds.gradle.utils.escapeAlias
 import dev.teogor.winds.ktx.getMajorMinorPatchVersion
 import dev.teogor.winds.ktx.getShowcaseCoordinates
 import dev.teogor.winds.ktx.validateAndFormatArtifactId
-import org.gradle.configurationcache.extensions.capitalized
 import org.yaml.snakeyaml.Yaml
 import java.io.File
 import java.text.SimpleDateFormat
+import java.util.Locale
+
+private fun String.capitalized(): String {
+  return replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.US) else it.toString() }
+}
 
 fun formatDependency(dependency: String, path: Path, newlineSeparator: String): String {
   return "[`$dependency`]($path)$newlineSeparator"
@@ -80,15 +84,15 @@ fun createReleaseNotes(
     }
   }
 
-  val newlineSeparator = bundle.documentationBuilder.markdownNewlineSeparator
+  val newlineSeparator = bundle.documentationBuilder.markdownNewlineSeparator.get()
 
   file.replaceContentsWithinRegion(
     region = RegionTag.ApiReference,
   ) {
-    if (bundle.documentationBuilder.createApiReference) {
+    if (bundle.documentationBuilder.createApiReference.getOrElse(true)) {
       appendLine("API Reference$newlineSeparator")
 
-      val htmlPath = Path(bundle.documentationBuilder.htmlPath).let {
+      val htmlPath = Path(bundle.documentationBuilder.htmlPath.getOrElse("")).let {
         if (it.isUrl()) {
           it
         } else {
@@ -97,7 +101,11 @@ fun createReleaseNotes(
       }
 
       val moduleArtifact = bundle.artifact
-      val formattedDependency = when (bundle.artifact.artifactIdFormat) {
+      val formattedDependency = when (
+        bundle.artifact.artifactIdFormat.getOrElse(
+          ArtifactIdFormat.FULL,
+        )
+      ) {
         ArtifactIdFormat.FULL -> {
           "${moduleArtifact.module}-*"
         }
@@ -106,7 +114,7 @@ fun createReleaseNotes(
         ArtifactIdFormat.MODULE_NAME_ONLY,
         ArtifactIdFormat.NAME_ONLY,
         -> {
-          "${moduleArtifact.group}:${moduleArtifact.name.validateAndFormatArtifactId()}-*"
+          "${moduleArtifact.group.get()}:${moduleArtifact.name.get().validateAndFormatArtifactId()}-*"
         }
       }.lowercase()
       appendLine(
@@ -135,14 +143,16 @@ fun createReleaseNotes(
   file.replaceContentsWithinRegion(
     region = RegionTag.ReleaseTable,
   ) {
-    if (bundle.documentationBuilder.generateReleaseTable) {
+    if (bundle.documentationBuilder.generateReleaseTable.getOrElse(true)) {
       val columnTitles = mutableListOf(
         "Latest Update" to MarkdownTable.Align.Left,
         "Stable Release" to MarkdownTable.Align.Center,
       )
-      val includeReleaseCandidate = bundle.documentationBuilder.includeReleaseCandidate
-      val includeBetaRelease = bundle.documentationBuilder.includeBetaRelease
-      val includeAlphaRelease = bundle.documentationBuilder.includeAlphaRelease
+      val includeReleaseCandidate = bundle.documentationBuilder.includeReleaseCandidate.getOrElse(
+        true,
+      )
+      val includeBetaRelease = bundle.documentationBuilder.includeBetaRelease.getOrElse(true)
+      val includeAlphaRelease = bundle.documentationBuilder.includeAlphaRelease.getOrElse(true)
 
       if (includeReleaseCandidate) {
         columnTitles.add("Release Candidate" to MarkdownTable.Align.Center)
@@ -359,16 +369,16 @@ fun createBomGroupNotes(
     }
   }
 
-  val newlineSeparator = bundle.documentationBuilder.markdownNewlineSeparator
+  val newlineSeparator = bundle.documentationBuilder.markdownNewlineSeparator.get()
 
   // API Reference
   file.replaceContentsWithinRegion(
     region = RegionTag.ApiReference,
   ) {
-    if (bundle.documentationBuilder.createApiReference) {
+    if (bundle.documentationBuilder.createApiReference.getOrElse(true)) {
       appendContent {
         appendLine("API Reference$newlineSeparator")
-        val htmlPath = Path(bundle.documentationBuilder.htmlPath).let {
+        val htmlPath = Path(bundle.documentationBuilder.htmlPath.getOrElse("")).let {
           if (it.isUrl()) {
             it
           } else {
@@ -377,7 +387,7 @@ fun createBomGroupNotes(
         }
 
         val moduleArtifact = bundle.artifact
-        val formattedDependency = "${moduleArtifact.group}:*".lowercase()
+        val formattedDependency = "${moduleArtifact.group.get()}:*".lowercase()
         appendLine(
           formatDependency(
             dependency = formattedDependency,
@@ -394,7 +404,7 @@ fun createBomGroupNotes(
   ) {
     appendLine(
       """
-      |**${bundle.name.capitalized()}** is formed by combining ${dependencies.size} Maven Group Ids within ${bundle.artifact.group}. Each Group encompasses a targeted subset of functionality, with individual sets of release notes.
+      |**${bundle.name.capitalized()}** is formed by combining ${dependencies.size} Maven Group Ids within ${bundle.artifact.group.get()}. Each Group encompasses a targeted subset of functionality, with individual sets of release notes.
       |
       |This table provides an overview of the groups and their corresponding links to individual sets of release notes.
       |
@@ -461,9 +471,11 @@ fun createBomGroupNotes(
         "Latest Update" to MarkdownTable.Align.Left,
         "Stable Release" to MarkdownTable.Align.Center,
       )
-      val includeReleaseCandidate = bundle.documentationBuilder.includeReleaseCandidate
-      val includeBetaRelease = bundle.documentationBuilder.includeBetaRelease
-      val includeAlphaRelease = bundle.documentationBuilder.includeAlphaRelease
+      val includeReleaseCandidate = bundle.documentationBuilder.includeReleaseCandidate.getOrElse(
+        true,
+      )
+      val includeBetaRelease = bundle.documentationBuilder.includeBetaRelease.getOrElse(true)
+      val includeAlphaRelease = bundle.documentationBuilder.includeAlphaRelease.getOrElse(true)
 
       if (includeReleaseCandidate) {
         columnTitles.add("Release Candidate" to MarkdownTable.Align.Center)
@@ -506,7 +518,7 @@ fun createBomGroupNotes(
               value = SimpleDateFormat("MMMM dd, yyyy").format(date * 1000),
             )
             addValueAt(
-              index = when (version.flag) {
+              index = when (version.get().flag) {
                 ReleaseStatus.Stable -> stableIndex
                 ReleaseStatus.Deprecated -> stableIndex
                 ReleaseStatus.ReleaseCandidate -> releaseCandidateIndex
@@ -514,7 +526,7 @@ fun createBomGroupNotes(
                 ReleaseStatus.Alpha -> alphaIndex
                 else -> stableIndex
               },
-              value = version.toString(),
+              value = version.get().toString(),
             )
             row.forEachIndexed { index, s ->
               if (s.isEmpty()) {

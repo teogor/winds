@@ -17,95 +17,24 @@
 package dev.teogor.winds.api
 
 import dev.teogor.winds.api.model.Version
-import dev.teogor.winds.ktx.validateAndFormatArtifactId
-import kotlinx.serialization.Serializable
-import java.util.Locale
+import org.gradle.api.provider.Property
 
-@Serializable
-data class ArtifactDescriptor(
-  var group: String,
-  var name: String,
-  var version: Version,
-  var artifactIdFormat: ArtifactIdFormat = ArtifactIdFormat.FULL,
-  var nameFormat: NameFormat = NameFormat.FULL,
-) {
-  private val _artifacts: MutableList<ArtifactDescriptor> = mutableListOf()
+interface ArtifactDescriptor {
+  val group: Property<String>
+  val name: Property<String>
+  val version: Property<Version>
+  val artifactIdFormat: Property<ArtifactIdFormat>
+  val nameFormat: Property<NameFormat>
+
   val artifacts: List<ArtifactDescriptor>
-    get() = (_artifacts.asReversed() + this).reversed()
 
-  fun addArtifact(vararg artifact: ArtifactDescriptor) {
-    _artifacts.addAll(artifact)
-  }
+  fun addArtifact(vararg artifact: ArtifactDescriptor)
 
   val artifactNames: List<String>
-    get() = (_artifacts.map { it.name }.asReversed() + name)
-
   val completeName: String
-    get() {
-      val names = artifacts.asReversed().map { it.name }
-
-      return when (nameFormat) {
-        NameFormat.FULL,
-        NameFormat.GROUP_MODULE_NAME,
-        NameFormat.MODULE_NAME_ONLY,
-        -> {
-          val elementsToUse: List<String> = when (nameFormat) {
-            NameFormat.FULL -> names
-            NameFormat.GROUP_MODULE_NAME -> names.takeLast(3)
-            NameFormat.MODULE_NAME_ONLY -> names.takeLast(2)
-            else -> error("Unexpected format: $nameFormat")
-          }
-
-          elementsToUse.distinct().joinToString(separator = " ").capitalizeWords()
-        }
-
-        NameFormat.NAME_ONLY -> {
-          names.lastOrNull()?.capitalizeWords() ?: "NO_NAME"
-        }
-      }
-    }
-
-  private fun String.capitalizeWords(): String {
-    return split(" ").joinToString(" ") {
-      it.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.US) else it.toString() }
-    }
-  }
-
   val artifactId: String
-    get() = buildArtifactId()
-
   val module: String
-    get() = "$group:$artifactId"
-
   val coordinates: String
-    get() = "$group:$artifactId:$version"
 
-  private fun buildArtifactId(
-    separator: String = "-",
-  ): String {
-    val safeArtifacts = artifactNames.map {
-      it.replace(" ", separator)
-        .replace(".", separator)
-    }.map { it.validateAndFormatArtifactId() }
-
-    return when (artifactIdFormat) {
-      ArtifactIdFormat.FULL,
-      ArtifactIdFormat.GROUP_MODULE_NAME,
-      ArtifactIdFormat.MODULE_NAME_ONLY,
-      -> {
-        val elementsToUse: List<String> = when (artifactIdFormat) {
-          ArtifactIdFormat.FULL -> safeArtifacts
-          ArtifactIdFormat.GROUP_MODULE_NAME -> safeArtifacts.takeLast(3)
-          ArtifactIdFormat.MODULE_NAME_ONLY -> safeArtifacts.takeLast(2)
-          else -> error("Unexpected format: $artifactIdFormat")
-        }
-
-        elementsToUse.distinct().joinToString(separator = separator)
-      }
-
-      ArtifactIdFormat.NAME_ONLY -> {
-        safeArtifacts.lastOrNull() ?: "NO_ARTIFACT"
-      }
-    }.lowercase()
-  }
+  fun copy(): ArtifactDescriptor
 }

@@ -16,18 +16,20 @@
 
 package dev.teogor.winds.api
 
-interface Publishing {
-  var enabled: Boolean
-  var cascade: Boolean
+import org.gradle.api.provider.Property
 
-  var enablePublicationSigning: Boolean
-  var optInForVanniktechPlugin: Boolean
+interface Publishing {
+  val enabled: Property<Boolean>
+  val cascade: Property<Boolean>
+
+  val enablePublicationSigning: Property<Boolean>
+  val optInForVanniktechPlugin: Property<Boolean>
 
   /**
    * Determines whether to automatically trigger publishing upon build
    * or require manual execution for release validation.
    */
-  var automaticPublishing: Boolean
+  val automaticPublishing: Property<Boolean>
 
   fun copy(from: Publishing): Publishing
 }

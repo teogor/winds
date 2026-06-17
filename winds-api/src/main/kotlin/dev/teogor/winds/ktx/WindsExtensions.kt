@@ -22,9 +22,7 @@ import dev.teogor.winds.api.DocumentationBuilder
 import dev.teogor.winds.api.Features
 import dev.teogor.winds.api.ModuleMetadata
 import dev.teogor.winds.api.Publishing
-import dev.teogor.winds.api.PublishingOptions
 import dev.teogor.winds.api.Winds
-import dev.teogor.winds.api.WindsFeatures
 import dev.teogor.winds.api.WorkflowSynthesizer
 import dev.teogor.winds.api.model.Version
 import org.gradle.api.Project
@@ -50,26 +48,23 @@ inline fun Project.processProjectsWithWinds(
 fun Project.inheritFromParentWinds(winds: Winds) {
   val parentWinds = parent?.extensions?.findByType<Winds>()
   if (parentWinds != null) {
-    winds.moduleMetadata = winds.moduleMetadata.copy(
+    winds.moduleMetadata.copy(
       fromObj = parentWinds.moduleMetadata,
     )
-    winds.publishing = winds.publishing.copy(
+    winds.publishing.copy(
       from = parentWinds.publishing,
     )
-    winds.publishingOptions = winds.publishingOptions.copy(
-      from = parentWinds.publishingOptions,
-    )
-    winds.documentationBuilder = winds.documentationBuilder.copy(
+    winds.documentationBuilder.copy(
       from = parentWinds.documentationBuilder,
     )
 
-    val dependencySpec = parentWinds.moduleMetadata.artifactDescriptor
-    winds.allSpecs.addAll(parentWinds.allSpecs.toList().asReversed())
+    val dependencySpec = parentWinds.moduleMetadata.artifactDescriptor.orNull
+    winds.allSpecs.addAll(parentWinds.allSpecs.get().asReversed())
     if (dependencySpec != null) {
-      winds.allSpecs.add(0, dependencySpec)
+      winds.allSpecs.add(dependencySpec)
     }
     winds.moduleMetadata.artifactDescriptor {
-      addArtifact(*winds.allSpecs.toTypedArray())
+      addArtifact(*winds.allSpecs.get().toTypedArray())
     }
   }
 }
@@ -77,11 +72,9 @@ fun Project.inheritFromParentWinds(winds: Winds) {
 inline operator fun <reified T> Winds.getValue(thisRef: Nothing?, property: KProperty<*>): T {
   return when (T::class) {
     Features::class -> features as T
-    WindsFeatures::class -> windsFeatures as T
     DocumentationBuilder::class -> documentationBuilder as T
     ModuleMetadata::class -> moduleMetadata as T
     Publishing::class -> publishing as T
-    PublishingOptions::class -> publishingOptions as T
     DocsGenerator::class -> docsGenerator as T
     WorkflowSynthesizer::class -> workflowSynthesizer as T
     CodebaseOptions::class -> codebaseOptions as T
@@ -92,5 +85,5 @@ inline operator fun <reified T> Winds.getValue(thisRef: Nothing?, property: KPro
 fun ModuleMetadata.copyVersion(
   block: Version.VersionBuilder.() -> Unit = {},
 ): Version {
-  return artifactDescriptor?.version!!.toBuilder().apply(block).build()
+  return artifactDescriptor.orNull?.version?.orNull!!.toBuilder().apply(block).build()
 }

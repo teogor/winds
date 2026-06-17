@@ -32,18 +32,17 @@ fun Project.configureMavenPublish(winds: Winds) {
   // Apply publish plugins only for Android modules due to Maven plugin requirements
   if (hasAndroidLibraryPlugin()) {
     val publishing: Publishing by winds
-    val metadata: ModuleMetadata by winds
     if (hasKotlinDslPlugin()) {
       plugins.apply("java-library")
       plugins.apply("com.vanniktech.maven.publish")
     } else if (hasPublishPlugin()) {
       plugins.apply("com.vanniktech.maven.publish")
     } else {
-      publishing.enabled = false
+      publishing.enabled.set(false)
     }
   } else if (hasKotlinMultiplatformPlugin()) {
     val publishing: Publishing by winds
-    if (publishing.enabled) {
+    if (publishing.enabled.getOrElse(false)) {
       plugins.apply("com.vanniktech.maven.publish")
     }
   }
@@ -53,15 +52,15 @@ fun Project.configureMavenPublish(winds: Winds) {
     val metadata: ModuleMetadata by winds
 
     // Handle BoM and artifact publishing separately
-    if (metadata.isBom) {
-      configureAndApplyBomPlugins(publishing, metadata.bomOptions)
-    } else if (publishing.enabled) {
+    if (metadata.isBom.getOrElse(false)) {
+      configureAndApplyBomPlugins(publishing, metadata.bomOptions.orNull)
+    } else if (publishing.enabled.getOrElse(false)) {
       configureAndApplyPublicationPlugins(publishing)
     }
 
     // Create custom publish task for child projects not directly publishing
     // TODO better handling for path is ':'
-    if (path != ":" && !publishing.enabled) {
+    if (path != ":" && !publishing.enabled.getOrElse(false)) {
       // todo enable task creation. handling based on actual publish value
       //  createAndConfigureSubprojectPublishTask(metadata)
     }
@@ -86,13 +85,13 @@ private fun Project.configureAndApplyPublicationPlugins(publishing: Publishing) 
   } else if (hasPublishPlugin()) {
     plugins.apply("com.vanniktech.maven.publish")
   } else {
-    publishing.enabled = false
+    publishing.enabled.set(false)
   }
 }
 
 private fun Project.createAndConfigureSubprojectPublishTask(metadata: ModuleMetadata) {
-  val isBomModule = metadata.isBom
-  val artifactIdPrefix = metadata.artifactDescriptor?.artifactId
+  val isBomModule = metadata.isBom.getOrElse(false)
+  val artifactIdPrefix = metadata.artifactDescriptor.orNull?.artifactId
 
   val taskName = "publish${artifactIdPrefix}Libraries"
   project.tasks.create(taskName) {

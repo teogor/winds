@@ -20,7 +20,7 @@ import dev.teogor.winds.api.Winds
 import org.gradle.api.Project
 
 fun Project.configureSpotless(winds: Winds) {
-  if (winds.features.spotless) {
+  if (winds.features.spotless.getOrElse(false)) {
     plugins.apply("com.diffplug.spotless")
   }
 }

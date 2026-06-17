@@ -1,166 +1,3 @@
-public final class dev/teogor/winds/api/impl/CodebaseOptionsImpl : dev/teogor/winds/api/CodebaseOptions {
-	public fun <init> ()V
-	public fun binaryCompatibility (Lkotlin/jvm/functions/Function1;)V
-	public fun dokka (Lkotlin/jvm/functions/Function1;)V
-	public fun getBinaryCompatibility ()Ldev/teogor/winds/api/BinaryCompatibility;
-	public fun getDokka ()Ldev/teogor/winds/api/DokkaOptions;
-	public fun getSpotless ()Ldev/teogor/winds/api/SpotlessOptions;
-	public fun setBinaryCompatibility (Ldev/teogor/winds/api/BinaryCompatibility;)V
-	public fun setDokka (Ldev/teogor/winds/api/DokkaOptions;)V
-	public fun setSpotless (Ldev/teogor/winds/api/SpotlessOptions;)V
-	public fun spotless (Lkotlin/jvm/functions/Function1;)V
-}
-
-public final class dev/teogor/winds/api/impl/DocsGeneratorImpl : dev/teogor/winds/api/DocsGenerator {
-	public fun <init> ()V
-	public fun excludeModules (Lkotlin/jvm/functions/Function0;)V
-	public fun getAlertOnDependentModules ()Z
-	public fun getDependencyGatheringType ()Ldev/teogor/winds/api/model/DependencyType;
-	public fun getExcludedModules ()Ljava/util/List;
-	public fun getIdentifier ()Ljava/lang/String;
-	public fun getMkdocsEnabled ()Z
-	public fun getName ()Ljava/lang/String;
-	public fun getTask ()Lorg/gradle/api/DefaultTask;
-	public fun setAlertOnDependentModules (Z)V
-	public fun setDependencyGatheringType (Ldev/teogor/winds/api/model/DependencyType;)V
-	public fun setExcludedModules (Ljava/util/List;)V
-	public fun setIdentifier (Ljava/lang/String;)V
-	public fun setMkdocsEnabled (Z)V
-	public fun setName (Ljava/lang/String;)V
-	public fun setTask (Lorg/gradle/api/DefaultTask;)V
-}
-
-public final class dev/teogor/winds/api/impl/DocumentationBuilderImpl : dev/teogor/winds/api/DocumentationBuilder {
-	public fun <init> ()V
-	public fun copy (Ldev/teogor/winds/api/DocumentationBuilder;)Ldev/teogor/winds/api/DocumentationBuilder;
-	public fun getAlertOnDependentModules ()Z
-	public fun getCreateApiReference ()Z
-	public fun getDependencyGatheringType ()Ldev/teogor/winds/api/model/DependencyType;
-	public fun getGenerateReleaseTable ()Z
-	public fun getHtmlPath ()Ljava/lang/String;
-	public fun getIncludeAlphaRelease ()Z
-	public fun getIncludeBetaRelease ()Z
-	public fun getIncludeReleaseCandidate ()Z
-	public fun getMarkdownNewlineSeparator ()Ljava/lang/String;
-	public fun getMkdocsEnabled ()Z
-	public fun getPluginIds ()Ljava/util/List;
-	public fun isCompiler ()Z
-	public fun isOptional ()Z
-	public fun setAlertOnDependentModules (Z)V
-	public fun setCompiler (Z)V
-	public fun setCreateApiReference (Z)V
-	public fun setDependencyGatheringType (Ldev/teogor/winds/api/model/DependencyType;)V
-	public fun setGenerateReleaseTable (Z)V
-	public fun setHtmlPath (Ljava/lang/String;)V
-	public fun setIncludeAlphaRelease (Z)V
-	public fun setIncludeBetaRelease (Z)V
-	public fun setIncludeReleaseCandidate (Z)V
-	public fun setMarkdownNewlineSeparator (Ljava/lang/String;)V
-	public fun setMkdocsEnabled (Z)V
-	public fun setOptional (Z)V
-}
-
-public final class dev/teogor/winds/api/impl/FeaturesImpl : dev/teogor/winds/api/Features {
-	public fun <init> ()V
-	public fun <init> (ZZZZZZ)V
-	public synthetic fun <init> (ZZZZZZILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()Z
-	public final fun component2 ()Z
-	public final fun component3 ()Z
-	public final fun component4 ()Z
-	public final fun component5 ()Z
-	public final fun component6 ()Z
-	public final fun copy (ZZZZZZ)Ldev/teogor/winds/api/impl/FeaturesImpl;
-	public static synthetic fun copy$default (Ldev/teogor/winds/api/impl/FeaturesImpl;ZZZZZZILjava/lang/Object;)Ldev/teogor/winds/api/impl/FeaturesImpl;
-	public fun equals (Ljava/lang/Object;)Z
-	public fun getApiValidator ()Z
-	public fun getDocsGenerator ()Z
-	public fun getDokka ()Z
-	public fun getMavenPublishing ()Z
-	public fun getSpotless ()Z
-	public fun getWorkflowSynthesizer ()Z
-	public fun hashCode ()I
-	public fun setApiValidator (Z)V
-	public fun setDocsGenerator (Z)V
-	public fun setDokka (Z)V
-	public fun setMavenPublishing (Z)V
-	public fun setSpotless (Z)V
-	public fun setWorkflowSynthesizer (Z)V
-	public fun toString ()Ljava/lang/String;
-}
-
-public class dev/teogor/winds/api/impl/ModuleMetadataImpl : dev/teogor/winds/api/ModuleMetadata {
-	public fun <init> ()V
-	public fun artifactDescriptor (Lkotlin/jvm/functions/Function1;)V
-	public fun bomOptions (Lkotlin/jvm/functions/Function1;)V
-	public fun copy (Ldev/teogor/winds/api/ModuleMetadata;)Ldev/teogor/winds/api/ModuleMetadata;
-	public fun getApiDocsUrl ()Ljava/lang/String;
-	public fun getArtifactDescriptor ()Ldev/teogor/winds/api/ArtifactDescriptor;
-	public fun getBomOptions ()Ldev/teogor/winds/api/BomOptions;
-	public fun getDescription ()Ljava/lang/String;
-	public fun getLicenses ()Ljava/util/List;
-	public fun getName ()Ljava/lang/String;
-	public fun getPersons ()Ljava/util/List;
-	public fun getScm ()Ldev/teogor/winds/api/Scm;
-	public fun getTicketSystem ()Ldev/teogor/winds/api/TicketSystem;
-	public fun getWebsiteUrl ()Ljava/lang/String;
-	public fun getYearCreated ()I
-	public fun isBom ()Z
-	public fun licensedUnder (Ldev/teogor/winds/api/ModuleMetadata;Ldev/teogor/winds/api/License;)V
-	public fun licenses (Lkotlin/jvm/functions/Function1;)V
-	public fun licenses ([Ldev/teogor/winds/api/License;)V
-	public fun person (Lkotlin/reflect/KClass;Lkotlin/jvm/functions/Function1;)V
-	public fun plusAssign (Ldev/teogor/winds/api/License;)V
-	public fun plusAssign (Ljava/util/List;Ldev/teogor/winds/api/License;)V
-	public fun register (Ljava/util/List;Ldev/teogor/winds/api/License;)V
-	public fun scm (Lkotlin/reflect/KClass;Lkotlin/jvm/functions/Function1;)V
-	public fun setApiDocsUrl (Ljava/lang/String;)V
-	public fun setBom (Z)V
-	public fun setDescription (Ljava/lang/String;)V
-	public fun setName (Ljava/lang/String;)V
-	public fun setWebsiteUrl (Ljava/lang/String;)V
-	public fun setYearCreated (I)V
-	public fun ticketSystem (Lkotlin/reflect/KClass;Lkotlin/jvm/functions/Function1;)V
-}
-
-public class dev/teogor/winds/api/impl/PublishingImpl : dev/teogor/winds/api/Publishing {
-	public fun <init> ()V
-	public fun copy (Ldev/teogor/winds/api/Publishing;)Ldev/teogor/winds/api/Publishing;
-	public fun getAutomaticPublishing ()Z
-	public fun getCascade ()Z
-	public fun getEnablePublicationSigning ()Z
-	public fun getEnabled ()Z
-	public fun getOptInForVanniktechPlugin ()Z
-	public fun setAutomaticPublishing (Z)V
-	public fun setCascade (Z)V
-	public fun setEnablePublicationSigning (Z)V
-	public fun setEnabled (Z)V
-	public fun setOptInForVanniktechPlugin (Z)V
-}
-
-public class dev/teogor/winds/api/impl/PublishingOptionsImpl : dev/teogor/winds/api/PublishingOptions {
-	public fun <init> ()V
-	public fun copy (Ldev/teogor/winds/api/PublishingOptions;)Ldev/teogor/winds/api/PublishingOptions;
-	public fun getCascadePublish ()Z
-	public fun getEnablePublicationSigning ()Z
-	public fun getOptInForVanniktechPlugin ()Z
-	public fun getPublish ()Z
-	public fun setCascadePublish (Z)V
-	public fun setEnablePublicationSigning (Z)V
-	public fun setOptInForVanniktechPlugin (Z)V
-	public fun setPublish (Z)V
-}
-
-public class dev/teogor/winds/api/impl/WindsFeaturesImpl : dev/teogor/winds/api/WindsFeatures {
-	public fun <init> ()V
-	public fun getDocsGenerator ()Z
-	public fun getMavenPublishing ()Z
-	public fun getWorkflowSynthesizer ()Z
-	public fun setDocsGenerator (Z)V
-	public fun setMavenPublishing (Z)V
-	public fun setWorkflowSynthesizer (Z)V
-}
-
 public abstract class dev/teogor/winds/api/impl/WindsImpl : dev/teogor/winds/api/Winds {
 	public fun <init> (Lorg/gradle/api/Project;)V
 	public fun codebaseOptions (Lkotlin/jvm/functions/Function1;)V
@@ -168,48 +5,22 @@ public abstract class dev/teogor/winds/api/impl/WindsImpl : dev/teogor/winds/api
 	public fun docsGenerator (Lkotlin/jvm/functions/Function1;)V
 	public fun documentationBuilder (Lkotlin/jvm/functions/Function1;)V
 	public fun features (Lkotlin/jvm/functions/Function1;)V
-	public fun getAllSpecs ()Ljava/util/List;
+	public fun getAllSpecs ()Lorg/gradle/api/provider/ListProperty;
 	public fun getCodebaseOptions ()Ldev/teogor/winds/api/CodebaseOptions;
 	public fun getDocsGenerator ()Ldev/teogor/winds/api/DocsGenerator;
 	public fun getDocumentationBuilder ()Ldev/teogor/winds/api/DocumentationBuilder;
 	public fun getFeatures ()Ldev/teogor/winds/api/Features;
 	public fun getModuleMetadata ()Ldev/teogor/winds/api/ModuleMetadata;
 	public fun getPublishing ()Ldev/teogor/winds/api/Publishing;
-	public fun getPublishingOptions ()Ldev/teogor/winds/api/PublishingOptions;
-	public fun getWindsFeatures ()Ldev/teogor/winds/api/WindsFeatures;
 	public fun getWorkflowSynthesizer ()Ldev/teogor/winds/api/WorkflowSynthesizer;
 	public fun moduleMetadata (Lkotlin/jvm/functions/Function1;)V
 	public fun publishing (Lkotlin/jvm/functions/Function1;)V
-	public fun publishingOptions (Lkotlin/jvm/functions/Function1;)V
-	public fun setCodebaseOptions (Ldev/teogor/winds/api/CodebaseOptions;)V
-	public fun setDocsGenerator (Ldev/teogor/winds/api/DocsGenerator;)V
-	public fun setDocumentationBuilder (Ldev/teogor/winds/api/DocumentationBuilder;)V
-	public fun setFeatures (Ldev/teogor/winds/api/Features;)V
-	public fun setModuleMetadata (Ldev/teogor/winds/api/ModuleMetadata;)V
-	public fun setPublishing (Ldev/teogor/winds/api/Publishing;)V
-	public fun setPublishingOptions (Ldev/teogor/winds/api/PublishingOptions;)V
-	public fun setWindsFeatures (Ldev/teogor/winds/api/WindsFeatures;)V
-	public fun setWorkflowSynthesizer (Ldev/teogor/winds/api/WorkflowSynthesizer;)V
-	public fun windsFeatures (Lkotlin/jvm/functions/Function1;)V
 	public fun workflowSynthesizer (Lkotlin/jvm/functions/Function1;)V
 }
 
 public final class dev/teogor/winds/api/impl/WindsImpl$inlined$sam$i$org_gradle_api_Action$0 : org/gradle/api/Action {
 	public fun <init> (Lkotlin/jvm/functions/Function1;)V
 	public final synthetic fun execute (Ljava/lang/Object;)V
-}
-
-public final class dev/teogor/winds/api/impl/WorkflowSynthesizerImpl : dev/teogor/winds/api/WorkflowSynthesizer {
-	public fun <init> ()V
-	public fun excludeModules (Lkotlin/jvm/functions/Function0;)V
-	public fun getExcludedModules ()Ljava/util/List;
-	public fun getIdentifier ()Ljava/lang/String;
-	public fun getName ()Ljava/lang/String;
-	public fun getTask ()Lorg/gradle/api/DefaultTask;
-	public fun setExcludedModules (Ljava/util/List;)V
-	public fun setIdentifier (Ljava/lang/String;)V
-	public fun setName (Ljava/lang/String;)V
-	public fun setTask (Lorg/gradle/api/DefaultTask;)V
 }
 
 public final class dev/teogor/winds/codegen/ImplementationBomMarkdownKt {
@@ -268,6 +79,7 @@ public final class dev/teogor/winds/gradle/codegen/IndexModuleMarkdownKt {
 }
 
 public final class dev/teogor/winds/gradle/codegen/ModuleCodeGenWriter {
+	public static final field Companion Ldev/teogor/winds/gradle/codegen/ModuleCodeGenWriter$Companion;
 	public fun <init> (Ldev/teogor/winds/api/model/ModuleDescriptor;Ljava/util/List;)V
 	public final fun generateDependencyDocumentation (Ldev/teogor/winds/api/Scm;ZZZZLjava/lang/String;)Ljava/lang/String;
 	public static synthetic fun generateDependencyDocumentation$default (Ldev/teogor/winds/gradle/codegen/ModuleCodeGenWriter;Ldev/teogor/winds/api/Scm;ZZZZLjava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
@@ -280,6 +92,9 @@ public final class dev/teogor/winds/gradle/codegen/ModuleCodeGenWriter {
 	public static synthetic fun getPluginIds$default (Ldev/teogor/winds/gradle/codegen/ModuleCodeGenWriter;ZZILjava/lang/Object;)Ljava/lang/String;
 	public final fun getPluginIdsToml (ZZLdev/teogor/winds/api/Scm;Z)Ljava/lang/String;
 	public static synthetic fun getPluginIdsToml$default (Ldev/teogor/winds/gradle/codegen/ModuleCodeGenWriter;ZZLdev/teogor/winds/api/Scm;ZILjava/lang/Object;)Ljava/lang/String;
+}
+
+public final class dev/teogor/winds/gradle/codegen/ModuleCodeGenWriter$Companion {
 }
 
 public final class dev/teogor/winds/gradle/codegen/RegionTag : java/lang/Enum {

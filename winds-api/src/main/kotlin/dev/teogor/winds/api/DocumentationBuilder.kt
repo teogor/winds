@@ -17,35 +17,37 @@
 package dev.teogor.winds.api
 
 import dev.teogor.winds.api.model.DependencyType
+import org.gradle.api.provider.ListProperty
+import org.gradle.api.provider.Property
 
 interface DocumentationBuilder {
 
   // Output Configuration
-  var htmlPath: String
-  var mkdocsEnabled: Boolean
+  val htmlPath: Property<String>
+  val mkdocsEnabled: Property<Boolean>
 
   // Content Generation
-  var createApiReference: Boolean
-  var generateReleaseTable: Boolean
+  val createApiReference: Property<Boolean>
+  val generateReleaseTable: Property<Boolean>
 
   // Release Filtering
-  var includeReleaseCandidate: Boolean
-  var includeBetaRelease: Boolean
-  var includeAlphaRelease: Boolean
+  val includeReleaseCandidate: Property<Boolean>
+  val includeBetaRelease: Property<Boolean>
+  val includeAlphaRelease: Property<Boolean>
 
   // Dependency Management
-  var alertOnDependentModules: Boolean
-  var dependencyGatheringType: DependencyType
+  val alertOnDependentModules: Property<Boolean>
+  val dependencyGatheringType: Property<DependencyType>
 
   // Project Properties
-  var isCompiler: Boolean
-  var isOptional: Boolean
+  val isCompiler: Property<Boolean>
+  val isOptional: Property<Boolean>
 
   // Plugin Configuration (Optional)
-  val pluginIds: MutableList<String>
+  val pluginIds: ListProperty<String>
 
   // Newline Separator (Optional)
-  var markdownNewlineSeparator: String
+  val markdownNewlineSeparator: Property<String>
 
   fun copy(from: DocumentationBuilder): DocumentationBuilder
 }

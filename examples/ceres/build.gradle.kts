@@ -1,4 +1,3 @@
-import dev.teogor.winds.api.SonatypeHost
 import dev.teogor.winds.api.ArtifactIdFormat
 import dev.teogor.winds.api.License
 import dev.teogor.winds.api.Person
@@ -29,7 +28,7 @@ plugins {
 
   alias(libs.plugins.vanniktech.maven) apply true
 
-  id("dev.teogor.winds") version "1.0.3"
+  id("dev.teogor.winds") version "1.0.4-SNAPSHOT"
 
   // API Documentation and Validation Plugins
   alias(libs.plugins.jetbrains.dokka) apply true
@@ -47,30 +46,24 @@ tasks.withType<JavaCompile>().configureEach {
 
 winds {
   features {
-    mavenPublishing = true
-    docsGenerator = true
-    workflowSynthesizer = true
-  }
-
-  windsFeatures {
-    mavenPublishing = true
-    docsGenerator = true
-    workflowSynthesizer = true
+    mavenPublishing.set(true)
+    docsGenerator.set(true)
+    workflowSynthesizer.set(true)
   }
 
   moduleMetadata {
-    name = "Ceres"
-    description = """
+    name.set("Ceres")
+    description.set("""
     |Querent lays the groundwork for your project's resource management, fostering consistency and efficiency across your development workflow.
-    """.trimMargin()
-    yearCreated = 2024
-    websiteUrl = "https://source.teogor.dev/ceres/"
-    apiDocsUrl = "https://source.teogor.dev/ceres/html/"
+    """.trimMargin())
+    yearCreated.set(2024)
+    websiteUrl.set("https://source.teogor.dev/ceres/")
+    apiDocsUrl.set("https://source.teogor.dev/ceres/html/")
 
     artifactDescriptor {
-      group = "dev.teogor.ceres"
-      name = "ceres"
-      artifactIdFormat = ArtifactIdFormat.MODULE_NAME_ONLY
+      group.set("dev.teogor.ceres")
+      name.set("ceres")
+      artifactIdFormat.set(ArtifactIdFormat.MODULE_NAME_ONLY)
     }
 
     // Providing SCM (Source Control Management)
@@ -102,24 +95,16 @@ winds {
   }
 
   publishing {
-    enabled = false
-    cascade = true
+    enabled.set(false)
+    cascade.set(true)
 
-    enablePublicationSigning = true
-    optInForVanniktechPlugin = true
-  }
-
-  publishingOptions {
-    publish = false
-    cascadePublish = true
-
-    enablePublicationSigning = true
-    optInForVanniktechPlugin = true
+    enablePublicationSigning.set(true)
+    optInForVanniktechPlugin.set(true)
   }
 
   documentationBuilder {
-    htmlPath = "html/"
-    markdownNewlineSeparator = "  "
+    htmlPath.set("html/")
+    markdownNewlineSeparator.set("  ")
   }
 }
 

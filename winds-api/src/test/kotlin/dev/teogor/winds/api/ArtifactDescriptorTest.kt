@@ -16,57 +16,81 @@
 
 package dev.teogor.winds.api
 
+import dev.teogor.winds.api.impl.ArtifactDescriptorImpl
 import dev.teogor.winds.api.model.Version
+import org.gradle.api.model.ObjectFactory
+import org.gradle.testfixtures.ProjectBuilder
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 class ArtifactDescriptorTest {
 
+  private lateinit var objects: ObjectFactory
+
+  @BeforeEach
+  fun setup() {
+    val project = ProjectBuilder.builder().build()
+    objects = project.objects
+  }
+
+  private fun createArtifactDescriptor(
+    group: String,
+    name: String,
+    version: Version,
+  ): ArtifactDescriptor {
+    return objects.newInstance(ArtifactDescriptorImpl::class.java).apply {
+      this.group.set(group)
+      this.name.set(name)
+      this.version.set(version)
+    }
+  }
+
   @Test
   fun `should correctly initialize properties`() {
-    val spec = ArtifactDescriptor(
+    val spec = createArtifactDescriptor(
       group = "com.example",
       name = "lib",
       version = Version.from("1.0.0")!!,
     )
 
-    assertEquals("com.example", spec.group)
-    assertEquals("lib", spec.name)
+    assertEquals("com.example", spec.group.get())
+    assertEquals("lib", spec.name.get())
     assertEquals("lib", spec.artifactId)
-    assertEquals(Version.from("1.0.0"), spec.version)
+    assertEquals(Version.from("1.0.0"), spec.version.get())
   }
 
   @Test
   fun `should create nested dependencies`() {
-    val winds = ArtifactDescriptor(
+    val winds = createArtifactDescriptor(
       group = "dev.teogor.winds",
       name = "winds",
       version = Version.from("1.0.0")!!,
     )
-    val core = ArtifactDescriptor(
+    val core = createArtifactDescriptor(
       group = "dev.teogor.winds",
       name = "core",
       version = Version.from("1.2.3")!!,
     )
-    val data = ArtifactDescriptor(
+    val data = createArtifactDescriptor(
       group = "dev.teogor.winds",
       name = "data",
       version = Version.from("4.5.6")!!,
     )
-    data.nameFormat = NameFormat.FULL
-    data.artifactIdFormat = ArtifactIdFormat.FULL
+    data.nameFormat.set(NameFormat.FULL)
+    data.artifactIdFormat.set(ArtifactIdFormat.FULL)
     data.addArtifact(core, winds)
 
-    assertEquals("dev.teogor.winds", data.group)
-    assertEquals("data", data.name)
+    assertEquals("dev.teogor.winds", data.group.get())
+    assertEquals("data", data.name.get())
     assertEquals("winds-core-data", data.artifactId)
-    assertEquals(Version.from("4.5.6"), data.version)
+    assertEquals(Version.from("4.5.6"), data.version.get())
     assertEquals(listOf(data, core, winds), data.artifacts)
   }
 
   @Test
   fun `should create nested dependencies and test artifactId formats`() {
-    val data = ArtifactDescriptor(
+    val data = createArtifactDescriptor(
       group = "dev.teogor.winds",
       name = "data",
       version = Version.from("4.5.6")!!,
@@ -74,102 +98,106 @@ class ArtifactDescriptorTest {
 
     // Test each ArtifactIdFormat
     val specs = ArtifactIdFormat.values().map { format ->
-      val dataSpecs = data.copy()
-      val root = ArtifactDescriptor(
+      val dataSpecs = createArtifactDescriptor(
+        data.group.get(),
+        data.name.get(),
+        data.version.get(),
+      )
+      val root = createArtifactDescriptor(
         group = "dev.teogor.winds",
         name = "winds",
         version = Version.from("1.0.0")!!,
       )
-      val core = ArtifactDescriptor(
+      val core = createArtifactDescriptor(
         "dev.teogor.winds",
         name = "core",
         version = Version.from("1.2.3")!!,
       )
-      dataSpecs.artifactIdFormat = format
+      dataSpecs.artifactIdFormat.set(format)
       dataSpecs.addArtifact(core, root)
       dataSpecs
     }
 
     for (spec in specs) {
-      val expectedArtifactId = when (spec.artifactIdFormat) {
+      val expectedArtifactId = when (spec.artifactIdFormat.get()) {
         ArtifactIdFormat.FULL -> "winds-core-data"
         ArtifactIdFormat.GROUP_MODULE_NAME -> "winds-core-data"
         ArtifactIdFormat.MODULE_NAME_ONLY -> "core-data"
         ArtifactIdFormat.NAME_ONLY -> "data"
       }
 
-      assertEquals("dev.teogor.winds", spec.group)
-      assertEquals("data", spec.name)
+      assertEquals("dev.teogor.winds", spec.group.get())
+      assertEquals("data", spec.name.get())
       assertEquals(
         expectedArtifactId,
         spec.artifactId,
-        "Failed for ArtifactIdFormat: ${spec.artifactIdFormat}",
+        "Failed for ArtifactIdFormat: ${spec.artifactIdFormat.get()}",
       )
-      assertEquals(Version.from("4.5.6"), spec.version)
+      assertEquals(Version.from("4.5.6"), spec.version.get())
     }
   }
 
   @Test
   fun `should generate expected artifactId based on format settings`() {
-    val winds = ArtifactDescriptor(
+    val winds = createArtifactDescriptor(
       group = "dev.teogor.winds",
       name = "winds",
       version = Version.from("1.0.0")!!,
     )
-    val core = ArtifactDescriptor(
+    val core = createArtifactDescriptor(
       group = "dev.teogor.winds",
       name = "core",
       version = Version.from("1.2.3")!!,
     )
-    val data = ArtifactDescriptor(
+    val data = createArtifactDescriptor(
       group = "dev.teogor.winds",
       name = "data",
       version = Version.from("4.5.6")!!,
     )
     data.addArtifact(core, winds)
 
-    data.artifactIdFormat = ArtifactIdFormat.FULL
+    data.artifactIdFormat.set(ArtifactIdFormat.FULL)
     assertEquals("winds-core-data", data.artifactId)
 
-    data.artifactIdFormat = ArtifactIdFormat.GROUP_MODULE_NAME
+    data.artifactIdFormat.set(ArtifactIdFormat.GROUP_MODULE_NAME)
     assertEquals("winds-core-data", data.artifactId)
 
-    data.artifactIdFormat = ArtifactIdFormat.MODULE_NAME_ONLY
+    data.artifactIdFormat.set(ArtifactIdFormat.MODULE_NAME_ONLY)
     assertEquals("core-data", data.artifactId)
 
-    data.artifactIdFormat = ArtifactIdFormat.NAME_ONLY
+    data.artifactIdFormat.set(ArtifactIdFormat.NAME_ONLY)
     assertEquals("data", data.artifactId)
   }
 
   @Test
   fun `should generate expected completeName based on format settings`() {
-    val winds = ArtifactDescriptor(
+    val winds = createArtifactDescriptor(
       group = "dev.teogor.winds",
       name = "winds",
       version = Version.from("1.0.0")!!,
     )
-    val core = ArtifactDescriptor(
+    val core = createArtifactDescriptor(
       group = "dev.teogor.winds",
       name = "core",
       version = Version.from("1.2.3")!!,
     )
-    val data = ArtifactDescriptor(
+    val data = createArtifactDescriptor(
       group = "dev.teogor.winds",
       name = "data",
       version = Version.from("4.5.6")!!,
     )
     data.addArtifact(core, winds)
 
-    data.nameFormat = NameFormat.FULL
+    data.nameFormat.set(NameFormat.FULL)
     assertEquals("Winds Core Data", data.completeName)
 
-    data.nameFormat = NameFormat.GROUP_MODULE_NAME
+    data.nameFormat.set(NameFormat.GROUP_MODULE_NAME)
     assertEquals("Winds Core Data", data.completeName)
 
-    data.nameFormat = NameFormat.MODULE_NAME_ONLY
+    data.nameFormat.set(NameFormat.MODULE_NAME_ONLY)
     assertEquals("Core Data", data.completeName)
 
-    data.nameFormat = NameFormat.NAME_ONLY
+    data.nameFormat.set(NameFormat.NAME_ONLY)
     assertEquals("Data", data.completeName)
   }
 }

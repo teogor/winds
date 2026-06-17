@@ -1,5 +1,4 @@
 import dev.teogor.winds.api.ArtifactIdFormat
-import dev.teogor.winds.api.SonatypeHost
 import dev.teogor.winds.api.License
 import dev.teogor.winds.api.NameFormat
 import dev.teogor.winds.api.Person
@@ -31,7 +30,7 @@ plugins {
 
   alias(libs.plugins.vanniktech.maven) apply true
 
-  id("dev.teogor.winds") version "1.0.3"
+  id("dev.teogor.winds") version "1.0.4-SNAPSHOT"
 
   // API Documentation and Validation Plugins
   alias(libs.plugins.jetbrains.dokka) apply true
@@ -49,28 +48,28 @@ tasks.withType<JavaCompile>().configureEach {
 
 winds {
   features {
-    mavenPublishing = true
-    docsGenerator = true
-    workflowSynthesizer = true
+    mavenPublishing.set(true)
+    docsGenerator.set(true)
+    workflowSynthesizer.set(true)
   }
 
   moduleMetadata {
-    name = "Querent"
-    description = """
+    name.set("Querent")
+    description.set("""
     |Querent lays the groundwork for your project's resource management, fostering consistency and efficiency across your development workflow.
-    """.trimMargin()
-    yearCreated = 2024
-    websiteUrl = "https://source.teogor.dev/querent/"
-    apiDocsUrl = "https://source.teogor.dev/querent/html/"
+    """.trimMargin())
+    yearCreated.set(2024)
+    websiteUrl.set("https://source.teogor.dev/querent/")
+    apiDocsUrl.set("https://source.teogor.dev/querent/html/")
 
     artifactDescriptor {
-      group = "dev.teogor.querent"
-      name = "querent"
-      version = createVersion(1, 0, 0) {
+      group.set("dev.teogor.querent")
+      name.set("querent")
+      version.set(createVersion(1, 0, 0) {
         alphaRelease(3)
-      }
-      nameFormat = NameFormat.FULL
-      artifactIdFormat = ArtifactIdFormat.NAME_ONLY
+      })
+      nameFormat.set(NameFormat.FULL)
+      artifactIdFormat.set(ArtifactIdFormat.NAME_ONLY)
     }
 
     // Providing SCM (Source Control Management)
@@ -102,14 +101,14 @@ winds {
   }
 
   publishing {
-    enabled = false
-    cascade = true
-    enablePublicationSigning = true
-    optInForVanniktechPlugin = true
+    enabled.set(false)
+    cascade.set(true)
+    enablePublicationSigning.set(true)
+    optInForVanniktechPlugin.set(true)
   }
 
   documentationBuilder {
-    htmlPath = "html/"
+    htmlPath.set("html/")
   }
 }
 

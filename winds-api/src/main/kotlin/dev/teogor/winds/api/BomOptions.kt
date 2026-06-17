@@ -17,17 +17,19 @@
 package dev.teogor.winds.api
 
 import org.gradle.api.Incubating
+import org.gradle.api.provider.ListProperty
 
-// TODO values handling
-data class BomOptions(
+interface BomOptions {
   /**
-   * This allows you to define a list of Maven scopes (e.g., compile, test)to exclude from the
+   * This allows you to define a list of Maven scopes (e.g., compile, test) to exclude from the
    * BOM dependencies.
    */
-  @Incubating
-  var excludedScopes: List<String> = emptyList(),
-  @Incubating
-  var acceptedModules: List<String> = emptyList(),
-  @Incubating
-  var acceptedPaths: List<String> = emptyList(),
-)
+  @get:Incubating
+  val excludedScopes: ListProperty<String>
+
+  @get:Incubating
+  val acceptedModules: ListProperty<String>
+
+  @get:Incubating
+  val acceptedPaths: ListProperty<String>
+}

@@ -18,63 +18,36 @@ package dev.teogor.winds.api
 
 import dev.teogor.winds.api.model.WindsFeature
 import org.gradle.api.Project
+import org.gradle.api.provider.ListProperty
 
 interface Winds {
-  val allSpecs: MutableList<ArtifactDescriptor>
+  val allSpecs: ListProperty<ArtifactDescriptor>
 
-  var features: Features
+  val features: Features
 
   fun features(action: Features.() -> Unit)
 
-  @Suppress("DEPRECATION")
-  @Deprecated(
-    message = "Use features instead.",
-    replaceWith = ReplaceWith(expression = "features"),
-  )
-  var windsFeatures: WindsFeatures
-
-  @Suppress("DEPRECATION")
-  @Deprecated(
-    message = "Use features(action) instead.",
-    replaceWith = ReplaceWith(expression = "features(action)"),
-  )
-  fun windsFeatures(action: WindsFeatures.() -> Unit)
-
-  var moduleMetadata: ModuleMetadata
+  val moduleMetadata: ModuleMetadata
 
   fun moduleMetadata(action: ModuleMetadata.() -> Unit)
 
-  var publishing: Publishing
+  val publishing: Publishing
 
   fun publishing(action: Publishing.() -> Unit)
 
-  @Suppress("DEPRECATION")
-  @Deprecated(
-    message = "Use publishing instead.",
-    replaceWith = ReplaceWith(expression = "publishing"),
-  )
-  var publishingOptions: PublishingOptions
-
-  @Suppress("DEPRECATION")
-  @Deprecated(
-    message = "Use publishing(action) instead.",
-    replaceWith = ReplaceWith(expression = "publishing(action)"),
-  )
-  fun publishingOptions(action: PublishingOptions.() -> Unit)
-
-  var docsGenerator: DocsGenerator
+  val docsGenerator: DocsGenerator
 
   fun docsGenerator(action: DocsGenerator.() -> Unit)
 
-  var documentationBuilder: DocumentationBuilder
+  val documentationBuilder: DocumentationBuilder
 
   fun documentationBuilder(configure: DocumentationBuilder.() -> Unit)
 
-  var workflowSynthesizer: WorkflowSynthesizer
+  val workflowSynthesizer: WorkflowSynthesizer
 
   fun workflowSynthesizer(action: WorkflowSynthesizer.() -> Unit)
 
-  var codebaseOptions: CodebaseOptions
+  val codebaseOptions: CodebaseOptions
 
   fun codebaseOptions(configure: CodebaseOptions.() -> Unit)
 
@@ -85,12 +58,12 @@ interface Winds {
 
   infix fun isEnabled(feature: WindsFeature): Boolean {
     return when (feature) {
-      WindsFeature.API_VALIDATOR -> features.apiValidator
-      WindsFeature.DOCS_GENERATOR -> features.docsGenerator
-      WindsFeature.DOKKA -> features.dokka
-      WindsFeature.MAVEN_PUBLISH -> features.mavenPublishing
-      WindsFeature.SPOTLESS -> features.spotless
-      WindsFeature.WORKFLOW_SYNTHESIZER -> features.workflowSynthesizer
+      WindsFeature.API_VALIDATOR -> features.apiValidator.getOrElse(false)
+      WindsFeature.DOCS_GENERATOR -> features.docsGenerator.getOrElse(false)
+      WindsFeature.DOKKA -> features.dokka.getOrElse(false)
+      WindsFeature.MAVEN_PUBLISH -> features.mavenPublishing.getOrElse(false)
+      WindsFeature.SPOTLESS -> features.spotless.getOrElse(false)
+      WindsFeature.WORKFLOW_SYNTHESIZER -> features.workflowSynthesizer.getOrElse(false)
     }
   }
 }

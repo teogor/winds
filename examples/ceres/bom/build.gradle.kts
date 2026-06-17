@@ -3,23 +3,22 @@ import dev.teogor.winds.api.NameFormat
 import dev.teogor.winds.ktx.createVersion
 
 plugins {
-  id("dev.teogor.winds")
+  id("dev.teogor.winds") version "1.0.4-SNAPSHOT"
 }
 
 winds {
   moduleMetadata {
-    isBom = true
     bomOptions {
-      excludedScopes += listOf("test")
+      excludedScopes.addAll("test")
     }
 
     artifactDescriptor {
-      name = "BoM"
-      version = createVersion(1, 0, 0) {
+      name.set("BoM")
+      version.set(createVersion(1, 0, 0) {
         alphaRelease(5)
-      }
-      nameFormat = NameFormat.FULL
-      artifactIdFormat = ArtifactIdFormat.NAME_ONLY
+      })
+      nameFormat.set(NameFormat.FULL)
+      artifactIdFormat.set(ArtifactIdFormat.NAME_ONLY)
     }
   }
 }

@@ -20,7 +20,7 @@ import dev.teogor.winds.api.Winds
 import org.gradle.api.Project
 
 fun Project.configureApiValidator(winds: Winds) {
-  if (winds.features.apiValidator) {
+  if (winds.features.apiValidator.getOrElse(false)) {
     plugins.apply("org.jetbrains.kotlinx.binary-compatibility-validator")
   }
 }

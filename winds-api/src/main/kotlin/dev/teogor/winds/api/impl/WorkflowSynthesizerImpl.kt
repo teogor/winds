@@ -18,16 +18,24 @@ package dev.teogor.winds.api.impl
 
 import dev.teogor.winds.api.WorkflowSynthesizer
 import org.gradle.api.DefaultTask
+import org.gradle.api.model.ObjectFactory
+import org.gradle.api.provider.ListProperty
+import org.gradle.api.provider.Property
+import javax.inject.Inject
 
-class WorkflowSynthesizerImpl : WorkflowSynthesizer {
+open class WorkflowSynthesizerImpl @Inject constructor(
+  objects: ObjectFactory,
+) : WorkflowSynthesizer {
 
-  override var name: String = ""
+  override val name: Property<String> = objects.property(String::class.java).convention("")
 
-  override var identifier: String = ""
+  override val identifier: Property<String> = objects.property(String::class.java).convention("")
 
   override var task: DefaultTask? = null
 
-  override var excludedModules: MutableList<String> = mutableListOf()
+  override val excludedModules: ListProperty<String> = objects.listProperty(
+    String::class.java,
+  ).convention(emptyList())
 
   override fun excludeModules(block: () -> List<String>) {
     excludedModules.addAll(block())

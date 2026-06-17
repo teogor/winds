@@ -16,6 +16,8 @@
 
 package dev.teogor.winds.api
 
+import org.gradle.api.provider.Property
+
 /**
  * Represents features available for projects using the `winds` extension.
  *
@@ -32,7 +34,7 @@ interface Features {
    *
    * Defaults to `false`.
    */
-  var mavenPublishing: Boolean
+  val mavenPublishing: Property<Boolean>
 
   /**
    * Enables or disables the documentation generator for the project.
@@ -42,7 +44,7 @@ interface Features {
    *
    * Defaults to `false`.
    */
-  var docsGenerator: Boolean
+  val docsGenerator: Property<Boolean>
 
   /**
    * Enables or disables the workflow synthesizer for the project.
@@ -52,7 +54,7 @@ interface Features {
    *
    * Defaults to `false`.
    */
-  var workflowSynthesizer: Boolean
+  val workflowSynthesizer: Property<Boolean>
 
   /**
    * Enables or disables the API validator for the project.
@@ -62,7 +64,7 @@ interface Features {
    *
    * Defaults to `false`.
    */
-  var apiValidator: Boolean
+  val apiValidator: Property<Boolean>
 
   /**
    * Enables or disables the Dokka documentation generator for the project.
@@ -72,7 +74,7 @@ interface Features {
    *
    * Defaults to `false`.
    */
-  var dokka: Boolean
+  val dokka: Property<Boolean>
 
   /**
    * Enables or disables Spotless for the project.
@@ -82,5 +84,5 @@ interface Features {
    *
    * Defaults to `false`.
    */
-  var spotless: Boolean
+  val spotless: Property<Boolean>
 }

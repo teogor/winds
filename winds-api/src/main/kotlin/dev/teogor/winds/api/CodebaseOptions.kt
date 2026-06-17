@@ -16,6 +16,9 @@
 
 package dev.teogor.winds.api
 
+import org.gradle.api.provider.ListProperty
+import org.gradle.api.provider.Property
+
 interface CodebaseOptions {
   val dokka: DokkaOptions
   val spotless: SpotlessOptions
@@ -26,23 +29,23 @@ interface CodebaseOptions {
   fun binaryCompatibility(configure: BinaryCompatibility.() -> Unit)
 }
 
-// Data classes for specific tool options
-data class DokkaOptions(
-  var enabled: Boolean = false,
-  var outputDirectory: String = "",
-  var sourceDirectories: List<String> = emptyList(),
-  var additionalIncludes: List<String> = emptyList(),
-)
+// Interfaces for specific tool options
+interface DokkaOptions {
+  val enabled: Property<Boolean>
+  val outputDirectory: Property<String>
+  val sourceDirectories: ListProperty<String>
+  val additionalIncludes: ListProperty<String>
+}
 
-data class SpotlessOptions(
-  var enabled: Boolean = false,
-  var format: String = "",
-  var includeFiles: List<String> = emptyList(),
-  var excludeFiles: List<String> = emptyList(),
-)
+interface SpotlessOptions {
+  val enabled: Property<Boolean>
+  val format: Property<String>
+  val includeFiles: ListProperty<String>
+  val excludeFiles: ListProperty<String>
+}
 
-data class BinaryCompatibility(
-  var enabled: Boolean = false,
-  var baselineVersion: String = "",
-  var failOnIncompatibleChanges: Boolean = false,
-)
+interface BinaryCompatibility {
+  val enabled: Property<Boolean>
+  val baselineVersion: Property<String>
+  val failOnIncompatibleChanges: Property<Boolean>
+}

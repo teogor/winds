@@ -20,7 +20,7 @@ import dev.teogor.winds.api.ArtifactDescriptor
 import dev.teogor.winds.api.model.Version
 
 fun ArtifactDescriptor.getShowcaseCoordinates(
-  version: Version = this.version,
+  version: Version = this.version.get(),
 ): String {
-  return "$group:${name.lowercase()}-*:$version"
+  return "${group.get()}:${name.get().lowercase()}-*:$version"
 }

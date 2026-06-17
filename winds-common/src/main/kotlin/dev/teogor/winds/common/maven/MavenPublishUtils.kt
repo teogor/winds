@@ -30,11 +30,11 @@ fun Project.configureMavenPublishing(
 ) {
   val metadata = winds.moduleMetadata
   val publishing = winds.publishing
-  if (publishing.enabled && hasVanniktechMavenPlugin()) {
+  if (publishing.enabled.getOrElse(false) && hasVanniktechMavenPlugin()) {
     val mavenPublishing = extensions.getByType(MavenPublishBaseExtension::class.java)
     mavenPublishing.apply {
-      publishToMavenCentral(automaticRelease = publishing.automaticPublishing)
-      if (publishing.enablePublicationSigning) {
+      publishToMavenCentral(automaticRelease = publishing.automaticPublishing.getOrElse(false))
+      if (publishing.enablePublicationSigning.getOrElse(true)) {
         signAllPublications()
       }
 
@@ -44,16 +44,16 @@ fun Project.configureMavenPublishing(
           extensions.findByType(GradlePluginDevelopmentExtension::class.java)?.let {
             with(it) {
               website.set(metadata.websiteUrl)
-              vcsUrl.set(metadata.scm?.repositoryUrl)
+              vcsUrl.set(metadata.scm.orNull?.repositoryUrl)
             }
           }
         } else {
-          metadata.artifactDescriptor?.let { dependencySpec ->
+          metadata.artifactDescriptor.orNull?.let { dependencySpec ->
             try {
               coordinates(
-                groupId = dependencySpec.group,
+                groupId = dependencySpec.group.get(),
                 artifactId = dependencySpec.artifactId,
-                version = dependencySpec.version.toString(),
+                version = dependencySpec.version.get().toString(),
               )
             } catch (_: Exception) {
               // TODO better handling

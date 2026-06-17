@@ -22,7 +22,7 @@ import org.gradle.api.publish.maven.MavenPom
 
 infix fun ModuleMetadata.toLicensesSpec(pom: MavenPom) {
   pom.licenses { mavenPomLicenseSpec ->
-    licenses.filterNonEmptyLicenses().forEach { license ->
+    licenses.get().filterNonEmptyLicenses().forEach { license ->
       mavenPomLicenseSpec.license {
         it.name.set(license.name)
         it.url.set(license.url)

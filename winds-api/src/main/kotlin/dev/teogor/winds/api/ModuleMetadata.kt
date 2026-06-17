@@ -16,41 +16,43 @@
 
 package dev.teogor.winds.api
 
+import org.gradle.api.provider.ListProperty
+import org.gradle.api.provider.Property
 import kotlin.reflect.KClass
 
 interface ModuleMetadata {
-  var name: String?
-  var description: String?
-  var yearCreated: Int
+  val name: Property<String>
+  val description: Property<String>
+  val yearCreated: Property<Int>
 
   // region BoM
-  var isBom: Boolean
-  val bomOptions: BomOptions?
+  val isBom: Property<Boolean>
+  val bomOptions: Property<BomOptions>
   fun bomOptions(block: BomOptions.() -> Unit)
   // endregion
 
   // region ArtifactDescriptor
-  val artifactDescriptor: ArtifactDescriptor?
+  val artifactDescriptor: Property<ArtifactDescriptor>
   fun artifactDescriptor(block: ArtifactDescriptor.() -> Unit)
   // endregion
 
   // region Scm
-  val scm: Scm?
+  val scm: Property<Scm>
   fun <T : Scm> scm(type: KClass<T>, block: T.() -> Unit)
   // endregion
 
   // region TicketSystem
-  val ticketSystem: TicketSystem?
+  val ticketSystem: Property<TicketSystem>
   fun <T : TicketSystem> ticketSystem(type: KClass<T>, block: T.() -> Unit)
   // endregion
 
   // region TicketSystem
-  val persons: List<Person>
+  val persons: ListProperty<Person>
   fun <T : Person> person(type: KClass<T>, block: T.() -> Unit)
   // endregion
 
   // region Licenses
-  val licenses: List<License>
+  val licenses: ListProperty<License>
   fun licenses(block: MutableList<License>.() -> Unit)
   fun licenses(vararg licenses: License)
   operator fun plusAssign(license: License)
@@ -60,8 +62,8 @@ interface ModuleMetadata {
   // endregion
 
   // region Websites
-  var websiteUrl: String?
-  var apiDocsUrl: String?
+  val websiteUrl: Property<String>
+  val apiDocsUrl: Property<String>
   // endregion
 
   fun copy(fromObj: ModuleMetadata): ModuleMetadata
