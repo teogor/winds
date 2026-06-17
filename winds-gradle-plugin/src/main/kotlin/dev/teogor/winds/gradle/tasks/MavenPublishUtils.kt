@@ -29,10 +29,11 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.provideDelegate
 
 fun Project.configureMavenPublish(winds: Winds) {
+  val publishing: Publishing by winds
+  val metadata: ModuleMetadata by winds
+
   // Apply publish plugins only for Android modules due to Maven plugin requirements
   if (hasAndroidLibraryPlugin()) {
-    val publishing: Publishing by winds
-    val metadata: ModuleMetadata by winds
     if (hasKotlinDslPlugin()) {
       plugins.apply("java-library")
       plugins.apply("com.vanniktech.maven.publish")
@@ -42,29 +43,16 @@ fun Project.configureMavenPublish(winds: Winds) {
       publishing.enabled = false
     }
   } else if (hasKotlinMultiplatformPlugin()) {
-    val publishing: Publishing by winds
     if (publishing.enabled) {
       plugins.apply("com.vanniktech.maven.publish")
     }
   }
 
-  afterEvaluate {
-    val publishing: Publishing by winds
-    val metadata: ModuleMetadata by winds
-
-    // Handle BoM and artifact publishing separately
-    if (metadata.isBom) {
-      configureAndApplyBomPlugins(publishing, metadata.bomOptions)
-    } else if (publishing.enabled) {
-      configureAndApplyPublicationPlugins(publishing)
-    }
-
-    // Create custom publish task for child projects not directly publishing
-    // TODO better handling for path is ':'
-    if (path != ":" && !publishing.enabled) {
-      // todo enable task creation. handling based on actual publish value
-      //  createAndConfigureSubprojectPublishTask(metadata)
-    }
+  // Handle BoM and artifact publishing separately
+  if (metadata.isBom) {
+    configureAndApplyBomPlugins(publishing, metadata.bomOptions)
+  } else if (publishing.enabled) {
+    configureAndApplyPublicationPlugins(publishing)
   }
 }
 
