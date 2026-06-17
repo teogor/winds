@@ -53,4 +53,34 @@ interface Features {
    * Defaults to `false`.
    */
   var workflowSynthesizer: Boolean
+
+  /**
+   * Enables or disables the API validator for the project.
+   *
+   * Setting this property to `true` enables the API validation,
+   * ensuring that your project's API remains consistent and compatible.
+   *
+   * Defaults to `false`.
+   */
+  var apiValidator: Boolean
+
+  /**
+   * Enables or disables the Dokka documentation generator for the project.
+   *
+   * Setting this property to `true` enables Dokka, which generates
+   * comprehensive API documentation for your project.
+   *
+   * Defaults to `false`.
+   */
+  var dokka: Boolean
+
+  /**
+   * Enables or disables Spotless for the project.
+   *
+   * Setting this property to `true` enables Spotless, which helps
+   * maintain a consistent code style across your project.
+   *
+   * Defaults to `false`.
+   */
+  var spotless: Boolean
 }

@@ -85,11 +85,11 @@ interface Winds {
 
   infix fun isEnabled(feature: WindsFeature): Boolean {
     return when (feature) {
-      WindsFeature.API_VALIDATOR -> false
+      WindsFeature.API_VALIDATOR -> features.apiValidator
       WindsFeature.DOCS_GENERATOR -> features.docsGenerator
-      WindsFeature.DOKKA -> false
+      WindsFeature.DOKKA -> features.dokka
       WindsFeature.MAVEN_PUBLISH -> features.mavenPublishing
-      WindsFeature.SPOTLESS -> false
+      WindsFeature.SPOTLESS -> features.spotless
       WindsFeature.WORKFLOW_SYNTHESIZER -> features.workflowSynthesizer
     }
   }

@@ -22,4 +22,7 @@ data class FeaturesImpl(
   override var mavenPublishing: Boolean = false,
   override var docsGenerator: Boolean = false,
   override var workflowSynthesizer: Boolean = false,
+  override var apiValidator: Boolean = false,
+  override var dokka: Boolean = false,
+  override var spotless: Boolean = false,
 ) : Features
