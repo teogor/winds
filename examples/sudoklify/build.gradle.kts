@@ -1,9 +1,11 @@
-import dev.teogor.winds.api.SonatypeHost
 import dev.teogor.winds.api.ArtifactIdFormat
+import dev.teogor.winds.api.SonatypeHost
 import dev.teogor.winds.api.License
+import dev.teogor.winds.api.NameFormat
 import dev.teogor.winds.api.Person
 import dev.teogor.winds.api.Scm
 import dev.teogor.winds.api.TicketSystem
+import dev.teogor.winds.ktx.createVersion
 import dev.teogor.winds.ktx.person
 import dev.teogor.winds.ktx.scm
 import dev.teogor.winds.ktx.ticketSystem
@@ -29,7 +31,7 @@ plugins {
 
   alias(libs.plugins.vanniktech.maven) apply true
 
-  id("dev.teogor.winds")
+  id("dev.teogor.winds") version "1.0.3"
 
   // API Documentation and Validation Plugins
   alias(libs.plugins.jetbrains.dokka) apply true
@@ -52,37 +54,35 @@ winds {
     workflowSynthesizer = true
   }
 
-  windsFeatures {
-    mavenPublishing = true
-    docsGenerator = true
-    workflowSynthesizer = true
-  }
-
   moduleMetadata {
-    name = "Ceres"
+    name = "Sudoklify"
     description = """
-    |Querent lays the groundwork for your project's resource management, fostering consistency and efficiency across your development workflow.
+    |Sudoklify stands as a versatile and user-friendly Sudoku puzzle generation library crafted in Kotlin. Effortlessly generate, manipulate, and solve Sudoku puzzles with ease.
     """.trimMargin()
     yearCreated = 2024
-    websiteUrl = "https://source.teogor.dev/ceres/"
-    apiDocsUrl = "https://source.teogor.dev/ceres/html/"
+    websiteUrl = "https://source.teogor.dev/sudoklify/"
+    apiDocsUrl = "https://source.teogor.dev/sudoklify/html/"
 
     artifactDescriptor {
-      group = "dev.teogor.ceres"
-      name = "ceres"
+      group = "dev.teogor.sudoklify"
+      name = "sudoklify"
+      version = createVersion(1, 0, 0) {
+        betaRelease(2)
+      }
+      nameFormat = NameFormat.FULL
       artifactIdFormat = ArtifactIdFormat.MODULE_NAME_ONLY
     }
 
     // Providing SCM (Source Control Management)
     scm<Scm.GitLab> {
       owner = "teogor"
-      repository = "ceres"
+      repository = "sudoklify"
     }
 
     // Providing Ticket System
     ticketSystem<TicketSystem.GitHub> {
       owner = "teogor"
-      repository = "ceres"
+      repository = "sudoklify"
     }
 
     // Providing Licenses
@@ -104,24 +104,12 @@ winds {
   publishing {
     enabled = false
     cascade = true
-
     enablePublicationSigning = true
     optInForVanniktechPlugin = true
-    sonatypeHost = SonatypeHost.S01
-  }
-
-  publishingOptions {
-    publish = false
-    cascadePublish = true
-
-    enablePublicationSigning = true
-    optInForVanniktechPlugin = true
-    sonatypeHost = com.vanniktech.maven.publish.SonatypeHost.S01
   }
 
   documentationBuilder {
     htmlPath = "html/"
-    markdownNewlineSeparator = "  "
   }
 }
 

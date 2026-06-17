@@ -1,5 +1,8 @@
 pluginManagement {
-  includeBuild("../../")
+  includeBuild("../../") {
+    name = "winds-build"
+  }
+
   repositories {
     google()
     mavenCentral()
@@ -21,5 +24,7 @@ dependencyResolutionManagement {
   }
 }
 
-include(":gradle-plugin")
-include(":gradle-plugin-api")
+include(":sudoklify-common")
+include(":sudoklify-core")
+include(":sudoklify-ktx")
+include(":sudoklify-seeds")

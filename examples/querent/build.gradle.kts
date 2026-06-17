@@ -22,7 +22,6 @@ buildscript {
 plugins {
   // Kotlin Suite
   alias(libs.plugins.jetbrains.kotlin.jvm) apply true
-  alias(libs.plugins.jetbrains.kotlin.multiplatform) apply false
   alias(libs.plugins.jetbrains.kotlin.android) apply false
   alias(libs.plugins.jetbrains.kotlin.serialization) apply false
 
@@ -32,7 +31,7 @@ plugins {
 
   alias(libs.plugins.vanniktech.maven) apply true
 
-  id("dev.teogor.winds")
+  id("dev.teogor.winds") version "1.0.3"
 
   // API Documentation and Validation Plugins
   alias(libs.plugins.jetbrains.dokka) apply true
@@ -56,34 +55,34 @@ winds {
   }
 
   moduleMetadata {
-    name = "Teogor Multiplatform"
+    name = "Querent"
     description = """
-    |Sudoklify stands as a versatile and user-friendly Sudoku puzzle generation library crafted in Kotlin. Effortlessly generate, manipulate, and solve Sudoku puzzles with ease.
+    |Querent lays the groundwork for your project's resource management, fostering consistency and efficiency across your development workflow.
     """.trimMargin()
     yearCreated = 2024
-    websiteUrl = "https://source.teogor.dev/sudoklify/"
-    apiDocsUrl = "https://source.teogor.dev/sudoklify/html/"
+    websiteUrl = "https://source.teogor.dev/querent/"
+    apiDocsUrl = "https://source.teogor.dev/querent/html/"
 
     artifactDescriptor {
-      group = "dev.teogor.multiplatform"
-      name = "multiplatform"
+      group = "dev.teogor.querent"
+      name = "querent"
       version = createVersion(1, 0, 0) {
-        alphaRelease(1)
+        alphaRelease(3)
       }
       nameFormat = NameFormat.FULL
-      artifactIdFormat = ArtifactIdFormat.MODULE_NAME_ONLY
+      artifactIdFormat = ArtifactIdFormat.NAME_ONLY
     }
 
     // Providing SCM (Source Control Management)
     scm<Scm.GitLab> {
       owner = "teogor"
-      repository = "sudoklify"
+      repository = "querent"
     }
 
     // Providing Ticket System
     ticketSystem<TicketSystem.GitHub> {
       owner = "teogor"
-      repository = "sudoklify"
+      repository = "querent"
     }
 
     // Providing Licenses
@@ -107,7 +106,6 @@ winds {
     cascade = true
     enablePublicationSigning = true
     optInForVanniktechPlugin = true
-    sonatypeHost = SonatypeHost.S01
   }
 
   documentationBuilder {

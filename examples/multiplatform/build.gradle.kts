@@ -22,6 +22,7 @@ buildscript {
 plugins {
   // Kotlin Suite
   alias(libs.plugins.jetbrains.kotlin.jvm) apply true
+  alias(libs.plugins.jetbrains.kotlin.multiplatform) apply false
   alias(libs.plugins.jetbrains.kotlin.android) apply false
   alias(libs.plugins.jetbrains.kotlin.serialization) apply false
 
@@ -31,7 +32,7 @@ plugins {
 
   alias(libs.plugins.vanniktech.maven) apply true
 
-  id("dev.teogor.winds")
+  id("dev.teogor.winds") version "1.0.3"
 
   // API Documentation and Validation Plugins
   alias(libs.plugins.jetbrains.dokka) apply true
@@ -55,7 +56,7 @@ winds {
   }
 
   moduleMetadata {
-    name = "Sudoklify"
+    name = "Teogor Multiplatform"
     description = """
     |Sudoklify stands as a versatile and user-friendly Sudoku puzzle generation library crafted in Kotlin. Effortlessly generate, manipulate, and solve Sudoku puzzles with ease.
     """.trimMargin()
@@ -64,10 +65,10 @@ winds {
     apiDocsUrl = "https://source.teogor.dev/sudoklify/html/"
 
     artifactDescriptor {
-      group = "dev.teogor.sudoklify"
-      name = "sudoklify"
+      group = "dev.teogor.multiplatform"
+      name = "multiplatform"
       version = createVersion(1, 0, 0) {
-        betaRelease(2)
+        alphaRelease(1)
       }
       nameFormat = NameFormat.FULL
       artifactIdFormat = ArtifactIdFormat.MODULE_NAME_ONLY
@@ -106,7 +107,6 @@ winds {
     cascade = true
     enablePublicationSigning = true
     optInForVanniktechPlugin = true
-    sonatypeHost = SonatypeHost.S01
   }
 
   documentationBuilder {

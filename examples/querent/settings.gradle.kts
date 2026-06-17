@@ -1,8 +1,7 @@
 pluginManagement {
   includeBuild("../../") {
-    name = "winds-build-multiplatform"
+    name = "winds-build"
   }
-
   repositories {
     google()
     mavenCentral()
@@ -24,4 +23,5 @@ dependencyResolutionManagement {
   }
 }
 
-include(":common")
+include(":gradle-plugin")
+include(":gradle-plugin-api")
