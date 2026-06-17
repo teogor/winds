@@ -49,8 +49,8 @@ TOML format.
     teogor-winds = "1.0.3"
 
     [libraries]
-    teogor-winds-api = { module = "dev.teogor.winds:api", version.ref = "teogor-winds" }
-    teogor-winds-common = { module = "dev.teogor.winds:common", version.ref = "teogor-winds" }
+    teogor-winds-api = { module = "dev.teogor.winds:winds-api", version.ref = "teogor-winds" }
+    teogor-winds-common = { module = "dev.teogor.winds:winds-common", version.ref = "teogor-winds" }
     ```
 
 #### Dependencies Implementation

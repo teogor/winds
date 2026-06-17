@@ -9,9 +9,9 @@ Winds build and publish libraries and applications for multiple platforms, simpl
 ### API Reference
 
 * [`dev.teogor.winds`](../html/){:target="_blank"}
-* [`dev.teogor.winds:api`](../html/api){:target="_blank"}
-* [`dev.teogor.winds:common`](../html/common){:target="_blank"}
-* [`dev.teogor.winds:gradle-plugin`](../html/gradle-plugin){:target="_blank"}
+* [`dev.teogor.winds:winds-api`](../html/winds-api){:target="_blank"}
+* [`dev.teogor.winds:winds-common`](../html/winds-common){:target="_blank"}
+* [`dev.teogor.winds:winds-gradle-plugin`](../html/winds-gradle-plugin){:target="_blank"}
 
 ### Release
 
