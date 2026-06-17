@@ -104,12 +104,5 @@ subprojects {
 }
 
 versionCatalogUpdate {
-  keep {
-    // keep versions without any library or plugin reference
-    keepUnusedVersions = true
-    // keep all libraries that aren't used in the project
-    keepUnusedLibraries = true
-    // keep all plugins that aren't used in the project
-    keepUnusedPlugins = true
-  }
+  sortByKey = true
 }
