@@ -19,7 +19,7 @@ plugins {
   `kotlin-dsl`
   id("java-library")
   alias(libs.plugins.jetbrains.kotlin.serialization)
-  alias(libs.plugins.vanniktech.maven)
+  alias(libs.plugins.vanniktech.maven.publish)
 }
 
 val javaVersion = JavaVersion.VERSION_11
@@ -40,10 +40,10 @@ compileTestKotlin.kotlinOptions {
 }
 
 dependencies {
-  implementation(libs.kotlinx.serialization.core)
-  implementation(libs.kotlinx.serialization.json)
-  implementation(libs.gson)
-  implementation(libs.vanniktech.maven.api)
+  implementation(libs.jetbrains.kotlinx.serialization.core)
+  implementation(libs.jetbrains.kotlinx.serialization.json)
+  implementation(libs.google.code.gson)
+  implementation(libs.vanniktech.maven.publish.api)
 
   testImplementation(libs.junit.jupiter)
 }

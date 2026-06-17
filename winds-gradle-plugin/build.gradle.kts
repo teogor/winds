@@ -18,10 +18,10 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
   `kotlin-dsl`
-  alias(libs.plugins.gradle.publish)
-  alias(libs.plugins.build.config)
+  alias(libs.plugins.gradle.plugin.publish)
+  alias(libs.plugins.github.gmazzo.buildconfig)
   alias(libs.plugins.jetbrains.kotlin.serialization)
-  alias(libs.plugins.vanniktech.maven)
+  alias(libs.plugins.vanniktech.maven.publish)
 }
 
 repositories {
@@ -48,15 +48,15 @@ dependencies {
   implementation(project(":winds-api"))
   implementation(project(":winds-common"))
 
-  implementation(libs.kotlinx.serialization.core)
-  implementation(libs.kotlinx.serialization.json)
+  implementation(libs.jetbrains.kotlinx.serialization.core)
+  implementation(libs.jetbrains.kotlinx.serialization.json)
   implementation(libs.yaml.snakeyaml)
-  implementation(libs.gson)
-  implementation(libs.vanniktech.maven.api)
+  implementation(libs.google.code.gson)
+  implementation(libs.vanniktech.maven.publish.api)
 
   compileOnly(gradleApi())
-  compileOnly(libs.gradle.plugin.kotlin)
-  compileOnly(libs.gradle.plugin.ksp)
+  compileOnly(libs.jetbrains.kotlin.gradle.plugin)
+  compileOnly(libs.google.devtools.ksp.gradle.plugin)
 }
 
 @Suppress("UnstableApiUsage")

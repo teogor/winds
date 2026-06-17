@@ -14,14 +14,14 @@ plugins {
   alias(libs.plugins.jetbrains.kotlin.serialization) apply false
 
   // Maven Publishing Plugins
-  alias(libs.plugins.vanniktech.maven) apply false
+  alias(libs.plugins.vanniktech.maven.publish) apply false
 
   // API Documentation and Validation Plugins
   alias(libs.plugins.jetbrains.dokka) apply true
-  alias(libs.plugins.spotless) apply true
-  alias(libs.plugins.api.validator) apply true
+  alias(libs.plugins.diffplug.spotless) apply true
+  alias(libs.plugins.jetbrains.kotlinx.binary.compatibility.validator) apply true
 
-  alias(libs.plugins.ben.manes.versions) apply true
+  alias(libs.plugins.github.ben.manes.versions) apply true
   alias(libs.plugins.littlerobots.version.catalog.update) apply true
 }
 

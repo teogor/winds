@@ -17,7 +17,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
   kotlin("jvm")
-  alias(libs.plugins.vanniktech.maven) apply true
+  alias(libs.plugins.vanniktech.maven.publish) apply true
 }
 
 val javaVersion = JavaVersion.VERSION_11
@@ -34,7 +34,7 @@ compileKotlin.kotlinOptions {
 
 dependencies {
   implementation(project(":winds-api"))
-  implementation(libs.vanniktech.maven.api)
+  implementation(libs.vanniktech.maven.publish.api)
 }
 
 mavenPublishing {
