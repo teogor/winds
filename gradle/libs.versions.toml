@@ -41,3 +41,11 @@ google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "google-de
 littlerobots-version-catalog-update = { id = "nl.littlerobots.version-catalog-update", version.ref = "littlerobots-version-catalog-update" }
 diffplug-spotless = { id = "com.diffplug.spotless", version.ref = "diffplug-spotless" }
 vanniktech-maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "vanniktech-maven-publish" }
+# Aliases for backward compatibility in examples
+vanniktech-maven = { id = "com.vanniktech.maven.publish", version.ref = "vanniktech-maven-publish" }
+gradle-publish = { id = "com.gradle.plugin-publish", version.ref = "gradle-plugin-publish" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "google-devtools-ksp" }
+api-validator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "jetbrains-kotlinx-binary-compatibility-validator" }
+ben-manes-versions = { id = "com.github.ben-manes.versions", version.ref = "github-ben-manes-versions" }
+build-config = { id = "com.github.gmazzo.buildconfig", version.ref = "github-gmazzo-buildconfig" }
+spotless = { id = "com.diffplug.spotless", version.ref = "diffplug-spotless" }
